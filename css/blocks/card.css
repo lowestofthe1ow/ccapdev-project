@@ -3,21 +3,31 @@
     flex-wrap: wrap;
     justify-content: left;
     align-items: center;
+    gap: 40px;
+    box-sizing: border-box;
+    padding: max(5%, 40px);
     color: var(--light);
 }
 
 .card--home {
     justify-content: space-around;
     background: linear-gradient(
-            to right,
-            rgba(0, 0, 0, 0.9),
-            rgba(0, 0, 0, 0.2)
+            var(--glass-kinkan-dark-mint),
+            var(--glass-kinkan-dark-pink)
         ),
         url("/img/bg.jpg");
     background-size: cover;
-    height: 100vh;
+    height: 100%;
+    min-height: 100vh;
 }
 
 .card__logo {
+    width: 100%;
     max-width: 500px;
+}
+
+.card__vertical-list {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
 }

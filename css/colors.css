@@ -1,4 +1,8 @@
 :root {
+    /* Primary black and white colors */
+    --dark: #020202;
+    --light: #fdfdfd;
+
     /* Kinkan color palette 
        https://lospec.com/palette-list/kinkan
      */
@@ -11,10 +15,13 @@
     --kinkan-light-pink: #ffa7b9;
     --kinkan-pink: #ff7a8f;
 
-    /* Primary dark/light colors */
-    --dark: #020202;
-    --light: #fdfdfd;
+    /* Darkened Kinkan colors */
+    --kinkan-dark-mint: #195643;
+    --kinkan-dark-pink: #831f2e;
 
-    --transparent-black: rgba(0, 0, 0, 0.2);
-    --transparent-red: rgba(255, 122, 143, 0.5);
+    /* Transparent colors */
+    --glass-kinkan-dark-mint: rgba(25, 86, 67, 0.7);
+    --glass-kinkan-dark-pink: rgba(131, 31, 46, 0.7);
+    --glass-gray: rgba(70, 70, 70, 0.2);
+    --glass-kinkan-pink: rgba(255, 122, 143, 0.5);
 }

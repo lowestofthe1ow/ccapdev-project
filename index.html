@@ -11,6 +11,7 @@
         <!-- Blocks  -->
         <link rel="stylesheet" type="text/css" href="/css/blocks/button.css" />
         <link rel="stylesheet" type="text/css" href="/css/blocks/card.css" />
+        <link rel="stylesheet" type="text/css" href="/css/blocks/text.css" />
         
         <link rel="icon" type="image/x-icon" href="/img/favicon.png">
 
@@ -18,16 +19,17 @@
     </head>
     <body>
         <div class="card card--home">
-            <div>
-                <img src="/img/logo-dark.png" class="card__logo">
-                <h1>Learn about your favorite games like never before.</h1>
-                <p>You can engage with the vibrant communities for your favorite games!</p>
+            <div class="card__component">
+                <h1><img src="/img/logo-dark.png" class="card__logo"></h1>
+                <hgroup>
+                    <h2 class="text--heading card__heading">A fresh way to learn about your favorite games.</h2>
+                    <p class="text card__blurb">Engage with vibrant communities filled with dedicated gamers like you.</p>
+                </hgroup>
             </div>
-            <div>
-                <a class="button button--outline-effect">
+            <div class="card__component card__vertical-list">
+                <a class="button button--large-round button--outline-effect">
                     <ruby>Sign in<rt>サインイン</rt></ruby>
                 </a>
-                <br /><br />
                 <a class="button button--large-round button--outline-effect">
                     <ruby>Register<rt>レジスター</rt></ruby>
                 </a>
