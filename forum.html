@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+
+        <!-- CSS utilities -->
+        <link rel="stylesheet" type="text/css" href="/css/normalize.css" />
+        <link rel="stylesheet" type="text/css" href="/css/colors.css" />
+        <link rel="stylesheet" type="text/css" href="/css/fonts.css" />
+
+        <!-- Blocks  -->
+        <link rel="stylesheet" type="text/css" href="/css/blocks/button.css" />
+        <link rel="stylesheet" type="text/css" href="/css/blocks/card.css" />
+        <link rel="stylesheet" type="text/css" href="/css/blocks/forum.css" />
+        <link rel="stylesheet" type="text/css" href="/css/blocks/text.css" />
+        
+        <link rel="icon" type="image/x-icon" href="/img/favicon.png">
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        
+        <title>Forum | Shinosawa Laboratory</title>
+    </head>
+    <body class="bg-rainbow">
+        <div class="forum">
+            <div class="forum__header">
+                <img src="/img/logo-light.png" class="forum__logo"/>
+                <div class="forum__ads">
+                    <img src="/img/ad.webp" class="forum__ad"/>
+                    <img src="/img/ad2.jpg" class="forum__ad"/>
+                    <img src="/img/ad3.png" class="forum__ad"/>
+                </div>
+            </div>
+
+            <div class="forum__navbar">
+                <a class="button button--light">
+                    <span class="material-symbols-outlined">add_circle</span>
+                    <ruby>Post thread<rt>ポストする</rt></ruby>
+                </a>
+                <div class="forum__navbar forum__search-wrapper">
+                    <input type="text" class="forum__search" placeholder="Search threads..."/>
+                    <a class="button button--light" style="border-radius: 50px; width: 30px;">
+                        <span class="material-symbols-outlined" >tune</span>
+                    </a>
+                    <a class="button button--light" style="border-radius: 50px; width: 30px;">
+                        <span class="material-symbols-outlined" >search</span>
+                    </a>
+                </div>
+                <a class="button button--light">
+                    <span class="material-symbols-outlined">logout</span>
+                    <ruby>Sign out<rt>サインアウト</rt></ruby>
+                </a>
+                <a class="button button--light">
+                    <span class="material-symbols-outlined">person</span>
+                    <ruby>Profile<rt>プロフィール</rt></ruby>
+                </a>
+                <img src="/img/pfp.png" class="forum__pfp"/>
+            </div>
+        </div>
+    </body>
+</html>

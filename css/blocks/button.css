@@ -15,6 +15,21 @@
     -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE */
     text-align: center;
+    text-decoration: none;
+}
+
+/* Style used for forum navbar buttons */
+.button--light {
+    border: 1px solid var(--glass-gray);
+    background-color: var(--light);
+    padding: 10px;
+    color: var(--dark);
+}
+
+.button--light:hover {
+    box-shadow: none !important;
+    border: 1px solid var(--kinkan-pink);
+    background-color: var(--light) !important;
 }
 
 .button:hover {
