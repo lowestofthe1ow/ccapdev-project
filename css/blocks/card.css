@@ -1,0 +1,23 @@
+.card {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    align-items: center;
+    color: var(--light);
+}
+
+.card--home {
+    justify-content: space-around;
+    background: linear-gradient(
+            to right,
+            rgba(0, 0, 0, 0.9),
+            rgba(0, 0, 0, 0.2)
+        ),
+        url("/img/bg.jpg");
+    background-size: cover;
+    height: 100vh;
+}
+
+.card__logo {
+    max-width: 500px;
+}

@@ -1,0 +1,41 @@
+.button {
+    backdrop-filter: blur(15px);
+    background-color: var(--transparent-black);
+    font-size: 1.2rem;
+    /* Safari */
+    -webkit-backdrop-filter: blur(5px);
+    display: block;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: 2px solid var(--light);
+    border-radius: 10px;
+    padding: 10px;
+    width: 150px;
+    color: var(--light);
+    text-align: center;
+}
+
+.button:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 0px 50px 5px var(--kinkan-pink);
+    background-color: var(--transparent-red);
+}
+
+.button--large-round {
+    border-radius: 85px;
+    width: 150px;
+    line-height: 150px;
+}
+
+.button--outline-effect {
+    outline: 2px solid var(--light);
+    outline-offset: 30px;
+}
+
+.button--outline-effect:hover {
+    outline-offset: 10px;
+}
+
+.button--outline-effect:active {
+    outline-offset: 0px;
+}

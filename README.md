@@ -10,8 +10,22 @@ CCAPDEV S18
 
 ### Contributing
 
-The project will be using [Svelte](https://svelte.dev/) (we will not be using SvelteKit). Remember to create a new
-branch for new features and to keep commits as concise as possible.
+~~The project will be using [Svelte](https://svelte.dev/) (we will not be using SvelteKit)~~ **We will be using raw
+HTML/CSS**. Remember to create a new branch for new features and to keep commits as concise as possible.
+
+When writing HTML, try to ensure tags are **semantically meaningful**. For CSS, we will follow
+[BEM](https://css-tricks.com/bem-101/). CSS file structure will more or less follow the
+[flat](https://en.bem.info/methodology/filestructure/#flat) style suggested by BEM.
+
+> [!important] Use the predefined colors in `css/colors.css` instead of manually inputting hex codes.
+
+### Testing
+
+Set up a simple HTTP server at the root directory. If you have Python, something like this should work:
+
+```
+python3 -m http.server
+```
 
 ### Important dates
 
@@ -26,3 +40,6 @@ branch for new features and to keep commits as concise as possible.
 -   [Svelte tutorial](https://svelte.dev/tutorial/svelte/welcome-to-svelte)
 -   [CCAPDEV reference sheet](https://docs.google.com/spreadsheets/d/1ehfGsFsHNGMHuj-pvkTnjSU1ZDOUt5VOGOHjGiaKVJU/edit?usp=sharing)
 -   [Project specifications](https://drive.google.com/file/d/1az8mfMGD-BdeF6clC_3BacXEFRigEDLX/view?usp=sharing)
+-   [BEM quickstart](https://css-tricks.com/bem-101/)
+-   [BEM filestructure](https://en.bem.info/methodology/filestructure/)
+-   [BEM 101](https://css-tricks.com/bem-101/)
