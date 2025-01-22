@@ -6,7 +6,6 @@
     margin: auto;
     padding: 40px;
     max-width: 1200px;
-    min-height: 100vh;
 }
 
 /* The header containing the logo and ads */
@@ -23,7 +22,7 @@
 
 /* Wrapper for ads next to logo */
 .forum__ads {
-    overflow: scroll; /* TODO: Auto-scroll */
+    overflow: hidden; /* TODO: Auto-scroll */
     /* Hide scrollbars */
     -ms-overflow-style: none; /* IE, Edge */
     scrollbar-width: none; /* Firefox */
@@ -33,7 +32,7 @@
     display: flex;
     gap: 20px;
     width: auto;
-    animation: scroll 10s 0.5s linear infinite;
+    animation: scroll 20s 0s linear infinite;
 }
 
 @keyframes scroll {
