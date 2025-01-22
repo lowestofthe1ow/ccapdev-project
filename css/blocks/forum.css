@@ -46,6 +46,7 @@
     display: flex;
     flex-wrap: wrap-reverse;
     gap: 20px;
+    align-items: flex-end;
 }
 
 .forum__threads {
