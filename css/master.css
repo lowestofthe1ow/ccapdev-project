@@ -6,6 +6,7 @@
 /* BEM blocks */
 @import url("/css/blocks/button.css");
 @import url("/css/blocks/card.css");
+@import url("/css/blocks/footer.css");
 @import url("/css/blocks/forum.css");
 @import url("/css/blocks/navbar.css");
 @import url("/css/blocks/search.css");
