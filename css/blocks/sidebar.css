@@ -1,0 +1,13 @@
+.sidebar {
+    display: flex;
+    justify-content: space-between;
+    align-items: top;
+    gap: 10px;
+    border: 1px solid var(--glass-gray);
+    border-radius: 10px;
+    background-color: var(--light);
+    padding: 10px;
+    color: var(--dark);
+    min-height: 400px;
+    width: 600px;
+}

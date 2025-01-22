@@ -42,3 +42,16 @@
     border-radius: 10px;
     height: 150px;
 }
+
+.forum__body {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap-reverse;
+}
+
+.forum__threads {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1;
+}

@@ -40,6 +40,8 @@
 
 .button:active {
     transform: scale(0.9);
+    outline: 2px solid transparent;
+    outline-offset: 5px;
 }
 
 .button--large-round {
