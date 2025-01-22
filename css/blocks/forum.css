@@ -45,13 +45,13 @@
 
 .forum__body {
     display: flex;
-    gap: 20px;
     flex-wrap: wrap-reverse;
+    gap: 20px;
 }
 
 .forum__threads {
     display: flex;
+    flex: 3;
     flex-direction: column;
     gap: 20px;
-    flex: 1;
 }

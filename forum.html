@@ -52,7 +52,7 @@
                             <img src="/img/game_gkms.png" class="thread__image">
                             <div class="thread__data">
                                 <div class="thread__tags">
-                                    <div class="thread__tag">Gakuen iDOLM@STER</div>
+                                    <div class="thread__tag thread__tag--game">Gakuen iDOLM@STER</div>
                                     <div class="thread__tag">Game guide</div>
                                 </div>
                                 <h2 class="thread__title">【学マス】NIAシナリオ攻略</h2>
@@ -80,11 +80,36 @@
                 </div>
 
                 <div class="sidebar">
-                    <h2>Welcome.</h2>
+                    <h2 class="sidebar__header">Filter by game</h2>
+                    <div class="thread__tags">
+                        <div class="thread__tag thread__tag--game">Gakuen iDOLM@STER</div>
+                        <div class="thread__tag thread__tag--game">Blue Archive</div>
+                        <div class="thread__tag thread__tag--game">Fate/Grand Order</div>
+                        <div class="thread__tag thread__tag--game">Arknights</div>
+                    </div>
+                    <input type="text" class="search__box sidebar__text" placeholder="Add tags..."/>
+                    <hr class="sidebar__rule" />
+
+                    <h2 class="sidebar__header">Filter by tag</h2>
+                    <div class="thread__tags">
+                        <div class="thread__tag">News</div>
+                        <div class="thread__tag">Discussion</div>
+                        <div class="thread__tag">Fanart</div>
+                        <div class="thread__tag">Game guide</div>
+                        <div class="thread__tag">Help request</div>
+                        <div class="thread__tag">NSFW</div>
+                    </div>
+                    <input type="text" class="search__box sidebar__text" placeholder="Add tags..."/>
+                    <hr class="sidebar__rule" />
+
+                    <h2 class="sidebar__header">Exclude tags</h2>
+                    <div class="thread__tags">
+                        <p class="thread__detail">You have no excluded tags.</p>
+                    </div>
+                    <input type="text" class="search__box sidebar__text" placeholder="Add tags..."/>
+                    <br />
                 </div>
             </div>
-
-            
         </div>
     </body>
 </html>

@@ -27,9 +27,11 @@
     gap: 10px;
 }
 
+/* TODO: Separate into a different BEM block maybe? Not composed into thread */
 .thread__tags {
     display: flex;
-    gap: 10px;
+    flex-wrap: wrap;
+    gap: 5px;
 }
 
 .thread__tag {
@@ -40,6 +42,11 @@
     color: var(--kinkan-turquoise);
     font-size: 0.8rem; /* TODO: Standardize */
     text-align: center;
+}
+
+.thread__tag--game {
+    border: 1px solid var(--kinkan-pink);
+    color: var(--kinkan-pink);
 }
 
 .thread__title {

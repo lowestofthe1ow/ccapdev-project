@@ -1,6 +1,7 @@
 .sidebar {
     display: flex;
-    justify-content: space-between;
+    flex: 1;
+    flex-direction: column;
     align-items: top;
     gap: 10px;
     border: 1px solid var(--glass-gray);
@@ -8,6 +9,22 @@
     background-color: var(--light);
     padding: 10px;
     color: var(--dark);
-    min-height: 400px;
-    width: 600px;
+}
+
+.sidebar__rule {
+    border: 1px solid var(--glass-gray);
+    width: 100%;
+}
+
+.sidebar__header {
+    margin: 0px;
+    font-size: 1rem;
+}
+
+.sidebar__tags {
+    display: flex;
+}
+
+.sidebar__text {
+    font-size: 0.8rem;
 }
