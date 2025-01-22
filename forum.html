@@ -13,6 +13,8 @@
         <link rel="stylesheet" type="text/css" href="/css/blocks/card.css" />
         <link rel="stylesheet" type="text/css" href="/css/blocks/forum.css" />
         <link rel="stylesheet" type="text/css" href="/css/blocks/text.css" />
+        <link rel="stylesheet" type="text/css" href="/css/blocks/search.css" />
+        <link rel="stylesheet" type="text/css" href="/css/blocks/navbar.css" />
         
         <link rel="icon" type="image/x-icon" href="/img/favicon.png">
 
@@ -31,17 +33,19 @@
                 </div>
             </div>
 
-            <div class="forum__navbar">
+            <div class="navbar">
                 <a class="button button--light">
                     <span class="material-symbols-outlined">add_circle</span>
                     <ruby>Post thread<rt>ポストする</rt></ruby>
                 </a>
-                <div class="forum__navbar forum__search-wrapper">
-                    <input type="text" class="forum__search" placeholder="Search threads..."/>
-                    <a class="button button--light" style="border-radius: 50px; width: 30px;">
+                <div class="search">
+                    <input type="text" class="search__box" placeholder="Search threads..."/>
+
+                    <a class="button button--light search__button">
                         <span class="material-symbols-outlined" >tune</span>
                     </a>
-                    <a class="button button--light" style="border-radius: 50px; width: 30px;">
+
+                    <a class="button button--light search__button">
                         <span class="material-symbols-outlined" >search</span>
                     </a>
                 </div>
@@ -53,7 +57,8 @@
                     <span class="material-symbols-outlined">person</span>
                     <ruby>Profile<rt>プロフィール</rt></ruby>
                 </a>
-                <img src="/img/pfp.png" class="forum__pfp"/>
+
+                <img src="/img/pfp.png" class="navbar__icon"/>
             </div>
         </div>
     </body>
