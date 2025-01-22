@@ -1,0 +1,22 @@
+.search {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.search__box {
+    flex: 1;
+    border: 1px solid var(--glass-gray);
+    border-radius: 10px;
+    background-color: var(--light);
+    padding: 10px;
+    color: var(--dark);
+}
+
+.search__button {
+    border-radius: 50px;
+    width: 30px;
+}

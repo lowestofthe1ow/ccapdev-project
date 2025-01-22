@@ -1,0 +1,17 @@
+/* Global / utility styles */
+@import url("/css/normalize.css");
+@import url("/css/fonts.css");
+@import url("/css/colors.css");
+
+/* BEM blocks */
+@import url("/css/blocks/button.css");
+@import url("/css/blocks/card.css");
+@import url("/css/blocks/forum.css");
+@import url("/css/blocks/navbar.css");
+@import url("/css/blocks/search.css");
+@import url("/css/blocks/sidebar.css");
+@import url("/css/blocks/text.css");
+@import url("/css/blocks/thread.css");
+
+/* Google Fonts icons */
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
