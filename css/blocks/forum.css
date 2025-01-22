@@ -11,13 +11,26 @@
 
 /* Wrapper for ads next to logo */
 .forum__ads {
-    display: flex;
-    gap: 20px;
-    width: auto;
     overflow: scroll; /* TODO: Auto-scroll */
     /* Hide scrollbars */
     -ms-overflow-style: none; /* IE, Edge */
     scrollbar-width: none; /* Firefox */
+}
+
+.forum__ads-track {
+    display: flex;
+    gap: 20px;
+    width: auto;
+    animation: scroll 10s 0.5s linear infinite;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-111%);
+    }
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
