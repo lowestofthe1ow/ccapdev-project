@@ -1,0 +1,12 @@
+.article {
+    border: 1px solid var(--glass-gray);
+    border-radius: 10px;
+    background-color: var(--light);
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.article__image {
+    display: inline-block;
+    width: 100%;
+}
