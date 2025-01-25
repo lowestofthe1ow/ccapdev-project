@@ -2,7 +2,6 @@
     display: flex;
     flex: 1;
     flex-direction: column;
-    align-items: flex-start;
     gap: 10px;
     border: 1px solid var(--glass-gray);
     border-radius: 10px;
@@ -31,4 +30,13 @@
 
 .sidebar__logo {
     width: 100%;
+}
+
+.sidebar__search {
+    border: 1px solid var(--glass-gray);
+    border-radius: 10px;
+    background-color: var(--light);
+    padding: 10px;
+    color: var(--dark);
+    font-size: 0.8rem;
 }
