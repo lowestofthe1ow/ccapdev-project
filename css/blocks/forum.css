@@ -54,11 +54,20 @@
     flex: 3;
     flex-direction: column;
     gap: 20px;
+    margin: 0px;
+    padding: 0px;
 }
 
 .forum__thread {
     display: flex;
     gap: 5px;
+    margin: 0px;
+}
+
+.forum__comments {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .forum__comment {
