@@ -45,8 +45,8 @@
 .forum__body {
     display: flex;
     flex-wrap: wrap-reverse;
-    gap: 20px;
     align-items: flex-end;
+    gap: 20px;
 }
 
 .forum__threads {
@@ -54,4 +54,9 @@
     flex: 3;
     flex-direction: column;
     gap: 20px;
+}
+
+.forum__thread {
+    display: flex;
+    gap: 5px;
 }

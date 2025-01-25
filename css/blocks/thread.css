@@ -1,10 +1,11 @@
 .thread {
     display: flex;
+    flex: 1;
     justify-content: space-between;
     align-items: center;
     gap: 10px;
     border: 1px solid var(--glass-gray);
-    border-radius: 10px;
+    border-radius: 0px 10px 10px 0px;
     background-color: var(--light);
     padding: 10px;
     color: var(--dark);
@@ -23,6 +24,7 @@
 
 .thread__data {
     display: flex;
+    flex: 1;
     flex-direction: column;
     gap: 10px;
 }
@@ -62,16 +64,4 @@
 .thread__detail {
     margin: 0;
     font-size: 0.8rem;
-}
-
-.thread__upvotes {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.thread__vote-count {
-    margin: 0;
-    font-weight: 600;
-    font-size: 1.5rem;
 }
