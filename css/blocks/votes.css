@@ -5,6 +5,10 @@
     min-width: 60px;
 }
 
+.votes--comment {
+    min-width: 40px;
+}
+
 .votes__counter {
     flex: 1;
     align-content: center;

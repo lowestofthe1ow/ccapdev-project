@@ -60,3 +60,9 @@
     display: flex;
     gap: 5px;
 }
+
+.forum__comment {
+    display: flex;
+    align-items: flex-start;
+    gap: 5px;
+}
