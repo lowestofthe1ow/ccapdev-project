@@ -15,9 +15,10 @@
     --kinkan-light-pink: #ffa7b9;
     --kinkan-pink: #ff7a8f;
 
-    /* Darkened Kinkan colors */
+    /* Darkened / lightened Kinkan colors */
     --kinkan-dark-mint: #195643;
     --kinkan-dark-pink: #831f2e;
+    --kinkan-light-gray: #f1f3f3;
 
     /* Transparent colors */
     --glass-kinkan-dark-mint: rgba(25, 86, 67, 0.8);
