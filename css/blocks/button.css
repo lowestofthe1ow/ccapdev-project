@@ -18,6 +18,28 @@
     text-decoration: none;
 }
 
+/* Style used for center bar */
+.button--big-light {
+    border: 1px solid var(--glass-gray);
+    background-color: var(--light);
+    padding: 10px;
+    color: var(--dark);
+    width: 200px;
+    font-size: 2.5rem;
+    font-weight: 500;
+}
+
+.button--transparent {
+    border: none;
+    background-color: transparent;
+    color: var(--dark);
+    font-size: 2.5rem;
+    font-weight: 500;
+    color: var(--light);
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+}
+
 /* Style used for forum navbar buttons */
 .button--light {
     border: 1px solid var(--glass-gray);

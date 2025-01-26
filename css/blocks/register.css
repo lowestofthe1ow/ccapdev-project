@@ -1,0 +1,35 @@
+.register {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    box-sizing: border-box;
+    padding-top: 20px;
+    padding-bottom: 30px;
+    color: var(--light);
+}
+
+.register--home {
+    background: linear-gradient(
+            var(--glass-kinkan-dark-mint),
+            var(--glass-kinkan-dark-pink)
+        ),
+        url("/img/bg.jpg");
+    background-size: cover;
+    min-height: 100vh;
+}
+
+.register__logo {
+    display: flex;
+    width: 100%;
+    max-width: 300px;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.register__vertical-list {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: row;
+    gap: 10px;
+}
