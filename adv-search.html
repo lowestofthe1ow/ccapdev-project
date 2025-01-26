@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="stylesheet" type="text/css" href="/css/master.css" />
     <link rel="icon" type="image/x-icon" href="/img/favicon.png" />
-    <link rel="stylesheet" type="text/css" href="/css/blocks/adv-search.css" />
+    <link rel="stylesheet" type="text/css" href="/css/blocks/adv_search.css" />
     <title>Forum | Shinosawa Laboratory</title>
   </head>
   <body class="bg-rainbow">
@@ -26,11 +26,7 @@
           <ruby>Post thread<rt>ポストする</rt></ruby>
         </a>
         <div class="search">
-          <input
-            type="text"
-            class="search__box"
-            placeholder="I am a cat"
-          />
+          <input type="text" class="search__box" placeholder="I am a cat" />
 
           <a class="button button--light search__button">
             <span class="material-symbols-outlined">tune</span>
@@ -49,75 +45,71 @@
           <ruby>Profile<rt>プロフィール</rt></ruby>
         </a>
       </nav>
-      <div class="What is up everybody">
 
-
-        <form class="advanced-search" action="/search" method="GET">
-            <div class="search-component">
-              <div class="component-label" id="datelabel">Date</div>
-              <div class="date-inputs">
-                <div class="input-group">
-                  <label class="input-label" for="search-year" id="yearlabel">Year</label>
-                  <input
-                    type="text"
-                    id="search-year"
-                    name="search_year"
-                    class="text-input"
-                    placeholder="Enter Year"
-                  />
-                </div>
-          
-                <div class="input-group">
-                  <label class="input-label" for="search-day">Day</label>
-                  <input
-                    type="text"
-                    id="search-day"
-                    name="search_day"
-                    class="text-input"
-                    placeholder="Enter Day"
-                  />
-                </div>
-          
-                <div class="input-group">
-                  <label class="input-label" for="search-month">Month</label>
-                  <input
-                    type="text"
-                    id="search-month"
-                    name="search_month"
-                    class="text-input"
-                    placeholder="Enter Month"
-                  />
-                </div>
-              </div>
-            </div>
-          
-            <div class="search-component">
-              <div class="component-label" id="sortby">Sort by</div>
-              <select class="dropdown-input" name="sort_by">
-                <option value="desc">Date Descending</option>
-                <option value="asc">Date Ascending</option>
-                <option value="haachama">Subscribe to Haachama</option>
-              </select>
-            </div>
-          
-            <div class="search-component">
-              <div class="component-label" id="authorlabel">Authors</div>
+      <form class="advanced-search" action="/search" method="GET">
+        <div class="search-component">
+          <div class="component-label" id="datelabel">Date</div>
+          <div class="date-inputs">
+            <div class="input-group">
+              <label class="input-label" for="search-year" id="yearlabel"
+                >Year</label
+              >
               <input
                 type="text"
-                id="author-name"
-                name="author_name"
+                id="search-year"
+                name="search_year"
                 class="text-input"
-                placeholder="Enter Author"
+                placeholder="Enter Year"
               />
             </div>
-          
-            
-          </form>
-          
-          <div class="search-actions">
-            <button type="reset" class="button button--light">Reset</button>
+
+            <div class="input-group">
+              <label class="input-label" for="search-day">Day</label>
+              <input
+                type="text"
+                id="search-day"
+                name="search_day"
+                class="text-input"
+                placeholder="Enter Day"
+              />
+            </div>
+
+            <div class="input-group">
+              <label class="input-label" for="search-month">Month</label>
+              <input
+                type="text"
+                id="search-month"
+                name="search_month"
+                class="text-input"
+                placeholder="Enter Month"
+              />
+            </div>
           </div>
-          <br>
+        </div>
+
+        <div class="search-component">
+          <div class="component-label" id="sortby">Sort by</div>
+          <select class="dropdown-input" name="sort_by">
+            <option value="desc">Date Descending</option>
+            <option value="asc">Date Ascending</option>
+            <option value="haachama">Subscribe to Haachama</option>
+          </select>
+        </div>
+
+        <div class="search-component">
+          <div class="component-label" id="authorlabel">Authors</div>
+          <input
+            type="text"
+            id="author-name"
+            name="author_name"
+            class="text-input"
+            placeholder="Enter Author"
+          />
+        </div>
+        <div class="search-actions">
+          <button type="reset" class="button button--light">Reset</button>
+        </div>
+      </form>
 
       <div class="forum__body">
         <ul class="forum__threads">
