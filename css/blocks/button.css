@@ -45,16 +45,22 @@
     background-color: var(--glass-kinkan-pink);
 }
 
+.button:not(.button--disabled):active {
+    transform: scale(0.9);
+    outline: 2px solid transparent;
+    outline-offset: 5px;
+}
+
+.button:not(.button--disabled):active {
+    transform: scale(0.9);
+    outline: 2px solid transparent;
+    outline-offset: 5px;
+}
+
 .button--mint:hover {
     transform: scale(1.1);
     box-shadow: 0px 0px 50px 5px var(--kinkan-mint);
     background-color: var(--glass-kinkan-mint);
-}
-
-.button:active {
-    transform: scale(0.9);
-    outline: 2px solid transparent;
-    outline-offset: 5px;
 }
 
 .button--large-round {
