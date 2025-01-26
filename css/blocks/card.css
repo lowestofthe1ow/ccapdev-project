@@ -21,9 +21,18 @@
     min-height: 100vh;
 }
 
-.card--night {
+.card--register {
     background: linear-gradient(
             var(--glass-kinkan-dark-mint),
+            var(--glass-dark)
+        ),
+        url("/img/bg2.jpg") !important;
+    background-size: cover !important;
+}
+
+.card--signin {
+    background: linear-gradient(
+            var(--glass-kinkan-dark-pink),
             var(--glass-dark)
         ),
         url("/img/bg2.jpg") !important;

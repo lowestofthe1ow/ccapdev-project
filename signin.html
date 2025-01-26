@@ -7,23 +7,23 @@
         <title>Register | Shinosawa Laboratory</title>
     </head>
     <body>
-        <div class="card card--home card--register">
+        <div class="card card--home card--signin">
             <div class="card__vertical-list">
                 <img src="/img/logo-dark.png" class="card__logo card__logo--small">
                 <nav class="register__component card__horizontal-list">
-                    <a class="button button--mint" href="/">
+                    <a class="button button" href="/">
                         <span class="material-symbols-outlined">home</span>
                         <ruby>Home<rt>ホーム</rt></ruby>
                     </a>
-                    <a class="button button--mint" href="/signin.html">
-                        <span class="material-symbols-outlined">person</span>
-                        <ruby>Sign in<rt>サインイン</rt></ruby>
+                    <a class="button button" href="/register.html">
+                        <span class="material-symbols-outlined">how_to_reg</span>
+                        <ruby>Register<rt>レジスター</rt></ruby>
                     </a>
                 </nav>
             </div>
 
             <section class="register">
-                <h1 class="register__heading">Create an account</h1>
+                <h1 class="register__heading">Sign in</h1>
 
                 <form class="register__form">
                     <label for="name">Username:</label>
@@ -42,20 +42,12 @@
                         <input class = "register__inputbox" type="password"
                             placeholder="Enter at least 6 characters" id="password" name="password">
                     </div>
-                    <label for="confirm">Confirm password:</label>
-                    <div class="register__input">
-                        <div class="register__icon">
-                            <span class="material-symbols-outlined">lock</span>
-                        </div>
-                        <input class = "register__inputbox" type="password"
-                            placeholder="Enter your password" id="confirm" name="confirm">
-                    </div>
                 </form>
                 
                 <!-- TODO: Semantically an <input type="submit" /> would be better probably -->
-                <a class="button button--mint" href="/forum.html">
+                <a class="button" href="/forum.html">
                     <span class="material-symbols-outlined">login</span>
-                    <ruby>Register<rt>レジスター</rt></ruby>
+                    <ruby>Sign in<rt>サインイン</rt></ruby>
                 </a>
             </section>
         </div>
