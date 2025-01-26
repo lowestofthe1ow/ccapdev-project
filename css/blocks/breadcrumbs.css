@@ -1,0 +1,34 @@
+.breadcrumbs {
+    display: flex;
+    gap: 5px;
+}
+
+/* TODO: Get rid of !important this is an eyesore */
+
+.breadcrumbs__button {
+    align-content: center;
+    border-radius: 0px !important;
+    width: 20px !important;
+}
+
+.breadcrumbs__prev {
+    border-radius: 10px 0px 0px 10px !important;
+}
+
+.breadcrumbs__next {
+    border-radius: 0px 10px 10px 0px !important;
+}
+
+.breadcrumbs__button--current {
+    transform: scale(0.9);
+    border: 1px solid var(--kinkan-pink) !important;
+}
+
+.breadcrumbs__button--current:hover {
+    transform: scale(0.9) !important;
+    cursor: default;
+}
+
+.breadcrumbs__button--current:active {
+    outline: none !important;
+}
