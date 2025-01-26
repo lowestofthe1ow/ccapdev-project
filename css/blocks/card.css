@@ -9,6 +9,22 @@
     color: var(--light);
 }
 
+.card__content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.card__heading,
+.card__blurb {
+    margin: 0px;
+}
+
+.card__link {
+    color: var(--kinkan-pink);
+    text-decoration-style: dotted;
+}
+
 .card--home {
     justify-content: space-around;
     background: linear-gradient(
@@ -23,8 +39,8 @@
 
 .card--register {
     background: linear-gradient(
-            var(--glass-kinkan-dark-mint),
-            var(--glass-dark)
+            var(--glass-dark),
+            var(--glass-kinkan-dark-mint)
         ),
         url("/img/bg2.jpg") !important;
     background-size: cover !important;
@@ -32,8 +48,8 @@
 
 .card--signin {
     background: linear-gradient(
-            var(--glass-kinkan-dark-pink),
-            var(--glass-dark)
+            var(--glass-dark),
+            var(--glass-kinkan-dark-pink)
         ),
         url("/img/bg2.jpg") !important;
     background-size: cover !important;
