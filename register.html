@@ -6,43 +6,54 @@
         <link rel="icon" type="image/x-icon" href="/img/favicon.png">
         <title>Register | Shinosawa Laboratory</title>
     </head>
-
     <body>
         <div class="card card--home card--night">
-            <div style="display: flex; flex-direction: column; align-items: center;">
+            <div class="card__vertical-list">
                 <img src="/img/logo-dark.png" class="card__logo card__logo--small">
-                <div class="register__component card__horizontal-list">
-                    <a class="button">
+                <nav class="register__component card__horizontal-list">
+                    <a class="button button--mint">
                         <span class="material-symbols-outlined">person</span>
                         <ruby>Log in<rt>サインイン</rt></ruby>
                     </a>
-                    <a class="button" href="/">
+                    <a class="button button--mint" href="/">
                         <span class="material-symbols-outlined">home</span>
                         <ruby>Home<rt>ホーム</rt></ruby>
                     </a>
-                </div>
+                </nav>
             </div>
-            
-
-            <div class="centerbar">
-                <div class = "centerbar centerbar__center">
-                    <h1 class="centerbar__heading">Create an account</h1>
-                </div>
-                <form class="centerbar centerbar__text">
+            <div class="register">
+                <h1 class="register__heading">Create an account</h1>
+                <form class="register__form">
                     <label for="name">Username:</label>
-                    <input class = "centerbar centerbar__textinput" type="text" placeholder="Enter your name" id="name" name="name"><br><br>
+                    <div class="register__input">
+                        <div class="register__icon">
+                            <span class="material-symbols-outlined">person</span>
+                        </div>
+                        <input class = "register__textinput" type="text"
+                            placeholder="Enter your name" id="name" name="name">
+                    </div>
                     <label for="password">Password:</label>
-                    <input class = "centerbar centerbar__textinput" type="text" placeholder="Enter at least 6 characters" id="password" name="password"><br><br>
+                    <div class="register__input">
+                        <div class="register__icon">
+                            <span class="material-symbols-outlined">lock</span>
+                        </div>
+                        <input class = "register__textinput" type="text"
+                            placeholder="Enter at least 6 characters" id="password" name="password">
+                    </div>
                     <label for="confirm">Confirm Password:</label>
-                    <input class = "centerbar centerbar__textinput" type="text" placeholder="Enter your password" id="confirm" name="confirm"><br><br>
+                    <div class="register__input">
+                        <div class="register__icon">
+                            <span class="material-symbols-outlined">lock</span>
+                        </div>
+                        <input class = "register__textinput" type="text"
+                            placeholder="Enter your password" id="confirm" name="confirm">
+                    </div>
+                    
                 </form>
                 
-                <div class = "centerbar centerbar__center">
-                    <a class="button button--mint">
-                        <ruby>Register<rt>レジスター</rt></ruby>
-                    </a>
-                    <br>
-                </div>
+                <a class="button button--mint">
+                    <ruby>Register<rt>レジスター</rt></ruby>
+                </a>
             </div>
 
             
