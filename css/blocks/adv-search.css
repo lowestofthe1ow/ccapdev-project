@@ -1,0 +1,95 @@
+.advanced-search {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: stretch;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.search-component {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 5px;
+}
+
+.date-inputs {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.text-input {
+  border: 1px solid var(--glass-gray);
+  background-color: var(--light);
+  padding: 12px;
+  color: var(--dark);
+  width: 152px;
+}
+
+.dropdown-input {
+  border: 1px solid var(--glass-gray);
+  background-color: var(--light);
+  font-size: 1rem;
+  padding: 12px;
+  border-radius: 0px 0px 10px 10px;
+}
+#authorlabel {
+  border-radius: 10px 10px 0px 0px;
+}
+#author-name {
+  border-radius: 0px 0px 10px 10px;
+}
+#datelabel {
+  border-radius: 10px 10px 0px 0px;
+}
+#yearlabel {
+  border-radius: 0px 0px 0px 10px;
+}
+#search-month {
+  border-radius: 0px 0px 10px 0px;
+}
+#sortby {
+  border-radius: 10px 10px 0px 0px;
+}
+.input-label {
+  font-weight: 600;
+  font-size: 1.2rem;
+  gap: 10px;
+  color: var(--dark);
+  border: 1px solid var(--glass-gray);
+  background-color: var(--light);
+  padding: 12px;
+
+  text-align: center;
+}
+
+.component-label {
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+  gap: 10px;
+  color: var(--dark);
+  border: 1px solid var(--glass-gray);
+  background-color: var(--light);
+  flex-wrap: wrap;
+  padding: 12px;
+}
+
+.search-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 5px;
+}

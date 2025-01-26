@@ -1,0 +1,90 @@
+<!--This is OBSOLETE NOT USED ANYMORE REMOVE THIS IF SEEN IN ANY CODE-- > .box {
+  height: min(80%, 700px);
+  width: min(30%, 500px);
+  border-radius: 15px;
+  background-color: #2e2e2e;
+  color: white;
+  display: flex;
+  flex-flow: column;
+  text-align: center;
+  font-family: "Open Sans";
+  padding-bottom: 20px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 8%;
+  overflow: hidden;
+}
+
+.card_logo {
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 8%;
+  margin-bottom: 8%;
+}
+
+.LoginButton {
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  border: none;
+  width: 90%;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  font-weight: bolder;
+  font-family: "Open Sans";
+  letter-spacing: 3px;
+  transition: background-color 0.3s ease;
+}
+
+.LoginButton:hover {
+  background-color: #d7d7d7;
+}
+
+.LoginButton:active {
+  background-color: #6f6f6f;
+}
+
+.fieldwithlabel {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-family: "Open Sans";
+}
+
+.fieldwithlabel label {
+  font-size: 20px;
+  color: #ffffff;
+  margin-right: 10px;
+  min-width: 100px;
+}
+
+.fieldwithlabel input {
+  padding: 10px;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #404040;
+  color: #888;
+  border: 0px;
+}
+
+.fieldwithlabel input:focus {
+  border-color: #767676;
+  outline: none;
+}
+
+.fieldwithlabel input::placeholder {
+  color: #888;
+}
+
+.fields {
+  padding-left: 5%;
+  padding-right: 5%;
+}
+.label {
+  margin-bottom: 5%;
+}

@@ -1,0 +1,108 @@
+.areaText {
+  border: 1px solid var(--glass-gray);
+  background-color: var(--light);
+  border-radius: 0px 0px 10px 10px;
+  padding: 15px;
+  width: auto;
+  resize: vertical;
+  overflow: auto;
+  min-height: 50px;
+  height: auto;
+}
+
+.areaText:focus {
+  outline: 1px solid var(--kinkan-light-pink);
+}
+.areaText::selection {
+  background-color: var(--kinkan-light-pink);
+  color: white;
+}
+
+.opt-btn {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.editor-container {
+  display: flex;
+  gap: 5px;
+  flex-flow: column;
+  flex-wrap: wrap;
+  overflow: show;
+}
+
+.editorBar {
+  display: flex;
+  flex-wrap: wrap;
+  flex-flow: row;
+  justify-content: space-between;
+  gap: 5px;
+  background-color: var(--light);
+  border: 1px solid var(--glass-gray);
+  border-radius: 10px 10px 0px 0px;
+}
+
+.editormode {
+  display: flex;
+  flex-wrap: wrap;
+  flex-flow: row;
+  gap: 5px;
+}
+
+.editor-btngrp {
+  display: flex;
+  flex-wrap: wrap;
+  flex-flow: row;
+  gap: 5px;
+  margin-right: 10px;
+}
+.editor-btn {
+  flex: 0;
+  display: flex;
+  border-radius: 0px;
+  padding: 5px;
+  width: auto;
+  border: 1px solid rgba(255, 255, 255, 0);
+  background-color: rgba(255, 255, 255, 0);
+  justify-content: center;
+  align-items: center;
+}
+.mode-btn {
+  flex: 0;
+  border-radius: 0px;
+  padding: 10px;
+  width: auto;
+
+  border: 1px solid rgba(255, 255, 255, 0);
+}
+
+#preview-btn {
+  background-color: var(--light);
+  color: var(--dark);
+  border-radius: 0px 10px 0px 0px;
+}
+
+#edit-btn {
+  background-color: rgba(255, 255, 255, 0);
+  border-radius: 10px 0px 0px 0px;
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+.somerandomimage {
+  background-image: conic-gradient(from var(--angle), red, blue, red);
+  animation: 1s spin linear infinite;
+}
+@keyframes spin {
+  from {
+    --angle: 0deg;
+  }
+  to {
+    --angle: 360deg;
+  }
+}
