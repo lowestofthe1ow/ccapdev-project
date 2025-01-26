@@ -1,13 +1,30 @@
 .thread {
     display: flex;
+    flex: 1;
     justify-content: space-between;
     align-items: center;
     gap: 10px;
     border: 1px solid var(--glass-gray);
-    border-radius: 10px;
+    border-radius: 0px 10px 10px 0px;
     background-color: var(--light);
     padding: 10px;
     color: var(--dark);
+    text-decoration: none;
+}
+
+.thread--clickable {
+    transition: all 0.2s;
+}
+
+.thread--clickable:hover {
+    transform: scale(1.02);
+    border: 1px solid var(--kinkan-pink);
+}
+
+.thread--clickable:active {
+    transform: scale(0.98);
+    outline: 2px solid transparent;
+    outline-offset: 5px;
 }
 
 .thread__group {
@@ -23,34 +40,14 @@
 
 .thread__data {
     display: flex;
+    flex: 1;
     flex-direction: column;
     gap: 10px;
 }
 
-/* TODO: Separate into a different BEM block maybe? Not composed into thread */
-.thread__tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-}
-
-.thread__tag {
-    border: 1px solid var(--kinkan-turquoise);
-    border-radius: 10px;
-    background-color: var(--light);
-    padding: 5px;
-    color: var(--kinkan-turquoise);
-    font-size: 0.8rem; /* TODO: Standardize */
-    text-align: center;
-}
-
-.thread__tag--game {
-    border: 1px solid var(--kinkan-pink);
-    color: var(--kinkan-pink);
-}
-
 .thread__title {
     margin: 0;
+    font-size: 1.5rem;
 }
 
 .thread__meta {
@@ -62,17 +59,4 @@
 .thread__detail {
     margin: 0;
     font-size: 0.8rem;
-}
-
-.thread__upvotes {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 50px;
-}
-
-.thread__vote-count {
-    margin: 0;
-    font-weight: 600;
-    font-size: 1.5rem;
 }

@@ -1,0 +1,28 @@
+.article {
+    border: 1px solid var(--glass-gray);
+    border-radius: 10px;
+    background-color: var(--light);
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.article__image {
+    display: inline-block;
+    width: 100%;
+}
+
+.article__link {
+    transition: all 0.2s;
+    color: var(--kinkan-pink);
+    text-decoration-style: dotted;
+}
+
+.article__link[target="_blank"]::after {
+    content: " 🗗";
+}
+
+.article__link:hover {
+    border-radius: 5px;
+    background-color: var(--glass-kinkan-pink);
+    color: var(--light);
+}
