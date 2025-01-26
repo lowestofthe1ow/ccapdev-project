@@ -9,8 +9,8 @@
     border-radius: 10px;
     background-color: var(--glass-gray);
     padding: 20px;
-    color: var(--light);
     max-width: 500px;
+    color: var(--light);
 }
 
 .register__heading {
@@ -30,37 +30,21 @@
     gap: 5px;
 }
 
-.register__text {
-    box-shadow: 0px 0px;
-    border: 0px;
-    background-color: initial;
-    font-size: 1.1rem;
-    text-align: left;
-}
-
 .register__icon {
     align-content: center;
+    border: 1px solid var(--light);
+    border-radius: 10px 0px 0px 10px;
     background-color: var(--glass-dark);
     width: 40px;
     text-align: center;
-    border: 1px solid var(--light);
-    border-radius: 10px 0px 0px 10px;
 }
 
-.register__textinput {
+.register__inputbox {
     flex: 1;
-    box-shadow: 0px 0px;
     border: 1px solid var(--light);
+    border-radius: 0px 10px 10px 0px;
     background-color: var(--glass-dark);
     padding: 10px;
     color: var(--light);
-    border-radius: 0px 10px 10px 0px;
     font-size: 1.1rem;
-}
-
-.register__center {
-    align-items: center;
-    box-shadow: 0px 0px;
-    border: 0px;
-    background-color: initial;
 }
