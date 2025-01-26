@@ -8,8 +8,21 @@
     </head>
 
     <body>
-        <div class="register register--home">
-            <h1><img src="/img/logo-dark.png" class="register__logo"></h1>
+        <div class="card card--home card--night">
+            <div style="display: flex; flex-direction: column; align-items: center;">
+                <img src="/img/logo-dark.png" class="card__logo card__logo--small">
+                <div class="register__component card__horizontal-list">
+                    <a class="button">
+                        <span class="material-symbols-outlined">person</span>
+                        <ruby>Log in<rt>サインイン</rt></ruby>
+                    </a>
+                    <a class="button" href="/">
+                        <span class="material-symbols-outlined">home</span>
+                        <ruby>Home<rt>ホーム</rt></ruby>
+                    </a>
+                </div>
+            </div>
+            
 
             <div class="centerbar">
                 <div class = "centerbar centerbar__center">
@@ -25,21 +38,14 @@
                 </form>
                 
                 <div class = "centerbar centerbar__center">
-                    <a class="button button--big-light">
-                        <ruby>REGISTER</ruby>
+                    <a class="button button--mint">
+                        <ruby>Register<rt>レジスター</rt></ruby>
                     </a>
                     <br>
                 </div>
             </div>
 
-            <div class="register__component register__vertical-list">
-                <a class="button button--transparent">
-                    <ruby>Log in</ruby>
-                </a>
-                <a class="button button--transparent" href="http://127.0.0.1:8000/forum.html">
-                    <ruby>Home</ruby>
-                </a>
-            </div>
+            
 
         </div>
     </body>

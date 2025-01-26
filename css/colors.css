@@ -23,7 +23,9 @@
     --glass-kinkan-dark-mint: rgba(25, 86, 67, 0.7);
     --glass-kinkan-dark-pink: rgba(131, 31, 46, 0.7);
     --glass-gray: rgba(70, 70, 70, 0.2);
+    --glass-dark: rgba(40, 40, 40, 0.7);
     --glass-light: rgba(240, 240, 240, 0.9);
+    --glass-kinkan-mint: rgba(140, 239, 182, 0.5);
     --glass-kinkan-pink: rgba(255, 122, 143, 0.5);
 }
 

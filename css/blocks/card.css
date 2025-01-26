@@ -21,9 +21,27 @@
     min-height: 100vh;
 }
 
+.card--night {
+    background: linear-gradient(
+            var(--glass-kinkan-dark-mint),
+            var(--glass-dark)
+        ),
+        url("/img/bg2.jpg") !important;
+    background-size: cover !important;
+}
+
 .card__logo {
     width: 100%;
     max-width: 500px;
+}
+
+.card__logo--small {
+    max-width: 300px;
+}
+
+.card__horizontal-list {
+    display: flex;
+    gap: 10px;
 }
 
 .card__vertical-list {
