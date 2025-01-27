@@ -1,9 +1,12 @@
 .button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
     backdrop-filter: blur(5px);
     background-color: var(--glass-gray);
     font-size: 1.1rem;
     -webkit-backdrop-filter: blur(5px); /* Safari */
-    display: block;
     transition: all 0.2s;
     cursor: pointer;
     border: 2px solid var(--light);
@@ -14,7 +17,6 @@
     user-select: none;
     -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE */
-    text-align: center;
     text-decoration: none;
 }
 
@@ -23,25 +25,44 @@
     border: 1px solid var(--glass-gray);
     background-color: var(--light);
     padding: 10px;
+    width: auto; /* TODO: Should this apply to all buttons */
     color: var(--dark);
 }
 
-.button--light:hover {
+/* TODO: Clean up selectors */
+.button--light.button--disabled {
+    cursor: default;
+    background-color: var(--kinkan-light-gray);
+}
+
+.button--light:not(.button--disabled):hover {
     box-shadow: none !important;
     border: 1px solid var(--kinkan-pink);
     background-color: var(--light) !important;
 }
 
-.button:hover {
+.button:not(.button--disabled):hover {
     transform: scale(1.1);
     box-shadow: 0px 0px 50px 5px var(--kinkan-pink);
     background-color: var(--glass-kinkan-pink);
 }
 
-.button:active {
+.button:not(.button--disabled):active {
     transform: scale(0.9);
     outline: 2px solid transparent;
     outline-offset: 5px;
+}
+
+.button:not(.button--disabled):active {
+    transform: scale(0.9);
+    outline: 2px solid transparent;
+    outline-offset: 5px;
+}
+
+.button--mint:not(.button--disabled):hover {
+    transform: scale(1.1);
+    box-shadow: 0px 0px 50px 5px var(--kinkan-mint);
+    background-color: var(--glass-kinkan-mint);
 }
 
 .button--large-round {
@@ -55,10 +76,10 @@
     outline-offset: 30px;
 }
 
-.button--outline-effect:hover {
+.button--outline-effect:not(.button--disabled):hover {
     outline-offset: 10px;
 }
 
-.button--outline-effect:active {
+.button--outline-effect:not(.button--disabled):active {
     outline-offset: 0px;
 }

@@ -13,22 +13,35 @@
     display: flex;
     justify-content: left;
     align-items: center;
-    gap: 20px;
+    gap: 30px;
 }
 
 .forum__logo {
-    height: 150px;
+    height: 100px;
 }
 
 /* Wrapper for ads next to logo */
 .forum__ads {
-    display: flex;
-    gap: 20px;
-    width: auto;
-    overflow: scroll; /* TODO: Auto-scroll */
+    overflow: hidden; /* TODO: Auto-scroll */
     /* Hide scrollbars */
     -ms-overflow-style: none; /* IE, Edge */
     scrollbar-width: none; /* Firefox */
+}
+
+.forum__ads-track {
+    display: flex;
+    gap: 20px;
+    width: auto;
+    animation: scroll 20s 0s linear infinite;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-111%);
+    }
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
