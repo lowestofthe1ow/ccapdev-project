@@ -1,0 +1,30 @@
+.post-editor-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.titletextarea {
+  width: auto;
+  flex-grow: 999;
+  border: 1px solid var(--glass-gray);
+  padding: 12px;
+  font-size: 1.2rem;
+  border-radius: 10px;
+}
+
+.labelposteditor {
+  font-weight: 800rem;
+  font-size: 1.2rem;
+}
+
+.tag_box {
+  background-color: var(--light);
+  display: flex;
+  flex-flow: column;
+  padding: 12px;
+  gap: 5px;
+  border: 1px solid var(--glass-gray);
+  border-radius: 10px;
+  width: auto;
+}
