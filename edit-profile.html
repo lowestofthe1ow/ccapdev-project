@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" type="text/css" href="/css/master.css" />
+        <link rel="icon" type="image/x-icon" href="/img/favicon.png">
+        <title>Forum | Shinosawa Laboratory</title>
+    </head>
+    <body class="bg-rainbow">
+        <div class="forum">
+            <header class="forum__header">
+                <a href="/forum.html">
+                    <img src="/img/logo-light.png" class="forum__logo"/>
+                </a>
+                <div class="forum__ads">
+                    <div class="forum__ads-track">
+                        <img src="/img/ad.webp" class="forum__ad"/>
+                        <img src="/img/ad2.jpg" class="forum__ad"/>
+                        <img src="/img/ad3.png" class="forum__ad"/>
+                        <img src="/img/ad4.jpg" class="forum__ad"/>
+                        <img src="/img/ad.webp" class="forum__ad"/>
+                        <img src="/img/ad2.jpg" class="forum__ad"/>
+                        <img src="/img/ad3.png" class="forum__ad"/>
+                        <img src="/img/ad4.jpg" class="forum__ad"/>
+                    </div>
+                </div>
+            </header>
+
+            <nav class="navbar">
+                <a class="button button--light">
+                    <span class="material-symbols-outlined">add_circle</span>
+                    <ruby>Post thread<rt>ポストする</rt></ruby>
+                </a>
+                <div class="search">
+                    <input type="text" class="search__box" placeholder="Search threads..."/>
+
+                    <a class="button button--light search__button">
+                        <span class="material-symbols-outlined" >tune</span>
+                    </a>
+
+                    <a class="button button--light search__button search__button--end">
+                        <span class="material-symbols-outlined" >search</span>
+                    </a>
+                </div>
+                <a class="button button--light" href="/">
+                    <span class="material-symbols-outlined">logout</span>
+                    <ruby>Sign out<rt>サインアウト</rt></ruby>
+                </a>
+                <a class="button button--light">
+                    <img src="/img/pfp.png" class="navbar__icon"/>
+                    <ruby>Profile<rt>プロフィール</rt></ruby>
+                </a>
+                
+            </nav>
+
+            <div class="forum__body">
+                <div class="forum__threads">
+                    <div class="profile">
+                        <img class="profile__bigbanner" src="/img/banner_gkms.jpg"/>
+                        <a class="button profile__bg-edit button--small-round">
+                            <span class="material-symbols-outlined">add_a_photo</span>
+                        </a>
+
+                        <a class="button profile__bg-cancel button--small-round">
+                            <span class="material-symbols-outlined">cancel</span>
+                        </a>
+
+                        <div class="profile__edit">
+                            <img class="profile__bigpfp" src="/img/pfp.png" />
+                            <a class="button profile__pfp-edit button--small-round">
+                                <span class="material-symbols-outlined">add_a_photo</span>
+                            </a>
+
+                            <br>
+                            
+                            <h1 class="profile__text">Edit profile</h1>
+                            <br>
+                            <form class = "profile__form">
+                                <h2 class="profile__text">Username</h2>
+
+                                <input class = "profile__inputbox" type="text"
+                                placeholder="Your new username..." id="uname" name="uname">
+
+                                <h2 class="profile__text">Description</h2>
+                                
+                                <input class = "profile__largerbox"
+                                placeholder = "Describe yourself..." id="desc" name="desc">
+                            </form>
+
+                            <br>
+                            <div class = "profile__horizontal">
+                                <a class="button button--mid">
+                                    <span class="material-symbols-outlined"> Save </span>
+                                </a>
+    
+                                <a class="button button--mid">
+                                    <span class="material-symbols-outlined"> Cancel </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <img src="/img/logo-dark.png" class="footer__logo" />
+            <div class="footer__column">
+                <p class="footer__text"><ruby>About<rt>アバウト</rt></ruby></p>
+                <p class="footer__text"><ruby>Contact<rt>コンタクト</rt></ruby></p>
+                <p class="footer__text"><ruby>Privacy policy<rt>プライバシーポリシー</rt></ruby></p>
+            </div>
+            <div class="footer__column">
+                <p class="footer__text footer__blurb"><ruby>
+                    A galaxy hatches and fully blooms.<rt>孵化/開花する銀河</rt>
+                </ruby></p>
+                <p class="footer__text footer__blurb">
+                    &copy; 2025. This site is not affiliated with nor is it endorsed by the developers and publishers of
+                    any of the games.
+                </p>
+            </div>
+        </footer>
+    </body>
+</html>
