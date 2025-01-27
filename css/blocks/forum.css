@@ -81,6 +81,11 @@
     margin: 0px;
 }
 
+.forum__thread > :first-child {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
 .forum__comments {
     display: flex;
     flex-direction: column;
