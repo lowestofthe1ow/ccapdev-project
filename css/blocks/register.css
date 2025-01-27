@@ -1,0 +1,50 @@
+.register {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 20px;
+    backdrop-filter: blur(5px);
+    /* box-shadow: 10px 10px 5px rgba(29, 29, 29, 0.2); */
+    border: 1px solid var(--light);
+    border-radius: 10px;
+    background-color: var(--glass-gray);
+    padding: 20px;
+    max-width: 500px;
+    color: var(--light);
+}
+
+.register__heading {
+    margin: 0px;
+    font-weight: 500;
+    font-size: 1.5rem;
+}
+
+.register__form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.register__input {
+    display: flex;
+    gap: 5px;
+}
+
+.register__icon {
+    align-content: center;
+    border: 1px solid var(--light);
+    border-radius: 10px 0px 0px 10px;
+    background-color: var(--glass-dark);
+    width: 40px;
+    text-align: center;
+}
+
+.register__inputbox {
+    flex: 1;
+    border: 1px solid var(--light);
+    border-radius: 0px 10px 10px 0px;
+    background-color: var(--glass-dark);
+    padding: 10px;
+    color: var(--light);
+    font-size: 1.1rem;
+}

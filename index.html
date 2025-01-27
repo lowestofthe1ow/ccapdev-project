@@ -8,19 +8,26 @@
     </head>
     <body>
         <div class="card card--home">
-            <div class="card__component">
-                <h1><img src="/img/logo-dark.png" class="card__logo"></h1>
+            <div class="card__content">
+                <img src="/img/logo-dark.png" class="card__logo">
                 <hgroup>
-                    <h2 class="text--heading card__heading">A fresh way to learn about your favorite games.</h2>
+                    <h1 class="text--heading card__heading">A fresh way to learn about your favorite games.</h1>
                     <p class="text card__blurb">Engage with vibrant communities filled with dedicated gamers like you.</p>
                 </hgroup>
+                <br />
+                <p class="text card__blurb">
+                    Don't want to create an account yet? <a href="/forum.html" class="card__link">Browse with a guest account.</a>
+                </p>
             </div>
-            <div class="card__component card__vertical-list">
-                <a class="button button--large-round button--outline-effect" href="/forum.html">
-                    <ruby>Sign in<rt>サインイン</rt></ruby>
-                </a>
-                <a class="button button--large-round button--outline-effect">
+
+            <div class="card__vertical-list">
+                <a class="button button--large-round button--outline-effect button--mint" href="/register.html">
+                    <span class="material-symbols-outlined">how_to_reg</span>
                     <ruby>Register<rt>レジスター</rt></ruby>
+                </a>
+                <a class="button button--large-round button--outline-effect" href="/signin.html">
+                    <span class="material-symbols-outlined">person</span>
+                    <ruby>Sign in<rt>サインイン</rt></ruby>
                 </a>
             </div>
         </div>
