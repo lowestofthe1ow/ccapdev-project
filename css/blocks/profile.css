@@ -9,25 +9,8 @@
 
 .profile__banner {
     border: 0px;
-    background-position: center;
-    background-attachment: scroll;
-    height: 200px;
+    height: 300px;
     object-fit: cover;
-}
-
-.profile__content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 20px;
-}
-
-.profile__horizontal {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 10px;
 }
 
 .profile__pfp {
@@ -37,8 +20,65 @@
     height: 100px;
 }
 
-.profile__text {
+.profile__content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+
+.profile__header {
+    display: flex;
+    flex: 999;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.profile__username {
     margin: 0px;
+    font-size: 1.5rem;
+}
+
+.profile__details {
+    display: flex;
+    flex: 999;
+    gap: 10px;
+}
+
+.profile__editbutton {
+    flex: 1;
+}
+
+/* Edit Profile-specific */
+
+.profile__banner--edit {
+    box-sizing: border-box;
+    background-position: center;
+    background-size: cover;
+    padding: 20px;
+    height: 300px;
+}
+
+.profile__pfp--edit {
+    display: flex;
+    justify-content: right;
+    align-items: end;
+    align-self: center;
+    margin-top: -130px;
+    border: 10px solid var(--light);
+    border-radius: 200px;
+    background-position: center;
+    background-size: cover;
+    width: 200px;
+    height: 200px;
+}
+
+.profile__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .profile__tabs > :first-child {
@@ -49,73 +89,10 @@
     border-radius: 0px 10px 10px 0px;
 }
 
-/* Edit profile */
-
-.profile__bigbanner {
+.edit__username {
     border: 0px;
-    background-position: center;
-    background-attachment: scroll;
-    height: 300px;
-    object-fit: cover;
-}
-
-.profile__bigpfp {
-    margin-top: -130px;
-    border: 10px solid var(--light);
-    border-radius: 10px;
-    height: 200px;
-}
-
-.profile__inputbox {
-    flex: 1;
-    border: 1px solid var(--dark);
-    border-radius: 10px;
+    border-bottom: 2px solid var(--glass-gray);
     background-color: var(--light);
+    font-size: 1.5rem;
     text-align: center;
-    padding: 10px;
-    color: var(--light);
-    font-size: 1.1rem;
-}
-
-.profile__largerbox {
-    flex: 1;
-    border: 1px solid var(--dark);
-    border-radius: 10px;
-    background-color: var(--light);
-    text-align: center;
-    padding: 10px;
-    color: var(--light);
-    font-size: 1.1rem;
-    width: 40rem;
-}
-
-.profile__form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-}
-
-.profile__edit {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    padding: 20px;
-}
-
-.profile__pfp-edit {
-    margin-top: -70px;
-    margin-right: -150px;
-}
-
-.profile__bg-edit {
-    margin-top: -60px;
-    margin-left: 15px;
-}
-
-.profile__bg-cancel {
-    margin-top: -47px;
-    margin-left: 70px;
 }

@@ -53,19 +53,30 @@
                 
             </nav>
 
+            <div class="profile">
+                <img class="profile__banner" src="/img/banner_gkms.jpg"/>
+
+                <div class="profile__content" style="gap: 10px;">
+                    <div class="profile__header">
+                        <div class="profile__details">
+                            <img class="profile__pfp" src="/img/pfp.png" />
+                            <article>
+                                <h1 class="profile__username">lowestofthelow</h1>
+                                <p>Gacha addict・Draws sometimes・Inaantok pero ayaw matulog<br />飛ぶにゃん♪・学マス/Blue Archive(Asia)/プリコネ/ヘブバン/FGO(NA)</p>
+                            </article>
+                        </div>
+                        <a class="button button--light profile__editbutton" href="/edit-profile.html">
+                            <span class="material-symbols-outlined">edit</span>
+                            <ruby>Edit profile<rt>サインアウト</rt></ruby>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
             <div class="forum__body">
                 <div class="forum__threads">
-                    <div class="profile">
-                        <img class="profile__banner" src="/img/banner_gkms.jpg"/>
-                        <div class="profile__content">
-                            <img class="profile__pfp" src="/img/pfp.png" />
-                            <h2 class="profile__text">lowestofthelow</h2>
-                            <p class="profile__text">ぜったい！いっぱい！輝け！</p>
-                        </div>
-                    </div>
-
                     <div class="forum__thread profile__tabs">
-                        <a class="button button--light comment__button" style="flex: 1;">
+                        <a class="button button--light comment__button" style="flex: 1;" href="/profile.html">
                             Threads
                         </a>
                         <a class="button button--light breadcrumbs__button--current comment__button" style="flex: 1;">
@@ -76,50 +87,15 @@
                         </a>
                     </div>
 
-                    <div class="advsearch__component" style="margin-bottom: -10px;">
-                        <input type="text" class="advsearch__input" placeholder="Search threads by lowestofthelow..."/>
-    
-                        <a class="button button--light search__button comment__button">
-                            <span class="material-symbols-outlined" >tune</span>
-                        </a>
-    
-                        <a class="button button--light search__button search__button--end comment__button">
-                            <span class="material-symbols-outlined" >search</span>
-                        </a>
-                    </div>
-
-                    <form class="advsearch">
-                        <div class="advsearch__component">
-                            <label class="advsearch__label" for="start_date">
-                                Date range
-                            </label>
-                            <input
-                                type="date"
-                                name="start_date"
-                                class="advsearch__input"
-                            />
-                            <label class="advsearch__label" for="end_date">to</label>
-                            <input
-                                type="date"
-                                name="end_date"
-                                class="advsearch__input"
-                            />
-                        </div>
-                    
-                        <div class="advsearch__component">
-                            <label class="advsearch__label" for="sort">Sort by</label>
-                            <select class="advsearch__input" name="sort">
-                                <option>Newest first</option>
-                                <option>Oldest first</option>
-                                <option>Most popular first</option>
-                                <option>Least popular first</option>
-                            </select>
-                        </div>
-                    
-                        <button type="reset" class="button button--light comment__button">
-                            Reset
-                        </button>
-                    </form>      
+                    <form class="advsearch__component">
+                        <label class="advsearch__label" for="sort">Sort by</label>
+                        <select class="advsearch__input" name="sort" style="flex: 0;">
+                            <option>Newest first</option>
+                            <option>Oldest first</option>
+                            <option>Most popular first</option>
+                            <option>Least popular first</option>
+                        </select>
+                    </form>
 
                     <ul class="forum__threads">
                         <li class="forum__thread">

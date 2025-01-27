@@ -53,53 +53,104 @@
                 
             </nav>
 
-            <div class="forum__body">
-                <div class="forum__threads">
-                    <div class="profile">
-                        <img class="profile__bigbanner" src="/img/banner_gkms.jpg"/>
-                        <a class="button profile__bg-edit button--small-round">
+            <div class="profile">
+                <!-- TODO: Is this bad practice (I feel like it is) -->
+                <div class="profile__banner--edit" style="background-image: url('/img/banner_gkms.jpg');">
+                    <div class="advsearch__component">
+                        <a class="button button--light profile__bg-edit comment__button">
                             <span class="material-symbols-outlined">add_a_photo</span>
+                            Add
                         </a>
-
-                        <a class="button profile__bg-cancel button--small-round">
+        
+                        <a class="button button--light  profile__bg-edit  comment__button">
                             <span class="material-symbols-outlined">cancel</span>
+                            Clear
                         </a>
-
-                        <div class="profile__edit">
-                            <img class="profile__bigpfp" src="/img/pfp.png" />
-                            <a class="button profile__pfp-edit button--small-round">
-                                <span class="material-symbols-outlined">add_a_photo</span>
-                            </a>
-
-                            <br>
-                            
-                            <h1 class="profile__text">Edit profile</h1>
-                            <br>
-                            <form class = "profile__form">
-                                <h2 class="profile__text">Username</h2>
-
-                                <input class = "profile__inputbox" type="text"
-                                placeholder="Your new username..." id="uname" name="uname">
-
-                                <h2 class="profile__text">Description</h2>
-                                
-                                <input class = "profile__largerbox"
-                                placeholder = "Describe yourself..." id="desc" name="desc">
-                            </form>
-
-                            <br>
-                            <div class = "profile__horizontal">
-                                <a class="button button--mid">
-                                    <span class="material-symbols-outlined"> Save </span>
-                                </a>
-    
-                                <a class="button button--mid">
-                                    <span class="material-symbols-outlined"> Cancel </span>
-                                </a>
-                            </div>
-                        </div>
                     </div>
                 </div>
+
+                <div class="profile__content" style="align-items: center;">
+                    <div class="profile__pfp--edit" style="background-image: url('img/pfp.png');">
+                        <a class="button button--light">
+                            <span class="material-symbols-outlined">add_a_photo</span>
+                        </a>
+                    </div>
+
+                    <input type="text" placeholder="lowestofthelow" class="profile__text edit__username" />
+
+                    <form class="editor">
+                        <div class="editor__options">
+                            <a class="button button--light comment__button" style="flex: 1;">
+                                Editor
+                            </a>
+                            <a class="button button--light comment__button" style="flex: 1;">
+                                Preview
+                            </a>
+                            <a class="button button--light comment__button">
+                                <span class="material-symbols-outlined symbols-btngrp">format_bold</span>
+                            </a>
+                            <a class="button button--light comment__button">
+                                <span class="material-symbols-outlined symbols-btngrp">format_italic</span>
+                            </a>
+                            <a class="button button--light comment__button">
+                                <span class="material-symbols-outlined symbols-btngrp">format_underlined</span>
+                            </a>
+                            <a class="button button--light comment__button">
+                                <span class="material-symbols-outlined symbols-btngrp">strikethrough_s</span>
+                            </a>
+                            <a class="button button--light comment__button">
+                                <span class="material-symbols-outlined symbols-btngrp">superscript</span>
+                            </a>
+                            <a class="button button--light comment__button">
+                                <span class="material-symbols-outlined symbols-btngrp">format_h1</span>
+                            </a>
+                            <a class="button button--light comment__button">
+                                <span class="material-symbols-outlined symbols-btngrp">code</span>
+                            </a>
+                            <a class="button button--light comment__button">
+                                <span class="material-symbols-outlined symbols-btngrp">list</span>
+                            </a>
+                            <a class="button button--light comment__button">
+                                <span class="material-symbols-outlined symbols-btngrp">format_list_numbered</span>
+                            </a>
+                            <a class="button button--light comment__button">
+                                <span class="material-symbols-outlined symbols-btngrp">alternate_email</span>
+                            </a>
+                            <a class="button button--light comment__button">
+                                <span class="material-symbols-outlined symbols-btngrp">attach_file</span>
+                            </a>
+                            <a class="button button--light comment__button">
+                                <span class="material-symbols-outlined symbols-btngrp">link</span>
+                            </a>
+                            <a class="button button--light comment__button">
+                                <span class="material-symbols-outlined symbols-btngrp">warning</span>
+                            </a>
+                        </div>
+                        <textarea class="editor__box" placeholder="Describe yourself..."></textarea>
+                    </form>
+                    
+                    <div class="profile__buttons" >
+                        <a class="button button--light" href="/profile.html">
+                            <span class="material-symbols-outlined">save</span>
+                            <ruby>Save<rt>セーブ</rt></ruby>
+                        </a>
+                        <a class="button button--light" href="/profile.html">
+                            <span class="material-symbols-outlined">cancel</span>
+                            <ruby>Cancel<rt>キャンセル</rt></ruby>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="profile__buttons" style="align-self: end;">
+                <a class="button button--light">
+                    <span class="material-symbols-outlined">save</span>
+                    <ruby>Reset password<rt>パスワードをリセットする</rt></ruby>
+                </a>
+                <a class="button button--light button--bad">
+                    <span class="material-symbols-outlined">cancel</span>
+                    <ruby>Delete account<rt>アカウントを削除する</rt></ruby>
+                </a>
             </div>
         </div>
 

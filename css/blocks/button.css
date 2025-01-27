@@ -76,21 +76,6 @@
     line-height: 150px;
 }
 
-.button--small-round {
-    border-radius: 10px;
-    width: 20px;
-    line-height: 2px;
-}
-
-.button--mid {
-    border-radius: 20px;
-    width: 60px;
-    border: 1px solid var(--glass-gray);
-    background-color: var(--light);
-    padding: 10px;
-    color: var(--dark);
-}
-
 .button--outline-effect {
     outline: 2px solid var(--light);
     outline-offset: 30px;
