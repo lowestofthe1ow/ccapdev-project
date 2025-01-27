@@ -47,6 +47,10 @@
     gap: 10px;
 }
 
+.profile__button {
+    flex-grow: 1;
+}
+
 /* Edit Profile-specific */
 
 .profile__banner--edit {
