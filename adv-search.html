@@ -48,51 +48,32 @@
 
       <form class="advanced-search" action="/search" method="GET">
         <div class="search-component">
-          <div class="component-label" id="datelabel">Date</div>
-          <div class="date-inputs">
-            <div class="input-group">
-              <label class="input-label" for="search-year" id="yearlabel"
-                >Year</label
-              >
-              <input
-                type="text"
-                id="search-year"
-                name="search_year"
-                class="text-input"
-                placeholder="Enter Year"
-              />
-            </div>
-
-            <div class="input-group">
-              <label class="input-label" for="search-day">Day</label>
-              <input
-                type="text"
-                id="search-day"
-                name="search_day"
-                class="text-input"
-                placeholder="Enter Day"
-              />
-            </div>
-
-            <div class="input-group">
-              <label class="input-label" for="search-month">Month</label>
-              <input
-                type="text"
-                id="search-month"
-                name="search_month"
-                class="text-input"
-                placeholder="Enter Month"
-              />
-            </div>
-          </div>
+          <label class="component-label" id="dateLabel" for="startDate"
+            >Date Range</label
+          >
+          <input
+            type="date"
+            id="startDate"
+            name="search_day"
+            class="adv-search-input date-input"
+          />
+          <label class="component-label" id="toLabel" for="endDate">To</label>
+          <input
+            type="date"
+            id="endDate"
+            name="endDate"
+            class="adv-search-input date-input"
+          />
         </div>
 
         <div class="search-component">
-          <div class="component-label" id="sortby">Sort by</div>
-          <select class="dropdown-input" name="sort_by">
-            <option value="desc">Date Descending</option>
-            <option value="asc">Date Ascending</option>
-            <option value="haachama">Subscribe to Haachama</option>
+          <label class="component-label" for="sortby">Sort by</label>
+          <select class="adv-search-input" name="sort_by" id="sortby">
+            <option>Date Descending</option>
+            <option>Date Ascending</option>
+            <option>Most Popular</option>
+            <option>Least Popular</option>
+            <option value="haachama">Haachama</option>
           </select>
         </div>
 
@@ -102,13 +83,12 @@
             type="text"
             id="author-name"
             name="author_name"
-            class="text-input"
+            class="adv-search-input txt-input"
             placeholder="Enter Author"
           />
         </div>
-        <div class="search-actions">
-          <button type="reset" class="button button--light">Reset</button>
-        </div>
+
+        <button type="reset" class="button button--light">Reset</button>
       </form>
 
       <div class="forum__body">
