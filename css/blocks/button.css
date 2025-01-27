@@ -1,9 +1,12 @@
 .button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
     backdrop-filter: blur(5px);
     background-color: var(--glass-gray);
     font-size: 1.1rem;
     -webkit-backdrop-filter: blur(5px); /* Safari */
-    display: block;
     transition: all 0.2s;
     cursor: pointer;
     border: 2px solid var(--light);
@@ -14,7 +17,6 @@
     user-select: none;
     -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE */
-    text-align: center;
     text-decoration: none;
 }
 
