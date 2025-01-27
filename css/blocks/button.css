@@ -57,7 +57,7 @@
     outline-offset: 5px;
 }
 
-.button--mint:hover {
+.button--mint:not(.button--disabled):hover {
     transform: scale(1.1);
     box-shadow: 0px 0px 50px 5px var(--kinkan-mint);
     background-color: var(--glass-kinkan-mint);
