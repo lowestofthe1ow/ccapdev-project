@@ -29,6 +29,11 @@
     color: var(--dark);
 }
 
+.button--bad {
+    border: 1px solid var(--kinkan-light-pink);
+    color: var(--kinkan-dark-pink);
+}
+
 /* TODO: Clean up selectors */
 .button--light.button--disabled {
     cursor: default;

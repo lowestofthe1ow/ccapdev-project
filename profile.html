@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" type="text/css" href="/css/master.css" />
+        <link rel="icon" type="image/x-icon" href="/img/favicon.png">
+        <title>Forum | Shinosawa Laboratory</title>
+    </head>
+    <body class="bg-rainbow">
+        <div class="forum">
+            <header class="forum__header">
+                <a href="/forum.html">
+                    <img src="/img/logo-light.png" class="forum__logo"/>
+                </a>
+                <div class="forum__ads">
+                    <div class="forum__ads-track">
+                        <img src="/img/ad.webp" class="forum__ad"/>
+                        <img src="/img/ad2.jpg" class="forum__ad"/>
+                        <img src="/img/ad3.png" class="forum__ad"/>
+                        <img src="/img/ad4.jpg" class="forum__ad"/>
+                        <img src="/img/ad.webp" class="forum__ad"/>
+                        <img src="/img/ad2.jpg" class="forum__ad"/>
+                        <img src="/img/ad3.png" class="forum__ad"/>
+                        <img src="/img/ad4.jpg" class="forum__ad"/>
+                    </div>
+                </div>
+            </header>
+
+            <nav class="navbar">
+                <a class="button button--light">
+                    <span class="material-symbols-outlined">add_circle</span>
+                    <ruby>Post thread<rt>ポストする</rt></ruby>
+                </a>
+                <div class="search">
+                    <input type="text" class="search__box" placeholder="Search threads..."/>
+
+                    <a class="button button--light search__button">
+                        <span class="material-symbols-outlined" >tune</span>
+                    </a>
+
+                    <a class="button button--light search__button search__button--end">
+                        <span class="material-symbols-outlined" >search</span>
+                    </a>
+                </div>
+                <a class="button button--light" href="/">
+                    <span class="material-symbols-outlined">logout</span>
+                    <ruby>Sign out<rt>サインアウト</rt></ruby>
+                </a>
+                <a class="button button--light">
+                    <img src="/img/pfp.png" class="navbar__icon"/>
+                    <ruby>Profile<rt>プロフィール</rt></ruby>
+                </a>
+                
+            </nav>
+
+            <div class="forum__body">
+                <div class="forum__threads">
+                    <div class="profile">
+                        <img class="profile__banner" src="/img/banner_gkms.jpg"/>
+                        <div class="profile__content">
+                            <img class="profile__pfp" src="/img/pfp.png" />
+                            <h2 class="profile__text">lowestofthelow</h2>
+                            <p class="profile__text">ぜったい！いっぱい！輝け！</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <nav class="sidebar">
+                    <h2 class="sidebar__header">Filter by game</h2>
+                    <div class="tags">
+                        <div class="tags__tag tags__tag--game">Gakuen iDOLM@STER</div>
+                        <div class="tags__tag tags__tag--game">Blue Archive</div>
+                        <div class="tags__tag tags__tag--game">Fate/Grand Order</div>
+                        <div class="tags__tag tags__tag--game">Arknights</div>
+                    </div>
+                    <input type="text" class="sidebar__search" placeholder="Add tags..."/>
+                    <hr class="sidebar__rule" />
+
+                    <h2 class="sidebar__header">Filter by tag</h2>
+                    <div class="tags">
+                        <div class="tags__tag">News</div>
+                        <div class="tags__tag">Discussion</div>
+                        <div class="tags__tag">Fanart</div>
+                        <div class="tags__tag">Game guide</div>
+                        <div class="tags__tag">Help request</div>
+                        <div class="tags__tag">NSFW</div>
+                    </div>
+                    <input type="text" class="sidebar__search" placeholder="Add tags..."/>
+                    <hr class="sidebar__rule" />
+
+                    <h2 class="sidebar__header">Exclude tags</h2>
+                    <div class="tags">
+                        <p class="thread__detail">You have no excluded tags.</p>
+                    </div>
+                    <input type="text" class="sidebar__search" placeholder="Add tags..."/>
+                    <br />
+                </nav>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <img src="/img/logo-dark.png" class="footer__logo" />
+            <div class="footer__column">
+                <p class="footer__text"><ruby>About<rt>アバウト</rt></ruby></p>
+                <p class="footer__text"><ruby>Contact<rt>コンタクト</rt></ruby></p>
+                <p class="footer__text"><ruby>Privacy policy<rt>プライバシーポリシー</rt></ruby></p>
+            </div>
+            <div class="footer__column">
+                <p class="footer__text footer__blurb"><ruby>
+                    A galaxy hatches and fully blooms.<rt>孵化/開花する銀河</rt>
+                </ruby></p>
+                <p class="footer__text footer__blurb">
+                    &copy; 2025. This site is not affiliated with nor is it endorsed by the developers and publishers of
+                    any of the games.
+                </p>
+            </div>
+        </footer>
+    </body>
+</html>
