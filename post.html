@@ -202,11 +202,74 @@
                         <hgroup class="forum__divider">
                             <h2 style="margin: 0px;">Comments (1)</h2>
     
-                            <a class="button button--light" href="/comments.html">
+                            <a class="button button--light" data-toggle="#comment-editor">
                                 <span class="material-symbols-outlined">add_circle</span>
                                 <ruby>Comment<rt>コメントする</rt></ruby>
                             </a>
                         </hgroup>
+
+                        <form class="editor hidden" id="comment-editor">
+                            <div class="editor__options">
+                                <a class="button button--light button--light--small" style="flex: 1;">
+                                    Editor
+                                </a>
+                                <a class="button button--light button--light--small" style="flex: 1;">
+                                    Preview
+                                </a>
+                                <a class="button button--light button--light--small">
+                                    <span class="material-symbols-outlined symbols-btngrp">format_bold</span>
+                                </a>
+                                <a class="button button--light button--light--small">
+                                    <span class="material-symbols-outlined symbols-btngrp">format_italic</span>
+                                </a>
+                                <a class="button button--light button--light--small">
+                                    <span class="material-symbols-outlined symbols-btngrp">format_underlined</span>
+                                </a>
+                                <a class="button button--light button--light--small">
+                                    <span class="material-symbols-outlined symbols-btngrp">strikethrough_s</span>
+                                </a>
+                                <a class="button button--light button--light--small">
+                                    <span class="material-symbols-outlined symbols-btngrp">superscript</span>
+                                </a>
+                                <a class="button button--light button--light--small">
+                                    <span class="material-symbols-outlined symbols-btngrp">format_h1</span>
+                                </a>
+                                <a class="button button--light button--light--small">
+                                    <span class="material-symbols-outlined symbols-btngrp">code</span>
+                                </a>
+                                <a class="button button--light button--light--small">
+                                    <span class="material-symbols-outlined symbols-btngrp">list</span>
+                                </a>
+                                <a class="button button--light button--light--small">
+                                    <span class="material-symbols-outlined symbols-btngrp">format_list_numbered</span>
+                                </a>
+                                <a class="button button--light button--light--small">
+                                    <span class="material-symbols-outlined symbols-btngrp">alternate_email</span>
+                                </a>
+                                <a class="button button--light button--light--small">
+                                    <span class="material-symbols-outlined symbols-btngrp">attach_file</span>
+                                </a>
+                                <a class="button button--light button--light--small">
+                                    <span class="material-symbols-outlined symbols-btngrp">link</span>
+                                </a>
+                                <a class="button button--light button--light--small">
+                                    <span class="material-symbols-outlined symbols-btngrp">warning</span>
+                                </a>
+                            </div>
+                        
+                            <textarea class="editor__box" placeholder="Start typing here..."></textarea>
+                        
+                            <div class="editor__options editor__options--bottom">
+                                <a class="button button--light button--light--small" href="/post.html">
+                                    <span class="material-symbols-outlined">cancel</span>
+                                    Cancel
+                                </a>
+                                <a class="button button--light button--light--small" href="/post.html">
+                                    <span class="material-symbols-outlined">login</span>
+                                    Publish
+                                </a>
+                            </div>
+                        </form>
     
                         <div class="forum__comment">
                             <div class="votes votes--comment">
