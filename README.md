@@ -22,6 +22,15 @@ When writing HTML, try to ensure tags are **semantically meaningful**. For CSS, 
 
 Backend will be using Node.js and Express. Note we will be using ES6 module syntax by default, instead of CommonJS.
 
+### MongoDB
+
+Ensure you have an instance of MongoDB server (probably 8.0) with a database named `shinosawa`. Place the URI in a
+`.env` file at the root directory:
+
+```
+MONGODB_URI=mongodb://your-URI
+```
+
 ### Testing
 
 As of Phase 2, a test command has been defined in `package.json`:

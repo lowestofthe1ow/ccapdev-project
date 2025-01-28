@@ -4,7 +4,7 @@
     "description": "A gacha/mobile gaming forum",
     "main": "index.js",
     "scripts": {
-        "test": "node index.js"
+        "test": "node --env-file=.env index.js"
     },
     "repository": {
         "type": "git",
@@ -20,7 +20,8 @@
     },
     "homepage": "https://github.com/lowestofthe1ow/ccapdev-project#readme",
     "dependencies": {
-        "express": "^4.21.2"
+        "express": "^4.21.2",
+        "mongodb": "^6.12.0"
     },
     "type": "module"
 }
