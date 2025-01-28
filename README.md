@@ -20,7 +20,17 @@ When writing HTML, try to ensure tags are **semantically meaningful**. For CSS, 
 > [!important]
 > Use the predefined colors in `css/colors.css` instead of manually inputting hex codes.
 
+Backend will be using Node.js and Express. Note we will be using ES6 module syntax by default, instead of CommonJS.
+
 ### Testing
+
+As of Phase 2, a test command has been defined in `package.json`:
+
+```
+npm test
+```
+
+#### Pre-phase 2
 
 Set up a simple HTTP server at the root directory. If you have Python, something like this should work:
 
@@ -46,3 +56,5 @@ python3 -m http.server
 -   [BEM quickstart](https://css-tricks.com/bem-101/)
 -   [BEM filestructure](https://en.bem.info/methodology/filestructure/)
 -   [BEM 101](https://css-tricks.com/bem-101/)
+-   [Node.js guide](https://nodejs.org/en/learn/getting-started/introduction-to-nodejs)
+-   [Express.js guide](https://expressjs.com/en/starter/hello-world.html)

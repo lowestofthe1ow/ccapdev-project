@@ -1,0 +1,26 @@
+{
+    "name": "shinosawa-laboratory",
+    "version": "1.0.0",
+    "description": "A gacha/mobile gaming forum",
+    "main": "index.js",
+    "scripts": {
+        "test": "node index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/lowestofthe1ow/ccapdev-project.git"
+    },
+    "keywords": [
+        "forum"
+    ],
+    "author": "CCAPDEV S18",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/lowestofthe1ow/ccapdev-project/issues"
+    },
+    "homepage": "https://github.com/lowestofthe1ow/ccapdev-project#readme",
+    "dependencies": {
+        "express": "^4.21.2"
+    },
+    "type": "module"
+}
