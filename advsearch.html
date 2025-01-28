@@ -5,6 +5,7 @@
         <link rel="stylesheet" type="text/css" href="/css/master.css" />
         <link rel="icon" type="image/x-icon" href="/img/favicon.png">
         <title>Forum | Shinosawa Laboratory</title>
+        <script src="/js/toggle.js"></script>
     </head>
     <body class="bg-rainbow">
         <div class="forum">
@@ -34,7 +35,7 @@
                 <div class="search">
                     <input type="text" class="search__box" placeholder="Search threads..."/>
 
-                    <a class="button button--light search__button button--current">
+                    <a class="button button--light search__button" data-toggle="#advsearch">
                         <span class="material-symbols-outlined" >tune</span>
                     </a>
 
@@ -48,7 +49,7 @@
                 </a>
             </nav>
 
-            <form class="advsearch">
+            <form class="advsearch hidden" id="advsearch">
                 <div class="advsearch__component">
                     <label class="advsearch__label" for="start_date">
                         Date range
