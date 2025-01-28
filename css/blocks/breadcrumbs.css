@@ -22,17 +22,3 @@
 .breadcrumbs__next {
     border-radius: 0px 10px 10px 0px;
 }
-
-.breadcrumbs__button--current {
-    transform: none;
-    border: 1px solid var(--kinkan-pink);
-}
-
-.breadcrumbs__button--current:hover {
-    transform: none;
-    cursor: default;
-}
-
-.breadcrumbs__button--current:active {
-    outline: none;
-}

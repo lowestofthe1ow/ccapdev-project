@@ -34,3 +34,17 @@
     border: 1px solid var(--kinkan-pink);
     background-color: var(--light);
 }
+
+.button--light--current {
+    transform: none;
+    border: 1px solid var(--kinkan-pink);
+}
+
+.button--light--current:hover {
+    transform: none;
+    cursor: default;
+}
+
+.button--light--current:active {
+    outline: none;
+}
