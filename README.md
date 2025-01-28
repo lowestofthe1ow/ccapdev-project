@@ -17,9 +17,20 @@ When writing HTML, try to ensure tags are **semantically meaningful**. For CSS, 
 [BEM](https://css-tricks.com/bem-101/). CSS file structure will more or less follow the
 [flat](https://en.bem.info/methodology/filestructure/#flat) style suggested by BEM.
 
-> [!important] Use the predefined colors in `css/colors.css` instead of manually inputting hex codes.
+> [!important]
+> Use the predefined colors in `css/colors.css` instead of manually inputting hex codes.
+
+Backend will be using Node.js and Express. Note we will be using ES6 module syntax by default, instead of CommonJS.
 
 ### Testing
+
+As of Phase 2, a test command has been defined in `package.json`:
+
+```
+npm test
+```
+
+#### Pre-phase 2
 
 Set up a simple HTTP server at the root directory. If you have Python, something like this should work:
 
@@ -29,9 +40,11 @@ python3 -m http.server
 
 ### Important dates
 
--   **February 14, 2025**: Phase 1 deadline
--   **March 14, 2025**: Phase 2 deadline
--   **April 4, 2025**: Phase 3 deadline
+**Update** (as of January 26, 2025): **All** deadlines were moved to earlier dates.
+
+-   ~~February 14, 2025~~ &rarr; **February 6, 2025**: Phase 1 deadline
+-   ~~March 14, 2025~~ &rarr; **March 10, 2025**: Phase 2 deadline
+-   ~~April 4, 2025~~ &rarr; **April 3, 2025**: Phase 3 deadline
 
 ([Super secret sidequest event](https://www.ticketmax.ph/events/cosplay-carnival-2024-day-1/) on **March 23-24, 2025**)
 
@@ -43,3 +56,5 @@ python3 -m http.server
 -   [BEM quickstart](https://css-tricks.com/bem-101/)
 -   [BEM filestructure](https://en.bem.info/methodology/filestructure/)
 -   [BEM 101](https://css-tricks.com/bem-101/)
+-   [Node.js guide](https://nodejs.org/en/learn/getting-started/introduction-to-nodejs)
+-   [Express.js guide](https://expressjs.com/en/starter/hello-world.html)
