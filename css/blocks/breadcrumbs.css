@@ -3,38 +3,36 @@
     gap: 5px;
 }
 
-/* TODO: Get rid of !important this is an eyesore */
-
 .breadcrumbs__button {
     align-content: center;
-    border-radius: 0px !important;
-    width: 20px !important;
-    font-size: 0.8rem !important;
+    border-radius: 0px;
+    width: 20px;
+    font-size: 0.8rem;
 }
 
 .breadcrumbs__next > *,
 .breadcrumbs__prev > * {
-    font-size: 1.1rem !important;
+    font-size: 1.1rem;
 }
 
 .breadcrumbs__prev {
-    border-radius: 10px 0px 0px 10px !important;
+    border-radius: 10px 0px 0px 10px;
 }
 
 .breadcrumbs__next {
-    border-radius: 0px 10px 10px 0px !important;
+    border-radius: 0px 10px 10px 0px;
 }
 
 .breadcrumbs__button--current {
     transform: none;
-    border: 1px solid var(--kinkan-pink) !important;
+    border: 1px solid var(--kinkan-pink);
 }
 
 .breadcrumbs__button--current:hover {
-    transform: none !important;
+    transform: none;
     cursor: default;
 }
 
 .breadcrumbs__button--current:active {
-    outline: none !important;
+    outline: none;
 }

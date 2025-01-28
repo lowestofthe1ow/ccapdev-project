@@ -20,30 +20,15 @@
     text-decoration: none;
 }
 
-/* Style used for forum navbar buttons */
-.button--light {
-    border: 1px solid var(--glass-gray);
-    background-color: var(--light);
-    padding: 10px;
-    width: auto; /* TODO: Should this apply to all buttons */
-    color: var(--dark);
+.button--large-round {
+    border-radius: 85px;
+    width: 150px;
+    line-height: 150px;
 }
 
-.button--bad {
-    border: 1px solid var(--kinkan-light-pink);
-    color: var(--kinkan-dark-pink);
-}
-
-/* TODO: Clean up selectors */
-.button--light.button--disabled {
-    cursor: default;
-    background-color: var(--kinkan-light-gray);
-}
-
-.button--light:not(.button--disabled):hover {
-    box-shadow: none !important;
-    border: 1px solid var(--kinkan-pink);
-    background-color: var(--light) !important;
+.button--outline-effect {
+    outline: 2px solid var(--light);
+    outline-offset: 30px;
 }
 
 .button:not(.button--disabled):hover {
@@ -58,27 +43,10 @@
     outline-offset: 5px;
 }
 
-.button:not(.button--disabled):active {
-    transform: scale(0.9);
-    outline: 2px solid transparent;
-    outline-offset: 5px;
-}
-
-.button--mint:not(.button--disabled):hover {
+.button--mint-glow:not(.button--disabled):hover {
     transform: scale(1.1);
     box-shadow: 0px 0px 50px 5px var(--kinkan-mint);
     background-color: var(--glass-kinkan-mint);
-}
-
-.button--large-round {
-    border-radius: 85px;
-    width: 150px;
-    line-height: 150px;
-}
-
-.button--outline-effect {
-    outline: 2px solid var(--light);
-    outline-offset: 30px;
 }
 
 .button--outline-effect:not(.button--disabled):hover {

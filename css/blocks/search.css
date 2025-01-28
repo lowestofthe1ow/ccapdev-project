@@ -1,26 +1,26 @@
 .search {
-  display: flex;
-  flex-grow: 9999; /* One of the CSS moments of all time */
-  justify-content: center;
-  gap: 5px;
+    display: flex;
+    flex-grow: 9999; /* One of the CSS moments of all time */
+    justify-content: center;
+    gap: 5px;
 }
 
 .search__box {
-  flex: 1;
-  border: 1px solid var(--glass-gray);
-  border-radius: 10px 0px 0px 10px;
-  background-color: var(--light);
-  padding: 10px;
-  color: var(--dark);
+    flex: 1;
+    border: 1px solid var(--glass-gray);
+    border-radius: 10px 0px 0px 10px;
+    background-color: var(--light);
+    padding: 10px;
+    color: var(--dark);
 }
 
 .search__button {
-  flex: 0;
-  align-content: center;
-  border-radius: 0px;
-  width: 30px;
+    flex: 0;
+    align-content: center;
+    border-radius: 0px;
+    width: 30px;
 }
 
 .search__button--end {
-  border-radius: 0px 10px 10px 0px;
+    border-radius: 0px 10px 10px 0px;
 }

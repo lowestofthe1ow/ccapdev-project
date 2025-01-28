@@ -24,7 +24,7 @@
     background-color: var(--light);
     padding: 5px 10px 5px 10px;
     color: var(--dark);
-    font-size: 0.8rem !important;
+    font-size: 0.8rem;
 }
 
 .advsearch__label {
@@ -35,6 +35,6 @@
     flex: 1;
 }
 
-.advsearch > .comment__button {
+.advsearch > .button--light--small {
     border-radius: 10px;
 }

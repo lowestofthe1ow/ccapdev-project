@@ -4,10 +4,15 @@
 @import url("/css/colors.css");
 
 /* BEM blocks */
+
+/* Buttons */
+@import url("/css/blocks/button.css");
+@import url("/css/blocks/button_light.css");
+@import url("/css/blocks/breadcrumbs.css");
+
+/* Other components */
 @import url("/css/blocks/advsearch.css");
 @import url("/css/blocks/article.css");
-@import url("/css/blocks/breadcrumbs.css");
-@import url("/css/blocks/button.css");
 @import url("/css/blocks/card.css");
 @import url("/css/blocks/comment.css");
 @import url("/css/blocks/editor.css");

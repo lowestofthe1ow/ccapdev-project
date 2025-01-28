@@ -20,6 +20,15 @@
     margin: 0px;
 }
 
+.card__heading {
+    font-weight: 500;
+    font-size: 2.5rem;
+}
+
+.card__blurb {
+    font-size: 1.1rem;
+}
+
 .card__link {
     color: var(--kinkan-pink);
     text-decoration-style: dotted;
@@ -42,8 +51,8 @@
             var(--glass-dark),
             var(--glass-kinkan-dark-mint)
         ),
-        url("/img/bg2.jpg") !important;
-    background-size: cover !important;
+        url("/img/bg2.jpg");
+    background-size: cover;
 }
 
 .card--signin {
@@ -51,8 +60,8 @@
             var(--glass-dark),
             var(--glass-kinkan-dark-pink)
         ),
-        url("/img/bg2.jpg") !important;
-    background-size: cover !important;
+        url("/img/bg2.jpg");
+    background-size: cover;
 }
 
 .card__logo {
