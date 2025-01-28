@@ -15,20 +15,20 @@
     justify-content: right;
 }
 
-.editor__options--bottom > :first-child {
-    border-radius: 0px 0px 0px 10px;
-}
-
-.editor__options--bottom > :last-child {
-    border-radius: 0px 0px 10px 0px;
-}
-
 .editor__options > :first-child {
     border-radius: 10px 0px 0px 0px;
 }
 
 .editor__options > :last-child {
     border-radius: 0px 10px 0px 0px;
+}
+
+.editor__options--bottom > :first-child {
+    border-radius: 0px 0px 0px 10px;
+}
+
+.editor__options--bottom > :last-child {
+    border-radius: 0px 0px 10px 0px;
 }
 
 .editor__box {
