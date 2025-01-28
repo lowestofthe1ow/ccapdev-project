@@ -5,6 +5,7 @@
         <link rel="stylesheet" type="text/css" href="/css/master.css" />
         <link rel="icon" type="image/x-icon" href="/img/favicon.png">
         <title>Forum | Shinosawa Laboratory</title>
+        <script src="/js/toggle.js"></script>
     </head>
     <body class="bg-rainbow">
         <div class="forum">
@@ -34,7 +35,7 @@
                 <div class="search">
                     <input type="text" class="search__box" placeholder="Search threads..."/>
 
-                    <a class="button button--light search__button" href="/advsearch.html">
+                    <a class="button button--light search__button" data-toggle="#advsearch">
                         <span class="material-symbols-outlined" >tune</span>
                     </a>
 
@@ -46,8 +47,50 @@
                     <img src="/img/pfp.png" class="navbar__icon"/>
                     <ruby>Profile<rt>プロフィール</rt></ruby>
                 </a>
-                
             </nav>
+
+            <form class="advsearch hidden" id="advsearch">
+                <div class="advsearch__component">
+                    <label class="advsearch__label" for="start_date">
+                        Date range
+                    </label>
+                    <input
+                        type="date"
+                        name="start_date"
+                        class="advsearch__input"
+                    />
+                    <label class="advsearch__label" for="end_date">to</label>
+                    <input
+                        type="date"
+                        name="end_date"
+                        class="advsearch__input"
+                    />
+                </div>
+            
+                <div class="advsearch__component">
+                    <label class="advsearch__label" for="sort">Sort by</label>
+                    <select class="advsearch__input" name="sort">
+                        <option>Newest first</option>
+                        <option>Oldest first</option>
+                        <option>Most popular first</option>
+                        <option>Least popular first</option>
+                    </select>
+                </div>
+            
+                <div class="advsearch__component">
+                    <label class="advsearch__label" for="author_name">Authors</label>
+                    <input
+                        type="text"
+                        name="author_name"
+                        class="advsearch__input"
+                        placeholder="Enter username..."
+                    />
+                </div>
+            
+                <button type="reset" class="button button--light button--light--small">
+                    Reset
+                </button>
+            </form>
 
             <div class="forum__body">
                 <ul class="forum__threads">

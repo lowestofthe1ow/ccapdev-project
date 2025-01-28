@@ -5,6 +5,7 @@
         <link rel="stylesheet" type="text/css" href="/css/master.css" />
         <link rel="icon" type="image/x-icon" href="/img/favicon.png">
         <title>【学マス】1/30(木) 19:00～ 学園アイドルマスター「初星学園HR #8」生配信実施予定！ | Shinosawa Laboratory</title>
+        <script src="/js/toggle.js"></script>
     </head>
     <body class="bg-rainbow">
         <div class="forum">
@@ -34,7 +35,7 @@
                 <div class="search">
                     <input type="text" class="search__box" placeholder="Search threads..."/>
 
-                    <a class="button button--light search__button" href="/advsearch.html">
+                    <a class="button button--light search__button" data-toggle="#advsearch">
                         <span class="material-symbols-outlined" >tune</span>
                     </a>
 
@@ -46,8 +47,50 @@
                     <img src="/img/pfp.png" class="navbar__icon"/>
                     <ruby>Profile<rt>プロフィール</rt></ruby>
                 </a>
-                
             </nav>
+
+            <form class="advsearch hidden" id="advsearch">
+                <div class="advsearch__component">
+                    <label class="advsearch__label" for="start_date">
+                        Date range
+                    </label>
+                    <input
+                        type="date"
+                        name="start_date"
+                        class="advsearch__input"
+                    />
+                    <label class="advsearch__label" for="end_date">to</label>
+                    <input
+                        type="date"
+                        name="end_date"
+                        class="advsearch__input"
+                    />
+                </div>
+            
+                <div class="advsearch__component">
+                    <label class="advsearch__label" for="sort">Sort by</label>
+                    <select class="advsearch__input" name="sort">
+                        <option>Newest first</option>
+                        <option>Oldest first</option>
+                        <option>Most popular first</option>
+                        <option>Least popular first</option>
+                    </select>
+                </div>
+            
+                <div class="advsearch__component">
+                    <label class="advsearch__label" for="author_name">Authors</label>
+                    <input
+                        type="text"
+                        name="author_name"
+                        class="advsearch__input"
+                        placeholder="Enter username..."
+                    />
+                </div>
+            
+                <button type="reset" class="button button--light button--light--small">
+                    Reset
+                </button>
+            </form>
 
             <div class="forum__body">
                 <section class="forum__threads">
@@ -159,11 +202,74 @@
                         <hgroup class="forum__divider">
                             <h2 style="margin: 0px;">Comments (1)</h2>
     
-                            <a class="button button--light" href="/comments.html">
+                            <a class="button button--light" data-toggle="#comment-editor">
                                 <span class="material-symbols-outlined">add_circle</span>
                                 <ruby>Comment<rt>コメントする</rt></ruby>
                             </a>
                         </hgroup>
+
+                        <form class="editor hidden" id="comment-editor">
+                            <div class="editor__options">
+                                <a class="button button--light button--light--small" style="flex: 1;">
+                                    Editor
+                                </a>
+                                <a class="button button--light button--light--small" style="flex: 1;">
+                                    Preview
+                                </a>
+                                <a class="button button--light button--light--small">
+                                    <span class="material-symbols-outlined symbols-btngrp">format_bold</span>
+                                </a>
+                                <a class="button button--light button--light--small">
+                                    <span class="material-symbols-outlined symbols-btngrp">format_italic</span>
+                                </a>
+                                <a class="button button--light button--light--small">
+                                    <span class="material-symbols-outlined symbols-btngrp">format_underlined</span>
+                                </a>
+                                <a class="button button--light button--light--small">
+                                    <span class="material-symbols-outlined symbols-btngrp">strikethrough_s</span>
+                                </a>
+                                <a class="button button--light button--light--small">
+                                    <span class="material-symbols-outlined symbols-btngrp">superscript</span>
+                                </a>
+                                <a class="button button--light button--light--small">
+                                    <span class="material-symbols-outlined symbols-btngrp">format_h1</span>
+                                </a>
+                                <a class="button button--light button--light--small">
+                                    <span class="material-symbols-outlined symbols-btngrp">code</span>
+                                </a>
+                                <a class="button button--light button--light--small">
+                                    <span class="material-symbols-outlined symbols-btngrp">list</span>
+                                </a>
+                                <a class="button button--light button--light--small">
+                                    <span class="material-symbols-outlined symbols-btngrp">format_list_numbered</span>
+                                </a>
+                                <a class="button button--light button--light--small">
+                                    <span class="material-symbols-outlined symbols-btngrp">alternate_email</span>
+                                </a>
+                                <a class="button button--light button--light--small">
+                                    <span class="material-symbols-outlined symbols-btngrp">attach_file</span>
+                                </a>
+                                <a class="button button--light button--light--small">
+                                    <span class="material-symbols-outlined symbols-btngrp">link</span>
+                                </a>
+                                <a class="button button--light button--light--small">
+                                    <span class="material-symbols-outlined symbols-btngrp">warning</span>
+                                </a>
+                            </div>
+                        
+                            <textarea class="editor__box" placeholder="Start typing here..."></textarea>
+                        
+                            <div class="editor__options editor__options--bottom">
+                                <a class="button button--light button--light--small" href="/post.html">
+                                    <span class="material-symbols-outlined">cancel</span>
+                                    Cancel
+                                </a>
+                                <a class="button button--light button--light--small" href="/post.html">
+                                    <span class="material-symbols-outlined">login</span>
+                                    Publish
+                                </a>
+                            </div>
+                        </form>
     
                         <div class="forum__comment">
                             <div class="votes votes--comment">
