@@ -1,9 +1,12 @@
 .button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
     backdrop-filter: blur(5px);
     background-color: var(--glass-gray);
     font-size: 1.1rem;
     -webkit-backdrop-filter: blur(5px); /* Safari */
-    display: block;
     transition: all 0.2s;
     cursor: pointer;
     border: 2px solid var(--light);
@@ -14,17 +17,7 @@
     user-select: none;
     -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE */
-    text-align: center;
-}
-
-.button:hover {
-    transform: scale(1.1);
-    box-shadow: 0px 0px 50px 5px var(--kinkan-pink);
-    background-color: var(--glass-kinkan-pink);
-}
-
-.button:active {
-    transform: scale(0.9);
+    text-decoration: none;
 }
 
 .button--large-round {
@@ -38,10 +31,32 @@
     outline-offset: 30px;
 }
 
-.button--outline-effect:hover {
+/* Hover effects */
+
+.button:not(.button--disabled, .button--current):hover {
+    transform: scale(1.1);
+    box-shadow: 0px 0px 50px 5px var(--kinkan-pink);
+    background-color: var(--glass-kinkan-pink);
+}
+
+.button--mint-glow:not(.button--disabled, .button--current):hover {
+    transform: scale(1.1);
+    box-shadow: 0px 0px 50px 5px var(--kinkan-mint);
+    background-color: var(--glass-kinkan-mint);
+}
+
+.button--outline-effect:not(.button--disabled, .button--current):hover {
     outline-offset: 10px;
 }
 
-.button--outline-effect:active {
+/* Active (click) effects */
+
+.button:not(.button--disabled, .button--current):active {
+    transform: scale(0.9);
+    outline: 2px solid transparent;
+    outline-offset: 5px;
+}
+
+.button--outline-effect:not(.button--disabled, .button--current):active {
     outline-offset: 0px;
 }

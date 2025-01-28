@@ -1,0 +1,19 @@
+/* Horizontal navigation bar */
+.navbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.navbar__icon {
+    border: 1px solid var(--glass-gray);
+    border-radius: 25px;
+    height: 25px;
+}
+
+/* TODO: Target a specific class */
+.navbar > .button {
+    flex-grow: 1;
+    flex-wrap: none;
+    width: auto;
+}

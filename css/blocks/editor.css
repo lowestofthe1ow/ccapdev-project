@@ -1,0 +1,41 @@
+.editor {
+    display: flex;
+    flex-flow: column;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.editor__options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.editor__options--bottom {
+    justify-content: right;
+}
+
+.editor__options > :first-child {
+    border-radius: 10px 0px 0px 0px;
+}
+
+.editor__options > :last-child {
+    border-radius: 0px 10px 0px 0px;
+}
+
+.editor__options--bottom > :first-child {
+    border-radius: 0px 0px 0px 10px;
+}
+
+.editor__options--bottom > :last-child {
+    border-radius: 0px 0px 10px 0px;
+}
+
+.editor__box {
+    border: 1px solid var(--glass-gray);
+    border-radius: 0px 0px 0px 10px;
+    background-color: var(--light);
+    padding: 10px;
+    min-height: 60px;
+    resize: vertical;
+}

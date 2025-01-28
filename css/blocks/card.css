@@ -9,6 +9,31 @@
     color: var(--light);
 }
 
+.card__content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.card__heading,
+.card__blurb {
+    margin: 0px;
+}
+
+.card__heading {
+    font-weight: 500;
+    font-size: 2.5rem;
+}
+
+.card__blurb {
+    font-size: 1.1rem;
+}
+
+.card__link {
+    color: var(--kinkan-pink);
+    text-decoration-style: dotted;
+}
+
 .card--home {
     justify-content: space-around;
     background: linear-gradient(
@@ -21,13 +46,41 @@
     min-height: 100vh;
 }
 
+.card--register {
+    background: linear-gradient(
+            var(--glass-dark),
+            var(--glass-kinkan-dark-mint)
+        ),
+        url("/img/bg2.jpg");
+    background-size: cover;
+}
+
+.card--signin {
+    background: linear-gradient(
+            var(--glass-dark),
+            var(--glass-kinkan-dark-pink)
+        ),
+        url("/img/bg2.jpg");
+    background-size: cover;
+}
+
 .card__logo {
     width: 100%;
     max-width: 500px;
 }
 
+.card__logo--small {
+    max-width: 300px;
+}
+
+.card__horizontal-list {
+    display: flex;
+    gap: 10px;
+}
+
 .card__vertical-list {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 40px;
 }
