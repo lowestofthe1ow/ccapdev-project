@@ -29,22 +29,12 @@
     background-color: var(--kinkan-light-gray);
 }
 
-.button--light:not(.button--disabled):hover {
+.button--light.button--current {
+    border: 1px solid var(--kinkan-pink);
+}
+
+.button--light:not(.button--disabled, .button--current):hover {
     box-shadow: none;
     border: 1px solid var(--kinkan-pink);
     background-color: var(--light);
-}
-
-.button--light--current {
-    transform: none;
-    border: 1px solid var(--kinkan-pink);
-}
-
-.button--light--current:hover {
-    transform: none;
-    cursor: default;
-}
-
-.button--light--current:active {
-    outline: none;
 }
