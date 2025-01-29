@@ -24,15 +24,6 @@
     gap: 20px;
 }
 
-.card__priv {
-    display: flex;
-    flex: 3;
-    flex-direction: column;
-    gap: 10px;
-    margin-left: 20%;
-    margin-right: 20%;
-}
-
 .card__heading,
 .card__blurb {
     margin: 10px;
@@ -45,18 +36,6 @@
 
 .card__blurb {
     font-size: 1.1rem;
-}
-
-.card__privh {
-    font-size: 2.0rem;
-    margin-top: 0rem;
-    margin-bottom: 0.5rem;
-}
-
-.card__privtext {
-    font-size: 1.3rem;
-    margin-bottom: 0.5rem;
-    text-align: justify;
 }
 
 .card__link {
@@ -74,6 +53,19 @@
     background-attachment: fixed;
     height: 100%;
     min-height: 100vh;
+}
+
+/* TODO: Separate BEM block */
+.card__priv {
+    display: block;
+    backdrop-filter: blur(5px);
+    /* box-shadow: 10px 10px 5px rgba(29, 29, 29, 0.2); */
+    border: 1px solid var(--light);
+    border-radius: 10px;
+    background-color: var(--glass-gray);
+    padding: 5px 20px 20px 20px;
+    max-width: 600px;
+    color: var(--light);
 }
 
 .card--register {
@@ -97,6 +89,8 @@
 }
 
 .card--privacy {
+    flex-direction: column;
+    justify-content: center;
     background: linear-gradient(
             var(--glass-dark),
             var(--glass-kinkan-dark-mint)
@@ -122,13 +116,6 @@
     width: 70%;
     min-width: 300px;
     max-width: 400px;
-}
-
-.card__logocenter {
-    width: 70%;
-    min-width: 300px;
-    max-width: 400px;
-    margin: auto;
 }
 
 .card__logo--small {
