@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" type="text/css" href="/css/master.css" />
+        <link rel="icon" type="image/x-icon" href="/img/favicon.png">
+        <title>Home | Shinosawa Laboratory</title>
+        <script src="/js/toggle.js"></script>
+
+        <style>
+            .scroll-container {
+                display: flex;
+                overflow-x: scroll;
+                scroll-snap-type: x mandatory;
+                gap: 20px;
+            }
+
+            .scroll-item {
+                flex: 0 0 auto;
+                scroll-snap-align: center;
+            }
+
+            .scroll-item img {
+                width: auto;
+                height: auto;
+                object-fit: cover;
+            }
+            
+            .scroll-container::-webkit-scrollbar {
+                display: none;
+            }
+
+        </style>
+    </head>
+    <body>
+        <nav class="navbar--home">
+            <div class="navbar--home__sub hidden">
+                <a class="button button--mint-glow button--light--small">
+                    <span class="material-symbols-outlined">info</span>
+                    <ruby>About<rt>アバウト</rt></ruby>
+                </a>
+                <a class="button button--mint-glow button--light--small">
+                    <span class="material-symbols-outlined">privacy</span>
+                    <ruby>Privacy policy<rt>プライバシーポリシー</rt></ruby>
+                </a>
+                <a class="button button--light--small" href="/signin.html">
+                    <span class="material-symbols-outlined">person</span>
+                    <ruby>Sign in<rt>サインイン</rt></ruby>
+                </a>
+            </div>
+            <a class="button button--mint-glow button--light--small" data-toggle=".navbar--home__sub">
+                <span class="material-symbols-outlined">menu</span>
+                <ruby>Menu<rt>メニュー</rt></ruby>
+            </a>
+        </nav>
+        
+        <div class="card card--home">
+            <div class="card__content" style="flex-grow: 999">
+                <img src="/img/logo-dark.png" class="card__logo">
+                <hgroup>
+                    <h1 class="card__heading">A fresh way to learn about your favorite games.</h1>
+                    <p class="card__blurb">Engage with vibrant communities filled with dedicated gamers like you.</p>
+                </hgroup>
+                <p class="text card__blurb">
+                    Don't want to create an account yet? <a href="/forum.html" class="card__link">Browse with a guest account.</a>
+                </p>
+            </div>
+
+            <div class="card__buttons">
+                <a class="button button--large-round button--outline-effect button--mint-glow" href="/register.html">
+                    <span class="material-symbols-outlined">how_to_reg</span>
+                    <ruby>Register<rt>レジスター</rt></ruby>
+                </a>
+                <a class="button button--large-round button--outline-effect" href="/signin.html">
+                    <span class="material-symbols-outlined">person</span>
+                    <ruby>Sign in<rt>サインイン</rt></ruby>
+                </a>
+            </div>
+        </div>
+
+        <div class="card card--about">
+            <div class="card__content">
+                <h2 class="card__heading">At <strong>Shinosawa Laboratory</strong>,<br> we're reimagining the way people come together.</h2>
+        
+                <p class="card__blurb">
+                   We're a hub for people to create, play, and connect with each other in experiences built by our global community of creators.
+                </p>
+            </div>
+
+            <img src="/img/home1.png" class="card__sprite" />
+        </div>
+
+        <div class="card card--home card--signin">
+            <!-- Insert stuff here -->
+
+
+            <div class="scroll-container">
+                <img height="600px" class="scroll-item" src="https://raw.githubusercontent.com/Aceship/Arknight-Images/main/avg/backgrounds/ac5_7_back.png">
+                <img height="600px" class="scroll-item" src="https://raw.githubusercontent.com/Aceship/Arknight-Images/main/avg/images/20_I05.png">
+                <img height="600px" class="scroll-item" src="https://raw.githubusercontent.com/Aceship/Arknight-Images/main/avg/images/21_I12.png">
+                <img height="600px" class="scroll-item" src="https://raw.githubusercontent.com/Aceship/Arknight-Images/main/avg/images/30_i09.png">
+                <img height="600px" class="scroll-item" src="https://raw.githubusercontent.com/Aceship/Arknight-Images/main/avg/images/38_i03.png">
+                <img height="600px" class="scroll-item" src="https://raw.githubusercontent.com/Aceship/Arknight-Images/main/avg/images/ac12_1.png">
+                <img height="600px" class="scroll-item" src="https://cdn.discordapp.com/attachments/1330764644637347932/1334154600793640981/IMG_4843.png?ex=679b7fcc&is=679a2e4c&hm=c16644cbef68b70f8dc169683c8eb7dbf986ac536ef4bb2f86fbe0f4db48bf77&">
+            </div>
+
+            <h1 > Be part of the community! </h1>
+
+
+
+        </div>
+    </body>
+
+    <script>
+     
+    </script>
+</html>
