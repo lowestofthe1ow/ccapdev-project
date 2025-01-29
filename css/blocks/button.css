@@ -46,8 +46,8 @@
 }
 
 .button--outline-effect:not(.button--disabled, .button--current):hover {
-    margin: 10px;
     outline-offset: 10px;
+    transform: rotate(360deg);
 }
 
 /* Active (click) effects */
@@ -59,6 +59,5 @@
 }
 
 .button--outline-effect:not(.button--disabled, .button--current):active {
-    margin: 0px;
     outline-offset: 0px;
 }
