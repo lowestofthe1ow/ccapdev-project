@@ -3,7 +3,7 @@
     position: fixed;
     justify-content: right;
     align-items: unset;
-    gap: 10px;
+    gap: 5px;
     z-index: 1;
     box-sizing: border-box;
     padding: 40px max(40px, 5%) 40px max(40px, 5%);
@@ -23,7 +23,7 @@
     border-radius: 10px;
 }
 
-.navbar--home__sub > :last-child {
+.navbar--home > :not(.hidden) ~ * {
     border-radius: 0px 10px 10px 0px;
 }
 
