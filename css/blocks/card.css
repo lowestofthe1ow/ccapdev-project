@@ -7,6 +7,7 @@
     box-sizing: border-box;
     padding: max(5%, 40px);
     color: var(--light);
+    scroll-snap-align:start;
 }
 
 .card__content {
@@ -36,12 +37,21 @@
 
 .card--home {
     justify-content: space-around;
+    height: 100%;
+    min-height: 100vh;
+}
+
+.card--bg{
+    display: flex;
+    flex-flow: column;
     background: linear-gradient(
             var(--glass-kinkan-dark-mint),
             var(--glass-kinkan-dark-pink)
         ),
         url("/img/bg.jpg");
     background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     height: 100%;
     min-height: 100vh;
 }
