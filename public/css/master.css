@@ -18,7 +18,9 @@
 @import url("/css/blocks/editor.css");
 @import url("/css/blocks/footer.css");
 @import url("/css/blocks/forum.css");
+@import url("/css/blocks/gallery.css");
 @import url("/css/blocks/navbar.css");
+@import url("/css/blocks/navbar_home.css");
 @import url("/css/blocks/posteditor.css");
 @import url("/css/blocks/profile.css");
 @import url("/css/blocks/register.css");
@@ -35,4 +37,8 @@
 
 .hidden {
     display: none;
+}
+
+html {
+    scroll-behavior: smooth;
 }

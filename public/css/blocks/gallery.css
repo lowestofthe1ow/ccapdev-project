@@ -1,0 +1,25 @@
+.gallery {
+    display: flex;
+    gap: 20px;
+    border-radius: 10px;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+}
+
+.gallery-item {
+    flex: 0 0 auto;
+    border: 2px solid var(--glass-gray);
+    border-radius: 10px;
+    height: 400px;
+    scroll-snap-align: center;
+}
+
+.gallery-item img {
+    width: auto;
+    height: auto;
+    object-fit: cover;
+}
+
+.gallery::-webkit-scrollbar {
+    display: none;
+}

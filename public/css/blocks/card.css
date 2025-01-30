@@ -1,23 +1,32 @@
 .card {
     display: flex;
     flex-wrap: wrap;
-    justify-content: left;
+    justify-content: center;
     align-items: center;
     gap: 40px;
     box-sizing: border-box;
-    padding: max(5%, 40px);
+    padding: 40px max(5%, 40px) 40px max(5%, 40px);
     color: var(--light);
+}
+
+.card__buttons {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
 }
 
 .card__content {
     display: flex;
+    flex: 3;
     flex-direction: column;
     gap: 20px;
 }
 
 .card__heading,
 .card__blurb {
-    margin: 0px;
+    margin: 10px;
 }
 
 .card__heading {
@@ -35,15 +44,28 @@
 }
 
 .card--home {
-    justify-content: space-around;
     background: linear-gradient(
             var(--glass-kinkan-dark-mint),
             var(--glass-kinkan-dark-pink)
         ),
         url("/img/bg.jpg");
     background-size: cover;
+    background-attachment: fixed;
     height: 100%;
     min-height: 100vh;
+}
+
+/* TODO: Separate BEM block */
+.card__priv {
+    display: block;
+    backdrop-filter: blur(5px);
+    /* box-shadow: 10px 10px 5px rgba(29, 29, 29, 0.2); */
+    border: 1px solid var(--light);
+    border-radius: 10px;
+    background-color: var(--glass-gray);
+    padding: 5px 20px 20px 20px;
+    max-width: 600px;
+    color: var(--light);
 }
 
 .card--register {
@@ -53,6 +75,7 @@
         ),
         url("/img/bg2.jpg");
     background-size: cover;
+    background-attachment: fixed;
 }
 
 .card--signin {
@@ -62,11 +85,37 @@
         ),
         url("/img/bg2.jpg");
     background-size: cover;
+    background-attachment: fixed;
+}
+
+.card--privacy {
+    flex-direction: column;
+    justify-content: center;
+    background: linear-gradient(
+            var(--glass-dark),
+            var(--glass-kinkan-dark-mint)
+        ),
+        url("/img/bg2.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.card--about {
+    justify-content: center;
+    background-color: var(--dark);
+}
+
+.card__sprite {
+    align-self: flex-end;
+    margin-top: -10%;
+    margin-bottom: -40px;
+    max-height: 400px;
 }
 
 .card__logo {
-    width: 100%;
-    max-width: 500px;
+    width: 70%;
+    min-width: 300px;
+    max-width: 400px;
 }
 
 .card__logo--small {
