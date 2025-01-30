@@ -7,15 +7,17 @@
         <title>Home | Shinosawa Laboratory</title>
         <script src="/js/toggle.js"></script>
 
-        <!-- What is 300px * 9 / 16-->
+        <!-- What is 300px * 9 / 16 (height of container )-->
+        <!-- What is 300px * 9 / 16 / 2 (height of image icon)-->
         <style>
-            .image-container {
+        .image-container {
             position: relative;
             display: inline-block;
             width: 300px; 
             height: 168.75px; 
             overflow: hidden; 
             border-radius: 10px; 
+            border: 1px solid var(--kinkan-gray);
         }
 
         .image {
@@ -30,13 +32,22 @@
             bottom: 0;
             left: 0;
             width: 100%;
+            height: 100%;
             text-align: center;
-            background-color: rgba(0, 0, 0, 0.5); 
             color: white;
-            padding: 5px 0;
             font-size: 1em;
             opacity: 0;
             transition: opacity 0.3s ease;
+            display: flex;
+            flex-flow: column;
+            align-items: center;
+            justify-content: center;
+
+        }
+
+        .image-container:hover > .image{
+            transition: filter 0.5s ease;
+            filter: blur(2px) brightness(40%);
         }
 
         .image-container:hover .image-name, .image {
@@ -44,6 +55,10 @@
             cursor: pointer; 
         }
 
+        .image-name > img{
+            border-radius: 10px;
+            border: 1px solid var(--kinkan-gray);
+        }
 
         </style>
     </head>
@@ -106,36 +121,61 @@
 
         <div class="card card--signin" style="flex-wrap: wrap">
              <!-- RIP carousel-chan -->
+
+             <!-- Carousel chan will be missed -->
             <div style="flex: 1;">
                 <h1 class="card__heading">Be part of the community!</h1>
                 <p class="card__blurb">Epic caption here</p>
             </div>
             
             <!-- TODO make a class, also this is ass when screen shrinks -->
+
+            <!-- A bit nested rn -->
             <div style="display: flex; gap: 5px; flex-wrap: wrap; justify-content: right; flex: 1;">
                 <div class="image-container">
                     <img class="image" src="https://play-lh.googleusercontent.com/DG9jh8qeU0n-CG_ZTh9sEKy-JNwwxojWajiPXhFGP3tjPnLRwg4HuKD3w25ci_ia8A=w526-h296-rw" />
-                    <div class="image-name">Gakuen iDOLM@STER</div>
+                    
+                    <div class="image-name">
+                        <img width=84.375px src="/img/game_gkms.png" />
+                        <p>Gakuen iDOLM@STER</p>
+                    </div>
                 </div>
                 <div class="image-container">
+                   
                     <img class="image" src="https://webusstatic.yo-star.com/arknights-us/ark-us-5th-collect-h5/main/h5/assets/banner-3c38af04.jpg" />
-                    <div class="image-name">Arknights</div>
+                    <div class="image-name">
+                        <img width=84.375px  src="https://play-lh.googleusercontent.com/D4DUUFQDCsH9NIEa8hjMjQSWdtNhGX1Fd_jT-23ogAb5uMMqttqQDUJcUt4K_u8RYOQ=h1024-rw" />
+                        <p>Arknights</p>
+                    </div>
                 </div>
                 <div class="image-container">
                     <img class="image" src="https://images.ctfassets.net/vfkpgemp7ek3/2004891259/a6972bb9d4019e1f2e939592a3b0e596/fate-grand-order-revenue-three-billion.jpg" />
-                    <div class="image-name">Fate/Grand Order</div>
+                
+                    <div class="image-name">
+                        <img width=84.375px src="https://play-lh.googleusercontent.com/WRixOqWRZQHfCgFhqfWbjCh6myA4hO4bOPQ_KJJEKrB_G8KZvl0IvNEUmRuxnfx8Tbw=h1024-rw" /w>
+                        <p>Fate/Grand Order</p>
+                    </div>
                 </div>
                 <div class="image-container">
                     <img class="image" src="https://nichegamer.com/wp-content/uploads/2023/02/kazusa-recollect-blue-archive-02-28-2023.jpg" />
-                    <div class="image-name">Blue Archive</div>
+                    <div class="image-name">
+                        <img width=84.375px src="https://play-lh.googleusercontent.com/YpIz3aPX5EWfQcCOsP_nU8MSW2w2lf1kYpMIysTW88UCkkPvnhMVViRv7q_XPvOdsQ=h1024-rw" /w>
+                        <p>Blue Archive</p>
+                    </div>
                 </div>
                 <div class="image-container">
                     <img class="image"  src="https://s1.zerochan.net/Akiyama.Mizuki.600.3325026.jpg" />
-                    <div class="image-name">Project Sekai</div>
+                    <div class="image-name">
+                        <img width=84.375px src="https://play-lh.googleusercontent.com/FxJ-b7THm0gz6wR8nZ9kH33ZHGbYQDBC5eYPNPWnugizlFiUfPN4aGO7H48OmM7-K-A=h1024-rw" /w>
+                        <p>Project Sekai</p>
+                    </div>
                 </div>
                 <div class="image-container">
                     <img class="image" src="https://azurlane.netojuu.com/images/a/a7/Bg_2022.01.06_4.png" />
-                    <div class="image-name">Azur Lane</div>
+                    <div class="image-name">
+                        <img width=84.375px src="https://play-lh.googleusercontent.com/Xvzm9AdC2rEpP_gcwoJWBD7BsDClyOhRZ5AmIyhZDKRRCB2k1hdovUqpLgEIcx5b1YY=h1024-rw" /w>
+                        <p>Azur Lane</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -146,7 +186,7 @@
                 <h2 class="card__heading">Discover a world of <strong>endless possibilities</strong>.</h2>
                 <p class="card__blurb" style=" display: flex; justify-content: flex-start; align-items: center; gap: 30px">
                    Your next adventure awaits. 
-                   <a class="button button--light button--light--small" href="/forum.html">
+                   <a class="button button--light button--light--small" href="/signin.html">
                     <span class="material-symbols-outlined">login</span>
                     <ruby>Sign in<rt>サインイン</rt></ruby>
                 </a>
