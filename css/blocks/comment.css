@@ -6,7 +6,7 @@
 }
 
 .comment--main {
-    border: 1px solid var(--glass-gray);
+    border: 1px solid var(--kinkan-gray);
     border-radius: 0px 0px 10px 10px;
     background-color: var(--light);
     padding-right: 10px;
@@ -18,7 +18,7 @@
     flex: 1;
     align-content: center;
     margin: 0px;
-    border: 1px solid var(--glass-gray);
+    border: 1px solid var(--kinkan-gray);
     background-color: var(--light);
     padding: 5px;
     padding: 5px 5px 5px 10px;

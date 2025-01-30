@@ -8,7 +8,7 @@
 
 .gallery-item {
     flex: 0 0 auto;
-    border: 2px solid var(--glass-gray);
+    border: 1px solid var(--kinkan-gray);
     border-radius: 10px;
     height: 400px;
     scroll-snap-align: center;

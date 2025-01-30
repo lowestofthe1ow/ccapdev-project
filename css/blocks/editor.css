@@ -32,7 +32,7 @@
 }
 
 .editor__box {
-    border: 1px solid var(--glass-gray);
+    border: 1px solid var(--kinkan-gray);
     border-radius: 0px 0px 0px 10px;
     background-color: var(--light);
     padding: 10px;

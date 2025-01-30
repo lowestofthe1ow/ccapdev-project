@@ -1,5 +1,5 @@
 .article {
-    border: 1px solid var(--glass-gray);
+    border: 1px solid var(--kinkan-gray);
     border-radius: 10px;
     background-color: var(--light);
     padding-right: 10px;
@@ -10,7 +10,7 @@
     display: block;
     margin-top: 10px;
     margin-bottom: 10px;
-    border: 1px solid var(--glass-gray);
+    border: 1px solid var(--kinkan-gray);
     border-radius: 10px;
     background-color: var(--kinkan-light-gray);
     width: 100%;

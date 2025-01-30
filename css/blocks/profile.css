@@ -1,7 +1,7 @@
 .profile {
     display: flex;
     flex-direction: column;
-    border: 1px solid var(--glass-gray);
+    border: 1px solid var(--kinkan-gray);
     border-radius: 10px;
     background-color: var(--light);
     overflow: hidden;

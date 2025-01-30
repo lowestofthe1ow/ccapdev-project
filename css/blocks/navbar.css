@@ -6,7 +6,7 @@
 }
 
 .navbar__icon {
-    border: 1px solid var(--glass-gray);
+    border: 1px solid var(--kinkan-gray);
     border-radius: 25px;
     height: 25px;
 }

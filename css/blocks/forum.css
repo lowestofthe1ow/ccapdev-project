@@ -54,7 +54,7 @@
 }
 
 .forum__ad {
-    border: 1px solid var(--glass-gray);
+    border: 1px solid var(--kinkan-gray);
     border-radius: 10px;
     height: 150px;
 }

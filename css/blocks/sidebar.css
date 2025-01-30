@@ -3,7 +3,7 @@
     flex: 1;
     flex-direction: column;
     gap: 10px;
-    border: 1px solid var(--glass-gray);
+    border: 1px solid var(--kinkan-gray);
     border-radius: 10px;
     background-color: var(--light);
     padding: 10px;
@@ -11,7 +11,7 @@
 }
 
 .sidebar__rule {
-    border: 1px solid var(--glass-gray);
+    border: 1px solid var(--kinkan-gray);
     width: 100%;
 }
 
@@ -33,7 +33,7 @@
 }
 
 .sidebar__search {
-    border: 1px solid var(--glass-gray);
+    border: 1px solid var(--kinkan-gray);
     border-radius: 10px;
     background-color: var(--light);
     padding: 10px;

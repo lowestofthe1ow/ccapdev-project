@@ -7,7 +7,7 @@
 
 .search__box {
     flex: 1;
-    border: 1px solid var(--glass-gray);
+    border: 1px solid var(--kinkan-gray);
     border-radius: 10px 0px 0px 10px;
     background-color: var(--light);
     padding: 10px;
