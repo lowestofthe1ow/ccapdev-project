@@ -60,3 +60,9 @@
     margin: 0;
     font-size: 0.8rem;
 }
+
+.thread__editmenu {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
