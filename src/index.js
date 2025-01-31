@@ -23,5 +23,9 @@ app.listen(port, () => {
 });
 
 app.get("/", (req, res) => {
-    res.render("index");
+    res.render("index", { title: "Home" });
+});
+
+app.get("/signin", (req, res) => {
+    res.render("signin", { title: "Sign in" });
 });
