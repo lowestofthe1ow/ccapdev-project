@@ -1,3 +1,5 @@
+/* Fixed homepage navigation bar */
+
 .navbar--home {
     display: flex;
     position: fixed;

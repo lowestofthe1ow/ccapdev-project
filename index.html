@@ -1,7 +1,15 @@
 <!-- CCAPDEV S18 Group 9
      - CESAR, JUSPER ANGELO MANUEL
      - MARQUESES, LORENZ BERNARD BADURIA
-     - SILVA, PAULO GRANE GABRIEL CARCAMO -->
+     - SILVA, PAULO GRANE GABRIEL CARCAMO
+
+     The following project uses images and other assets from existing video games that are all owned by their respective
+     authors. It uses also assets from Google Fonts and Google Icons, and makes use of Normalize.css
+     (https://necolas.github.io/normalize.css/) to minimize CSS rendering difference between browsers.
+
+     CSS files are broken down into BEM blocks (https://en.bem.info/methodology/quick-start/#block) to help organize
+     class names and avoid collisions.
+-->
 
 <!DOCTYPE html>
 <html>
@@ -43,7 +51,7 @@
                     <p class="card__blurb">Engage with vibrant communities filled with dedicated gamers like you.</p>
                 </hgroup>
                 <p class="text card__blurb">
-                    Don't want to create an account yet? <a href="/forum.html" class="card__link">Browse with a guest account.</a>
+                    Don't want to create an account yet? <a href="/forum.html" class="article__link">Browse with a guest account.</a>
                 </p>
             </div>
 
@@ -135,30 +143,34 @@
             <div class="card__content">
                 <h2 class="card__heading">Discover a world of <strong>endless possibilities</strong>.</h2>
                 <p class="card__blurb">
-                   Sensei, Doctor, Producer, or Master, the next chapter of your adventure awaits.<br /><a href="/signin.html" class="card__link">Sign in</a> or <a
-                   href="/register.html" class="card__link">register</a> now.
+                   Sensei, Doctor, Producer, or Master, the next chapter of your adventure awaits.<br /><a href="/signin.html" class="article__link">Sign in</a> or <a
+                   href="/register.html" class="article__link">register</a> now.
                 </p>
             </div>
         </div>
 
         <div class="card card--register">
             <ul class="card__horizontal-list">
-                <li class="card__contact">
+                <li class="card__vertical-list">
                     <img src="/img/pfp.png" class="card__pfp">
-                    <a class="card__blurb card__link" href="https://github.com/lowestofthe1ow/">lowestofthelow</a>
+                    <a class="card__blurb article__link article__link--white" href="https://github.com/lowestofthe1ow/">lowestofthelow</a>
                 </li>
-                <li class="card__contact">
+                <li class="card__vertical-list">
                     <img src="/sample-profiles/img/simonstrings_pfp.png" class="card__pfp">
-                    <a class="card__blurb card__link" href="https://github.com/penguinforest/">simonstrings</a>
+                    <a class="card__blurb article__link article__link--white" href="https://github.com/penguinforest/">simonstrings</a>
                 </li>
-                <li class="card__contact">
+                <li class="card__vertical-list">
                     <img src="/sample-profiles/img/reddayo-pfp.jpg" class="card__pfp">
-                    <a class="card__blurb card__link" href="https://github.com/Reddayo/">reddayo</a>
+                    <a class="card__blurb article__link article__link--white" href="https://github.com/Reddayo/">reddayo</a>
                 </li>
             </ul>
             <div>
                 <a name="contact"><h2 class="card__heading"><strong>Need help?</strong> Contact the developers.</h2></a>
-                <p class="card__blurb">Email us or reach out to us via <a class="card__link" href="https://github.com/lowestofthe1ow/ccapdev-project">Github</a> (or open an issue)!</p>
+                <p class="card__blurb">
+                    Email us or reach out to us via 
+                    <a class="article__link" href="https://github.com/lowestofthe1ow/ccapdev-project" target="_blank">Github</a>
+                    (or open an issue)!
+                </p>
             </div>
         </div>
 

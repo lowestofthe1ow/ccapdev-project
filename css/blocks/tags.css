@@ -1,3 +1,5 @@
+/* Tags group */
+
 .tags {
     display: flex;
     flex-wrap: wrap;
@@ -12,7 +14,7 @@
     background-color: var(--light);
     padding: 5px;
     color: var(--kinkan-turquoise);
-    font-size: 0.8rem; /* TODO: Standardize */
+    font-size: 0.8rem;
     text-align: center;
 }
 

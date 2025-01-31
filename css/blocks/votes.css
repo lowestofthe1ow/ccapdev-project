@@ -1,3 +1,5 @@
+/* Upvote/downvote buttons */
+
 .votes {
     display: flex;
     flex-direction: column;

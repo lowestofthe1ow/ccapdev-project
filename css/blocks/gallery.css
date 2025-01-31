@@ -1,3 +1,5 @@
+/* Gallery object */
+
 .gallery {
     display: flex;
     flex-direction: column;

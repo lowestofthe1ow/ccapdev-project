@@ -1,8 +1,9 @@
+/* Light-colored variation of buttons */
+
 .button--light {
     border: 1px solid var(--kinkan-gray);
     background-color: var(--light);
     padding: 10px;
-    width: auto; /* TODO: Should this apply to all buttons...? */
     color: var(--dark);
 }
 
