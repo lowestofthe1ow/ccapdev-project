@@ -117,7 +117,7 @@
                     <input type="text" class="sidebar__search" placeholder="Add tags..." />
                 </div>
 
-                <form class="editor">
+                <form class="editor" action="/forum.html">
                     <div class="editor__options">
                         <a class="button button--light button--light--small" style="flex: 1;">
                             Editor
@@ -169,14 +169,14 @@
                     <textarea class="editor__box" placeholder="Start typing here..."></textarea>
                 
                     <div class="editor__options editor__options--bottom">
-                        <a class="button button--light button--light--small" href="/forum.html">
+                        <button type="submit" class="button button--light button--light--small" href="/forum.html">
                             <span class="material-symbols-outlined">cancel</span>
                             Cancel
-                        </a>
-                        <a class="button button--light button--light--small" href="/forum.html">
+                        </button>
+                        <button type="submit" class="button button--light button--light--small">
                             <span class="material-symbols-outlined">login</span>
                             Publish
-                        </a>
+                        </button>
                     </div>
                 </form>
             </div>            

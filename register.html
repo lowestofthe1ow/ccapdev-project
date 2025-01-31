@@ -26,7 +26,7 @@
             <section class="register">
                 <h1 class="register__heading">Create an account</h1>
 
-                <form class="register__form">
+                <form class="register__form" action="/forum.html">
                     <label for="name">Username:</label>
                     <div class="register__input">
                         <div class="register__icon">
@@ -51,12 +51,16 @@
                         <input class = "register__inputbox" type="password"
                             placeholder="Enter your password" id="confirm" name="confirm">
                     </div>
+                    <div class="register__input">
+                        <input type="checkbox" name="remember">
+                        <label for="remember">Remember me</label>
+                    </div>
+
+                    <button type="submit" class="button button--mint-glow">
+                        <span class="material-symbols-outlined">login</span>
+                        <ruby>Register<rt>レジスター</rt></ruby>
+                    </button>
                 </form>
-                
-                <a class="button button--mint-glow" href="/forum.html">
-                    <span class="material-symbols-outlined">login</span>
-                    <ruby>Register<rt>レジスター</rt></ruby>
-                </a>
             </section>
         </div>
     </body>
