@@ -1,0 +1,40 @@
+/* Light-colored variation of buttons */
+
+.button--light {
+    border: 1px solid var(--kinkan-gray);
+    background-color: var(--light);
+    padding: 10px;
+    color: var(--dark);
+}
+
+.button--light--bad {
+    border: 1px solid var(--kinkan-light-pink);
+    color: var(--kinkan-dark-pink);
+}
+
+.button--light--small {
+    display: flex;
+    border-radius: 0px;
+    padding: 5px 10px 5px 10px;
+    font-size: 0.8rem;
+}
+
+/* Shrink icon */
+.button--light--small > .material-symbols-outlined {
+    font-size: 1.1rem;
+}
+
+.button--light.button--disabled {
+    cursor: default;
+    background-color: var(--kinkan-light-gray);
+}
+
+.button--light.button--current {
+    border: 1px solid var(--kinkan-pink);
+}
+
+.button--light:not(.button--disabled, .button--current):hover {
+    box-shadow: none;
+    border: 1px solid var(--kinkan-pink);
+    background-color: var(--light);
+}

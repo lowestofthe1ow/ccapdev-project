@@ -1,0 +1,65 @@
+/* Buttons */
+
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    backdrop-filter: blur(10px);
+    background-color: var(--glass-gray);
+    font-size: 1.1rem;
+    -webkit-backdrop-filter: blur(5px); /* Safari */
+    transition: all 0.2s;
+    cursor: pointer;
+    border: 1px solid var(--light);
+    border-radius: 10px;
+    padding: 10px;
+    color: var(--light);
+    user-select: none;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE */
+    text-decoration: none;
+}
+
+.button--large-round {
+    border-radius: 85px;
+    width: 150px;
+    line-height: 150px;
+}
+
+.button--outline-effect {
+    margin: 30px;
+    outline: 1px solid var(--light);
+    outline-offset: 30px;
+}
+
+/* Hover effects */
+
+.button:not(.button--disabled, .button--current):hover {
+    transform: scale(1.05);
+    box-shadow: 0px 0px 30px -5px var(--kinkan-pink);
+    border: 1px solid var(--kinkan-pink);
+}
+
+.button--mint-glow:not(.button--disabled, .button--current):hover {
+    transform: scale(1.05);
+    box-shadow: 0px 0px 30px -5px var(--kinkan-mint);
+    border: 1px solid var(--kinkan-mint);
+}
+
+.button--outline-effect:not(.button--disabled, .button--current):hover {
+    outline-offset: 10px;
+    transform: rotate(360deg);
+}
+
+/* Active (click) effects */
+
+.button:not(.button--disabled, .button--current):active {
+    transform: scale(0.95);
+    outline: 1px solid transparent;
+    outline-offset: 5px;
+}
+
+.button--outline-effect:not(.button--disabled, .button--current):active {
+    outline-offset: 0px;
+}

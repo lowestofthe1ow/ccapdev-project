@@ -1,0 +1,32 @@
+/* Tags group */
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.tags__tag {
+    transition: all 0.2s;
+    cursor: pointer;
+    border: 1px solid var(--kinkan-turquoise);
+    border-radius: 10px;
+    background-color: var(--light);
+    padding: 5px;
+    color: var(--kinkan-turquoise);
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+.tags__tag:hover {
+    transform: scale(1.08);
+}
+
+.tags__tag:active {
+    transform: scale(0.92);
+}
+
+.tags__tag--game {
+    border: 1px solid var(--kinkan-pink);
+    color: var(--kinkan-pink);
+}

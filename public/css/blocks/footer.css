@@ -1,0 +1,33 @@
+/* Footer */
+
+.footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    background-color: var(--dark);
+    padding: 40px;
+}
+
+.footer__logo {
+    width: 200px;
+}
+
+.footer__column {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.footer__text {
+    margin: 0px;
+    color: var(--light);
+    overflow-wrap: anywhere;
+}
+
+.footer__blurb {
+    width: 100%;
+    color: var(--light);
+    text-align: left;
+}

@@ -1,0 +1,39 @@
+/* Master definitions for CSS colors */
+
+:root {
+    /* Primary black and white colors */
+    --dark: #020202;
+    --light: #fdfdfd;
+
+    /* Kinkan color palette 
+       https://lospec.com/palette-list/kinkan
+     */
+    --kinkan-navy: #446176;
+    --kinkan-turquoise: #3eaaae;
+    --kinkan-mint: #8cefb6;
+    --kinkan-melon: #c4f0c2;
+    --kinkan-white: #fffee4;
+    --kinkan-gray: #bec0c0;
+    --kinkan-light-pink: #ffa7b9;
+    --kinkan-pink: #ff7a8f;
+
+    /* Darkened / lightened Kinkan colors */
+    --kinkan-dark-mint: #195643;
+    --kinkan-dark-pink: #831f2e;
+    --kinkan-light-gray: #f1f3f3;
+
+    /* Transparent colors */
+    --glass-kinkan-dark-mint: rgba(25, 86, 67, 0.8);
+    --glass-kinkan-dark-pink: rgba(110, 23, 36, 0.8);
+    --glass-gray: rgba(60, 60, 60, 0.4);
+    --glass-dark: rgba(40, 40, 40, 0.7);
+    --glass-light: rgba(240, 240, 240, 0.9);
+    --glass-kinkan-mint: rgba(140, 239, 182, 0.5);
+    --glass-kinkan-pink: rgba(255, 122, 143, 0.5);
+}
+
+.bg-rainbow {
+    background: linear-gradient(var(--kinkan-white), var(--kinkan-light-pink)),
+        linear-gradient(to right, var(--kinkan-mint), var(--kinkan-turquoise));
+    background-blend-mode: screen;
+}

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" type="text/css" href="/css/master.css" />
+        <link rel="icon" type="image/x-icon" href="/img/favicon.png">
+        <title>Forum | Shinosawa Laboratory</title>
+        <script src="/js/toggle.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    </head>
+    <body class="bg-rainbow">
+        <div class="forum">
+            <header class="forum__header">
+                <a href="/forum.html">
+                    <img src="/img/logo-light.png" class="forum__logo"/>
+                </a>
+                <div class="forum__ads">
+                    <div class="forum__ads-track">
+                        <img src="/img/ad.webp" class="forum__ad"/>
+                        <img src="/img/ad2.jpg" class="forum__ad"/>
+                        <img src="/img/ad3.png" class="forum__ad"/>
+                        <img src="/img/ad4.jpg" class="forum__ad"/>
+                        <img src="/img/ad.webp" class="forum__ad"/>
+                        <img src="/img/ad2.jpg" class="forum__ad"/>
+                        <img src="/img/ad3.png" class="forum__ad"/>
+                        <img src="/img/ad4.jpg" class="forum__ad"/>
+                    </div>
+                </div>
+            </header>
+
+            <nav class="navbar">
+                <a class="button button--light" href="/submission.html">
+                    <span class="material-symbols-outlined">add_circle</span>
+                    <ruby>Post thread<rt>ポストする</rt></ruby>
+                </a>
+                <div class="search">
+                    <input type="text" class="search__box" placeholder="Search threads..."/>
+
+                    <a class="button button--light search__button" data-toggle="#advsearch">
+                        <span class="material-symbols-outlined" >tune</span>
+                    </a>
+
+                    <a class="button button--light search__button search__button--end">
+                        <span class="material-symbols-outlined" >search</span>
+                    </a>
+                </div>
+                <a class="button button--light button--current">
+                    <img src="/img/pfp.png" class="navbar__icon"/>
+                    <ruby>Profile<rt>プロフィール</rt></ruby>
+                </a>
+            </nav>
+
+            <form class="advsearch hidden" id="advsearch">
+                <div class="advsearch__component">
+                    <label class="advsearch__label" for="start_date">
+                        Date range
+                    </label>
+                    <input
+                        type="date"
+                        name="start_date"
+                        class="advsearch__input"
+                    />
+                    <label class="advsearch__label" for="end_date">to</label>
+                    <input
+                        type="date"
+                        name="end_date"
+                        class="advsearch__input"
+                    />
+                </div>
+            
+                <div class="advsearch__component">
+                    <label class="advsearch__label" for="sort">Sort by</label>
+                    <select class="advsearch__input" name="sort">
+                        <option>Newest first</option>
+                        <option>Oldest first</option>
+                        <option>Most popular first</option>
+                        <option>Least popular first</option>
+                    </select>
+                </div>
+            
+                <div class="advsearch__component">
+                    <label class="advsearch__label" for="author_name">Authors</label>
+                    <input
+                        type="text"
+                        name="author_name"
+                        class="advsearch__input"
+                        placeholder="Enter username..."
+                    />
+                </div>
+            
+                <button type="reset" class="button button--light button--light--small">
+                    Reset
+                </button>
+            </form>
+
+            <div class="profile">
+                <!-- Setting background image is a temporary solution. Probably better to use an <img> element fixed
+                behind a div -->
+                <div class="profile__banner--edit" style="background-image: url('/img/banner_gkms.jpg');">
+                    <div class="advsearch__component">
+                        <a class="button button--light profile__bg-edit button--light--small">
+                            <span class="material-symbols-outlined">add_a_photo</span>
+                            Add
+                        </a>
+        
+                        <a class="button button--light  profile__bg-edit  button--light--small">
+                            <span class="material-symbols-outlined">cancel</span>
+                            Clear
+                        </a>
+                    </div>
+                </div>
+
+                <div class="profile__content" style="align-items: center;">
+                    <div class="profile__pfp--edit" style="background-image: url('img/pfp.png');">
+                        <a class="button button--light">
+                            <span class="material-symbols-outlined">add_a_photo</span>
+                        </a>
+                    </div>
+
+                    <input type="text" placeholder="lowestofthelow" class="profile__text edit__username" />
+
+                    <form class="editor">
+                        <div class="editor__options">
+                            <a class="button button--light button--light--small" style="flex: 1;">
+                                Editor
+                            </a>
+                            <a class="button button--light button--light--small" style="flex: 1;">
+                                Preview
+                            </a>
+                            <a class="button button--light button--light--small">
+                                <span class="material-symbols-outlined symbols-btngrp">format_bold</span>
+                            </a>
+                            <a class="button button--light button--light--small">
+                                <span class="material-symbols-outlined symbols-btngrp">format_italic</span>
+                            </a>
+                            <a class="button button--light button--light--small">
+                                <span class="material-symbols-outlined symbols-btngrp">format_underlined</span>
+                            </a>
+                            <a class="button button--light button--light--small">
+                                <span class="material-symbols-outlined symbols-btngrp">strikethrough_s</span>
+                            </a>
+                            <a class="button button--light button--light--small">
+                                <span class="material-symbols-outlined symbols-btngrp">superscript</span>
+                            </a>
+                            <a class="button button--light button--light--small">
+                                <span class="material-symbols-outlined symbols-btngrp">format_h1</span>
+                            </a>
+                            <a class="button button--light button--light--small">
+                                <span class="material-symbols-outlined symbols-btngrp">code</span>
+                            </a>
+                            <a class="button button--light button--light--small">
+                                <span class="material-symbols-outlined symbols-btngrp">list</span>
+                            </a>
+                            <a class="button button--light button--light--small">
+                                <span class="material-symbols-outlined symbols-btngrp">format_list_numbered</span>
+                            </a>
+                            <a class="button button--light button--light--small">
+                                <span class="material-symbols-outlined symbols-btngrp">alternate_email</span>
+                            </a>
+                            <a class="button button--light button--light--small">
+                                <span class="material-symbols-outlined symbols-btngrp">attach_file</span>
+                            </a>
+                            <a class="button button--light button--light--small">
+                                <span class="material-symbols-outlined symbols-btngrp">link</span>
+                            </a>
+                            <a class="button button--light button--light--small">
+                                <span class="material-symbols-outlined symbols-btngrp">warning</span>
+                            </a>
+                        </div>
+                        <textarea class="editor__box" placeholder="Describe yourself..."></textarea>
+                    </form>
+                    
+                    <div class="profile__buttons" >
+                        <a class="button button--light" href="/profile.html">
+                            <span class="material-symbols-outlined">save</span>
+                            <ruby>Save<rt>セーブ</rt></ruby>
+                        </a>
+                        <a class="button button--light" href="/profile.html">
+                            <span class="material-symbols-outlined">cancel</span>
+                            <ruby>Cancel<rt>キャンセル</rt></ruby>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="profile__buttons" style="align-self: end;">
+                <a class="button button--light">
+                    <span class="material-symbols-outlined">save</span>
+                    <ruby>Reset password<rt>パスワードをリセットする</rt></ruby>
+                </a>
+                <a class="button button--light button--light--bad">
+                    <span class="material-symbols-outlined">cancel</span>
+                    <ruby>Delete account<rt>アカウントを削除する</rt></ruby>
+                </a>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <img src="/img/logo-dark.png" class="footer__logo" />
+            <div class="footer__column">
+                <a class="footer__text" href="/#about"><ruby>About<rt>アバウト</rt></ruby></a>
+                <a class="footer__text" href="/#contact"><ruby>Contact<rt>コンタクト</rt></ruby></a>
+                <a class="footer__text" href="/privacy.html"><ruby>Privacy policy<rt>プライバシーポリシー</rt></ruby></a>
+            </div>
+            <div class="footer__column">
+                <p class="footer__text footer__blurb"><ruby>
+                    A galaxy hatches and fully blooms.<rt>孵化/開花する銀河</rt>
+                </ruby></p>
+                <p class="footer__text footer__blurb">
+                    &copy; 2025. This site is not affiliated with nor is it endorsed by the developers and publishers of
+                    any of the games.
+                </p>
+            </div>
+        </footer>
+    </body>
+</html>
