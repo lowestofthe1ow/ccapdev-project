@@ -1,10 +1,12 @@
+/* Fixed homepage navigation bar */
+
 .navbar--home {
     display: flex;
     position: fixed;
     justify-content: right;
     align-items: unset;
     gap: 5px;
-    z-index: 1;
+    z-index: 2;
     box-sizing: border-box;
     padding: 40px max(40px, 5%) 40px max(40px, 5%);
     width: 100%;

@@ -1,6 +1,6 @@
 <nav class="navbar--home">
     <div class="navbar--home__sub hidden">
-        <a class="button button--mint-glow button--light--small">
+        <a class="button button--mint-glow button--light--small" href="#about">
             <span class="material-symbols-outlined">info</span>
             <ruby>About<rt>アバウト</rt></ruby>
         </a>
@@ -27,10 +27,9 @@
             <p class="card__blurb">Engage with vibrant communities filled with dedicated gamers like you.</p>
         </hgroup>
         <p class="text card__blurb">
-            Don't want to create an account yet? <a href="/forum.html" class="card__link">Browse with a guest account.</a>
+            Don't want to create an account yet? <a href="/forum.html" class="article__link">Browse with a guest account.</a>
         </p>
     </div>
-
     <div class="card__buttons">
         <a class="button button--large-round button--outline-effect button--mint-glow" href="/register.html">
             <span class="material-symbols-outlined">how_to_reg</span>
@@ -41,51 +40,107 @@
             <ruby>Sign in<rt>サインイン</rt></ruby>
         </a>
     </div>
-    
 </div>
-
 <div class="card card--about">
     <div class="card__content">
-        <a name="about"><h2 class="card__heading">At <strong>Shinosawa Laboratory</strong>,<br> we're reimagining the way people come together.</h2></a>
+        <a name="about"><h2 class="card__heading">At <strong>Shinosawa Laboratory</strong>,<br> we're bringing
+        new ways for gamers to band together.</h2></a>
         <p class="card__blurb">
-           We're a hub for people to create, play, and connect with each other in experiences built by our global community of creators.
+           We're a one-stop shop for people to meet and talk about their favorite games.
         </p>
     </div>
     <img src="/img/home1.png" class="card__sprite" />
 </div>
-
-<div class="card card--signin">
-    <div class="gallery">
-        <img class="gallery-item" src="https://cdn.discordapp.com/attachments/1330764644637347932/1334154860521717760/21020504515492.jpeg?ex=679b800a&is=679a2e8a&hm=c814e161312615c350db739278f21cb6eee95cc9ebf3b9cb5d26cf52faf0b7b9&">
-        <img class="gallery-item" src="https://cdn.discordapp.com/attachments/1330764644637347932/1334155435925569647/Qgd42vu619bQ8slDeS2nTcE6SMM60fzVmsYsFYkPoqU.webp?ex=679b8093&is=679a2f13&hm=54fc8291962e41af750e0c321c3964756861d4888f1ed77fa85cde0f157f3a14&">
-        <img class="gallery-item" src="https://cdn.discordapp.com/attachments/1330764644637347932/1334155307881992202/Home_Screen_UI-Night.png?ex=679b8074&is=679a2ef4&hm=52fbfa478f96168c6c28316376c53d276a359d21067bd5243049afe10b9aa899&">
-        <img class="gallery-item" src="https://cdn.discordapp.com/attachments/1330764644637347932/1334154600793640981/IMG_4843.png?ex=679b7fcc&is=679a2e4c&hm=c16644cbef68b70f8dc169683c8eb7dbf986ac536ef4bb2f86fbe0f4db48bf77&">
+<div class="card card--signin" style="flex-wrap: wrap">
+    <div style="flex: 1;">
+        <h1 class="card__heading">Be part of the community!</h1>
+        <p class="card__blurb">Discover new games and share your favorites.</p>
     </div>
-    <h2 class="card__heading">Be part of the community!</h2>
-    <p class="card__blurb">Scroll through to see a preview of the games you can find on our forum.</p>
-    <div style="display: flex; gap: 10px">
-        <img src="/img/game_akni.png" class="thread__image" />
-        <img src="/img/game_brak.png" class="thread__image" />
-        <img src="/img/game_fate.png" class="thread__image" />
-        <img src="/img/game_gkms.png" class="thread__image" />
+    
+    <div class="gallery">
+        <!-- We could have just made this a single flex container that wraps into two rows, but that gets weird
+        at different screen sizes -->
+        <div class="gallery__row">
+            <div class="gallery__item">
+                <img class="gallery__image" src="https://res.cloudinary.com/dezghxeg3/image/upload/v2/gkms/img_general_csprt-3-0045_full.webp   " />
+                <div class="gallery__label">
+                    <img src="/img/game_gkms.png" />
+                    <p>Gakuen iDOLM@STER</p>
+                </div>
+            </div>
+            <div class="gallery__item">
+                <img class="gallery__image" src="https://webusstatic.yo-star.com/arknights-us/ark-us-5th-collect-h5/main/h5/assets/banner-3c38af04.jpg" />
+                <div class="gallery__label">
+                    <img src="/img/game_akni.png" />
+                    <p>Arknights</p>
+                </div>
+            </div>
+            <div class="gallery__item">
+                <img class="gallery__image" src="https://images.ctfassets.net/vfkpgemp7ek3/2004891259/a6972bb9d4019e1f2e939592a3b0e596/fate-grand-order-revenue-three-billion.jpg" />
+                <div class="gallery__label">
+                    <img src="/img/game_fate.png" />
+                    <p>Fate/Grand Order</p>
+                </div>
+            </div>
+        </div>
+        <div class="gallery__row">
+            <div class="gallery__item">
+                <img class="gallery__image" src="https://nichegamer.com/wp-content/uploads/2023/02/kazusa-recollect-blue-archive-02-28-2023.jpg" />
+                <div class="gallery__label">
+                    <img src="/img/game_brak.png" />
+                    <p>Blue Archive</p>
+                </div>
+            </div>
+            <div class="gallery__item">
+                <img class="gallery__image"  src="https://s1.zerochan.net/Akiyama.Mizuki.600.3325026.jpg" />
+                <div class="gallery__label">
+                    <img src="https://play-lh.googleusercontent.com/FxJ-b7THm0gz6wR8nZ9kH33ZHGbYQDBC5eYPNPWnugizlFiUfPN4aGO7H48OmM7-K-A=h1024-rw" />
+                    <p>Project Sekai</p>
+                </div>
+            </div>
+            <div class="gallery__item">
+                <img class="gallery__image" src="https://azurlane.netojuu.com/images/a/a7/Bg_2022.01.06_4.png" />
+                <div class="gallery__label">
+                    <img src="https://play-lh.googleusercontent.com/Xvzm9AdC2rEpP_gcwoJWBD7BsDClyOhRZ5AmIyhZDKRRCB2k1hdovUqpLgEIcx5b1YY=h1024-rw" />
+                    <p>Azur Lane</p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-
-<div class="card card--about" style="background-color: var(--light); color: var(--dark); flex-wrap: wrap-reverse">
-    <img src="/img/home3.png" class="card__sprite" />
+<div class="card card--about" style="background-color: var(--light); color: var(--dark); flex-wrap:
+wrap-reverse;">
+    <!-- Behold a 36.7MB gif just for Hiro to wink at you every few seconds -->
+    <img src="/img/home2.gif" class="card__sprite" />
     <div class="card__content">
-        <h2 class="card__heading">Discover a world of <strong>endless possibilities</strong>.</h2>
+        <h2 class="card__heading">Discover <strong>endless possibilities</strong>.</h2>
         <p class="card__blurb">
-           Your next adventure awaits.
+           The next chapter of your adventure awaits.<br /><a href="/signin.html" class="article__link">Sign in</a> or <a
+           href="/register.html" class="article__link">register</a> now.
         </p>
     </div>
 </div>
-
 <div class="card card--register">
-    <a name="contact"><h2 class="card__heading"><strong>Need help?</strong> Contact us at:</h2></a>
-    <ul class="card__blurb">
-        <li>lorenz_marqueses@dlsu.edu.ph</li>
-        <li>jusper_cesar@dlsu.edu.ph</li>
-        <li>paulo_silva@dlsu.edu.ph</li>
+    <ul class="card__horizontal-list">
+        <li class="card__vertical-list">
+            <img src="/img/pfp.png" class="card__pfp">
+            <a class="card__blurb article__link article__link--white" href="https://github.com/lowestofthe1ow/">lowestofthelow</a>
+        </li>
+        <li class="card__vertical-list">
+            <img src="/sample-profiles/img/simonstrings-pfp.png" class="card__pfp">
+            <a class="card__blurb article__link article__link--white" href="https://github.com/penguinforest/">simonstrings</a>
+        </li>
+        <li class="card__vertical-list">
+            <img src="/sample-profiles/img/reddayo-pfp.jpg" class="card__pfp">
+            <a class="card__blurb article__link article__link--white" href="https://github.com/Reddayo/">reddayo</a>
+        </li>
     </ul>
+    <div>
+        <a name="contact"><h2 class="card__heading"><strong>Need help?</strong> Contact the developers.</h2></a>
+        <p class="card__blurb">
+            Email us or reach out to us via 
+            <a class="article__link" href="https://github.com/lowestofthe1ow/ccapdev-project" target="_blank">Github</a>
+            (or open an issue)!
+        </p>
+    </div>
 </div>

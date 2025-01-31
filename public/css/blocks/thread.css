@@ -1,10 +1,12 @@
+/* Forum threads */
+
 .thread {
     display: flex;
     flex: 1;
     justify-content: space-between;
     align-items: center;
     gap: 10px;
-    border: 1px solid var(--glass-gray);
+    border: 1px solid var(--kinkan-gray);
     border-radius: 0px 10px 10px 0px;
     background-color: var(--light);
     padding: 10px;
