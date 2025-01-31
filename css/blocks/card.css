@@ -107,7 +107,11 @@
 
 .card__horizontal-list {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 10px;
+    margin: 0px;
+    padding: 0px;
 }
 
 .card__vertical-list {
