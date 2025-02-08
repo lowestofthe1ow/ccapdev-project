@@ -8,10 +8,10 @@
     </a>
 </div>
 
-<a class="thread thread--clickable" href="/post.html">
+<a class="thread thread--clickable" href="/threads/{{_id}}">
     <img src="/img/game_gkms.png" class="thread__image">
         <div class="thread__data">
-            {{> tags tags=tags games=games}}
+            {{> tags this}}
             <h2 class="thread__title">{{title}}</h2>
             <div class="thread__meta">
                 <div class="thread__meta">
@@ -20,7 +20,7 @@
                 </div>
                 <div class="thread__meta">
                     <span class="material-symbols-outlined">timer</span>
-                    <p class="thread__detail"><strong>{{date}}</strong></p>
+                    <p class="thread__detail"><strong>{{format_date created}}</strong></p>
                 </div>
             </div>
         </div>
