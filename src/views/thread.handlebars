@@ -1,0 +1,26 @@
+<section class="forum__threads">
+    <hgroup class="forum__thread">
+        {{> thread this.thread}}
+    </hgroup>
+
+    <article class="article">
+        <p>
+            {{this.thread.content}} <!-- TODO: Markdown parsing -->
+        </p>
+    </article>
+
+    <section class="forum__comments">
+        <hgroup class="forum__divider">
+            <h2 style="margin: 0px;">Comments (0)</h2>
+        
+            <a class="button button--light" data-toggle="#comment-editor">
+                <span class="material-symbols-outlined">add_circle</span>
+                <ruby>Comment<rt>コメントする</rt></ruby>
+            </a>
+            <!-- TODO: Comments -->
+        </hgroup>
+    </section>
+</section>
+
+
+{{> sidebar}}

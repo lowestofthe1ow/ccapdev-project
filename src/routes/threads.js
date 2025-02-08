@@ -6,7 +6,7 @@ const router = express.Router();
 router.get("/", get_threads, (req, res) => {
     console.log(req.app.get("threads"));
     res.render("threads", {
-        title: "Home",
+        title: "Threads",
         helpers: {
             format_date(created) {
                 /* TODO: Actually format the date, e.g. "7 hours ago" */
@@ -19,7 +19,17 @@ router.get("/", get_threads, (req, res) => {
 });
 
 router.get("/:id", get_thread, (req, res) => {
-    res.send(req.app.get("thread"));
+    res.render("thread", {
+        title: req.app.get("thread").title,
+        helpers: {
+            format_date(created) {
+                /* TODO: Actually format the date, e.g. "7 hours ago" */
+                return created.toLocaleString();
+            },
+        },
+        layout: "forum",
+        thread: req.app.get("thread"),
+    });
 });
 
 export default router;
