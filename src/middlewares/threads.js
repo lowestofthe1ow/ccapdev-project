@@ -1,4 +1,6 @@
-export default async (req, res, next) => {
+import { ObjectId } from "mongodb";
+
+export async function get_threads(req, res, next) {
     try {
         /* Fetch from database */
         let _threads = req.app.get("db").collection("threads");
@@ -12,4 +14,19 @@ export default async (req, res, next) => {
     } catch (error) {
         console.error(error);
     }
-};
+}
+
+export async function get_thread(req, res, next) {
+    try {
+        /* Fetch from database */
+        let _threads = req.app.get("db").collection("threads");
+        let thread = await _threads.find({ _id: new ObjectId(req.params.id) }).toArray();
+        console.log(thread);
+
+        /* Apply to request object */
+        req.app.set("thread", thread[0]);
+        next();
+    } catch (error) {
+        console.error(error);
+    }
+}
