@@ -1,5 +1,6 @@
 import express from "express";
 import { get_threads, get_thread } from "../middlewares/threads.js";
+import markdown from "../helpers/markdown.js";
 
 const router = express.Router();
 
@@ -26,6 +27,7 @@ router.get("/:id", get_thread, (req, res) => {
                 /* TODO: Actually format the date, e.g. "7 hours ago" */
                 return created.toLocaleString();
             },
+            markdown,
         },
         layout: "forum",
         thread: req.app.get("thread"),
