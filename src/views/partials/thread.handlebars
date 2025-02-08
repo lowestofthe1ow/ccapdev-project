@@ -1,0 +1,28 @@
+<div class="votes">
+    <a class="button button--light votes__button votes__up">
+        <span class="material-symbols-outlined">keyboard_arrow_up</span>
+    </a>
+    <p class="votes__counter">{{vote_count}}</p>
+    <a class="button button--light votes__button votes__down">
+        <span class="material-symbols-outlined">keyboard_arrow_down</span>
+    </a>
+</div>
+
+<a class="thread thread--clickable" href="/post.html">
+    <img src="/img/game_gkms.png" class="thread__image">
+        <div class="thread__data">
+            {{> tags tags=tags games=games}}
+            <h2 class="thread__title">{{title}}</h2>
+            <div class="thread__meta">
+                <div class="thread__meta">
+                    <span class="material-symbols-outlined">person</span>
+                    <p class="thread__detail">Posted by <strong>{{author}}</strong></p>
+                </div>
+                <div class="thread__meta">
+                    <span class="material-symbols-outlined">timer</span>
+                    <p class="thread__detail"><strong>{{date}}</strong></p>
+                </div>
+            </div>
+        </div>
+    <span class="material-symbols-outlined">keyboard_double_arrow_right</span>
+</a>

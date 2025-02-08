@@ -6,6 +6,7 @@ import db_conn from "./model/db.js";
 
 /* Routes */
 import index from "./routes/index.js";
+import forum from "./routes/forum.js";
 
 const app = express();
 const port = 8000;
@@ -20,8 +21,9 @@ app.set("views", "src/views");
 /* Serve static content from the public directory */
 app.use("/", express.static("public"));
 
-/* Set index directory router */
+/* Set routers */
 app.use("/", index);
+app.use("/forum", forum);
 
 /* Connect to MongoDB and begin listening to requests */
 db_conn.connect().then(() => {
