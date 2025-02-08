@@ -11,4 +11,16 @@ router.get("/", get_featured, (req, res) => {
     });
 });
 
+router.get("/signin", (req, res) => {
+    res.render("signin", {
+        title: "Sign in",
+    });
+});
+
+router.get("/register", (req, res) => {
+    res.render("register", {
+        title: "Register",
+    });
+});
+
 export default router;

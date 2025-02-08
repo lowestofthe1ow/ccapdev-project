@@ -1,30 +1,31 @@
-<div class="card card--home card--signin">
+<div class="card card--home card--register">
     <div class="card__vertical-list">
         <img src="/img/logo-dark.png" class="card__logo card__logo--small">
         <nav class="register__component card__horizontal-list">
-            <a class="button button" href="/">
+            <a class="button button--mint-glow" href="/">
                 <span class="material-symbols-outlined">home</span>
                 <ruby>Home<rt>ホーム</rt></ruby>
             </a>
-            <a class="button button" href="/register">
-                <span class="material-symbols-outlined">how_to_reg</span>
-                <ruby>Register<rt>レジスター</rt></ruby>
+            <a class="button button--mint-glow" href="/signin">
+                <span class="material-symbols-outlined">person</span>
+                <ruby>Sign in<rt>サインイン</rt></ruby>
             </a>
         </nav>
     </div>
     <section class="register">
-        <h1 class="register__heading">Sign in</h1>
+        <h1 class="register__heading">Create an account</h1>
         <form class="register__form" action="/forum.html">
             {{> field id="name" label="Username: " icon="person" type="text" placeholder="Enter your name"}}
-            {{> field id="password" label="Password: " icon="lock" type="password" placeholder="Enter your password"}}
+            {{> field id="password" label="Password: " icon="lock" type="password" placeholder="Enter at least 6 characters"}}
+            {{> field id="confirm" label="Confirm password: " icon="lock" type="password" placeholder="Enter your password"}}
 
             <div class="register__input">
                 <input type="checkbox" name="remember">
                 <label for="remember">Remember me</label>
             </div>
-            <button type="submit" class="button">
+            <button type="submit" class="button button--mint-glow">
                 <span class="material-symbols-outlined">login</span>
-                <ruby>Sign in<rt>サインイン</rt></ruby>
+                <ruby>Register<rt>レジスター</rt></ruby>
             </button>
         </form>
     </section>
