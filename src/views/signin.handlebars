@@ -1,3 +1,16 @@
+<style>
+  #errorMessages {
+    background: #ffdddd;
+    padding: 10px;
+    border: 1px solid red;
+    color: red;
+    margin-bottom: 10px;
+    display: none;
+  }
+  
+</style>
+
+
 <div class="card card--home card--signin">
     <div class="card__vertical-list">
         <img src="/img/logo-dark.png" class="card__logo card__logo--small">
@@ -14,9 +27,9 @@
     </div>
     <section class="register">
         <h1 class="register__heading">Sign in</h1>
-        <form class="register__form" action="/forum.html">
+        <form class="register__form" method="POST" id="signinForm">
             {{> field id="name" label="Username: " icon="person" type="text" placeholder="Enter your name"}}
-            {{> field id="password" label="Password: " icon="lock" type="password" placeholder="Enter your password"}}
+            {{> field id="password" label="Password: " icon="lock" type="password" placeholder="Enter your password" password="true"}}
 
             <div class="register__input">
                 <input type="checkbox" name="remember">
@@ -27,5 +40,54 @@
                 <ruby>Sign in<rt>サインイン</rt></ruby>
             </button>
         </form>
+        <div id="errorMessages"></div>
     </section>
 </div>
+
+<script>
+    document.getElementById("signinForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const formData = {
+        name: document.getElementById("name").value,
+        password: document.getElementById("password").value,
+    };
+
+    const response = await fetch("/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
+    });
+
+    const result = await response.json();
+
+    const errorDiv = document.getElementById("errorMessages");
+    errorDiv.textContent = "";
+
+    if (!result.success) {
+        errorDiv.textContent = result.message;
+        errorDiv.style.display = "block"; 
+    } else {
+        errorDiv.style.display = "none";
+        setTimeout(() => {
+                window.location.href = "../../forum.html";
+            }, 1500);s
+    }
+});
+
+function togglePassword(id) {
+    let input = document.getElementById(id);
+    let button = input.nextElementSibling; 
+    let icon = button.querySelector("span"); 
+
+    if (input.type === "password") {
+        input.type = "text";
+        icon.textContent = "visibility"; 
+    } else {
+        input.type = "password";
+        icon.textContent = "visibility_off"; 
+    }
+}
+</script>

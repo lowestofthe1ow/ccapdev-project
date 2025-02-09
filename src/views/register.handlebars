@@ -1,3 +1,16 @@
+<style>
+  #errorMessages {
+    background: #ffdddd;
+    padding: 10px;
+    border: 1px solid red;
+    color: red;
+    margin-bottom: 10px;
+    display: none;
+  }
+  
+</style>
+
+
 <div class="card card--home card--register">
     <div class="card__vertical-list">
         <img src="/img/logo-dark.png" class="card__logo card__logo--small">
@@ -14,10 +27,14 @@
     </div>
     <section class="register">
         <h1 class="register__heading">Create an account</h1>
-        <form class="register__form" action="/forum.html">
-            {{> field id="name" label="Username: " icon="person" type="text" placeholder="Enter your name"}}
-            {{> field id="password" label="Password: " icon="lock" type="password" placeholder="Enter at least 6 characters"}}
-            {{> field id="confirm" label="Confirm password: " icon="lock" type="password" placeholder="Enter your password"}}
+        <form class="register__form" method="POST" id="registerForm">
+            {{> field id="name" label="Username: " icon="person" type="text" placeholder="Enter your name" minlength="8" required="true"}}
+
+            {{> field id="password" label="Password: " icon="lock" type="password" placeholder="Enter at least 8 characters" minlength="8" required="true" password = "true"}}
+
+            {{> field id="confirm" label="Confirm password: " icon="lock" type="password" placeholder="Confirm your password" minlength="8" required="true"  password = "true"
+                    oninput="this.setCustomValidity(this.value !== document.getElementById('password').value ? 'Passwords do not match' : '')"}}
+
 
             <div class="register__input">
                 <input type="checkbox" name="remember">
@@ -28,5 +45,55 @@
                 <ruby>Register<rt>レジスター</rt></ruby>
             </button>
         </form>
+
+        <div id="errorMessages"></div>
     </section>
 </div>
+
+<script>
+    document.getElementById("registerForm").addEventListener("submit", async function(event) {
+        event.preventDefault();
+
+        const formData = {
+            name: document.getElementById("name").value,
+            password: document.getElementById("password").value,
+            confirm: document.getElementById("confirm").value
+        };
+
+        const response = await fetch("/create", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        });
+
+        const result = await response.json();
+
+        const errorDiv = document.getElementById("errorMessages");
+        errorDiv.textContent = "";
+
+        if (!result.success) {
+            errorDiv.textContent = result.message;
+            errorDiv.style.display = "block"; 
+        } else {
+            errorDiv.style.display = "none";
+            setTimeout(() => {
+                    window.location.href = "../../forum.html";
+                }, 500);s
+        }
+    });
+
+    function togglePassword(id) {
+        let input = document.getElementById(id);
+        let button = input.nextElementSibling; 
+        let icon = button.querySelector("span"); 
+        if (input.type === "password") {
+            input.type = "text";
+            icon.textContent = "visibility"; 
+        } else {
+            input.type = "password";
+            icon.textContent = "visibility_off";
+        }
+    }
+</script>

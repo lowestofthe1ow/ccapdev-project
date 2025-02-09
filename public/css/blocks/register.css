@@ -32,10 +32,17 @@
     gap: 5px;
 }
 
+.register__input > :first-child{
+    border-radius: 10px 0px 0px 10px;
+}
+
+.register__input > :last-child{
+    border-radius: 0px 10px 10px 0px;
+}
+
 .register__icon {
     align-content: center;
     border: 1px solid var(--light);
-    border-radius: 10px 0px 0px 10px;
     background-color: var(--glass-dark);
     width: 40px;
     text-align: center;
@@ -44,7 +51,6 @@
 .register__inputbox {
     flex: 1;
     border: 1px solid var(--light);
-    border-radius: 0px 10px 10px 0px;
     background-color: var(--glass-dark);
     padding: 10px;
     color: var(--light);
