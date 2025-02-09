@@ -20,7 +20,7 @@
             <button class="button button--light button--light--small">
                 <span class="material-symbols-outlined" style="font-size: 1.1rem">bookmark</span>
             </button>
-            <button class="button button--light button--light--small comment__reply">
+            <button class="button button--light button--light--small comment__reply" data-toggle="#editor-{{_id}}">
                 <span class="material-symbols-outlined" style="font-size: 1.1rem; margin: 0px;">reply</span>
             </button>
         </div>
@@ -29,6 +29,12 @@
             <article>
                 {{{markdown content}}}
             </article>
+        </div>
+
+        <div id="editor-{{_id}}" class="hidden">
+            <p>Replying as <strong>lowestofthelow</strong></p>
+            {{> editor parent=_id}}
+            <br />
         </div>
 
         {{#each replies}}
