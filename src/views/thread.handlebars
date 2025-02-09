@@ -1,0 +1,41 @@
+{{! thread.handlebars
+    Template for a thread page.
+    Express route: /threads/:id
+
+    @param thread - A thread document obtained from the MongoDB database. Follows the following schema:
+                    { author: string, title: string, content: string, vote_count: string, tags: array, games: array,
+                      created: Date, thumbnail: string, comments: array }
+}}
+
+<section class="forum__threads">
+    <hgroup class="forum__thread">
+        {{> threadlink this.thread}}
+    </hgroup>
+
+    <article class="article">
+        {{{markdown this.thread.content}}}
+    </article>
+
+    <section class="forum__comments">
+        <hgroup class="forum__divider">
+            <h2 style="margin: 0px;">Comments ({{count_comments comments}})</h2>
+        
+            <a class="button button--light" data-toggle="#comment-editor">
+                <span class="material-symbols-outlined">add_circle</span>
+                <ruby>Comment<rt>コメントする</rt></ruby>
+            </a>
+        </hgroup>
+
+        {{> editor id="comment-editor" hidden=true}}
+        <input name="parent" type="hidden" value="{{this.thread._id}}" form="comment-editor" />
+        <input name="type" type="hidden" value="comment" form="comment-editor" />
+
+        {{! Display all comments here }}
+        {{#each comments}}
+        {{> comment this}}
+        {{/each}}
+    </section>
+</section>
+
+
+{{> sidebar}}

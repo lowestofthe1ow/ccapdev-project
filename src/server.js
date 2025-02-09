@@ -6,9 +6,12 @@ import db_conn from "./model/db.js";
 
 /* Routes */
 import index from "./routes/index.js";
+import forum from "./routes/threads.js";
 
 const app = express();
 const port = 8000;
+
+app.use(express.urlencoded({ extended: true }));
 
 /* Use the handlebars engine */
 app.engine("handlebars", engine());
@@ -20,11 +23,13 @@ app.set("views", "src/views");
 /* Serve static content from the public directory */
 app.use("/", express.static("public"));
 
-/* Set index directory router */
+/* Set routers */
 app.use("/", index);
+app.use("/threads", forum);
 
 /* Connect to MongoDB and begin listening to requests */
 db_conn.connect().then(() => {
+    app.set("db_conn", db_conn);
     app.set("db", db_conn.db(process.env.MONGODB_DBNAME));
 
     app.listen(port, () => {

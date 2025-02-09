@@ -1,0 +1,69 @@
+{{! editor.handlebars
+    Partial for rendering Markdown text editors
+
+    @param id     - The ID to assign to this textbox
+    @param hidden - Whether this textbox starts as hidden or not
+}}
+
+<form class="editor {{#if hidden}}hidden{{/if}}" id="{{id}}" method="post">
+    <div class="editor__options">
+        <a class="button button--light button--light--small" style="flex: 1;">
+            Editor
+        </a>
+        <a class="button button--light button--light--small" style="flex: 1;">
+            Preview
+        </a>
+        <a class="button button--light button--light--small">
+            <span class="material-symbols-outlined symbols-btngrp">format_bold</span>
+        </a>
+        <a class="button button--light button--light--small">
+            <span class="material-symbols-outlined symbols-btngrp">format_italic</span>
+        </a>
+        <a class="button button--light button--light--small">
+            <span class="material-symbols-outlined symbols-btngrp">format_underlined</span>
+        </a>
+        <a class="button button--light button--light--small">
+            <span class="material-symbols-outlined symbols-btngrp">strikethrough_s</span>
+        </a>
+        <a class="button button--light button--light--small">
+            <span class="material-symbols-outlined symbols-btngrp">superscript</span>
+        </a>
+        <a class="button button--light button--light--small">
+            <span class="material-symbols-outlined symbols-btngrp">format_h1</span>
+        </a>
+        <a class="button button--light button--light--small">
+            <span class="material-symbols-outlined symbols-btngrp">code</span>
+        </a>
+        <a class="button button--light button--light--small">
+            <span class="material-symbols-outlined symbols-btngrp">list</span>
+        </a>
+        <a class="button button--light button--light--small">
+            <span class="material-symbols-outlined symbols-btngrp">format_list_numbered</span>
+        </a>
+        <a class="button button--light button--light--small">
+            <span class="material-symbols-outlined symbols-btngrp">alternate_email</span>
+        </a>
+        <a class="button button--light button--light--small">
+            <span class="material-symbols-outlined symbols-btngrp">attach_file</span>
+        </a>
+        <a class="button button--light button--light--small">
+            <span class="material-symbols-outlined symbols-btngrp">link</span>
+        </a>
+        <a class="button button--light button--light--small">
+            <span class="material-symbols-outlined symbols-btngrp">warning</span>
+        </a>
+    </div>
+
+    <textarea id="content" name="content" class="editor__box" placeholder="Start typing here..." ></textarea>
+
+    <div class="editor__options editor__options--bottom">
+        <button class="button button--light button--light--small" href="/post.html">
+            <span class="material-symbols-outlined">cancel</span>
+            Cancel
+        </button>
+        <button type="submit" class="button button--light button--light--small">
+            <span class="material-symbols-outlined">login</span>
+            Publish
+        </button>
+    </div>
+</form>

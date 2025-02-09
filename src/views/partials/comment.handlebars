@@ -1,0 +1,67 @@
+{{! comment.handlebars
+    Partial for rendering comments under posts
+
+    @param author     - The author of the comment
+    @param parent     - The ObjectID representing the parent of this comment (either a comment it is replying to or the
+                        post it is tied to, if it is a top-level comment)
+    @param content    - The content of the comment, written in Markdown
+    @param vote_count - The current vote count / score of the comment
+    @param created    - The Date representing when the comment was posted
+    @param replies    - An array of other comment objects representing the children (replies) of this comment. Obtained
+                        from MongoDB's $graphLookup aggregation stage
+}}
+
+<div class="forum__comment">
+    <div class="votes votes--comment">
+        <a class="button button--light votes__button votes__up">
+            <span class="material-symbols-outlined">keyboard_arrow_up</span>
+        </a>
+        <a class="button button--light votes__button votes__down">
+            <span class="material-symbols-outlined">keyboard_arrow_down</span>
+        </a>
+    </div>
+    
+    <div class="comment">
+        <div style="display: flex; gap: 5px;">
+            <p class="comment__details">
+                <strong>{{author}}</strong> ({{vote_count}} votes, {{format_date created}})
+            </p>
+            
+            <button class="button button--light button--light--small">
+                <span class="material-symbols-outlined" style="font-size: 1.1rem">flag</span>
+            </button>
+            <button class="button button--light button--light--small">
+                <span class="material-symbols-outlined" style="font-size: 1.1rem">bookmark</span>
+            </button>
+            <button class="button button--light button--light--small comment__reply" data-toggle="#replymenu--{{_id}}">
+                <span class="material-symbols-outlined" style="font-size: 1.1rem; margin: 0px;">reply</span>
+            </button>
+        </div>
+
+        <div class="comment--main">
+            <article>
+                {{{markdown content}}}
+            </article>
+        </div>
+
+        <div id="replymenu--{{_id}}" class="hidden">
+            <p>Replying as <strong>lowestofthelow</strong></p>
+
+            {{> editor id=(concat "editor--" _id) }}
+
+            {{! Specify that this is the parent comment when submitting the reply form }}
+            <input name="parent" type="hidden" value="{{_id}}" form="editor--{{_id}}">
+            <input name="type" type="hidden" value="reply" form="editor--{{_id}}">
+
+            <br />
+        </div>
+
+        {{! All replies go here. TODO: Wrap in a div that can be collapsed. }}
+        {{#each replies}}
+            {{#if (check_id this.parent ../_id)}}
+            {{> comment this replies=../replies}}
+            {{/if}}
+        {{/each}}
+    </div>
+</div>
+

@@ -1,3 +1,10 @@
+{{! gallery.handlebars 
+    Partial for displaying a 2x3 gallery of images, used in the homepage
+
+    @param images - An array of objects with the following schema:
+                    { image: url, icon: url, name: string }
+}}
+
 <div class="gallery">
     {{#each images}}
         <div class="gallery__row">
