@@ -1,0 +1,41 @@
+<div class="forum__comment">
+    <div class="votes votes--comment">
+        <a class="button button--light votes__button votes__up">
+            <span class="material-symbols-outlined">keyboard_arrow_up</span>
+        </a>
+        <a class="button button--light votes__button votes__down">
+            <span class="material-symbols-outlined">keyboard_arrow_down</span>
+        </a>
+    </div>
+    
+    <div class="comment">
+        <div style="display: flex; gap: 5px;">
+            <p class="comment__details">
+                <strong>{{author}}</strong> ({{vote_count}} votes, {{format_date created}})
+            </p>
+            
+            <button class="button button--light button--light--small">
+                <span class="material-symbols-outlined" style="font-size: 1.1rem">flag</span>
+            </button>
+            <button class="button button--light button--light--small">
+                <span class="material-symbols-outlined" style="font-size: 1.1rem">bookmark</span>
+            </button>
+            <button class="button button--light button--light--small comment__reply">
+                <span class="material-symbols-outlined" style="font-size: 1.1rem; margin: 0px;">reply</span>
+            </button>
+        </div>
+
+        <div class="comment--main">
+            <article>
+                {{{markdown content}}}
+            </article>
+        </div>
+
+        {{#each replies}}
+            {{#if (equal this.parent ../_id)}}
+            {{> comment this replies=../replies}}
+            {{/if}}
+        {{/each}}
+    </div>
+</div>
+

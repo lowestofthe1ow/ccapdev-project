@@ -21,7 +21,6 @@ export async function get_thread(req, res, next) {
         /* Fetch from database */
         let _threads = req.app.get("db").collection("threads");
         let thread = await _threads.find({ _id: new ObjectId(req.params.id) }).toArray();
-        console.log(thread);
 
         /* Apply to request object */
         req.app.set("thread", thread[0]);
