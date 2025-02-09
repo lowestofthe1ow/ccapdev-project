@@ -29,7 +29,7 @@
     color: var(--light);
 }
 
-.article__link[target="_blank"]::after {
+.article__link::after {
     content: " 🗗";
 }
 

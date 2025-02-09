@@ -9,20 +9,24 @@
 </div>
 
 <a class="thread thread--clickable" href="/threads/{{_id}}">
-    <img src="/img/game_gkms.png" class="thread__image">
-        <div class="thread__data">
-            {{> tags this}}
-            <h2 class="thread__title">{{title}}</h2>
+    {{#if thumbnail}}
+    <img src="{{thumbnail}}" class="thread__image">
+    {{else}}
+    <img src="/img/favicon.png" class="thread__image">
+    {{/if}}
+    <div class="thread__data">
+        {{> tags this}}
+        <h2 class="thread__title">{{title}}</h2>
+        <div class="thread__meta">
             <div class="thread__meta">
-                <div class="thread__meta">
-                    <span class="material-symbols-outlined">person</span>
-                    <p class="thread__detail">Posted by <strong>{{author}}</strong></p>
-                </div>
-                <div class="thread__meta">
-                    <span class="material-symbols-outlined">timer</span>
-                    <p class="thread__detail"><strong>{{format_date created}}</strong></p>
-                </div>
+                <span class="material-symbols-outlined">person</span>
+                <p class="thread__detail">Posted by <strong>{{author}}</strong></p>
+            </div>
+            <div class="thread__meta">
+                <span class="material-symbols-outlined">timer</span>
+                <p class="thread__detail"><strong>{{format_date created}}</strong></p>
             </div>
         </div>
+    </div>
     <span class="material-symbols-outlined">keyboard_double_arrow_right</span>
 </a>

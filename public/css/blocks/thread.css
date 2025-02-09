@@ -37,7 +37,10 @@
 
 .thread__image {
     border-radius: 10px;
+    border: 1px solid var(--kinkan-gray);
     height: 100px;
+    width: 100px;
+    object-fit: cover;
 }
 
 .thread__data {
