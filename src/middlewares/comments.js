@@ -11,12 +11,12 @@ export default async (req, res, next) => {
                 },
                 {
                     $graphLookup: {
-                        from: "comments",
-                        startWith: "$children",
+                        as: "replies",
                         connectFromField: "children",
                         connectToField: "_id",
-                        as: "replies",
                         depthField: "depth",
+                        from: "comments",
+                        startWith: "$children",
                     },
                 },
                 {

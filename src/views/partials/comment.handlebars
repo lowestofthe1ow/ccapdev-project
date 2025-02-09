@@ -57,7 +57,7 @@
 
         {{! All replies go here. TODO: Wrap in a div that can be collapsed. }}
         {{#each replies}}
-            {{#if (equal this.parent ../_id)}}
+            {{#if (check_id this.parent ../_id)}}
             {{> comment this replies=../replies}}
             {{/if}}
         {{/each}}

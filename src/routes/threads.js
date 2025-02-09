@@ -1,22 +1,28 @@
 import express from "express";
-import { get_threads, get_thread } from "../middlewares/threads.js";
-import get_comments from "../middlewares/comments.js";
-import markdown from "../helpers/markdown.js";
 import { ObjectId } from "mongodb";
+
+/* Helpers */
+import check_id from "../helpers/check_id.js";
+import concat from "../helpers/concat.js";
+import count_comments from "../helpers/count_comments.js";
+import format_date from "../helpers/format_date.js";
+import markdown from "../helpers/markdown.js";
+
+/* Middleware */
+import get_comments from "../middlewares/comments.js";
+import { get_thread, get_threads } from "../middlewares/threads.js";
+import thread_comment from "../controllers/thread_comment.js";
 
 const router = express.Router();
 
 router.get("/", get_threads, (req, res) => {
     res.render("threads", {
-        title: "Threads",
         helpers: {
-            format_date(created) {
-                /* TODO: Actually format the date, e.g. "7 hours ago" */
-                return created.toLocaleString();
-            },
+            format_date,
         },
         layout: "forum",
         threads: req.app.get("threads"),
+        title: "Threads",
     });
 });
 
@@ -24,24 +30,11 @@ router.get("/:id", get_thread, get_comments, (req, res) => {
     res.render("thread", {
         title: req.app.get("thread").title,
         helpers: {
-            format_date(created) {
-                /* TODO: Actually format the date, e.g. "7 hours ago" */
-                return created.toLocaleString();
-            },
+            format_date,
             markdown,
-            count(comments) {
-                let total = 0;
-                comments.forEach((x) => {
-                    total += 1 + x.replies.length;
-                });
-                return total;
-            },
-            equal(value1, value2) {
-                return value1.equals(value2);
-            },
-            concat(string1, string2) {
-                return string1 + string2;
-            },
+            count_comments,
+            check_id,
+            concat,
         },
         layout: "forum",
         thread: req.app.get("thread"),
@@ -49,34 +42,6 @@ router.get("/:id", get_thread, get_comments, (req, res) => {
     });
 });
 
-router.post("/:id", get_thread, get_comments, async (req, res) => {
-    console.log("hi");
-    console.log(req.body);
-
-    // let session = req.app.get("db_conn").startSession();
-    try {
-        /* Fetch from database */
-        let _comments = req.app.get("db").collection("comments");
-
-        let comment = {
-            author: "lowestofthelow",
-            parent: new ObjectId(req.body.parent),
-            content: req.body.content,
-            children: [],
-            vote_count: 0,
-            created: new Date(Date.now()),
-        };
-
-        let insert_result = await _comments.insertOne(comment);
-        await _comments.updateOne({ _id: comment.parent }, { $push: { children: insert_result.insertedId } });
-
-        res.redirect(`/threads/${req.params.id}`);
-        //await session.withTransaction(async () => {
-
-        //});
-    } catch (error) {
-        console.error(error);
-    }
-});
+router.post("/:id", get_thread, get_comments, thread_comment);
 
 export default router;
