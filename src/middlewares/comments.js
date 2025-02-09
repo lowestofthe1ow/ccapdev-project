@@ -19,6 +19,30 @@ export default async (req, res, next) => {
                         depthField: "depth",
                     },
                 },
+                {
+                    $unwind: {
+                        path: "$replies",
+                        preserveNullAndEmptyArrays: true,
+                    },
+                },
+                {
+                    $sort: {
+                        created: -1,
+                        "replies.created": -1,
+                    },
+                },
+                {
+                    $group: {
+                        _id: "$_id",
+                        author: { $first: "$author" },
+                        parent: { $first: "$parent" },
+                        content: { $first: "$content" },
+                        children: { $first: "$children" },
+                        vote_count: { $first: "$vote_count" },
+                        created: { $first: "$created" },
+                        replies: { $push: "$replies" },
+                    },
+                },
             ])
             .toArray(); /* toArray() "converts" aggregate() return value to a Promise */
 
