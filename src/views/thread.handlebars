@@ -1,10 +1,19 @@
+{{! thread.handlebars
+    Template for a thread page.
+    Express route: /threads/:id
+
+    @param thread - A thread document obtained from the MongoDB database. Follows the following schema:
+                    { author: string, title: string, content: string, vote_count: string, tags: array, games: array,
+                      created: Date, thumbnail: string, comments: array }
+}}
+
 <section class="forum__threads">
     <hgroup class="forum__thread">
         {{> threadlink this.thread}}
     </hgroup>
 
     <article class="article">
-        {{{markdown this.thread.content}}} <!-- TODO: Markdown parsing -->
+        {{{markdown this.thread.content}}}
     </article>
 
     <section class="forum__comments">
@@ -17,8 +26,9 @@
             </a>
         </hgroup>
 
-        {{> editor id="comment-editor" hidden=true parent=this.thread._id}}
+        {{> editor id="comment-editor" hidden=true}}
 
+        {{! Display all comments here }}
         {{#each comments}}
         {{> comment this}}
         {{/each}}

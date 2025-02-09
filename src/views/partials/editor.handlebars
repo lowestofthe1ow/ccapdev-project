@@ -1,4 +1,11 @@
-<form class="editor {{#if hidden}}hidden{{/if}}" id="{{id}}" data-parent="{{parent}}" method="post" action="?parent={{parent}}">
+{{! editor.handlebars
+    Partial for rendering Markdown text editors
+
+    @param id     - The ID to assign to this textbox
+    @param hidden - Whether this textbox starts as hidden or not
+}}
+
+<form class="editor {{#if hidden}}hidden{{/if}}" id="{{id}}" method="post">
     <div class="editor__options">
         <a class="button button--light button--light--small" style="flex: 1;">
             Editor
@@ -47,7 +54,6 @@
         </a>
     </div>
 
-    <input name="parent" type="hidden" value="{{parent}}">
     <textarea id="content" name="content" class="editor__box" placeholder="Start typing here..." ></textarea>
 
     <div class="editor__options editor__options--bottom">

@@ -1,3 +1,18 @@
+{{! threadlink.handlebars
+    Partial for rendering thread information in a list (e.g. in the forum homepage)
+
+    @param author     - The author of the thread
+    @param content    - The content of the comment, written in Markdown
+    @param vote_count - The current vote count / score of the comment
+    @param created    - The Date representing when the comment was posted
+    @param games      - An array of strings representing the game tags for the post
+    @param tags       - An array of strings representing other tags for the post
+    @param title      - The title of the post
+    @param thumbnail  - The image to show as a post preview. Uses the site's favicon if not specified.
+
+    @note This partial accepts a thread document from the MongoDB database. The unused parameters are simply ignored.
+}}
+
 <div class="votes">
     <a class="button button--light votes__button votes__up">
         <span class="material-symbols-outlined">keyboard_arrow_up</span>

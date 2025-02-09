@@ -27,7 +27,6 @@ export default async (req, res, next) => {
                 },
                 {
                     $sort: {
-                        created: -1,
                         "replies.created": -1,
                     },
                 },
@@ -41,6 +40,11 @@ export default async (req, res, next) => {
                         vote_count: { $first: "$vote_count" },
                         created: { $first: "$created" },
                         replies: { $push: "$replies" },
+                    },
+                },
+                {
+                    $sort: {
+                        created: -1,
                     },
                 },
             ])

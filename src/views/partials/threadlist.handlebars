@@ -1,3 +1,11 @@
+{{! threadlist.handlebars
+    Partial for rendering a list of threads (e.g. in the forum homepage)
+
+    @param threads - A list of thread documents to render
+
+    @note This partial accepts an array of thread documents from the MongoDB database. Unused parameters are simply ignored.
+}}
+
 <ul class="forum__threads">
     {{#each threads}}
     <li class="forum__thread">

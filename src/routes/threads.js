@@ -39,6 +39,9 @@ router.get("/:id", get_thread, get_comments, (req, res) => {
             equal(value1, value2) {
                 return value1.equals(value2);
             },
+            concat(string1, string2) {
+                return string1 + string2;
+            },
         },
         layout: "forum",
         thread: req.app.get("thread"),
