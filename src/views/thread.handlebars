@@ -27,6 +27,8 @@
         </hgroup>
 
         {{> editor id="comment-editor" hidden=true}}
+        <input name="parent" type="hidden" value="{{this.thread._id}}" form="comment-editor" />
+        <input name="type" type="hidden" value="comment" form="comment-editor" />
 
         {{! Display all comments here }}
         {{#each comments}}

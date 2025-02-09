@@ -1,3 +1,5 @@
+import { ObjectId } from "mongodb";
+
 /**
  * Controller for handling comment posts on a thread.
  *
@@ -23,7 +25,16 @@ export default async (req, res) => {
 
         /* TODO: Look into atomic transactions with MongoDB sessions */
         let insert_result = await _comments.insertOne(comment);
-        await _comments.updateOne({ _id: comment.parent }, { $push: { children: insert_result.insertedId } });
+
+        if (req.body.type == "reply") {
+            /* If comment is a reply */
+            await _comments.updateOne({ _id: comment.parent }, { $push: { children: insert_result.insertedId } });
+        } else if (req.body.type == "comment") {
+            /* If comment is a top-level comment */
+            let _threads = req.app.get("db").collection("threads");
+            /* TODO: Better schema lol */
+            await _threads.updateOne({ _id: comment.parent }, { $push: { comments: insert_result.insertedId } });
+        }
 
         /* Redirect to GET /threads/:id */
         res.redirect(`/threads/${req.params.id}`);
