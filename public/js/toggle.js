@@ -9,3 +9,12 @@ window.addEventListener("load", () => {
         });
     });
 });
+
+window.addEventListener("load", () => {
+    /* Apply to all buttons that "toggle" the visibility of some component */
+    this.document.querySelectorAll("[data-parent]").forEach((x) => {
+        x.addEventListener("click", () => {
+            console.log(x.dataset.parent);
+        });
+    });
+});

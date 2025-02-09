@@ -1,4 +1,4 @@
-<form class="editor {{#if hidden}}hidden{{/if}}" id="{{id}}" data-parent="{{parent}}">
+<form class="editor {{#if hidden}}hidden{{/if}}" id="{{id}}" data-parent="{{parent}}" method="post" action="?parent={{parent}}">
     <div class="editor__options">
         <a class="button button--light button--light--small" style="flex: 1;">
             Editor
@@ -47,7 +47,8 @@
         </a>
     </div>
 
-    <textarea class="editor__box" placeholder="Start typing here..."></textarea>
+    <input name="parent" type="hidden" value="{{parent}}">
+    <textarea id="content" name="content" class="editor__box" placeholder="Start typing here..." ></textarea>
 
     <div class="editor__options editor__options--bottom">
         <button class="button button--light button--light--small" href="/post.html">
