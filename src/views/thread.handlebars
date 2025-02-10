@@ -26,6 +26,7 @@
             </a>
         </hgroup>
 
+        {{! TODO: Better way to get the action attribute, or just use a fetch() call }}
         {{> editor id="comment-editor" hidden=true action=(concat (concat "/threads/" this.thread._id) "/comments")}}
         <input name="parent" type="hidden" value="{{this.thread._id}}" form="comment-editor" />
         <input name="type" type="hidden" value="comment" form="comment-editor" />

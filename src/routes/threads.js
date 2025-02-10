@@ -1,5 +1,4 @@
 import express from "express";
-import { ObjectId } from "mongodb";
 
 /* Helpers */
 import check_id from "../helpers/check_id.js";
@@ -9,8 +8,8 @@ import format_date from "../helpers/format_date.js";
 import markdown from "../helpers/markdown.js";
 
 /* Middleware */
-import get_comments from "../middlewares/comments.js";
-import { get_thread, get_threads } from "../middlewares/threads.js";
+import get_comments from "../middlewares/get_comments.js";
+import { get_thread, get_threads } from "../middlewares/get_threads.js";
 import thread_comment from "../controllers/thread_comment.js";
 
 const router = express.Router();
@@ -28,17 +27,17 @@ router.get("/", get_threads, (req, res) => {
 
 router.get("/:id", get_thread, get_comments, (req, res) => {
     res.render("thread", {
-        title: req.app.get("thread").title,
+        comments: req.app.get("comments"),
         helpers: {
-            format_date,
-            markdown,
-            count_comments,
             check_id,
             concat,
+            count_comments,
+            format_date,
+            markdown,
         },
         layout: "forum",
         thread: req.app.get("thread"),
-        comments: req.app.get("comments"),
+        title: req.app.get("thread").title,
     });
 });
 

@@ -1,5 +1,5 @@
 import express from "express";
-import get_featured from "../middlewares/featured.js";
+import get_featured from "../middlewares/get_featured.js";
 
 const router = express.Router();
 

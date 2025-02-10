@@ -1,14 +1,12 @@
 import { ObjectId } from "mongodb";
 
 /**
- * Controller for handling comment posts on a thread.
+ * Controller for adding new comments to a thread. Processes POST requests to /threads/:id/comments
  *
  * @param req - The request body
  * @param res - The response body
  */
 export default async (req, res) => {
-    /* TODO: This currently captures all post requests to /threads/:id. Eventually we'll have to deal with edits and
-    deletions. Decide whether to put those in separate endpoints or if the logic should just be handled here. */
     try {
         /* Fetch from database */
         let _comments = req.app.get("db").collection("comments");

@@ -48,6 +48,7 @@
         <div id="replymenu--{{_id}}" class="hidden">
             <p>Replying as <strong>lowestofthelow</strong></p>
 
+            {{! TODO: Better way to get the action attribute, or just use a fetch() call }}
             {{> editor id=(concat "editor--" _id) action=(concat (concat "/threads/" thread) "/comments")}}
 
             {{! Specify that this is the parent comment when submitting the reply form }}
