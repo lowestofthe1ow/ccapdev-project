@@ -4,7 +4,8 @@
     "description": "A gacha/mobile gaming forum",
     "main": "index.js",
     "scripts": {
-        "test": "node --env-file=.env src/server.js"
+        "test": "node --env-file=.env src/server.js",
+        "initdb": "node --env-file=.env src/model/init.js"
     },
     "repository": {
         "type": "git",
