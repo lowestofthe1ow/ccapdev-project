@@ -16,6 +16,7 @@ export default async (req, res) => {
         /* Create a comment object from the request body */
         let comment = {
             author: "lowestofthelow" /* Sample user for now */,
+            thread: req.app.get("thread")._id,
             children: [],
             content: req.body.content,
             created: new Date(Date.now()),

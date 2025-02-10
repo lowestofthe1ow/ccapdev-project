@@ -2,8 +2,9 @@
     Partial for rendering comments under posts
 
     @param author     - The author of the comment
+    @param thread     - The thread the comment is tied to
     @param parent     - The ObjectID representing the parent of this comment (either a comment it is replying to or the
-                        post it is tied to, if it is a top-level comment)
+                        same as the thread it is tied to, if it is a top-level comment)
     @param content    - The content of the comment, written in Markdown
     @param vote_count - The current vote count / score of the comment
     @param created    - The Date representing when the comment was posted
@@ -47,7 +48,7 @@
         <div id="replymenu--{{_id}}" class="hidden">
             <p>Replying as <strong>lowestofthelow</strong></p>
 
-            {{> editor id=(concat "editor--" _id) }}
+            {{> editor id=(concat "editor--" _id) action=(concat (concat "/threads/" thread) "/comments")}}
 
             {{! Specify that this is the parent comment when submitting the reply form }}
             <input name="parent" type="hidden" value="{{_id}}" form="editor--{{_id}}">

@@ -34,6 +34,7 @@ export default async (req, res, next) => {
                     $group: {
                         _id: "$_id",
                         author: { $first: "$author" },
+                        thread: { $first: "$thread" },
                         parent: { $first: "$parent" },
                         content: { $first: "$content" },
                         children: { $first: "$children" },
@@ -49,6 +50,8 @@ export default async (req, res, next) => {
                 },
             ])
             .toArray(); /* toArray() "converts" aggregate() return value to a Promise */
+
+        console.log(comments);
 
         /* Apply to request object */
         req.app.set("comments", comments);

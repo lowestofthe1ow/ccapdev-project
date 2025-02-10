@@ -42,6 +42,6 @@ router.get("/:id", get_thread, get_comments, (req, res) => {
     });
 });
 
-router.post("/:id", get_thread, get_comments, thread_comment);
+router.post("/:id/comments", get_thread, get_comments, thread_comment);
 
 export default router;
