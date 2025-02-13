@@ -2,6 +2,7 @@ import db_conn from "./db.js";
 
 /* Schema validators */
 import comments from "./schemas/comments.js";
+import threads from "./schemas/threads.js";
 
 db_conn.connect().then(async () => {
     let db = db_conn.db(process.env.MONGODB_DBNAME);
@@ -15,7 +16,7 @@ db_conn.connect().then(async () => {
     /* Create the `threads` collection */
     await db.collection("threads").drop();
     await db.createCollection("threads", {
-        validator: comments,
+        validator: threads,
     });
 
     db_conn.close();
