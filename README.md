@@ -11,7 +11,7 @@ CCAPDEV S18
 ### Contributing
 
 ~~The project will be using [Svelte](https://svelte.dev/) (we will not be using SvelteKit)~~ **We will be using raw
-HTML/CSS**. Remember to create a new branch for new features and to keep commits as concise as possible.
+HTML/CSS**. (**Phase 2** onward: Handlebars) Remember to create a new branch for new features and to keep commits as concise as possible.
 
 When writing HTML, try to ensure tags are **semantically meaningful**. For CSS, we will follow
 [BEM](https://css-tricks.com/bem-101/). CSS file structure will more or less follow the
@@ -29,6 +29,7 @@ Ensure you have an instance of MongoDB server (probably 8.0) with a database nam
 
 ```
 MONGODB_URI=mongodb://your-URI
+MONGODB_DBNAME=your-DB-name
 ```
 
 ### Testing
@@ -37,6 +38,12 @@ As of Phase 2, a test command has been defined in `package.json`:
 
 ```
 npm test
+```
+
+Initialize the database by running the following command:
+
+```
+npm run initdb
 ```
 
 #### Pre-phase 2
