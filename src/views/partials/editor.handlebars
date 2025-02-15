@@ -3,9 +3,10 @@
 
     @param id     - The ID to assign to this textbox
     @param hidden - Whether this textbox starts as hidden or not
+    @param action - The acttion attribute to add to the form
 }}
 
-<form class="editor {{#if hidden}}hidden{{/if}}" id="{{id}}" method="post">
+<form class="editor {{#if hidden}}hidden{{/if}}" id="{{id}}" method="post" action="{{action}}">
     <div class="editor__options">
         <a class="button button--light button--light--small" style="flex: 1;">
             Editor
@@ -54,7 +55,7 @@
         </a>
     </div>
 
-    <textarea id="content" name="content" class="editor__box" placeholder="Start typing here..." ></textarea>
+    <textarea id="content" name="content" class="editor__box" placeholder="Start typing here..." required></textarea>
 
     <div class="editor__options editor__options--bottom">
         <button class="button button--light button--light--small" href="/post.html">

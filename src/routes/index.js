@@ -1,6 +1,6 @@
 import express from "express";
-import get_featured from "../middlewares/featured.js";
-import argon2 from "argon2";
+import get_featured from "../middlewares/get_featured.js";
+
 const router = express.Router();
 
 
