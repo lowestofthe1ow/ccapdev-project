@@ -8,6 +8,7 @@
     border-radius: 10px;
     background-color: var(--light);
     padding: 20px;
+    width: 100%;
 }
 
 .posteditor__title {
@@ -29,4 +30,5 @@
     flex-flow: column;
     gap: 5px;
     width: auto;
+    
 }

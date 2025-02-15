@@ -9,6 +9,8 @@ import index from "./routes/index.js";
 import forum from "./routes/threads.js";
 import register from "./routes/register.js";
 import signin from "./routes/signin.js";
+import submission from "./routes/submission.js";
+import search_tag from "./routes/search_tags.js";
 
 const app = express();
 const port = 8000;
@@ -30,6 +32,8 @@ app.use("/", index);
 app.use("/threads", forum);
 app.use("/register", register);
 app.use("/signin", signin);
+app.use("/submission", submission);
+app.use("/tags", search_tag);
 
 /* Connect to MongoDB and begin listening to requests */
 db_conn.connect().then(() => {

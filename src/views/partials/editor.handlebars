@@ -57,7 +57,7 @@
     <textarea id="content" name="content" class="editor__box" placeholder="Start typing here..." ></textarea>
 
     <div class="editor__options editor__options--bottom">
-        <button class="button button--light button--light--small" href="/post.html">
+        <button class="button button--light button--light--small" href="/threads">
             <span class="material-symbols-outlined">cancel</span>
             Cancel
         </button>
@@ -67,3 +67,14 @@
         </button>
     </div>
 </form>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const textarea = document.getElementById("content");
+
+        textarea.addEventListener("input", function() {
+            this.style.height = "auto"; 
+            this.style.height = this.scrollHeight + "px"; 
+        });
+    });
+</script>

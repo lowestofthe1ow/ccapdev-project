@@ -1,0 +1,19 @@
+.dropdown{
+    position: absolute;
+    left: 0;
+    top: 100%;
+    background: #fff;
+    order: 1px solid #ccc;
+    border-radius: 5px;
+    display: none;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown_item{
+    padding: 5px;
+    cursor: pointer;
+}

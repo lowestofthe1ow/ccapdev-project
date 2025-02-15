@@ -1,0 +1,23 @@
+<div class="posteditor__tags" style="position: relative;">
+  <div class="tags"></div>
+  <input
+    type="text"
+    class="sidebar__search"
+    placeholder="Add tags..."
+  />
+
+  <div class="dropdown"></div>
+</div>
+
+
+<script src="js/tag_search.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        initializeTagSearch(
+            ".sidebar__search",
+            ".tags",
+            ".dropdown",
+            "/tags"
+        );
+    });
+</script>
