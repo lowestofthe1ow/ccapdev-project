@@ -20,7 +20,8 @@
         {{#if oninput}} oninput="{{oninput}}" {{/if}}>
 
     {{#if password}}
-        <button type="button" class=" button {{#if color}}{{color}}{{/if}}" onclick="togglePassword('{{id}}')">
+        <button type="button" class=" button {{#if color}}{{color}}{{/if}} register__icon"
+            data-toggle-password="#{{id}}">
             <span class="material-symbols-outlined">visibility_off</span>
         </button>
     {{/if}}

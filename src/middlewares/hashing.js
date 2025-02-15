@@ -4,7 +4,7 @@ export async function hash_password(req, res, next) {
     try {
         const { password, confirm } = req.body;
 
-        if (req.user) {
+        if (req.app.get("user")) {
             return res.json({ success: false, message: "Username is already taken." });
         }
 
@@ -20,12 +20,10 @@ export async function hash_password(req, res, next) {
             return res.json({ success: false, message: "Passwords do not match." });
         }
 
-        req.hashedPassword = await argon2.hash(password);
+        req.app.set("hashed-password", await argon2.hash(password));
 
-        next(); 
+        next();
     } catch (error) {
         console.error(error);
     }
 }
-
-

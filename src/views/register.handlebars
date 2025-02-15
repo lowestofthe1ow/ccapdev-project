@@ -19,13 +19,12 @@
     </div>
     <section class="register">
         <h1 class="register__heading">Create an account</h1>
-        <form class="register__form" method="POST" id="registerForm">
+        <form class="register__form" method="POST" id="registerform" action="/register">
             {{> field id="name" label="Username: " icon="person" type="text" placeholder="Enter your name" minlength="8" required="true"}}
 
             {{> field id="password" label="Password: " icon="lock" type="password" placeholder="Enter at least 8 characters" minlength="8" required="true" password = "true" color="button--mint-glow"}}
 
             {{> field id="confirm" label="Confirm password: " icon="lock" type="password" placeholder="Confirm your password" minlength="8" required="true"  password = "true" color="button--mint-glow"}}
-
 
             <div class="register__input">
                 <input type="checkbox" name="remember">
@@ -37,15 +36,10 @@
             </button>
         </form>
 
-        <div id="errorMessages"></div>
+        <div class="errormsg hidden"></div>
     </section>
 </div>
 
 {{! i do not know where to put form.js, rn it's in public }}
 
 <script src="/js/form.js"></script>
-<script>
-    submitForm("registerForm", "/register", function(result) {
-        window.location.href = result.redirectUrl;
-    });
-</script>

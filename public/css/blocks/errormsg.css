@@ -1,8 +1,7 @@
-#errorMessages {
+.errormsg {
+    margin-bottom: 10px;
+    border: 1px solid red;
     background: #ffdddd;
     padding: 10px;
-    border: 1px solid red;
     color: red;
-    margin-bottom: 10px;
-    display: none;
-  }
+}
