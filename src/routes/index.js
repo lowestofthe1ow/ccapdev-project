@@ -1,10 +1,7 @@
 import express from "express";
 import get_featured from "../middlewares/get_featured.js";
-<<<<<<< HEAD
 import argon2 from "argon2";
-=======
 
->>>>>>> 1c267cd81f16aba73220c9c22fe6161e3336b556
 const router = express.Router();
 
 
