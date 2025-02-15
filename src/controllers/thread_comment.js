@@ -36,7 +36,7 @@ export default async (req, res) => {
         }
 
         /* Redirect to GET /threads/:id */
-        res.redirect(`/threads/${req.params.id}`);
+        res.redirect(`/threads/${req.params.thread_id}`);
     } catch (error) {
         console.error(error);
     }

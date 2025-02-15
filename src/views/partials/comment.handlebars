@@ -1,14 +1,14 @@
 {{! comment.handlebars
     Partial for rendering comments under posts
 
-    @param author     - The author of the comment
-    @param thread     - The thread the comment is tied to
-    @param parent     - The ObjectID representing the parent of this comment (either a comment it is replying to or the
-                        same as the thread it is tied to, if it is a top-level comment)
-    @param content    - The content of the comment, written in Markdown
-    @param vote_count - The current vote count / score of the comment
-    @param created    - The Date representing when the comment was posted
-    @param replies    - An array of other comment objects representing the children (replies) of this comment. Obtained
+    @param author      - The author of the comment
+    @param thread      - The thread the comment is tied to
+    @param parent      - The ObjectID representing the parent of this comment (either a comment it is replying to or the
+                         same as the thread it is tied to, if it is a top-level comment)
+    @param content     - The content of the comment, written in Markdown
+    @param vote_count  - The current vote count / score of the comment
+    @param created     - The Date representing when the comment was posted
+    @param descendants - An array of other comment objects representing the descendants of this comment. Obtained
                         from MongoDB's $graphLookup aggregation stage
 }}
 
@@ -58,11 +58,18 @@
             <br />
         </div>
 
-        {{! All replies go here. TODO: Wrap in a div that can be collapsed. }}
-        {{#each replies}}
+        {{! All descendants go here. TODO: Wrap in a div that can be collapsed. }}
+        {{#each descendants}}
             {{#if (check_id this.parent ../_id)}}
-            {{> comment this replies=../replies}}
+            {{> comment this descendants=../descendants}}
+                {{#if (check_depth this.depth)}}
+                {{#if this.children}}
+                    <a href="/threads/{{this.thread}}/comments/{{this._id}}"
+                    class="button button--light button--light--small">View more...</a>
+                {{/if}}
+                {{/if}}
             {{/if}}
+            
         {{/each}}
     </div>
 </div>
