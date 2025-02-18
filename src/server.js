@@ -8,6 +8,8 @@ import db_conn from "./model/db.js";
 import index from "./routes/index.js";
 import forum from "./routes/threads.js";
 import profile from "./routes/profile.js";
+import register from "./routes/register.js";
+import signin from "./routes/signin.js";
 
 const app = express();
 const port = 8000;
@@ -28,6 +30,8 @@ app.use("/", express.static("public"));
 app.use("/", index);
 app.use("/threads", forum);
 app.use("/profile", profile);
+app.use("/register", register);
+app.use("/signin", signin);
 
 /* Connect to MongoDB and begin listening to requests */
 db_conn.connect().then(() => {

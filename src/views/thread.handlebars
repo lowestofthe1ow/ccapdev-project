@@ -18,15 +18,23 @@
 
     <section class="forum__comments">
         <hgroup class="forum__divider">
-            <h2 style="margin: 0px;">Comments ({{count_comments comments}})</h2>
-        
+            {{#if reply}}
+            <h2 style="margin: 0px;">Viewing a comment</h2>
+            <a class="button button--light" href="{{concat "/threads/" this.thread._id}}">
+                <span class="material-symbols-outlined">arrow_back</span>
+                <ruby>Back to top<rt>トップに戻る</rt></ruby>
+            </a>
+            {{else}}
+            <h2 style="margin: 0px;">Comments ({{count}})</h2>
             <a class="button button--light" data-toggle="#comment-editor">
                 <span class="material-symbols-outlined">add_circle</span>
                 <ruby>Comment<rt>コメントする</rt></ruby>
             </a>
+            {{/if}}
         </hgroup>
 
-        {{> editor id="comment-editor" hidden=true}}
+        {{! TODO: Better way to get the action attribute, or just use a fetch() call }}
+        {{> editor id="comment-editor" hidden=true action=(concat (concat "/threads/" this.thread._id) "/comments")}}
         <input name="parent" type="hidden" value="{{this.thread._id}}" form="comment-editor" />
         <input name="type" type="hidden" value="comment" form="comment-editor" />
 

@@ -19,9 +19,9 @@
     </div>
     <section class="register">
         <h1 class="register__heading">Sign in</h1>
-        <form class="register__form" action="/threads">
+        <form class="register__form" method="POST" id="signinform" action="/signin">
             {{> field id="name" label="Username: " icon="person" type="text" placeholder="Enter your name"}}
-            {{> field id="password" label="Password: " icon="lock" type="password" placeholder="Enter your password"}}
+            {{> field id="password" label="Password: " icon="lock" type="password" placeholder="Enter your password" password="true"}}
 
             <div class="register__input">
                 <input type="checkbox" name="remember">
@@ -32,5 +32,10 @@
                 <ruby>Sign in<rt>サインイン</rt></ruby>
             </button>
         </form>
+        <div class="errormsg hidden"></div>
     </section>
 </div>
+
+{{! i do not know where to put form.js, rn it's in public }}
+
+<script src="/js/form.js"></script>

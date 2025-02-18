@@ -1,7 +1,12 @@
 import express from "express";
-import get_featured from "../middlewares/featured.js";
+import get_featured from "../middlewares/get_featured.js";
 
 const router = express.Router();
+
+
+// idk which one actually works, just keep it here for now
+router.use(express.urlencoded({ extended: true }))
+router.use(express.json());
 
 router.get("/", get_featured, (req, res) => {
     res.render("index", {
@@ -22,5 +27,6 @@ router.get("/register", (req, res) => {
         title: "Register",
     });
 });
+
 
 export default router;
