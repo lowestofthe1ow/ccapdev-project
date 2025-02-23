@@ -1,114 +1,39 @@
-<div class="forum">
-    <header class="forum__header">
-        <a href="/forum.html">
-            <img src="/img/logo-light.png" class="forum__logo"/>
-        </a>
-        <div class="forum__ads">
-            <div class="forum__ads-track">
-                <img src="/img/ad.webp" class="forum__ad"/>
-                <img src="/img/ad2.jpg" class="forum__ad"/>
-                <img src="/img/ad3.png" class="forum__ad"/>
-                <img src="/img/ad4.jpg" class="forum__ad"/>
-                <img src="/img/ad.webp" class="forum__ad"/>
-                <img src="/img/ad2.jpg" class="forum__ad"/>
-                <img src="/img/ad3.png" class="forum__ad"/>
-                <img src="/img/ad4.jpg" class="forum__ad"/>
+<div class="profile">
+    <img class="profile__banner" src={{user.banner}} />
+    <div class="profile__content" style="gap: 10px;">
+        <div class="profile__header">
+            <div class="profile__details">
+                <img class="profile__pfp" src={{user.pfp}} />
+                <article>
+                    <h1 class="profile__username">{{user.name}}</h1>
+                    <p>{{user.bio}}</p>
+                </article>
             </div>
-        </div>
-    </header>
-
-    <nav class="navbar">
-        <a class="button button--light" href="/submission.html">
-            <span class="material-symbols-outlined">add_circle</span>
-            <ruby>Post thread<rt>ポストする</rt></ruby>
-        </a>
-        <div class="search">
-            <input type="text" class="search__box" placeholder="Search threads..."/>
-
-            <a class="button button--light search__button" data-toggle="#advsearch">
-                <span class="material-symbols-outlined" >tune</span>
+            <a class="button button--light profile__button" href="/profile-edit.html">
+                <span class="material-symbols-outlined">edit</span>
+                <ruby>Edit profile<rt>サインアウト</rt></ruby>
             </a>
-
-            <a class="button button--light search__button search__button--end">
-                <span class="material-symbols-outlined" >search</span>
+            <a class="button button--light profile__button" href="/">
+                <span class="material-symbols-outlined">logout</span>
+                <ruby>Sign out<rt>サインアウト</rt></ruby>
             </a>
-        </div>
-        <a class="button button--light button--current">
-            <img src={{pfp}} class="navbar__icon"/>
-            <ruby>Profile<rt>プロフィール</rt></ruby>
-        </a>
-    </nav>
-
-    <form class="advsearch hidden" id="advsearch">
-        <div class="advsearch__component">
-            <label class="advsearch__label" for="start_date">
-                Date range
-            </label>
-            <input
-                type="date"
-                name="start_date"
-                class="advsearch__input"
-            />
-            <label class="advsearch__label" for="end_date">to</label>
-            <input
-                type="date"
-                name="end_date"
-                class="advsearch__input"
-            />
-        </div>
-    
-        <div class="advsearch__component">
-            <label class="advsearch__label" for="sort">Sort by</label>
-            <select class="advsearch__input" name="sort">
-                <option>Newest first</option>
-                <option>Oldest first</option>
-                <option>Most popular first</option>
-                <option>Least popular first</option>
-            </select>
-        </div>
-    
-        <div class="advsearch__component">
-            <label class="advsearch__label" for="author_name">Authors</label>
-            <input
-                type="text"
-                name="author_name"
-                class="advsearch__input"
-                placeholder="Enter username..."
-            />
-        </div>
-    
-        <button type="reset" class="button button--light button--light--small">
-            Reset
-        </button>
-    </form>
-
-    <div class="profile">
-        <img class="profile__banner" src={{user.banner}} />
-
-        <div class="profile__content" style="gap: 10px;">
-            <div class="profile__header">
-                <div class="profile__details">
-                    <img class="profile__pfp" src={{user.pfp}} />
-                    <article>
-                        <h1 class="profile__username">{{user.username}}</h1>
-                        <p>{{user.bio}}</p>
-                    </article>
-                </div>
-                <a class="button button--light profile__button" href="/profile-edit.html">
-                    <span class="material-symbols-outlined">edit</span>
-                    <ruby>Edit profile<rt>サインアウト</rt></ruby>
-                </a>
-                <a class="button button--light profile__button" href="/">
-                    <span class="material-symbols-outlined">logout</span>
-                    <ruby>Sign out<rt>サインアウト</rt></ruby>
-                </a>
-            </div>
         </div>
     </div>
+</div>
 
-    <div class="forum__body">
-        <div class="forum__threads">
-            <div class="forum__thread profile__tabs">
+<div class="forum__body">
+    <div class="forum__threads">
+        <div class="forum__thread" style="gap: 10px;">
+            <form class="advsearch__component" style="flex-grow: 0;">
+                <label class="advsearch__label" for="sort">Sort by</label>
+                <select class="advsearch__input" name="sort" style="flex: 0;">
+                    <option>Newest first</option>
+                    <option>Oldest first</option>
+                    <option>Most popular first</option>
+                    <option>Least popular first</option>
+                </select>
+            </form>
+            <div class="profile__tabs">
                 <a class="button button--light button--current button--light--small" style="flex: 1;">
                     Threads
                 </a>
@@ -119,39 +44,12 @@
                     Upvoted posts
                 </a>
             </div>
-
-            <form class="advsearch__component">
-                <label class="advsearch__label" for="sort">Sort by</label>
-                <select class="advsearch__input" name="sort" style="flex: 0;">
-                    <option>Newest first</option>
-                    <option>Oldest first</option>
-                    <option>Most popular first</option>
-                    <option>Least popular first</option>
-                </select>
-            </form>
-
-            <ul class="forum__threads">
-                {{> threadlist threads=threads}}
-            </ul>
         </div>
         
-        <nav class="sidebar">
-            <h2 class="sidebar__header">User is most active in:</h2>
-            <div class="tags">
-                <div class="tags__tag tags__tag--game">Gakuen iDOLM@STER</div>
-                <div class="tags__tag tags__tag--game">Blue Archive</div>
-                <div class="tags__tag tags__tag--game">Princess Connect! Re:Dive</div>
-            </div>
-            <hr class="sidebar__rule" />
-
-            <h2 class="sidebar__header">Tags most used by user:</h2>
-            <div class="tags">
-                <div class="tags__tag">Discussion</div>
-                <div class="tags__tag">Fanart</div>
-                <div class="tags__tag">Game guide</div>
-                <div class="tags__tag">NSFW</div>
-            </div>
-        </nav>
+        <ul class="forum__threads">
+            {{> threadlist threads=threads}}
+        </ul>
     </div>
-
+    
+    {{> sidebar}}
 </div>
