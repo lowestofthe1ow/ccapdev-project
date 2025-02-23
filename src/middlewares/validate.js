@@ -13,7 +13,7 @@ export async function validate_password(req, res, next) {
         const validPassword = await argon2.verify(user.password, password);
 
         if (!validPassword) {
-            return res.json({ success: false, message: "Invalid user name or password." });
+            return res.json({ success: false, message: "Invalid username or password." });
         }
 
         next();

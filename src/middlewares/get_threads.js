@@ -8,21 +8,53 @@ import { ObjectId } from "mongodb";
  * @param res  - The response object.
  * @param next - Calls the next function in the middleware chain.
  */
-export async function get_threads(req, res, next) {
+export const get_threads = async (req, res, next) => {
     try {
-        /* Fetch from database */
-        let _threads = req.app.get("db").collection("threads");
-        let threads = await _threads
-            .aggregate([{ $sort: { created: -1 } }]) /* Sort by most recent post for now. TODO: Pagination */
-            .toArray(); /* toArray() "converts" aggregate() return value to a Promise */
+        /** tags are tags... i did not make a distinction between tags and games and stuff... yet */
+        const { search, tags = [], start_date, end_date, author_name, sort } = req.query;
+        const _threads = req.app.get("db").collection("threads");
 
-        /* Apply to request object */
+        
+        const pipeline = [
+            { $sort: { created: -1 } }, 
+            {
+                $match: {
+                    ...(search && {
+                        title: { $regex: search, $options: "i" },
+                    }),
+                    ...(tags.length > 0 && {
+                        tags: { $in: tags },
+                    }),
+                    ...(start_date && {
+                        created: { $gte: new Date(start_date) },
+                    }),
+                    ...(end_date && {
+                        created: { $lte: new Date(end_date) },
+                    }),
+                    ...(author_name && {
+                        author: { $regex: author_name, $options: "i" },
+                    }),
+                },
+            },
+            ...(sort && sort === "Newest first"
+                ? [{ $sort: { created: -1 } }]
+                : sort === "Oldest first"
+                ? [{ $sort: { created: 1 } }]
+                : sort === "Most popular first"
+                ? [{ $sort: { vote_count: -1 } }]
+                : sort === "Least popular first"
+                ? [{ $sort: { vote_count: 1 } }]
+                : []),
+        ];
+        const threads = await _threads.aggregate(pipeline).toArray();
+
         req.app.set("threads", threads);
         next();
     } catch (error) {
         console.error(error);
+        next(error); 
     }
-}
+};
 
 /**
  * Middleware for fetching a specific thread in the database. Appends a `thread` object to the request object.
