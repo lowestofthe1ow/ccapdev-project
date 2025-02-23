@@ -38,3 +38,8 @@
     border: 1px solid var(--kinkan-pink);
     background-color: var(--light);
 }
+
+/* Shrink icon */
+.button--light--small:hover {
+    transform: none !important; /* TODO: Fix class cascading to remove !important */
+}

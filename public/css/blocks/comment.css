@@ -35,3 +35,10 @@
 .comment__reply {
     border-radius: 0px 10px 0px 0px;
 }
+
+.comment__descendants {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 5px;
+}

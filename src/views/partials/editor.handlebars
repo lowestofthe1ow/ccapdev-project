@@ -8,12 +8,6 @@
 
 <form class="editor {{#if hidden}}hidden{{/if}}" id="{{id}}" method="post" action="{{action}}">
     <div class="editor__options">
-        <a class="button button--light button--light--small" style="flex: 1;">
-            Editor
-        </a>
-        <a class="button button--light button--light--small" style="flex: 1;">
-            Preview
-        </a>
         <a class="button button--light button--light--small">
             <span class="material-symbols-outlined symbols-btngrp">format_bold</span>
         </a>
@@ -58,10 +52,18 @@
     <textarea id="content" name="content" class="editor__box" placeholder="Start typing here..." required></textarea>
 
     <div class="editor__options editor__options--bottom">
-        <button class="button button--light button--light--small" href="/post.html">
+        <!--
+        <button class="button button--light button--light--small" data-toggle="{{id}}">
             <span class="material-symbols-outlined">cancel</span>
             Cancel
         </button>
+        -->
+        <a class="button button--light button--light--small button--current" style="flex: 1;">
+            Editor
+        </a>
+        <a class="button button--light button--light--small" style="flex: 1;">
+            Preview
+        </a>
         <button type="submit" class="button button--light button--light--small">
             <span class="material-symbols-outlined">login</span>
             Publish
