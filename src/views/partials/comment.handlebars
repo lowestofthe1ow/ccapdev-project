@@ -25,9 +25,15 @@
     <div class="comment">
         <div style="display: flex; gap: 5px;">
             <p class="comment__details">
+                <span data-toggle="#descendants--{{_id}}, .collapsed--{{_id}}" style="cursor: pointer">
+                    [-]
+                </span>
                 <strong>{{author}}</strong> ({{vote_count}} votes, {{format_date created}})
             </p>
             
+            <a href="/threads/{{this.thread}}/comments/{{this._id}}" class="button button--light button--light--small">
+                <span class="material-symbols-outlined" style="font-size: 1.1rem">link</span>
+            </a>
             <button class="button button--light button--light--small">
                 <span class="material-symbols-outlined" style="font-size: 1.1rem">flag</span>
             </button>
@@ -38,39 +44,43 @@
                 <span class="material-symbols-outlined" style="font-size: 1.1rem; margin: 0px;">reply</span>
             </button>
         </div>
+        
 
         <div class="comment--main">
-            <article>
+            <article class="article">
                 {{{markdown content}}}
             </article>
+
+            <div id="replymenu--{{_id}}" class="hidden" style="margin-bottom: 10px;">
+                <hr class="sidebar__rule" />
+
+                {{! TODO: Better way to get the action attribute, or just use a fetch() call }}
+                {{> editor id=(concat "editor--" _id) action=(concat (concat "/threads/" thread) "/comments")}}
+
+                {{! Specify that this is the parent comment when submitting the reply form }}
+                <input name="parent" type="hidden" value="{{_id}}" form="editor--{{_id}}">
+                <input name="type" type="hidden" value="reply" form="editor--{{_id}}">
+            </div>
         </div>
 
-        <div id="replymenu--{{_id}}" class="hidden">
-            <p>Replying as <strong>lowestofthelow</strong></p>
-
-            {{! TODO: Better way to get the action attribute, or just use a fetch() call }}
-            {{> editor id=(concat "editor--" _id) action=(concat (concat "/threads/" thread) "/comments")}}
-
-            {{! Specify that this is the parent comment when submitting the reply form }}
-            <input name="parent" type="hidden" value="{{_id}}" form="editor--{{_id}}">
-            <input name="type" type="hidden" value="reply" form="editor--{{_id}}">
-
-            <br />
-        </div>
-
-        {{! All descendants go here. TODO: Wrap in a div that can be collapsed. }}
-        {{#each descendants}}
-            {{#if (check_id this.parent ../_id)}}
-            {{> comment this descendants=../descendants}}
-                {{#if (check_depth this.depth)}}
-                {{#if this.children}}
-                    <a href="/threads/{{this.thread}}/comments/{{this._id}}"
-                    class="button button--light button--light--small">View more...</a>
-                {{/if}}
-                {{/if}}
-            {{/if}}
-            
-        {{/each}}
+        {{#if this.children}}
+        {{#if (check_depth this.depth)}} {{! Display the "view more" button at the depth limit }}
+            <a href="/threads/{{this.thread}}/comments/{{this._id}}"
+            class="button button--light button--light--small">View more...</a>
+        {{else}}
+            <p class="comment__details collapsed--{{_id}} hidden"><em>Replies collapsed...</em></p>
+            <div id="descendants--{{_id}}" class="comment__descendants">
+                {{! All descendants go here }}
+                {{#each descendants}}
+                    {{! Check if direct child }}
+                    {{#if (check_id this.parent ../_id)}}
+                    {{! Pass the same flattened array of the comment tree }}
+                    {{> comment this descendants=../descendants}}
+                    {{/if}}
+                {{/each}}
+            </div>
+        {{/if}} 
+        {{/if}}
     </div>
 </div>
 

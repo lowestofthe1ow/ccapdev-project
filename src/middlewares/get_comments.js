@@ -10,7 +10,7 @@ const pipeline = [
             depthField: "depth",
             from: "comments",
             startWith: "$children",
-            maxDepth: 5,
+            maxDepth: 3,
         },
     },
     {

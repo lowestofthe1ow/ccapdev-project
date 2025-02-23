@@ -1,6 +1,6 @@
 /* Articles (posts and the privacy policy page) */
 
-.article {
+.article__block {
     border: 1px solid var(--kinkan-gray);
     border-radius: 10px;
     background-color: var(--light);
@@ -8,7 +8,9 @@
     padding-left: 10px;
 }
 
+.article img,
 .article__image {
+    /* TODO: Remove this selector when not needed */
     display: block;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -20,6 +22,7 @@
     object-fit: contain;
 }
 
+/* TODO: Remove these or move to another block when not needed */
 .article__link {
     color: var(--kinkan-pink);
     text-decoration-style: dotted;
@@ -37,7 +40,7 @@
     text-decoration-style: solid;
 }
 
-.article--dark {
+.article__block--dark {
     display: block;
     backdrop-filter: blur(5px);
     /* box-shadow: 10px 10px 5px rgba(29, 29, 29, 0.2); */

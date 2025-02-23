@@ -36,7 +36,7 @@ router.get(
             count: req.app.get("count"),
             helpers: {
                 check_depth(depth) {
-                    return depth >= 5;
+                    return depth >= 3;
                 },
                 check_id,
                 concat,
@@ -61,7 +61,7 @@ router.get(
             count: req.app.get("count"),
             helpers: {
                 check_depth(depth) {
-                    return depth >= 5;
+                    return depth >= 3;
                 },
                 check_id,
                 concat,
@@ -69,7 +69,7 @@ router.get(
                 markdown,
             },
             layout: "forum",
-            reply: true,
+            reply: true /* Displays "Viewing a comment" instead of "Comments (count)" */,
             thread: req.app.get("thread"),
             title: req.app.get("comments")[0].content,
         });

@@ -35,8 +35,13 @@ export default async (req, res) => {
             await _threads.updateOne({ _id: comment.parent }, { $push: { comments: insert_result.insertedId } });
         }
 
-        /* Redirect to GET /threads/:id */
-        res.redirect(`/threads/${req.params.thread_id}`);
+        if (req.app.get("thread")._id.equals(req.body.parent)) {
+            /* Redirect to GET /threads/:id */
+            res.redirect(`/threads/${req.params.thread_id}`);
+        } else {
+            /* Redirect to GET /threads/:id/comments/:id */
+            res.redirect(`/threads/${req.params.thread_id}/comments/${req.body.parent}`);
+        }
     } catch (error) {
         console.error(error);
     }

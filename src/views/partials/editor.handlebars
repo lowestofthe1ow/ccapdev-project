@@ -7,13 +7,7 @@
 }}
 
 <form class="editor {{#if hidden}}hidden{{/if}}" id="{{id}}" method="post" action="{{action}}">
-    <div class="editor__options">
-        <a class="button button--light button--light--small" style="flex: 1;">
-            Editor
-        </a>
-        <a class="button button--light button--light--small" style="flex: 1;">
-            Preview
-        </a>
+    <div class="editor__options" id="options--{{id}}">
         <a class="button button--light button--light--small">
             <span class="material-symbols-outlined symbols-btngrp">format_bold</span>
         </a>
@@ -55,12 +49,29 @@
         </a>
     </div>
 
-    <textarea id="content" name="content" class="editor__box" placeholder="Start typing here..." required></textarea>
+    <textarea id="content--{{id}}" name="content" class="editor__box" placeholder="Start typing here..." required></textarea>
 
-    <div class="editor__options editor__options--bottom">
-        <button class="button button--light button--light--small" href="/post.html">
+    <div class="editor__box hidden" id="preview--{{id}}" style="padding: 0px 10px 0px 10px; overflow: scroll; border-radius: 10px 10px 0px 0px">
+        <article id="preview--{{id}}" class="article">
+            <h1>Hello</h1>
+            <p>Hello</p>
+            <h2>This is a cool thing</h2>
+        </article>
+    </div>
+
+    <div class="editor__options editor__options--bottom"
+        data-editor="#content--{{id}}" data-preview="#preview--{{id}}" data-options="#options--{{id}}" >
+        <!--
+        <button class="button button--light button--light--small" data-toggle="{{id}}">
             <span class="material-symbols-outlined">cancel</span>
             Cancel
+        </button>
+        -->
+        <button type="button" class="button button--light button--light--small editor__editbutton button--current" style="flex: 1;">
+            Editor
+        </button>
+        <button type="button" class="button button--light button--light--small editor__previewbutton" style="flex: 1;">
+            Preview
         </button>
         <button type="submit" class="button button--light button--light--small">
             <span class="material-symbols-outlined">login</span>
