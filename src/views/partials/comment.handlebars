@@ -30,30 +30,44 @@
                 <span data-toggle="#descendants--{{_id}}, .collapsed--{{_id}}" style="cursor: pointer">
                     [-]
                 </span>
+                {{! Show only if comment has not been deleted }}
+                {{#if deleted}}
+                <em>User deleted this post</em>
+                {{else}}
                 <img src="{{author_data.pfp}}" style="height: 20px; border-radius: 20px;"/>
                 <strong>{{author_data.name}}</strong> ({{vote_count}} votes, {{format_date created}}{{#if edited}}, edited {{format_date edited}}{{/if}})
+                {{/if}}
             </p>
             
-            <a href="/threads/{{this.thread}}/comments/{{this._id}}" class="button button--light button--light--small">
+            <a href="/threads/{{this.thread}}/comments/{{this._id}}" class="button button--light button--light--small {{#if deleted}}comment__reply{{/if}}">
                 <span class="material-symbols-outlined" style="font-size: 1.1rem">link</span>
             </a>
 
+            {{! Show only if comment has not been deleted }}
+            {{#if deleted}} {{else}}
             {{! Show these buttons only if the comment was made by the user }}
             {{#if (is_author author)}}
             <button class="button button--light button--light--small" data-toggle="#editmenu--{{_id}}">
                 <span class="material-symbols-outlined" style="font-size: 1.1rem">edit</span>
             </button>
-            <button class="button button--light button--light--small button--light--bad">
-                <span class="material-symbols-outlined" style="font-size: 1.1rem">delete</span>
-            </button>
+            <form action="/threads/{{thread}}/comments/{{_id}}/delete" method="post" style="display: flex;">
+                <button type="submit" class="button button--light button--light--small button--light--bad">
+                    <span class="material-symbols-outlined" style="font-size: 1.1rem">delete</span>
+                </button>
+            </form>
             {{/if}}
 
             <button class="button button--light button--light--small comment__reply" data-toggle="#replymenu--{{_id}}">
                 <span class="material-symbols-outlined" style="font-size: 1.1rem; margin: 0px;">reply</span>
             </button>
+            {{/if}}
         </div>
         
         <div class="comment--main">
+            {{#if deleted}}
+            <p><em>This comment has been deleted.</em></p>
+            {{! Show only if comment has not been deleted }}
+            {{else}}
             <article class="article">
                 {{{markdown content}}}
             </article>
@@ -87,6 +101,7 @@
                 <input name="parent" type="hidden" value="{{_id}}" form="replyeditor--{{_id}}">
                 <input name="type" type="hidden" value="reply" form="replyeditor--{{_id}}">
             </div>
+            {{/if}}
         </div>
 
         {{#if this.children}}

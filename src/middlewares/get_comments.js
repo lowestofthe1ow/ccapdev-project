@@ -72,6 +72,7 @@ const pipeline = [
             created: { $first: "$created" },
             edited: { $first: "$edited" } /* Date edited */,
             descendants: { $push: "$descendants" },
+            deleted: { $first: "$deleted" } /* TODO: Actually delete the data */,
         },
     },
     {

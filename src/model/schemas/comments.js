@@ -28,6 +28,10 @@ export default {
                 bsonType: "date",
                 description: "'created' must be a date and is required",
             },
+            deleted: {
+                bsonType: "bool",
+                description: "'deleted' must be a boolean",
+            },
             edited: {
                 bsonType: "date",
                 description: "'edited' must be a date",

@@ -99,4 +99,15 @@ router.post("/:thread_id/comments/:comment_id/edit", get_thread, get_comment_rep
     res.redirect(`/threads/${req.params.thread_id}/comments/${req.params.comment_id}`);
 });
 
+router.post("/:thread_id/comments/:comment_id/delete", get_thread, get_comment_replies, async (req, res) => {
+    let _comments = req.app.get("db").collection("comments");
+
+    console.log(req.body);
+
+    /* TODO: Actually delete the data */
+    _comments.updateOne({ _id: req.app.get("comments")[0]._id }, { $set: { deleted: true } });
+
+    res.redirect(`/threads/${req.params.thread_id}/comments/${req.params.comment_id}`);
+});
+
 export default router;
