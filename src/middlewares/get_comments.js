@@ -70,6 +70,7 @@ const pipeline = [
             children: { $first: "$children" },
             vote_count: { $first: "$vote_count" },
             created: { $first: "$created" },
+            edited: { $first: "$edited" } /* Date edited */,
             descendants: { $push: "$descendants" },
         },
     },

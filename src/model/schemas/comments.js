@@ -28,6 +28,10 @@ export default {
                 bsonType: "date",
                 description: "'created' must be a date and is required",
             },
+            edited: {
+                bsonType: "date",
+                description: "'edited' must be a date",
+            },
             parent: {
                 bsonType: "objectId",
                 description: "'parent' must be an ObjectId and is required",

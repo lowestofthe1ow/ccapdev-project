@@ -1,7 +1,8 @@
 {{! comment.handlebars
     Partial for rendering comments under posts
 
-    @param author      - The author of the comment
+    @param author      - The author ID of the comment
+    @param author_data - The user data of the comment author
     @param thread      - The thread the comment is tied to
     @param parent      - The ObjectID representing the parent of this comment (either a comment it is replying to or the
                          same as the thread it is tied to, if it is a top-level comment)
@@ -30,49 +31,73 @@
                     [-]
                 </span>
                 <img src="{{author_data.pfp}}" style="height: 20px; border-radius: 20px;"/>
-                <strong>{{author_data.name}}</strong> ({{vote_count}} votes, {{format_date created}})
+                <strong>{{author_data.name}}</strong> ({{vote_count}} votes, {{format_date created}}{{#if edited}}, edited {{format_date edited}}{{/if}})
             </p>
             
             <a href="/threads/{{this.thread}}/comments/{{this._id}}" class="button button--light button--light--small">
                 <span class="material-symbols-outlined" style="font-size: 1.1rem">link</span>
             </a>
-            <button class="button button--light button--light--small">
-                <span class="material-symbols-outlined" style="font-size: 1.1rem">flag</span>
+
+            {{! Show these buttons only if the comment was made by the user }}
+            {{#if (is_author author)}}
+            <button class="button button--light button--light--small" data-toggle="#editmenu--{{_id}}">
+                <span class="material-symbols-outlined" style="font-size: 1.1rem">edit</span>
             </button>
-            <button class="button button--light button--light--small">
-                <span class="material-symbols-outlined" style="font-size: 1.1rem">bookmark</span>
+            <button class="button button--light button--light--small button--light--bad">
+                <span class="material-symbols-outlined" style="font-size: 1.1rem">delete</span>
             </button>
+            {{/if}}
+
             <button class="button button--light button--light--small comment__reply" data-toggle="#replymenu--{{_id}}">
                 <span class="material-symbols-outlined" style="font-size: 1.1rem; margin: 0px;">reply</span>
             </button>
         </div>
         
-
         <div class="comment--main">
             <article class="article">
                 {{{markdown content}}}
             </article>
 
+            {{! "Edit comment" menu }}
+            <div id="editmenu--{{_id}}" class="hidden" style="margin-bottom: 10px;">
+                <hr class="sidebar__rule" />
+
+                <p><strong>Edit this comment</strong></p>
+
+                {{> editor
+                        id=(concat "editeditor--" _id)
+                        action=(concat (concat "/threads/" thread) (concat "/comments/" (concat _id "/edit")))
+                        value=content
+                        method="post"}} {{! TODO: <form> does not allow the PUT verb}}
+            </div>
+
+            {{! "Reply" menu }}
             <div id="replymenu--{{_id}}" class="hidden" style="margin-bottom: 10px;">
                 <hr class="sidebar__rule" />
 
+                <p><strong>Reply to this comment</strong></p>
+
                 {{! TODO: Better way to get the action attribute, or just use a fetch() call }}
-                {{> editor id=(concat "editor--" _id) action=(concat (concat "/threads/" thread) "/comments")}}
+                {{> editor
+                        id=(concat "replyeditor--" _id)
+                        action=(concat (concat "/threads/" thread) "/comments")
+                        method="post"}}
 
                 {{! Specify that this is the parent comment when submitting the reply form }}
-                <input name="parent" type="hidden" value="{{_id}}" form="editor--{{_id}}">
-                <input name="type" type="hidden" value="reply" form="editor--{{_id}}">
+                <input name="parent" type="hidden" value="{{_id}}" form="replyeditor--{{_id}}">
+                <input name="type" type="hidden" value="reply" form="replyeditor--{{_id}}">
             </div>
         </div>
 
         {{#if this.children}}
-        {{#if (check_depth this.depth)}} {{! Display the "view more" button at the depth limit }}
+        {{#if (check_depth this.depth)}}
+            {{! Display the "view more" button at the depth limit }}
             <a href="/threads/{{this.thread}}/comments/{{this._id}}"
             class="button button--light button--light--small">View more...</a>
         {{else}}
+            {{! Otherwise, display replies }}
             <p class="comment__details collapsed--{{_id}} hidden"><em>Replies collapsed...</em></p>
             <div id="descendants--{{_id}}" class="comment__descendants">
-                {{! All descendants go here }}
                 {{#each descendants}}
                     {{! Check if direct child }}
                     {{#if (check_id this.parent ../_id)}}

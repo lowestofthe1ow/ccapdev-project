@@ -1,5 +1,7 @@
 import express from "express";
 
+import { ObjectId } from "mongodb";
+
 /* Helpers */
 import check_id from "../helpers/check_id.js";
 import concat from "../helpers/concat.js";
@@ -42,6 +44,9 @@ router.get(
                 concat,
                 format_date,
                 markdown,
+                is_author(id) {
+                    return id.equals(new ObjectId("67a8caec05494bfdd8a41bf7"));
+                },
             },
             layout: "forum",
             thread: req.app.get("thread"),
@@ -67,6 +72,9 @@ router.get(
                 concat,
                 format_date,
                 markdown,
+                is_author(id) {
+                    return id.equals(new ObjectId("67a8caec05494bfdd8a41bf7"));
+                },
             },
             layout: "forum",
             reply: true /* Displays "Viewing a comment" instead of "Comments (count)" */,
@@ -77,5 +85,18 @@ router.get(
 );
 
 router.post("/:thread_id/comments", get_thread, get_thread_comments, thread_comment);
+
+router.post("/:thread_id/comments/:comment_id/edit", get_thread, get_comment_replies, async (req, res) => {
+    let _comments = req.app.get("db").collection("comments");
+
+    console.log(req.body);
+
+    _comments.updateOne(
+        { _id: req.app.get("comments")[0]._id },
+        { $set: { content: req.body.content, edited: new Date(Date.now()) } }
+    );
+
+    res.redirect(`/threads/${req.params.thread_id}/comments/${req.params.comment_id}`);
+});
 
 export default router;
