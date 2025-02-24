@@ -7,8 +7,8 @@ export default {
         required: ["author", "comments", "content", "created", "games", "tags", "thumbnail", "title", "vote_count"],
         properties: {
             author: {
-                bsonType: "string",
-                description: "'author' must be a string and is required",
+                bsonType: "objectId",
+                description: "'author' must be an ObjectId and is required",
             },
             comments: {
                 bsonType: "array",

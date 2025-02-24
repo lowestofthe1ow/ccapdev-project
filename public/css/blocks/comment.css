@@ -17,8 +17,10 @@
 }
 
 .comment__details {
+    display: flex;
     flex: 1;
-    align-content: center;
+    align-items: center;
+    gap: 5px;
     margin: 0px;
     border: 1px solid var(--kinkan-gray);
     background-color: var(--light);

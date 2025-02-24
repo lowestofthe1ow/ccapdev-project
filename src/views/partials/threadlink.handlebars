@@ -34,12 +34,12 @@
         <h2 class="thread__title">{{title}}</h2>
         <div class="thread__meta">
             <div class="thread__meta">
-                <span class="material-symbols-outlined">person</span>
-                <p class="thread__detail">Posted by <strong>{{author}}</strong></p>
+                <img src="{{author_data.pfp}}" style="height: 20px; border-radius: 20px;"/>
+                <p class="thread__detail">Posted by <strong>{{author_data.name}}</strong></p>
             </div>
             <div class="thread__meta">
                 <span class="material-symbols-outlined">timer</span>
-                <p class="thread__detail"><strong>{{format_date created}}</strong></p>
+                <p class="thread__detail">{{format_date created}}</p>
             </div>
         </div>
     </div>

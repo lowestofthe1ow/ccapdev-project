@@ -24,11 +24,13 @@
     
     <div class="comment">
         <div style="display: flex; gap: 5px;">
+            
             <p class="comment__details">
                 <span data-toggle="#descendants--{{_id}}, .collapsed--{{_id}}" style="cursor: pointer">
                     [-]
                 </span>
-                <strong>{{author}}</strong> ({{vote_count}} votes, {{format_date created}})
+                <img src="{{author_data.pfp}}" style="height: 20px; border-radius: 20px;"/>
+                <strong>{{author_data.name}}</strong> ({{vote_count}} votes, {{format_date created}})
             </p>
             
             <a href="/threads/{{this.thread}}/comments/{{this._id}}" class="button button--light button--light--small">
