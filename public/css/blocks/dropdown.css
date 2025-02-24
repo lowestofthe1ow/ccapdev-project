@@ -18,6 +18,16 @@
     cursor: pointer;
 }
 
-.game__search{
+.game__search,
+.tag__search{
     position: relative;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+}
+
+.game__search, .tag__search > .advsearch__input {
+    flex: 1;
+    
 }

@@ -1,4 +1,4 @@
-<form class="advsearch hidden" id="advsearch">
+<form class="advsearch hidden"  id="advsearch">
     <div class="advsearch__component">
         <label class="advsearch__label" for="start_date">
             Date range
@@ -19,10 +19,10 @@
     <div class="advsearch__component">
         <label class="advsearch__label" for="sort">Sort by</label>
         <select class="advsearch__input" name="sort">
-            <option>Newest first</option>
-            <option>Oldest first</option>
-            <option>Most popular first</option>
-            <option>Least popular first</option>
+            <option value="0">Newest first</option>
+            <option value="1">Oldest first</option>
+            <option value="2">Most popular first</option>
+            <option value="3">Least popular first</option>
         </select>
     </div>
 
@@ -36,7 +36,36 @@
         />
     </div>
 
+
+    <div class="advsearch__component">
+        <label class="advsearch__label" for="include_game">Include Games</label>
+        <div class="game__search">
+            {{> tags}}
+            <input type="text"
+                name="include_game"
+                class="advsearch__input"
+                placeholder="Add games..."
+            />
+            <div class="dropdown"></div>
+        </div>
+    </div>
+
+    <div class="advsearch__component">
+        <label class="advsearch__label" for="include_tag">Include Tags</label>
+        <div class="tag__search">
+            {{> tags}}
+            <input type="text"
+                name="include_tag"
+                class="advsearch__input"
+                placeholder="Add games..."
+            />
+        </div>
+    </div>
+
     <button type="reset" class="button button--light button--light--small">
         Reset
     </button>
 </form>
+
+
+<script src="/js/search_games.js"></script>

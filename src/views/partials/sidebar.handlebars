@@ -3,34 +3,6 @@
 }}
 
 <nav class="sidebar">
-    <h2 class="sidebar__header">Browse posts by game</h2>
-
-    <div class="game__search">
-    {{> tags}}
-    <input type="text" class="sidebar__search" placeholder="Add tags..."/>
-    <div class="dropdown"></div>
-    </div>
-
-    {{! TODO: Use the tags partial for this}}
-    <hr class="sidebar__rule" />
-    <h2 class="sidebar__header">Browse posts by tag</h2>
-
-    <div class="tag__search">
-    {{> tags}}
-    <input type="text" class="sidebar__search" placeholder="Add tags..."/>
-    <div class="dropdown"></div>
-    </div>
-
-    <hr class="sidebar__rule" />
-    <h2 class="sidebar__header">Exclude tags</h2>
-
-    <div class="tag__search">
-    {{> tags}}
-    
-    <input type="text" class="sidebar__search" placeholder="Add tags..."/>
-    <div class="dropdown"></div>
-    </div>
-    <br />
+    {{! A bar that's on the side}}
+    <image src="https://i.redd.it/44lg2zcxvhm51.jpg" width="300px"></image>
 </nav>
-
-<script src="js/search_games.js"></script>

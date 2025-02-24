@@ -1,22 +1,23 @@
 window.addEventListener("load", () => {
-    const tagSearchContainers = document.querySelectorAll(".game__search");
+    const gameSearchContainers = document.querySelectorAll(".game__search");
+    const tagSearchContainers = document.querySelectorAll(".tag__search");
+    const form = document.querySelector(".advsearch");
 
-    tagSearchContainers.forEach(container => {
-        const inputField = container.querySelector(".sidebar__search");
+    /** GAME SEARCH */
+    gameSearchContainers.forEach(container => {
+        const inputField = container.querySelector(".advsearch__input");
         const tagsContainer = container.querySelector(".tags");
         const dropdown = container.querySelector(".dropdown");
-
-        let apiUrl = `/games`;
-
-        let selectedTags = new Set();
         
+        let selectedTags = new Set();
+        container.selectedTags = selectedTags;
+
         async function fetchTags(query) {
             try {
-                const response = await fetch(`${apiUrl}?q=${encodeURIComponent(query)}`);
+                const response = await fetch(`/games?q=${encodeURIComponent(query)}`);
                 const tags = await response.json();
 
                 dropdown.innerHTML = "";
-
                 if (tags.length === 0) {
                     dropdown.style.display = "none";
                     return;
@@ -28,13 +29,8 @@ window.addEventListener("load", () => {
                         tagOption.classList.add("dropdown_item");
                         tagOption.textContent = tagText;
 
-                        tagOption.addEventListener("mouseenter", () => {
-                            tagOption.style.background = "#f0f0f0";
-                        });
-                        tagOption.addEventListener("mouseleave", () => {
-                            tagOption.style.background = "white";
-                        });
-
+                        tagOption.addEventListener("mouseenter", () => tagOption.style.background = "#f0f0f0");
+                        tagOption.addEventListener("mouseleave", () => tagOption.style.background = "white");
                         tagOption.addEventListener("click", () => {
                             addTag(tagText);
                             dropdown.style.display = "none";
@@ -56,8 +52,7 @@ window.addEventListener("load", () => {
                 selectedTags.add(tagText);
 
                 const tag = document.createElement("div");
-                tag.classList.add("tags__tag");
-                tag.classList.add("tags__tag--game");
+                tag.classList.add("tags__tag", "tags__tag--game");
                 tag.textContent = tagText;
 
                 tag.addEventListener("click", () => {
@@ -87,16 +82,14 @@ window.addEventListener("load", () => {
             }
         });
     });
-});
 
-window.addEventListener("load", () => { 
-    const tagSearchContainers = document.querySelectorAll(".tag__search");
-
+    /** TAG SEARCH */
     tagSearchContainers.forEach(container => {
-        const inputField = container.querySelector(".sidebar__search");
+        const inputField = container.querySelector(".advsearch__input");
         const tagsContainer = container.querySelector(".tags");
-
+        
         let selectedTags = new Set();
+        container.selectedTags = selectedTags;
 
         function addTag(tagText) {
             tagText = `#${tagText.trim()}`;
@@ -125,5 +118,22 @@ window.addEventListener("load", () => {
             }
         });
     });
-});
 
+    /** FORM RESET */
+    form.addEventListener("reset", () => {
+        console.log("Hello this is working")
+        document.querySelectorAll(".tags__tag").forEach(tag => tag.remove());
+
+        gameSearchContainers.forEach(container => {
+            if (container.selectedTags) {
+                container.selectedTags.clear();
+            }
+        });
+        tagSearchContainers.forEach(container => {
+            if (container.selectedTags) {
+                container.selectedTags.clear();
+            }
+        });
+        
+    });
+});

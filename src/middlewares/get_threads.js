@@ -10,13 +10,17 @@ import { ObjectId } from "mongodb";
  */
 export const get_threads = async (req, res, next) => {
     try {
-        /** tags are tags... i did not make a distinction between tags and games and stuff... yet */
-        const { search, tags = [], start_date, end_date, author_name, sort } = req.query;
+        /** If we are planning to add exclude, ggez*/
+        const { search, tags = "", games = "", start_date, end_date, author_name, sort } = req.query;
         const _threads = req.app.get("db").collection("threads");
+
+        const parsedTags = tags ? tags.split("|").map(tag => decodeURIComponent(tag).replace(/^#/, "")) : [];
+        const parsedGames = games ? games.split("|").map(tag => decodeURIComponent(tag)) : [];
 
         const notSort = {
             ...(search && { title: { $regex: search, $options: "i" } }),
-            ...(tags.length > 0 && { tags: { $in: tags } }),
+            ...(parsedTags.length > 0 && { tags: { $in: parsedTags } }),
+            ...(parsedGames.length > 0 && { games: { $in: parsedGames } }),
             ...(start_date && { created: { $gte: new Date(start_date) } }),
             ...(end_date && { created: { $lte: new Date(end_date) } }),
             ...(author_name && { author: { $regex: author_name, $options: "i" } }),
