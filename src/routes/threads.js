@@ -20,7 +20,7 @@ router.get("/", get_threads, (req, res) => {
         },
         layout: "forum",
         threads: req.app.get("threads"),
-        title: "Threads",
+        title: "Threads"
     });
 });
 

@@ -14,38 +14,25 @@ export const get_threads = async (req, res, next) => {
         const { search, tags = [], start_date, end_date, author_name, sort } = req.query;
         const _threads = req.app.get("db").collection("threads");
 
+        const notSort = {
+            ...(search && { title: { $regex: search, $options: "i" } }),
+            ...(tags.length > 0 && { tags: { $in: tags } }),
+            ...(start_date && { created: { $gte: new Date(start_date) } }),
+            ...(end_date && { created: { $lte: new Date(end_date) } }),
+            ...(author_name && { author: { $regex: author_name, $options: "i" } }),
+        };
         
-        const pipeline = [
-            { $sort: { created: -1 } }, 
-            {
-                $match: {
-                    ...(search && {
-                        title: { $regex: search, $options: "i" },
-                    }),
-                    ...(tags.length > 0 && {
-                        tags: { $in: tags },
-                    }),
-                    ...(start_date && {
-                        created: { $gte: new Date(start_date) },
-                    }),
-                    ...(end_date && {
-                        created: { $lte: new Date(end_date) },
-                    }),
-                    ...(author_name && {
-                        author: { $regex: author_name, $options: "i" },
-                    }),
-                },
-            },
-            ...(sort && sort === "Newest first"
-                ? [{ $sort: { created: -1 } }]
-                : sort === "Oldest first"
-                ? [{ $sort: { created: 1 } }]
-                : sort === "Most popular first"
-                ? [{ $sort: { vote_count: -1 } }]
-                : sort === "Least popular first"
-                ? [{ $sort: { vote_count: 1 } }]
-                : []),
-        ];
+        const sortOptions = {
+            0: { created: -1 },  
+            1: { created: 1 },
+            2: { vote_count: -1 },
+            3: { vote_count: 1 }
+        };
+        
+        const theSort = sortOptions.hasOwnProperty(sort) ? [{ $sort: sortOptions[sort] }] : [{ $sort: { created: -1 } }]; 
+        
+        const pipeline = [{ $match: notSort }, ...theSort];
+        
         const threads = await _threads.aggregate(pipeline).toArray();
 
         req.app.set("threads", threads);

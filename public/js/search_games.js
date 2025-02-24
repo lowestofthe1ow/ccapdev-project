@@ -1,13 +1,12 @@
 window.addEventListener("load", () => {
-    const tagSearchContainers = document.querySelectorAll(".tag__search");
+    const tagSearchContainers = document.querySelectorAll(".game__search");
 
     tagSearchContainers.forEach(container => {
         const inputField = container.querySelector(".sidebar__search");
         const tagsContainer = container.querySelector(".tags");
         const dropdown = container.querySelector(".dropdown");
 
-        const dbType = container.dataset.type;
-        let apiUrl = `/${dbType}`;
+        let apiUrl = `/games`;
 
         let selectedTags = new Set();
         
@@ -58,6 +57,7 @@ window.addEventListener("load", () => {
 
                 const tag = document.createElement("div");
                 tag.classList.add("tags__tag");
+                tag.classList.add("tags__tag--game");
                 tag.textContent = tagText;
 
                 tag.addEventListener("click", () => {
@@ -88,3 +88,42 @@ window.addEventListener("load", () => {
         });
     });
 });
+
+window.addEventListener("load", () => { 
+    const tagSearchContainers = document.querySelectorAll(".tag__search");
+
+    tagSearchContainers.forEach(container => {
+        const inputField = container.querySelector(".sidebar__search");
+        const tagsContainer = container.querySelector(".tags");
+
+        let selectedTags = new Set();
+
+        function addTag(tagText) {
+            tagText = `#${tagText.trim()}`;
+            if (!selectedTags.has(tagText) && tagText.length > 1) {
+                selectedTags.add(tagText);
+
+                const tag = document.createElement("div");
+                tag.classList.add("tags__tag");
+                tag.textContent = tagText;
+
+                tag.addEventListener("click", () => {
+                    selectedTags.delete(tagText);
+                    tag.remove();
+                });
+
+                tagsContainer.appendChild(tag);
+                inputField.value = "";
+            }
+        }
+
+        inputField.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                const tagText = inputField.value.trim();
+                if (tagText) addTag(tagText);
+            }
+        });
+    });
+});
+

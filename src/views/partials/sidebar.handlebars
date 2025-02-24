@@ -4,15 +4,33 @@
 
 <nav class="sidebar">
     <h2 class="sidebar__header">Browse posts by game</h2>
-    {{> tag_search data-type="games"}}
-    {{! TODO: Use the tags partial for this # NOTE I DID NOT USE TAG PARTIAL, we aint templating}}
+
+    <div class="game__search">
+    {{> tags}}
+    <input type="text" class="sidebar__search" placeholder="Add tags..."/>
+    <div class="dropdown"></div>
+    </div>
+
+    {{! TODO: Use the tags partial for this}}
     <hr class="sidebar__rule" />
     <h2 class="sidebar__header">Browse posts by tag</h2>
-    {{> tag_search data-type="tags"}}
+
+    <div class="tag__search">
+    {{> tags}}
+    <input type="text" class="sidebar__search" placeholder="Add tags..."/>
+    <div class="dropdown"></div>
+    </div>
+
     <hr class="sidebar__rule" />
     <h2 class="sidebar__header">Exclude tags</h2>
-    {{> tag_search data-type="exclude"}}
+
+    <div class="tag__search">
+    {{> tags}}
+    
+    <input type="text" class="sidebar__search" placeholder="Add tags..."/>
+    <div class="dropdown"></div>
+    </div>
     <br />
 </nav>
 
-<script src="js/tag_search.js"></script>
+<script src="js/search_games.js"></script>

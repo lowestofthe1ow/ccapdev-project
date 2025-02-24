@@ -1,11 +1,11 @@
-export const getTags = async (req, res, next) => {
+export const getGames = async (req, res, next) => {
     try {
-        const tags_db = req.app.get("db").collection("tags");
+        const tags_db = req.app.get("db").collection("games");
         const searchQuery = req.query.q || "";
         
         const tags = await tags_db.find({ name: { $regex: searchQuery, $options: "i" } }).toArray();
 
-        req.tags = tags.map(tag => tag.name);
+        req.games = tags.map(tag => tag.name);
         
         next();
     } catch (error) {
