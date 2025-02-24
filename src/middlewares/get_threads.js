@@ -23,8 +23,11 @@ export const get_threads = async (req, res, next) => {
             ...(parsedGames.length > 0 && { games: { $in: parsedGames } }),
             ...(start_date && { created: { $gte: new Date(start_date) } }),
             ...(end_date && { created: { $lte: new Date(end_date) } }),
+            ...(start_date && end_date && { created: { $gte: new Date(start_date), $lte: new Date(end_date) } }),
             ...(author_name && { author: { $regex: author_name, $options: "i" } }),
         };
+
+        console.log(notSort);
         
         const sortOptions = {
             0: { created: -1 },  
