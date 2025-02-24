@@ -58,12 +58,13 @@
 .thread__meta {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 5px;
 }
 
 .thread__detail {
     margin: 0;
     font-size: 0.8rem;
+    align-items: center;
 }
 
 .thread__editmenu {

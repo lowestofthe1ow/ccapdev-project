@@ -27,17 +27,52 @@ const pipeline = [
         },
     },
     {
+        /* Get usernames */
+        $lookup: {
+            from: "users",
+            localField: "author",
+            foreignField: "_id",
+            as: "author_data",
+        },
+    },
+    {
+        /* Get usernames for descendants */
+        $lookup: {
+            from: "users",
+            localField: "descendants.author",
+            foreignField: "_id",
+            as: "descendants.author_data",
+        },
+    },
+    {
+        /* "Flattens" author_data field */
+        $unwind: {
+            path: "$author_data",
+            preserveNullAndEmptyArrays: true,
+        },
+    },
+    {
+        /* TODO: Having to do two separate lookups and unwinds is a bit iffy */
+        $unwind: {
+            path: "$descendants.author_data",
+            preserveNullAndEmptyArrays: true,
+        },
+    },
+    {
         /* Regroup the documents by top-level comments */
         $group: {
             _id: "$_id",
             author: { $first: "$author" },
+            author_data: { $first: "$author_data" },
             thread: { $first: "$thread" },
             parent: { $first: "$parent" },
             content: { $first: "$content" },
             children: { $first: "$children" },
             vote_count: { $first: "$vote_count" },
             created: { $first: "$created" },
+            edited: { $first: "$edited" } /* Date edited */,
             descendants: { $push: "$descendants" },
+            deleted: { $first: "$deleted" } /* TODO: Actually delete the data */,
         },
     },
     {

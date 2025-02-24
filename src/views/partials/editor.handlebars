@@ -6,7 +6,7 @@
     @param action - The acttion attribute to add to the form
 }}
 
-<form class="editor {{#if hidden}}hidden{{/if}}" id="{{id}}" method="post" action="{{action}}">
+<form class="editor {{#if hidden}}hidden{{/if}}" id="{{id}}" method="{{method}}" action="{{action}}">
     <div class="editor__options" id="options--{{id}}">
         <a class="button button--light button--light--small">
             <span class="material-symbols-outlined symbols-btngrp">format_bold</span>
@@ -49,7 +49,12 @@
         </a>
     </div>
 
-    <textarea id="content--{{id}}" name="content" class="editor__box" placeholder="Start typing here..." required></textarea>
+    <textarea 
+        id="content--{{id}}"
+        name="content"
+        class="editor__box"
+        placeholder="Start typing here..."
+        required>{{value}}</textarea>
 
     <div class="editor__box hidden" id="preview--{{id}}" style="padding: 0px 10px 0px 10px; overflow: scroll; border-radius: 10px 10px 0px 0px">
         <article id="preview--{{id}}" class="article">

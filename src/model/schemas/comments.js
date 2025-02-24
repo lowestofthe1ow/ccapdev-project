@@ -7,8 +7,8 @@ export default {
         required: ["author", "children", "content", "created", "parent", "thread", "vote_count"],
         properties: {
             author: {
-                bsonType: "string",
-                description: "'author' must be a string and is required",
+                bsonType: "objectId",
+                description: "'author' must be an ObjectId and is required",
             },
             children: {
                 bsonType: "array",
@@ -27,6 +27,14 @@ export default {
             created: {
                 bsonType: "date",
                 description: "'created' must be a date and is required",
+            },
+            deleted: {
+                bsonType: "bool",
+                description: "'deleted' must be a boolean",
+            },
+            edited: {
+                bsonType: "date",
+                description: "'edited' must be a date",
             },
             parent: {
                 bsonType: "objectId",
