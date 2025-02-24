@@ -121,7 +121,6 @@ window.addEventListener("load", () => {
 
     /** FORM RESET */
     form.addEventListener("reset", () => {
-        console.log("Hello this is working")
         document.querySelectorAll(".tags__tag").forEach(tag => tag.remove());
 
         gameSearchContainers.forEach(container => {
