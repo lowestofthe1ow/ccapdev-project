@@ -40,7 +40,11 @@ router.post(
         }
     }),
 
-    signin_register
+    signin_register,
+
+    (req, res) => {
+        res.json({ success: true, redirectUrl: "/threads" });
+    }
 );
 
 export default router;
