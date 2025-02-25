@@ -1,0 +1,57 @@
+<div class="profile">
+    <img class="profile__banner" src={{user.banner}} />
+    <div class="profile__content" style="gap: 10px;">
+        <div class="profile__header">
+            <div class="profile__details">
+                <img class="profile__pfp" src={{user.pfp}} />
+                <article>
+                    <h1 class="profile__username">{{user.name}}</h1>
+                    <p>{{user.bio}}</p>
+                </article>
+            </div>
+            <a class="button button--light profile__button" href="/profile-edit.html">
+                <span class="material-symbols-outlined">edit</span>
+                <ruby>Edit profile<rt>サインアウト</rt></ruby>
+            </a>
+            <a class="button button--light profile__button" href="/">
+                <span class="material-symbols-outlined">logout</span>
+                <ruby>Sign out<rt>サインアウト</rt></ruby>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="forum__body">
+    <div class="forum__threads">
+        <div class="forum__thread" style="gap: 10px;">
+            <form class="advsearch__component" style="flex-grow: 0;">
+                <label class="advsearch__label" for="sort">Sort by</label>
+                <select class="advsearch__input" name="sort" style="flex: 0;">
+                    <option>Newest first</option>
+                    <option>Oldest first</option>
+                    <option>Most popular first</option>
+                    <option>Least popular first</option>
+                </select>
+            </form>
+            <div class="profile__tabs">
+                <a class="button button--light button--light--small" style="flex: 1;" href="/profile">
+                    Threads
+                </a>
+                <a class="button button--light button--current button--light--small" style="flex: 1;">
+                    Comments
+                </a>
+                <a class="button button--light button--light--small" style="flex: 1;" href="/profile/upvoted">
+                    Upvoted posts
+                </a>
+            </div>
+        </div>
+        
+        <ul class="forum__threads">
+            {{#each comments}}
+            {{> comment this}}
+            {{/each}}
+        </ul>
+    </div>
+    
+    {{> sidebar}}
+</div>

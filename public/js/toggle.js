@@ -5,7 +5,9 @@ window.addEventListener("load", () => {
             /* TODO: Make this settable */
             x.classList.toggle("button--current");
             /* Apply the "hidden" class */
-            this.document.querySelector(x.dataset.toggle).classList.toggle("hidden");
+            this.document.querySelectorAll(x.dataset.toggle).forEach((x) => {
+                x.classList.toggle("hidden");
+            });
         });
     });
 });

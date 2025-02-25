@@ -83,6 +83,12 @@
     gap: 10px;
 }
 
+.profile__tabs {
+    display: flex;
+    gap: 5px;
+    flex: 1;
+}
+
 .profile__tabs > :first-child {
     border-radius: 10px 0px 0px 10px;
 }

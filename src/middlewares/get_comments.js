@@ -10,7 +10,7 @@ const pipeline = [
             depthField: "depth",
             from: "comments",
             startWith: "$children",
-            maxDepth: 5,
+            maxDepth: 3,
         },
     },
     {
@@ -27,17 +27,52 @@ const pipeline = [
         },
     },
     {
+        /* Get usernames */
+        $lookup: {
+            from: "users",
+            localField: "author",
+            foreignField: "_id",
+            as: "author_data",
+        },
+    },
+    {
+        /* Get usernames for descendants */
+        $lookup: {
+            from: "users",
+            localField: "descendants.author",
+            foreignField: "_id",
+            as: "descendants.author_data",
+        },
+    },
+    {
+        /* "Flattens" author_data field */
+        $unwind: {
+            path: "$author_data",
+            preserveNullAndEmptyArrays: true,
+        },
+    },
+    {
+        /* TODO: Having to do two separate lookups and unwinds is a bit iffy */
+        $unwind: {
+            path: "$descendants.author_data",
+            preserveNullAndEmptyArrays: true,
+        },
+    },
+    {
         /* Regroup the documents by top-level comments */
         $group: {
             _id: "$_id",
             author: { $first: "$author" },
+            author_data: { $first: "$author_data" },
             thread: { $first: "$thread" },
             parent: { $first: "$parent" },
             content: { $first: "$content" },
             children: { $first: "$children" },
             vote_count: { $first: "$vote_count" },
             created: { $first: "$created" },
+            edited: { $first: "$edited" } /* Date edited */,
             descendants: { $push: "$descendants" },
+            deleted: { $first: "$deleted" } /* TODO: Actually delete the data */,
         },
     },
     {
@@ -51,9 +86,7 @@ const pipeline = [
 /**
  * Middleware for fetching all comments under a thread from the database. Appends a `comments` array to the request object.
  *
- * @param req  - The request object. Must contain the following fields:
- *               - `db`: The database connection
- *               - `thread`: Data for the thread to fetch comments for
+ * @param req  - The request object.
  * @param res  - The response object.
  * @param next - Calls the next function in the middleware chain.
  */
@@ -67,7 +100,7 @@ export async function get_thread_comments(req, res, next) {
                     {
                         /* Fetch all top-level comments under the thread */
                         $match: {
-                            _id: { $in: req.app.get("thread").comments },
+                            _id: { $in: res.locals.thread.comments },
                         },
                     },
                 ].concat(pipeline)
@@ -75,7 +108,7 @@ export async function get_thread_comments(req, res, next) {
             .toArray(); /* toArray() "converts" aggregate() return value to a Promise */
 
         /* Append to request object */
-        req.app.set("comments", comments);
+        res.locals.comments = comments;
         next();
     } catch (error) {
         console.error(error);
@@ -94,7 +127,7 @@ export async function get_comment_replies(req, res, next) {
                         /* Fetch all top-level comments under the thread */
                         $match: {
                             _id: new ObjectId(req.params.comment_id),
-                            thread: req.app.get("thread")._id,
+                            thread: res.locals.thread._id,
                         },
                     },
                 ].concat(pipeline)
@@ -103,7 +136,8 @@ export async function get_comment_replies(req, res, next) {
         if (comments.length == 0) {
             res.sendStatus(404);
         } else {
-            req.app.set("comments", comments);
+            res.locals.comments = comments;
+            res.locals.reply = true; /* Displays "Viewing a comment" instead of "Comments (count)" */
             next();
         }
     } catch (error) {
@@ -118,7 +152,7 @@ export async function get_comment_count(req, res, next) {
             {
                 /* Fetch all comments under a thread */
                 $match: {
-                    thread: req.app.get("thread")._id,
+                    thread: res.locals.thread._id,
                 },
             },
             {
@@ -129,9 +163,9 @@ export async function get_comment_count(req, res, next) {
 
     /* Handle case of empty result */
     if (count.length > 0) {
-        req.app.set("count", count[0].count);
+        res.locals.count = count[0].count;
     } else {
-        req.app.set("count", 0);
+        res.locals.count = 0;
     }
 
     next();
