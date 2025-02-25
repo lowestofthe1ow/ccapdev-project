@@ -34,10 +34,10 @@
                 </select>
             </form>
             <div class="profile__tabs">
-                <a class="button button--light button--current button--light--small" style="flex: 1;">
+                <a class="button button--light button--light--small" style="flex: 1;" href="/profile">
                     Threads
                 </a>
-                <a class="button button--light button--light--small" style="flex: 1;" href="/profile/comments">
+                <a class="button button--light button--current button--light--small" style="flex: 1;">
                     Comments
                 </a>
                 <a class="button button--light button--light--small" style="flex: 1;" href="/profile/upvoted">
@@ -47,7 +47,9 @@
         </div>
         
         <ul class="forum__threads">
-            {{> threadlist threads=threads}}
+            {{#each comments}}
+            {{> comment this}}
+            {{/each}}
         </ul>
     </div>
     
