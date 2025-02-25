@@ -4,6 +4,7 @@ import { find_user } from "../middlewares/users.js";
 import { validate_password } from "../middlewares/validate.js";
 
 const router = express.Router();
+
 router.use(express.urlencoded({ extended: true }));
 router.use(express.json());
 

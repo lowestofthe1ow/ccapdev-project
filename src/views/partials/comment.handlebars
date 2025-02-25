@@ -46,7 +46,7 @@
             {{! Show only if comment has not been deleted }}
             {{#if deleted}} {{else}}
             {{! Show these buttons only if the comment was made by the user }}
-            {{#if (is_author author)}}
+            {{#if (_is_author author)}}
             <button class="button button--light button--light--small" data-toggle="#editmenu--{{_id}}">
                 <span class="material-symbols-outlined" style="font-size: 1.1rem">edit</span>
             </button>

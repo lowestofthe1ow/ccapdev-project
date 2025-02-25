@@ -4,7 +4,7 @@ import express from "express";
 import format_date from "../helpers/format_date.js";
 
 /* Middleware */
-import { get_user } from "../middlewares/profile.js";
+import get_user from "../middlewares/get_user.js";
 import { get_threads } from "../middlewares/get_threads.js";
 
 const router = express.Router();
