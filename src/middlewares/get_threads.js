@@ -17,6 +17,7 @@ export const get_threads = async (req, res, next) => {
         const parsedTags = tags ? tags.split("|").map(tag => decodeURIComponent(tag).replace(/^#/, "")) : [];
         const parsedGames = games ? games.split("|").map(tag => decodeURIComponent(tag)) : [];
 
+        /**TODO: Get timezone from client and use that to offset a THIS somehow  */
         const localToUTC = (date, hours, minutes, seconds, milliseconds) => {
             if (!date) return null;
             
