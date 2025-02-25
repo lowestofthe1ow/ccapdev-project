@@ -12,6 +12,7 @@ import forum from "./routes/threads.js";
 import profile from "./routes/profile.js";
 import register from "./routes/register.js";
 import signin from "./routes/signin.js";
+import search_games from "./routes/games.js";
 
 const app = express();
 const port = 8000;
@@ -46,6 +47,7 @@ app.use("/threads", forum);
 app.use("/profile", profile);
 app.use("/register", register);
 app.use("/signin", signin);
+app.use("/games", search_games);
 
 
 

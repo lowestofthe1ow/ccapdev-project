@@ -7,38 +7,85 @@ import { ObjectId } from "mongodb";
  * @param res  - The response object.
  * @param next - Calls the next function in the middleware chain.
  */
-export async function get_threads(req, res, next) {
+export const get_threads = async (req, res, next) => {
     try {
-        /* Fetch from database */
-        let _threads = req.app.get("db").collection("threads");
-        let threads = await _threads
-            .aggregate([
-                { $sort: { created: -1 } },
-                {
-                    /* Get usernames */
-                    $lookup: {
-                        from: "users",
-                        localField: "author",
-                        foreignField: "_id",
-                        as: "author_data",
-                    },
-                },
-                {
-                    $unwind: {
-                        path: "$author_data",
-                        preserveNullAndEmptyArrays: true,
-                    },
-                },
-            ]) /* Sort by most recent post for now. TODO: Pagination */
-            .toArray(); /* toArray() "converts" aggregate() return value to a Promise */
+        /** If we are planning to add exclude, ggez*/
+        const { search, tags = "", games = "", start_date, end_date, author_name, sort } = req.query;
+        const _threads = req.app.get("db").collection("threads");
 
-        /* Apply to request object */
-        res.locals.threads = threads;
+        const parsedTags = tags ? tags.split("|").map(tag => decodeURIComponent(tag).replace(/^#/, "")) : [];
+        const parsedGames = games ? games.split("|").map(tag => decodeURIComponent(tag)) : [];
+
+        /**TODO: Get timezone from client and use that to offset a THIS somehow  */
+        const localToUTC = (date, hours, minutes, seconds, milliseconds) => {
+            if (!date) return null;
+            
+            let newDate = new Date(date);
+            newDate.setHours(hours, minutes, seconds, milliseconds)
+
+            return newDate;
+        };
+  
+        const adjustedStartDate = localToUTC(start_date, 0, 0, 0, 0);
+        const adjustedEndDate   = localToUTC(end_date, 23, 59, 59, 999);
+
+        const notSort = {
+            ...(search && { 
+                $or: [
+                    { title: { $regex: search, $options: "i" } },
+                    { content: { $regex: search, $options: "i" } }
+                ] 
+            }),
+            ...(parsedTags.length && { tags: { $in: parsedTags } }),
+            ...(parsedGames.length && { games: { $in: parsedGames } }),
+            ...(adjustedStartDate && { created: { $gte: adjustedStartDate } }),
+            ...(adjustedEndDate && { created: { $lte: adjustedEndDate } }),
+            ...(adjustedStartDate && adjustedEndDate && { created: { $gte: adjustedStartDate, $lte: adjustedEndDate } }),
+            ...(author_name && { author: { $regex: author_name, $options: "i" } }),
+        };
+
+
+        
+        const sortOptions = {
+            0: { created: -1 },  
+            1: { created: 1 },
+            2: { vote_count: -1 },
+            3: { vote_count: 1 }
+        };
+        
+        /* Sort by most recent post for now. TODO: Pagination */
+       
+        
+        const theSort = sortOptions.hasOwnProperty(sort) ? [{ $sort: sortOptions[sort] }] : [{ $sort: { created: -1 } }]; 
+        
+        const pipeline = [
+            { $match: notSort },
+            ...theSort,
+            {
+                $lookup: {
+                    from: "users",
+                    localField: "author",
+                    foreignField: "_id",
+                    as: "author_data",
+                },
+            },
+            {
+                $unwind: {
+                    path: "$author_data",
+                    preserveNullAndEmptyArrays: true,
+                },
+            }
+        ];
+        
+        const threads = await _threads.aggregate(pipeline).toArray();
+
+        req.app.set("threads", threads);
         next();
     } catch (error) {
         console.error(error);
+        next(error); 
     }
-}
+};
 
 /**
  * Middleware for fetching a specific thread in the database. Appends a `thread` object to the request object.
