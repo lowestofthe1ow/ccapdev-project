@@ -102,7 +102,7 @@ export async function get_thread_comments(req, res, next) {
                     {
                         /* Fetch all top-level comments under the thread */
                         $match: {
-                            _id: { $in: req.app.get("thread").comments },
+                            _id: { $in: res.locals.thread.comments },
                         },
                     },
                 ].concat(pipeline)
@@ -110,7 +110,7 @@ export async function get_thread_comments(req, res, next) {
             .toArray(); /* toArray() "converts" aggregate() return value to a Promise */
 
         /* Append to request object */
-        req.app.set("comments", comments);
+        res.locals.comments = comments;
         next();
     } catch (error) {
         console.error(error);
@@ -129,7 +129,7 @@ export async function get_comment_replies(req, res, next) {
                         /* Fetch all top-level comments under the thread */
                         $match: {
                             _id: new ObjectId(req.params.comment_id),
-                            thread: req.app.get("thread")._id,
+                            thread: res.locals.thread._id,
                         },
                     },
                 ].concat(pipeline)
@@ -138,7 +138,8 @@ export async function get_comment_replies(req, res, next) {
         if (comments.length == 0) {
             res.sendStatus(404);
         } else {
-            req.app.set("comments", comments);
+            res.locals.comments = comments;
+            res.locals.reply = true; /* Displays "Viewing a comment" instead of "Comments (count)" */
             next();
         }
     } catch (error) {
@@ -153,7 +154,7 @@ export async function get_comment_count(req, res, next) {
             {
                 /* Fetch all comments under a thread */
                 $match: {
-                    thread: req.app.get("thread")._id,
+                    thread: res.locals.thread._id,
                 },
             },
             {
@@ -164,9 +165,9 @@ export async function get_comment_count(req, res, next) {
 
     /* Handle case of empty result */
     if (count.length > 0) {
-        req.app.set("count", count[0].count);
+        res.locals.count = count[0].count;
     } else {
-        req.app.set("count", 0);
+        res.locals.count = 0;
     }
 
     next();

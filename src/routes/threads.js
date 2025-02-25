@@ -27,7 +27,6 @@ router.get(
                 format_date,
             },
             layout: "forum",
-            threads: req.app.get("threads"),
             title: "Threads",
         });
     }
@@ -45,8 +44,6 @@ router.get(
         let _is_author = is_author(new ObjectId("67a8caec05494bfdd8a41bf7"));
 
         res.render("thread", {
-            comments: req.app.get("comments"),
-            count: req.app.get("count"),
             helpers: {
                 _is_author,
                 check_depth,
@@ -56,8 +53,7 @@ router.get(
                 markdown,
             },
             layout: "forum",
-            thread: req.app.get("thread"),
-            title: req.app.get("thread").title,
+            title: res.locals.thread.title,
         });
     }
 );
@@ -73,8 +69,6 @@ router.get(
         let _is_author = is_author(new ObjectId("67a8caec05494bfdd8a41bf7"));
 
         res.render("thread", {
-            comments: req.app.get("comments"),
-            count: req.app.get("count"),
             helpers: {
                 _is_author,
                 check_depth,
@@ -84,9 +78,7 @@ router.get(
                 markdown,
             },
             layout: "forum",
-            reply: true /* Displays "Viewing a comment" instead of "Comments (count)" */,
-            thread: req.app.get("thread"),
-            title: req.app.get("comments")[0].content,
+            title: res.locals.comments[0].content,
         });
     }
 );
@@ -109,7 +101,7 @@ router.post(
         let _comments = req.app.get("db").collection("comments");
 
         _comments.updateOne(
-            { _id: req.app.get("comments")[0]._id },
+            { _id: res.locals.comments[0]._id },
             { $set: { content: req.body.content, edited: new Date(Date.now()) } }
         );
 
@@ -127,7 +119,7 @@ router.post(
         let _comments = req.app.get("db").collection("comments");
 
         /* TODO: Actually delete the data */
-        _comments.updateOne({ _id: req.app.get("comments")[0]._id }, { $set: { deleted: true } });
+        _comments.updateOne({ _id: res.locals.comments[0]._id }, { $set: { deleted: true } });
 
         res.redirect(`/threads/${req.params.thread_id}/comments/${req.params.comment_id}`);
     }

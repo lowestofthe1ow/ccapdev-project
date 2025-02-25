@@ -34,7 +34,7 @@ export async function get_threads(req, res, next) {
             .toArray(); /* toArray() "converts" aggregate() return value to a Promise */
 
         /* Apply to request object */
-        req.app.set("threads", threads);
+        res.locals.threads = threads;
         next();
     } catch (error) {
         console.error(error);
@@ -76,7 +76,7 @@ export async function get_thread(req, res, next) {
             .toArray();
 
         /* Apply to request object */
-        req.app.set("thread", thread[0]);
+        res.locals.thread = thread[0];
         next();
     } catch (error) {
         console.error(error);

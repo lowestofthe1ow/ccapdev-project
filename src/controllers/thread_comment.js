@@ -14,7 +14,7 @@ export default async (req, res) => {
         /* Create a comment object from the request body */
         let comment = {
             author: new ObjectId("67a8caec05494bfdd8a41bf7") /* Sample user "lowestofthelow" for now */,
-            thread: req.app.get("thread")._id,
+            thread: res.locals.thread._id,
             children: [],
             content: req.body.content,
             created: new Date(Date.now()),
@@ -35,7 +35,7 @@ export default async (req, res) => {
             await _threads.updateOne({ _id: comment.parent }, { $push: { comments: insert_result.insertedId } });
         }
 
-        if (req.app.get("thread")._id.equals(req.body.parent)) {
+        if (res.locals.thread._id.equals(req.body.parent)) {
             /* Redirect to GET /threads/:id */
             res.redirect(`/threads/${req.params.thread_id}`);
         } else {

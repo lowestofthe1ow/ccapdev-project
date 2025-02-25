@@ -12,7 +12,8 @@ export default async (req, res, next) => {
         let user = await _user;
 
         /* Apply to request object */
-        req.app.set("user", user);
+        req.app.set("user", user); // TODO
+        res.locals.user = user;
 
         next();
     } catch (error) {
