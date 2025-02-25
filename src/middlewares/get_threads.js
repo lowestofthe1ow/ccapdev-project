@@ -17,15 +17,33 @@ export const get_threads = async (req, res, next) => {
         const parsedTags = tags ? tags.split("|").map(tag => decodeURIComponent(tag).replace(/^#/, "")) : [];
         const parsedGames = games ? games.split("|").map(tag => decodeURIComponent(tag)) : [];
 
+        const localToUTC = (date, hours, minutes, seconds, milliseconds) => {
+            if (!date) return null;
+            
+            let newDate = new Date(date);
+            newDate.setHours(hours, minutes, seconds, milliseconds)
+
+            return newDate;
+        };
+  
+        const adjustedStartDate = localToUTC(start_date, 0, 0, 0, 0);
+        const adjustedEndDate   = localToUTC(end_date, 23, 59, 59, 999);
+
         const notSort = {
-            ...(search && { title: { $regex: search, $options: "i" } }),
-            ...(parsedTags.length > 0 && { tags: { $in: parsedTags } }),
-            ...(parsedGames.length > 0 && { games: { $in: parsedGames } }),
-            ...(start_date && { created: { $gte: new Date(start_date) } }),
-            ...(end_date && { created: { $lte: new Date(end_date) } }),
-            ...(start_date && end_date && { created: { $gte: new Date(start_date), $lte: new Date(end_date) } }),
+            ...(search && { 
+                $or: [
+                    { title: { $regex: search, $options: "i" } },
+                    { content: { $regex: search, $options: "i" } }
+                ] 
+            }),
+            ...(parsedTags.length && { tags: { $in: parsedTags } }),
+            ...(parsedGames.length && { games: { $in: parsedGames } }),
+            ...(adjustedStartDate && { created: { $gte: adjustedStartDate } }),
+            ...(adjustedEndDate && { created: { $lte: adjustedEndDate } }),
+            ...(adjustedStartDate && adjustedEndDate && { created: { $gte: adjustedStartDate, $lte: adjustedEndDate } }),
             ...(author_name && { author: { $regex: author_name, $options: "i" } }),
         };
+
 
         
         const sortOptions = {
