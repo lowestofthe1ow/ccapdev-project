@@ -45,7 +45,21 @@ router.post(
 
     hash_password /* Hash the password */,
 
-    signin_register
+    signin_register,
+
+    async (req, res) => {
+        /* Validation success */
+        try {
+            const { name } = req.body;
+            const users = req.app.get("db").collection("users");
+
+            await users.insertOne({ name, password: res.locals.hashed });
+
+            res.json({ success: true, redirectUrl: "/threads" });
+        } catch (error) {
+            console.error(error);
+        }
+    }
 );
 
 export default router;
