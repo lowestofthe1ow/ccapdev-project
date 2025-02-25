@@ -53,7 +53,7 @@ export const get_threads = async (req, res, next) => {
             3: { vote_count: 1 }
         };
         
-        /* Sort by most recent post for now. TODO: Pagination */
+        
        
         
         const theSort = sortOptions.hasOwnProperty(sort) ? [{ $sort: sortOptions[sort] }] : [{ $sort: { created: -1 } }]; 
@@ -76,7 +76,7 @@ export const get_threads = async (req, res, next) => {
                 },
             }
         ];
-        
+        /* TODO: Pagination */
         const threads = await _threads.aggregate(pipeline).toArray();
 
         req.app.set("threads", threads);

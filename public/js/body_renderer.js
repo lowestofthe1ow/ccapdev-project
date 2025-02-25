@@ -6,6 +6,7 @@ window.addEventListener("load", () => {
 
   form.addEventListener("submit", (event) => {
       event.preventDefault();
+
       const urlParams = new URLSearchParams(window.location.search);
       const searchQuery = form.querySelector("input[name='search']").value.trim();
 
