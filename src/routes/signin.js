@@ -22,17 +22,19 @@ router.post(
             throw new Error("No such user exists");
         } else {
             /* Genuinely I have no idea how to best pass this along the chain so lol */
-            req.found_user = existing_user;
+            req.body.found_user = existing_user;
             return true;
         }
     }),
 
     /* Ensure the password is valid */
     body("password").custom(async (password, { req }) => {
-        if (!req.found_user) return false; /* Skip entirely if user not found */
+        if (!req.body.found_user) return false; /* Skip entirely if user not found */
 
-        const valid = await argon2.verify(req.found_user.password, password);
-
+        
+        const valid = await argon2.verify(req.body.found_user.password, password);
+        
+        
         if (!valid) {
             throw new Error("Invalid password");
         } else {

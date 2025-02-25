@@ -17,10 +17,6 @@ const router = express.Router();
 router.get(
     "/",
     /* TODO: Replace this with session middleware */
-    (req, res, next) => {
-        req.username = "lowestofthelow";
-        next();
-    },
     get_active_user /* Gets the current active user */,
     get_threads /* Fetches thread list */,
     (req, res) => {
@@ -34,10 +30,6 @@ router.get(
 router.get(
     "/comments",
     /* TODO: Replace this with session middleware */
-    (req, res, next) => {
-        req.username = "lowestofthelow";
-        next();
-    },
     get_active_user /* Gets the current active user */,
     (req, res) => {
         res.render("pfcomments", {
@@ -56,10 +48,6 @@ router.get(
 router.get(
     "/upvoted",
     get_threads /* TODO: Replace this with session middleware */,
-    (req, res, next) => {
-        req.username = "lowestofthelow";
-        next();
-    },
     get_active_user /* Gets the current active user */,
     (req, res) => {
         res.render("pfupvoted", {

@@ -1,5 +1,7 @@
 import express from "express";
 import { engine } from "express-handlebars";
+import session from "express-session";
+import cookieParser from "cookie-parser";
 
 /* MongoDB connection */
 import db_conn from "./model/db.js";
@@ -15,6 +17,18 @@ const app = express();
 const port = 8000;
 
 app.use(express.urlencoded({ extended: true }));
+
+/* Cookie Parser */
+app.use(cookieParser());
+
+/* Setting up session */
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { httpOnly: true, secure: false, maxAge: 10 },
+  }));
+
 
 /* Use the handlebars engine */
 app.engine("handlebars", engine());
@@ -32,6 +46,8 @@ app.use("/threads", forum);
 app.use("/profile", profile);
 app.use("/register", register);
 app.use("/signin", signin);
+
+
 
 /* Connect to MongoDB and begin listening to requests */
 db_conn.connect().then(() => {

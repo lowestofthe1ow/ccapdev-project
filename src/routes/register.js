@@ -45,20 +45,28 @@ router.post(
 
     hash_password /* Hash the password */,
 
-    signin_register,
-
-    async (req, res) => {
-        /* Validation success */
+    async (req, res, next) => {
+        /* Validation success */ /** I do not know why we're storing the hash after the session is made */
         try {
             const { name } = req.body;
             const users = req.app.get("db").collection("users");
 
-            await users.insertOne({ name, password: res.locals.hashed });
+            const result = await users.insertOne({ name, password: res.locals.hashed });
 
-            res.json({ success: true, redirectUrl: "/threads" });
+            const newUser = await users.findOne({ _id: result.insertedId });
+
+            req.body.found_user = newUser;
+            
+            next();
         } catch (error) {
             console.error(error);
         }
+    },
+    
+    signin_register,
+
+    async (req, res) => {
+        res.json({ success: true, redirectUrl: "/threads" });
     }
 );
 

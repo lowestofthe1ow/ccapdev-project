@@ -20,6 +20,7 @@ const router = express.Router();
 /* Forum home page */
 router.get(
     "/",
+    get_active_user,
     get_threads /* Get thread list */,
 
     (req, res) => {
@@ -35,7 +36,9 @@ router.get(
 
 /* Thread page */
 router.get(
+    
     "/:thread_id",
+    get_active_user,
     get_thread /* Get thread data */,
     get_thread_comments /* Expand all comments under the thread */,
     get_comment_count /* Count all comments under the thread */,
@@ -62,6 +65,7 @@ router.get(
 /* Comment permalink page (used for pagination) */
 router.get(
     "/:thread_id/comments/:comment_id",
+    get_active_user,
     get_thread /* Get thread data */,
     get_comment_replies /* Expand all comments under a specific comment */,
 
@@ -87,6 +91,7 @@ router.get(
 /* Posting a new comment */
 router.post(
     "/:thread_id/comments",
+    get_active_user,
     /* TODO: Replace this with session middleware */
     (req, res, next) => {
         req.username = "lowestofthelow";
@@ -101,6 +106,7 @@ router.post(
 /* Editing a comment */
 router.post(
     "/:thread_id/comments/:comment_id/edit",
+    get_active_user,
     get_thread /* Get thread data */,
     get_comment_replies /* Expand all comments under a specific comment */,
 
@@ -119,6 +125,7 @@ router.post(
 /* Deleting a comment */
 router.post(
     "/:thread_id/comments/:comment_id/delete",
+    get_active_user,
     get_thread /* Get thread data */,
     get_comment_replies /* Expand all comments under a specific comment */,
 
