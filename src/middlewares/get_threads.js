@@ -27,7 +27,6 @@ export const get_threads = async (req, res, next) => {
             ...(author_name && { author: { $regex: author_name, $options: "i" } }),
         };
 
-        console.log(notSort);
         
         const sortOptions = {
             0: { created: -1 },  
