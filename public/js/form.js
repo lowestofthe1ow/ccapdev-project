@@ -6,13 +6,14 @@ window.addEventListener("load", async () => {
         let formData = {};
         new FormData(e.target).forEach((value, key) => (formData[key] = value));
 
-        console.log(formData);
-
+        /* Make a POST request using the form data */
         const response = await fetch(e.target.action, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(formData),
         });
+
+        console.log(response);
 
         const result = await response.json();
 

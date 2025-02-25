@@ -11,6 +11,7 @@ import markdown from "../helpers/markdown.js";
 
 /* Middleware */
 import thread_comment from "../controllers/thread_comment.js";
+import get_active_user from "../middlewares/get_active_user.js";
 import { get_comment_count, get_comment_replies, get_thread_comments } from "../middlewares/get_comments.js";
 import { get_thread, get_threads } from "../middlewares/get_threads.js";
 
@@ -86,6 +87,12 @@ router.get(
 /* Posting a new comment */
 router.post(
     "/:thread_id/comments",
+    /* TODO: Replace this with session middleware */
+    (req, res, next) => {
+        req.username = "lowestofthelow";
+        next();
+    },
+    get_active_user /* Gets the current active user */,
     get_thread /* Get thread data */,
     get_thread_comments /* Expand all comments under the thread */,
     thread_comment

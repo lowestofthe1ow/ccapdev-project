@@ -3,8 +3,7 @@ import { ObjectId } from "mongodb";
 /**
  * Middleware for fetching all threads in the database. Appends a `threads` array to the request object.
  *
- * @param req  - The request object. Must contain the following fields:
- *               - `db`: The database connection
+ * @param req  - The request object.
  * @param res  - The response object.
  * @param next - Calls the next function in the middleware chain.
  */

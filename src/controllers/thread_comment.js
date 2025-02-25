@@ -13,7 +13,7 @@ export default async (req, res) => {
 
         /* Create a comment object from the request body */
         let comment = {
-            author: new ObjectId("67a8caec05494bfdd8a41bf7") /* Sample user "lowestofthelow" for now */,
+            author: res.locals.user._id,
             thread: res.locals.thread._id,
             children: [],
             content: req.body.content,

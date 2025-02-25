@@ -1,23 +1,51 @@
 import express from "express";
+import { body } from "express-validator";
 
-import { find_user } from "../middlewares/users.js";
-import { hash_password } from "../middlewares/hashing.js";
+import hash_password from "../middlewares/hash_password.js";
+
+import signin_register from "../controllers/signin_register.js";
 
 const router = express.Router();
+
 router.use(express.urlencoded({ extended: true }));
 router.use(express.json());
 
-router.post("/", find_user, hash_password, async (req, res) => {
-    try {
-        const { name } = req.body;
-        const users = req.app.get("db").collection("users");
+console.log("hi");
 
-        await users.insertOne({ name, password: req.app.get("hashed-password") });
+router.post(
+    "/",
 
-        res.json({ success: true, redirectUrl: "/threads" });
-    } catch (error) {
-        console.error(error);
-    }
-});
+    /* Password minimum length */
+    body("password").isLength({ min: 8 }).withMessage("Password must be at least 8 characters"),
+
+    /* Username minimum length */
+    body("name").isLength({ min: 8 }).withMessage("Username must be at least 8 characters"),
+
+    /* Ensure the username is not already taken */
+    body("name").custom(async (username, { req }) => {
+        let existing_user = await req.app.get("db").collection("users").findOne({
+            name: username, // TODO: Sessions
+        });
+
+        if (existing_user) {
+            throw new Error("Username already in use");
+        } else {
+            return true;
+        }
+    }),
+
+    /* Ensure the passwords match */
+    body("confirm").custom((confirm, { req }) => {
+        if (confirm != req.body.password) {
+            throw new Error("Passwords do not match");
+        } else {
+            return true;
+        }
+    }),
+
+    hash_password /* Hash the password */,
+
+    signin_register
+);
 
 export default router;

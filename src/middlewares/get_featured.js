@@ -1,8 +1,7 @@
 /**
  * Middleware for fetching the "featured games" to display on the homepage
  *
- * @param req  - The request object. Must contain the following fields:
- *               - `db`: The database connection
+ * @param req  - The request object.
  * @param res  - The response object.
  * @param next - Calls the next function in the middleware chain.
  */

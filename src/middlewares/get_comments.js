@@ -86,9 +86,7 @@ const pipeline = [
 /**
  * Middleware for fetching all comments under a thread from the database. Appends a `comments` array to the request object.
  *
- * @param req  - The request object. Must contain the following fields:
- *               - `db`: The database connection
- *               - `thread`: Data for the thread to fetch comments for
+ * @param req  - The request object.
  * @param res  - The response object.
  * @param next - Calls the next function in the middleware chain.
  */
