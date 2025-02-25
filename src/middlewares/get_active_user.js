@@ -1,6 +1,7 @@
 import { ObjectId } from "mongodb";
 
 export default async (req, res, next) => {
+    
     if (!req.session.user) {
         if (req.accepts("html")) {
             /** TODO: Change to an error page or something */
