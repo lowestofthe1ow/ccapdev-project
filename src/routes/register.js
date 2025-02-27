@@ -2,8 +2,7 @@ import express from "express";
 import { body } from "express-validator";
 
 import hash_password from "../middlewares/hash_password.js";
-
-import signin_register from "../controllers/signin_register.js";
+import check_form_errors from "../middlewares/check_form_errors.js";
 
 const router = express.Router();
 
@@ -45,28 +44,37 @@ router.post(
 
     hash_password /* Hash the password */,
 
+    check_form_errors /* Abort if validation failed */,
+
+    /* Data should be VALID by this point */
+
     async (req, res, next) => {
-        /* Validation success */ /** I do not know why we're storing the hash after the session is made */
         try {
             const { name } = req.body;
             const users = req.app.get("db").collection("users");
 
             const result = await users.insertOne({ name, password: res.locals.hashed });
+            const verify_insertion = await users.findOne({ _id: result.insertedId });
 
-            const newUser = await users.findOne({ _id: result.insertedId });
+            req.body.found_user = verify_insertion;
 
-            req.body.found_user = newUser;
-            
             next();
         } catch (error) {
             console.error(error);
         }
     },
-    
-    signin_register,
 
+    /* By this point, found_user is the newly-created user (or null if some weird error happened */
+
+    /* Attach user ID to session */
+    /* TODO: Combine with the one in signin.js UNLESS something comes up */
     async (req, res) => {
-        res.json({ success: true, redirectUrl: "/threads" });
+        if (req.body.found_user) {
+            req.session.user_id = req.body.found_user._id;
+            res.json({ success: true, redirectUrl: "/threads" });
+        } else {
+            res.status(400).json({ success: false, message: "User authentication failed." });
+        }
     }
 );
 

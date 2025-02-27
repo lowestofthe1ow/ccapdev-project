@@ -2,7 +2,7 @@ import argon2 from "argon2";
 import express from "express";
 import { body } from "express-validator";
 
-import signin_register from "../controllers/signin_register.js";
+import check_form_errors from "../middlewares/check_form_errors.js";
 
 const router = express.Router();
 
@@ -31,10 +31,8 @@ router.post(
     body("password").custom(async (password, { req }) => {
         if (!req.body.found_user) return false; /* Skip entirely if user not found */
 
-        
         const valid = await argon2.verify(req.body.found_user.password, password);
-        
-        
+
         if (!valid) {
             throw new Error("Invalid password");
         } else {
@@ -42,10 +40,18 @@ router.post(
         }
     }),
 
-    signin_register,
+    check_form_errors,
 
-    (req, res) => {
-        res.json({ success: true, redirectUrl: "/threads" });
+    /* Data should be VALID by this point */
+
+    /* Attach user ID to session */
+    async (req, res) => {
+        if (req.body.found_user) {
+            req.session.user_id = req.body.found_user._id;
+            res.json({ success: true, redirectUrl: "/threads" });
+        } else {
+            res.status(400).json({ success: false, message: "User authentication failed." });
+        }
     }
 );
 

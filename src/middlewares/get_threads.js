@@ -13,51 +13,46 @@ export const get_threads = async (req, res, next) => {
         const { search, tags = "", games = "", start_date, end_date, author_name, sort } = req.query;
         const _threads = req.app.get("db").collection("threads");
 
-        const parsedTags = tags ? tags.split("|").map(tag => decodeURIComponent(tag).replace(/^#/, "")) : [];
-        const parsedGames = games ? games.split("|").map(tag => decodeURIComponent(tag)) : [];
+        const parsedTags = tags ? tags.split("|").map((tag) => decodeURIComponent(tag).replace(/^#/, "")) : [];
+        const parsedGames = games ? games.split("|").map((tag) => decodeURIComponent(tag)) : [];
 
         /**TODO: Get timezone from client and use that to offset a THIS somehow  */
         const localToUTC = (date, hours, minutes, seconds, milliseconds) => {
             if (!date) return null;
-            
+
             let newDate = new Date(date);
-            newDate.setHours(hours, minutes, seconds, milliseconds)
+            newDate.setHours(hours, minutes, seconds, milliseconds);
 
             return newDate;
         };
-  
+
         const adjustedStartDate = localToUTC(start_date, 0, 0, 0, 0);
-        const adjustedEndDate   = localToUTC(end_date, 23, 59, 59, 999);
+        const adjustedEndDate = localToUTC(end_date, 23, 59, 59, 999);
 
         const notSort = {
-            ...(search && { 
-                $or: [
-                    { title: { $regex: search, $options: "i" } },
-                    { content: { $regex: search, $options: "i" } }
-                ] 
+            ...(search && {
+                $or: [{ title: { $regex: search, $options: "i" } }, { content: { $regex: search, $options: "i" } }],
             }),
             ...(parsedTags.length && { tags: { $in: parsedTags } }),
             ...(parsedGames.length && { games: { $in: parsedGames } }),
             ...(adjustedStartDate && { created: { $gte: adjustedStartDate } }),
             ...(adjustedEndDate && { created: { $lte: adjustedEndDate } }),
-            ...(adjustedStartDate && adjustedEndDate && { created: { $gte: adjustedStartDate, $lte: adjustedEndDate } }),
-            ...(author_name && { author: { $regex: author_name, $options: "i" } }),
+            ...(adjustedStartDate &&
+                adjustedEndDate && { created: { $gte: adjustedStartDate, $lte: adjustedEndDate } }),
+            ...(author_name && { "author.name": { $regex: author_name, $options: "i" } }),
         };
 
-
-        
         const sortOptions = {
-            0: { created: -1 },  
+            0: { created: -1 },
             1: { created: 1 },
             2: { vote_count: -1 },
-            3: { vote_count: 1 }
+            3: { vote_count: 1 },
         };
-        
-        
-       
-        
-        const theSort = sortOptions.hasOwnProperty(sort) ? [{ $sort: sortOptions[sort] }] : [{ $sort: { created: -1 } }]; 
-        
+
+        const theSort = sortOptions.hasOwnProperty(sort)
+            ? [{ $sort: sortOptions[sort] }]
+            : [{ $sort: { created: -1 } }];
+
         const pipeline = [
             { $match: notSort },
             ...theSort,
@@ -74,16 +69,16 @@ export const get_threads = async (req, res, next) => {
                     path: "$author_data",
                     preserveNullAndEmptyArrays: true,
                 },
-            }
+            },
         ];
         /* TODO: Pagination */
         const threads = await _threads.aggregate(pipeline).toArray();
 
-        req.app.set("threads", threads);
+        res.locals.threads = threads;
         next();
     } catch (error) {
         console.error(error);
-        next(error); 
+        next(error);
     }
 };
 
