@@ -54,7 +54,7 @@ export const get_threads = async (req, res, next) => {
             : [{ $sort: { created: -1 } }];
 
         const pipeline = [
-            { $match: notSort },
+            { $match: { ...notSort, deleted: { $ne: true } } }, // Hide deleted posts from results
             ...theSort,
             {
                 $lookup: {

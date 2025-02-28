@@ -80,6 +80,21 @@ router.post(
     }
 );
 
+/* Delete thread */
+router.post(
+    "/:thread_id/delete",
+    get_active_user,
+    get_thread /* Get thread data */,
+
+    async (req, res) => {
+        let _threads = req.app.get("db").collection("threads");
+
+        _threads.updateOne({ _id: res.locals.thread._id }, { $set: { deleted: true } });
+
+        res.redirect(`/threads/${req.params.thread_id}`);
+    }
+);
+
 /* Comment permalink page (used for pagination) */
 router.get(
     "/:thread_id/comments/:comment_id",

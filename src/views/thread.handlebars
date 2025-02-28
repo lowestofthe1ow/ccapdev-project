@@ -9,12 +9,17 @@
 
 <div class="forum__body">
     <section class="forum__threads">
+        
         <hgroup class="forum__thread">
             {{> threadlink this.thread show_options=(check_id thread.author user._id)}}
         </hgroup>
 
         <article class="article article__block">
+            {{#if thread.deleted}}
+            <p><em>This thread has been deleted.</em></p>
+            {{else}}
             {{{markdown this.thread.content}}}
+            {{/if}}
             {{! "Edit comment" menu }}
             <div id="editmenu--{{this.thread._id}}" class="hidden" style="margin-bottom: 10px;">
                 <hr class="sidebar__rule" />

@@ -27,22 +27,26 @@
     
     <div class="comment">
         <div style="display: flex; gap: 5px;">
-            <p class="comment__details">
+            <div class="comment__details">
                 <span data-toggle="#descendants--{{_id}}, .collapsed--{{_id}}" style="cursor: pointer">
                     [-]
                 </span>
                 
-                {{#if deleted}}
-                {{! Show if comment has been deleted }}
-                <em>User deleted this post</em>
-                {{else}}
-                {{#if (check_id author user._id)}}
-                <span class="material-symbols-outlined" style="font-size: 1.1rem; color: var(--kinkan-turquoise)">person</span>
-                {{/if}}
-                <img src="{{author_data.pfp}}" style="height: 20px; border-radius: 20px;"/>
-                <strong>{{author_data.name}}</strong> ({{vote_count}} votes, {{format_date created}}{{#if edited}}, edited {{format_date edited}}{{/if}})
-                {{/if}}
-            </p>
+                <div class="thread__meta">
+                    {{#if deleted}}
+                    {{! Show if comment has been deleted }}
+                    <p class="thread__detail"><em>User deleted this post</em></p>
+                    {{else}}
+                    {{#if (check_id author user._id)}}
+                    <span class="material-symbols-outlined" style="font-size: 1.1rem; color: var(--kinkan-turquoise)">person</span>
+                    {{/if}}
+                    <img src="{{author_data.pfp}}" style="height: 20px; border-radius: 20px;"/>
+                    <p class="thread__detail">
+                    <strong>{{author_data.name}}</strong>・{{vote_count}} votes・{{format_date created}}{{#if edited}} (edited {{format_date edited}}){{/if}}
+                    </p>
+                    {{/if}}
+                </div>
+            </div>
             
             <a href="/threads/{{this.thread}}/comments/{{this._id}}" class="button button--light button--light--small {{#if deleted}}comment__reply{{/if}}">
                 <span class="material-symbols-outlined" style="font-size: 1.1rem">link</span>
