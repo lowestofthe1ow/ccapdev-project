@@ -1,16 +1,18 @@
 {{! comment.handlebars
     Partial for rendering comments under posts
 
-    @param author      - The author ID of the comment
-    @param author_data - The user data of the comment author
-    @param thread      - The thread the comment is tied to
-    @param parent      - The ObjectID representing the parent of this comment (either a comment it is replying to or the
-                         same as the thread it is tied to, if it is a top-level comment)
-    @param content     - The content of the comment, written in Markdown
-    @param vote_count  - The current vote count / score of the comment
-    @param created     - The Date representing when the comment was posted
-    @param descendants - An array of other comment objects representing the descendants of this comment. Obtained
-                        from MongoDB's $graphLookup aggregation stage
+    @param _id
+    @param author
+    @param author_data
+    @param children
+    @param content
+    @param created
+    @param depth
+    @param descendants
+    @param parent
+    @param thread
+    @param user
+    @param vote_count
 }}
 
 <div class="forum__comment">
@@ -25,15 +27,18 @@
     
     <div class="comment">
         <div style="display: flex; gap: 5px;">
-            
             <p class="comment__details">
                 <span data-toggle="#descendants--{{_id}}, .collapsed--{{_id}}" style="cursor: pointer">
                     [-]
                 </span>
-                {{! Show only if comment has not been deleted }}
+                
                 {{#if deleted}}
+                {{! Show if comment has been deleted }}
                 <em>User deleted this post</em>
                 {{else}}
+                {{#if (check_id author user._id)}}
+                <span class="material-symbols-outlined" style="font-size: 1.1rem; color: var(--kinkan-turquoise)">person</span>
+                {{/if}}
                 <img src="{{author_data.pfp}}" style="height: 20px; border-radius: 20px;"/>
                 <strong>{{author_data.name}}</strong> ({{vote_count}} votes, {{format_date created}}{{#if edited}}, edited {{format_date edited}}{{/if}})
                 {{/if}}
@@ -46,7 +51,7 @@
             {{! Show only if comment has not been deleted }}
             {{#if deleted}} {{else}}
             {{! Show these buttons only if the comment was made by the user }}
-            {{#if (_is_author author)}}
+            {{#if (check_id author user._id)}}
             <button class="button button--light button--light--small" data-toggle="#editmenu--{{_id}}">
                 <span class="material-symbols-outlined" style="font-size: 1.1rem">edit</span>
             </button>
@@ -117,7 +122,7 @@
                     {{! Check if direct child }}
                     {{#if (check_id this.parent ../_id)}}
                     {{! Pass the same flattened array of the comment tree }}
-                    {{> comment this descendants=../descendants}}
+                    {{> comment this descendants=../descendants user=../user}}
                     {{/if}}
                 {{/each}}
             </div>

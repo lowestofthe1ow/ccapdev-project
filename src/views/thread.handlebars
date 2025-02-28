@@ -45,7 +45,7 @@
 
             {{! Display all comments here }}
             {{#each comments}}
-            {{> comment this}}
+            {{> comment this user=../user}} {{! Pass user from session to the comment partial}}
             {{/each}}
         </section>
     </section>
