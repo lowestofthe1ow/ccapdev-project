@@ -23,7 +23,11 @@
     </a>
 </div>
 
-<a class="thread {{#if clickable}}thread--clickable{{/if}}" {{#if clickable}}href="/threads/{{_id}}"{{/if}}>
+<a class="thread {{#if clickable}}thread--clickable{{/if}}" {{#if clickable}}href="/threads/{{_id}}"{{/if}}
+    {{#if show_options}}
+    style="border-radius: 0px" {{! Remove border radius, attach delete/edit buttons instead }}
+    {{/if}}
+>
     {{#if thumbnail}}
     <img src="{{thumbnail}}" class="thread__image">
     {{else}}
@@ -39,16 +43,18 @@
             </div>
             <div class="thread__meta">
                 <span class="material-symbols-outlined">timer</span>
-                <p class="thread__detail">{{format_date created}}</p>
+                <p class="thread__detail">{{format_date created}} {{#if edited}} (edited {{format_date edited}}){{/if}}</p>
             </div>
         </div>
     </div>
     {{#if clickable}}<span class="material-symbols-outlined">keyboard_double_arrow_right</span>{{/if}}
 </a>
 
-{{!
+{{#if show_options}}
 <div class="thread__editmenu">
-    <button class="button button--light" style="flex: 1; border-radius: 0px 10px 0px 0px">
+    <button
+        class="button button--light" style="flex: 1; border-radius: 0px 10px 0px 0px"
+        data-toggle="#editmenu--{{_id}}">
         <span class="material-symbols-outlined">edit</span>
     </button>
     <button
@@ -57,4 +63,4 @@
         <span class="material-symbols-outlined">delete</span>
     </button>
 </div>
-}}
+{{/if}}

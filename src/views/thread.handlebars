@@ -10,11 +10,23 @@
 <div class="forum__body">
     <section class="forum__threads">
         <hgroup class="forum__thread">
-            {{> threadlink this.thread}}
+            {{> threadlink this.thread show_options=(check_id thread.author user._id)}}
         </hgroup>
 
         <article class="article article__block">
             {{{markdown this.thread.content}}}
+            {{! "Edit comment" menu }}
+            <div id="editmenu--{{this.thread._id}}" class="hidden" style="margin-bottom: 10px;">
+                <hr class="sidebar__rule" />
+
+                <p><strong>Edit this thread</strong></p>
+                
+                {{> editor
+                        id=(concat "editeditor--" this.thread._id)
+                        action=(concat (concat "/threads/" this.thread._id) "/edit")
+                        value=this.thread.content
+                        method="post"}} {{! TODO: <form> does not allow the PUT verb}}
+            </div>
         </article>
 
         <section class="forum__comments">

@@ -27,6 +27,7 @@ router.get(
         res.render("threads", {
             helpers: {
                 format_date,
+                check_id,
             },
             layout: "forum",
             title: "Threads",
@@ -36,7 +37,6 @@ router.get(
 
 /* Thread page */
 router.get(
-    
     "/:thread_id",
     get_active_user,
     get_thread /* Get thread data */,
@@ -59,6 +59,24 @@ router.get(
             layout: "forum",
             title: res.locals.thread.title,
         });
+    }
+);
+
+/* Edit thread */
+router.post(
+    "/:thread_id/edit",
+    get_active_user,
+    get_thread /* Get thread data */,
+
+    async (req, res) => {
+        let _threads = req.app.get("db").collection("threads");
+
+        _threads.updateOne(
+            { _id: res.locals.thread._id },
+            { $set: { content: req.body.content, edited: new Date(Date.now()) } }
+        );
+
+        res.redirect(`/threads/${req.params.thread_id}`);
     }
 );
 
