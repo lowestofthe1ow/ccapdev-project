@@ -1,13 +1,10 @@
 import { ObjectId } from "mongodb";
 
 export default async (req, res, next) => {
-    if (!req.session.user_id || !req.session.user_id) {
-        req.session.destroy(() => {
-            res.redirect("/signin");
-        });
-        return;
+    if (!req.session?.user_id) {
+        return res.redirect("/signin");
     }
-
+    
     try {
         const user = await req.app
             .get("db")
@@ -18,21 +15,17 @@ export default async (req, res, next) => {
 
         if (!user) {
             if (req.session) {
-                req.session.destroy();
-                return res.redirect("/signin");
+                return req.session.destroy(() => res.redirect("/signin"));
             }
         }
-
         res.locals.user = user; /* Pass to view engine */
         next();
     } catch (error) {
         console.error("Session validation error:", error);
         
         if (req.session) {
-            
-            req.session.destroy(() => res.redirect("/signin"));
+            return req.session.destroy(() => res.redirect("/signin"));
         }
-
-        
+        return res.redirect("/signin");
     }
 };

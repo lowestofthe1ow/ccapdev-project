@@ -98,7 +98,8 @@ router.post(
     }
 );
 
-/* Vote a post */
+/* TODO: Combine the vote stuff*/
+/** Vote a post */
 router.post(
     "/:thread_id/vote/:vote_type",
     get_active_user,
@@ -111,6 +112,10 @@ router.post(
 
         if (!user || (vote_type !== "up" && vote_type !== "down")) {
             return res.status(400).json({ error: "Invalid request data" });
+        }
+
+        if(thread.deleted){
+            return res.status(403).json({ error: "Thread has been deleted" });
         }
 
         let _threads = req.app.get("db").collection("threads");
@@ -144,7 +149,8 @@ router.post(
     }
 );
 
-/* Vote a post */
+/* TODO: Combine the vote stuff*/
+/** Vote a comment */
 router.post(
     "/:thread_id/comments/:comment_id/vote/:vote_type",
     get_active_user,
@@ -158,6 +164,10 @@ router.post(
 
         if (!user || (vote_type !== "up" && vote_type !== "down")) {
             return res.status(400).json({ error: "Invalid request data" });
+        }
+        
+        if(comment.deleted){
+            return res.status(403).json({ error: "Comment has been deleted" });
         }
 
         let _comments = req.app.get("db").collection("comments");

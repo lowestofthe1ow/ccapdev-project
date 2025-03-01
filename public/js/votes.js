@@ -1,9 +1,13 @@
 window.addEventListener("load", () => {
-    document.querySelectorAll(".forum__thread").forEach(threadContainer => {
-        const voteContainer = threadContainer.querySelector(".votes")
-        const threadId = threadContainer.id;
-        const voteCounter = voteContainer.querySelector(".votes__counter") ;
+    document.querySelectorAll(".forum__thread, .forum__comment").forEach(container => {
+        const voteContainer = container.querySelector(".votes");
+        if (!voteContainer) return;
+
+        const isThread = container.classList.contains("forum__thread");
+        const voteCounter = voteContainer.querySelector(isThread ? ".votes__counter" : ".comment__votes_counter");
         const buttons = voteContainer.querySelectorAll(".votes__button");
+        const threadId = container.dataset.threadId || container.id;
+        const commentId = isThread ? null : container.id;
 
         const updateCounterColor = () => {
             if (voteContainer.querySelector('[data-vote="up"]').classList.contains("button--current")) {
@@ -28,7 +32,11 @@ window.addEventListener("load", () => {
                 updateCounterColor();
 
                 try {
-                    const response = await fetch(`/threads/${threadId}/vote/${voteType}`, {
+                    const endpoint = isThread 
+                        ? `/threads/${threadId}/vote/${voteType}` 
+                        : `/threads/${threadId}/comments/${commentId}/vote/${voteType}`;
+
+                    const response = await fetch(endpoint, {
                         method: "POST",
                         headers: { "Content-Type": "application/json" }
                     });
@@ -36,12 +44,14 @@ window.addEventListener("load", () => {
                     const result = await response.json();
                     if (!response.ok) {
                         alert(result.error || "Something went wrong.");
+                        location.reload();
                     } else {
                         voteCounter.textContent = result.newVoteCount;
                         updateCounterColor();
                     }
                 } catch (error) {
-                    console.error("Vote error:", error);
+                    console.error("error:", error);
+                    location.reload(); 
                 }
             });
         });

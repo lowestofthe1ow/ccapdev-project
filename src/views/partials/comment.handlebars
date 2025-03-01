@@ -15,16 +15,31 @@
     @param vote_count
 }}
 
-<div class="forum__comment"  data-thread-id="{{this.thread}}">
-    <div class="votes votes--comment" id="{{_id}}">
-        <a class="button button--light votes__button votes__up" data-vote="up">
+<div class="forum__comment" id="{{_id}}" data-thread-id="{{this.thread}}">
+    <div class="votes votes--comment">
+        <button class="button button--light votes__button votes__up 
+            {{#if deleted}}
+                button--disabled
+            {{else if (eq (lookup user.vote_list _id) 1)}}
+                button--current
+            {{/if}}"
+            data-vote="up"
+            {{#if deleted}}disabled{{/if}}>
             <span class="material-symbols-outlined">keyboard_arrow_up</span>
-        </a>
-        <a class="button button--light votes__button votes__down" data-vote="down">
+        </button>
+        
+        <button class="button button--light votes__button votes__down 
+            {{#if deleted}}
+                button--disabled
+            {{else if (eq (lookup user.vote_list _id) -1)}}
+                button--current
+            {{/if}}"
+            data-vote="down"
+            {{#if deleted}}disabled{{/if}}>
             <span class="material-symbols-outlined">keyboard_arrow_down</span>
-        </a>
+        </button>
     </div>
-    
+
     <div class="comment">
         <div style="display: flex; gap: 5px;">
             <div class="comment__details">
@@ -36,13 +51,17 @@
                     {{#if deleted}}
                     {{! Show if comment has been deleted }}
                     <p class="thread__detail"><em>User deleted this post</em></p>
+                    <span class="comment__votes_counter hidden"></span> {{! This is so it selects this instead of other comments}}
                     {{else}}
                     {{#if (check_id author user._id)}}
                     <span class="material-symbols-outlined" style="font-size: 1.1rem; color: var(--kinkan-turquoise)">person</span>
                     {{/if}}
                     <img src="{{author_data.pfp}}" style="height: 20px; border-radius: 20px;"/>
                     <p class="thread__detail">
-                    <strong>{{author_data.name}}</strong>・<span class="comment__vote_counter">{{vote_count}}</span> votes・{{format_date created}}{{#if edited}} (edited {{format_date edited}}){{/if}}
+                    <strong>{{author_data.name}}</strong>・<span class="comment__votes_counter "
+                    style="color: {{#if (eq (lookup user.vote_list _id) 1)}}orange{{/if}} 
+                    {{#if (eq (lookup user.vote_list _id) -1)}}blue{{/if}}">{{vote_count}}
+                    </span> votes・{{format_date created}}{{#if edited}} (edited {{format_date edited}}){{/if}}
                     </p>
                     {{/if}}
                 </div>
