@@ -89,7 +89,7 @@
 
                 {{> editor
                         id=(concat "editeditor--" _id)
-                        action=(concat (concat "/threads/" thread) (concat "/comments/" (concat _id "/edit")))
+                        action=(concat "/threads/" thread "/comments/" _id "/edit")
                         value=content
                         method="post"}} {{! TODO: <form> does not allow the PUT verb}}
             </div>
@@ -102,8 +102,8 @@
 
                 {{! TODO: Better way to get the action attribute, or just use a fetch() call }}
                 {{> editor
-                        id=(concat "replyeditor--" _id)
-                        action=(concat (concat "/threads/" thread) "/comments")
+                        id=(concat "replyeditor--" _id) 
+                        action=(concat "/threads/" thread "/comments")
                         method="post"}}
 
                 {{! Specify that this is the parent comment when submitting the reply form }}
