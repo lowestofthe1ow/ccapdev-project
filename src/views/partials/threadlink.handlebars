@@ -12,13 +12,24 @@
 
     @note This partial accepts a thread document from the MongoDB database. The unused parameters are simply ignored.
 }}
-
+{{! TODO: Maybe pass the up and down values instead?}}
 <div class="votes">
-    <a class="button button--light votes__button votes__up">
+    <a class="button button--light votes__button votes__up 
+        {{#if (eq (lookup user.vote_list _id) 1)}}button--current{{/if}}" 
+        data-vote="up">
         <span class="material-symbols-outlined">keyboard_arrow_up</span>
     </a>
-    <p class="votes__counter">{{vote_count}}</p>
-    <a class="button button--light votes__button votes__down">
+
+    <p class="votes__counter" 
+       style="color: 
+       {{#if (eq (lookup user.vote_list _id) 1)}}orange{{/if}} 
+       {{#if (eq (lookup user.vote_list _id) -1)}}blue{{/if}}">
+       {{vote_count}}
+    </p>
+
+    <a class="button button--light votes__button votes__down 
+        {{#if (eq (lookup user.vote_list _id) -1)}}button--current{{/if}}" 
+        data-vote="down">
         <span class="material-symbols-outlined">keyboard_arrow_down</span>
     </a>
 </div>

@@ -8,6 +8,7 @@ import concat from "../helpers/concat.js";
 import format_date from "../helpers/format_date.js";
 import is_author from "../helpers/is_author.js";
 import markdown from "../helpers/markdown.js";
+import eq from "../helpers/strict_equality.js";
 
 /* Middleware */
 import thread_comment from "../controllers/thread_comment.js";
@@ -28,6 +29,7 @@ router.get(
             helpers: {
                 format_date,
                 check_id,
+                eq,
             },
             layout: "forum",
             title: "Threads",
@@ -55,6 +57,7 @@ router.get(
                 concat,
                 format_date,
                 markdown,
+                eq,
             },
             layout: "forum",
             title: res.locals.thread.title,
@@ -95,6 +98,102 @@ router.post(
     }
 );
 
+/* Vote a post */
+router.post(
+    "/:thread_id/vote/:vote_type",
+    get_active_user,
+    get_thread,
+    async (req, res) => {
+        
+        const { vote_type } = req.params;
+        const user = res.locals.user;
+        const thread = res.locals.thread;
+
+        if (!user || (vote_type !== "up" && vote_type !== "down")) {
+            return res.status(400).json({ error: "Invalid request data" });
+        }
+
+        let _threads = req.app.get("db").collection("threads");
+        let _users = req.app.get("db").collection("users");
+
+        let previousVote = user.vote_list?.[thread._id.toString()] || 0;
+        let newVote = vote_type === "up" ? 1 : -1;
+        let voteChange = previousVote === newVote ? -previousVote : newVote - previousVote;
+
+        let userUpdate = previousVote === newVote
+            ? { $unset: { [`vote_list.${thread._id}`]: "" } }
+            : { $set: { [`vote_list.${thread._id}`]: newVote } };
+
+        await _users.updateOne({ _id: user._id }, userUpdate);
+
+        let threadUpdate = await _threads.updateOne(
+            { _id: thread._id },
+            { $inc: { vote_count: voteChange } }
+        );
+
+        if (threadUpdate.matchedCount === 0) {
+            return res.status(404).json({ error: "Thread not found" });
+        }
+
+        const updatedThread = await _threads.findOne(
+            { _id: thread._id },
+            { projection: { vote_count: 1 } }
+        );
+
+        res.json({ newVoteCount: updatedThread.vote_count });
+    }
+);
+
+/* Vote a post */
+router.post(
+    "/:thread_id/comments/:comment_id/vote/:vote_type",
+    get_active_user,
+    get_thread,
+    get_comment_replies,
+    async (req, res) => {
+        
+        const { vote_type } = req.params;
+        const user = res.locals.user;
+        const comment = res.locals.comments[0];
+
+        if (!user || (vote_type !== "up" && vote_type !== "down")) {
+            return res.status(400).json({ error: "Invalid request data" });
+        }
+
+        let _comments = req.app.get("db").collection("comments");
+        let _users = req.app.get("db").collection("users");
+
+        let previousVote = user.vote_list?.[comment._id.toString()] || 0;
+        let newVote = vote_type === "up" ? 1 : -1;
+        let voteChange = previousVote === newVote ? -previousVote : newVote - previousVote;
+
+        // Update user's vote_list
+        let userUpdate = previousVote === newVote
+            ? { $unset: { [`vote_list.${comment._id}`]: "" } }
+            : { $set: { [`vote_list.${comment._id}`]: newVote } };
+
+        await _users.updateOne({ _id: user._id }, userUpdate);
+
+        let commentUpdate = await _comments.updateOne(
+            { _id: comment._id },
+            { $inc: { vote_count: voteChange } }
+        );
+
+        if (commentUpdate.matchedCount === 0) {
+            return res.status(404).json({ error: " Comment not found" });
+        }
+
+        const updatedComments= await _comments.findOne(
+            { _id: comment._id },
+            { projection: { vote_count: 1 } }
+        );
+
+        res.json({ newVoteCount: updatedComments.vote_count });
+    }
+);
+
+
+
 /* Comment permalink page (used for pagination) */
 router.get(
     "/:thread_id/comments/:comment_id",
@@ -114,6 +213,7 @@ router.get(
                 concat,
                 format_date,
                 markdown,
+                eq,
             },
             layout: "forum",
             title: res.locals.comments[0].content,

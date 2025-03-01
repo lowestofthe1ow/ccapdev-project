@@ -15,12 +15,12 @@
     @param vote_count
 }}
 
-<div class="forum__comment">
-    <div class="votes votes--comment">
-        <a class="button button--light votes__button votes__up">
+<div class="forum__comment"  data-thread-id="{{this.thread}}">
+    <div class="votes votes--comment" id="{{_id}}">
+        <a class="button button--light votes__button votes__up" data-vote="up">
             <span class="material-symbols-outlined">keyboard_arrow_up</span>
         </a>
-        <a class="button button--light votes__button votes__down">
+        <a class="button button--light votes__button votes__down" data-vote="down">
             <span class="material-symbols-outlined">keyboard_arrow_down</span>
         </a>
     </div>
@@ -42,7 +42,7 @@
                     {{/if}}
                     <img src="{{author_data.pfp}}" style="height: 20px; border-radius: 20px;"/>
                     <p class="thread__detail">
-                    <strong>{{author_data.name}}</strong>・{{vote_count}} votes・{{format_date created}}{{#if edited}} (edited {{format_date edited}}){{/if}}
+                    <strong>{{author_data.name}}</strong>・<span class="comment__vote_counter">{{vote_count}}</span> votes・{{format_date created}}{{#if edited}} (edited {{format_date edited}}){{/if}}
                     </p>
                     {{/if}}
                 </div>

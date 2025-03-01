@@ -6,6 +6,7 @@ import check_id from "../helpers/check_id.js";
 import concat from "../helpers/concat.js";
 import format_date from "../helpers/format_date.js";
 import markdown from "../helpers/markdown.js";
+import eq from "../helpers/strict_equality.js";
 
 /* Middleware */
 import get_active_user from "../middlewares/get_active_user.js";
@@ -22,7 +23,7 @@ router.get(
     (req, res) => {
         res.render("profile", {
             layout: "forum",
-            helpers: { format_date },
+            helpers: { format_date, eq, },
         });
     }
 );
@@ -40,6 +41,7 @@ router.get(
                 concat,
                 format_date,
                 markdown,
+                eq,
             },
         });
     }
@@ -52,7 +54,8 @@ router.get(
     (req, res) => {
         res.render("pfupvoted", {
             layout: "forum",
-            helpers: { format_date },
+            helpers: { format_date, 
+                        eq, },
         });
     }
 );
