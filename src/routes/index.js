@@ -1,5 +1,6 @@
 import express from "express";
 import get_featured from "../middlewares/get_featured.js";
+import redirect_threads from "../middlewares/session_exists.js";
 import argon2 from "argon2";
 
 const router = express.Router();
@@ -17,13 +18,13 @@ router.get("/", get_featured, (req, res) => {
     });
 });
 
-router.get("/signin", (req, res) => {
+router.get("/signin", redirect_threads, (req, res) => {
     res.render("signin", {
         title: "Sign in",
     });
 });
 
-router.get("/register", (req, res) => {
+router.get("/register", redirect_threads, (req, res) => {
     res.render("register", {
         title: "Register",
     });
