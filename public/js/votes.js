@@ -19,22 +19,28 @@ window.addEventListener("load", () => {
     
             // SR NOR LATCH AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
             const oppositeVoteButton = document.querySelector(
-            `[data-vote-counter="${counterId}"][data-vote-type="${voteType === "up" ? "down" : "up"}"]`
+                `[data-vote-counter="${counterId}"][data-vote-type="${voteType === "up" ? "down" : "up"}"]`
             );
-
+            
             const isActive = button.classList.contains("button--current");
-            const isOppositeActive =  oppositeVoteButton.classList.contains("button--current");
-
-            let voteChange = isOppositeActive ? (voteType === "up" ? 2 : -2) : (voteType === "up" ? 1 : -1);
-
+            const isOppositeActive = oppositeVoteButton.classList.contains("button--current");
+            
             let currentCount = parseInt(voteCounter.textContent, 10) || 0;
+            let voteChange = 0;
+            
+            voteChange = isActive 
+            ? (voteType === "up" ? -1 : 1) 
+            : isOppositeActive 
+                ? (voteType === "up" ? 2 : -2) 
+                : (voteType === "up" ? 1 : -1);
+            
             voteCounter.textContent = currentCount + voteChange;
-
+            
             voteCounter.style.color = isActive ? "" : (voteType === "up" ? "orange" : "blue");
-
+        
             button.classList.toggle("button--current", !isActive);
             if (isOppositeActive) oppositeVoteButton.classList.remove("button--current");
-
+            
             try {
                 const endpoint = isThread
                     ? `/threads/${threadId}/vote/${voteType}`
