@@ -13,6 +13,7 @@ import profile from "./routes/profile.js";
 import register from "./routes/register.js";
 import signin from "./routes/signin.js";
 import search_games from "./routes/games.js";
+import submission from "./routes/submission.js";
 
 const app = express();
 const port = 8000;
@@ -26,7 +27,9 @@ app.use(cookieParser());
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
+    /* WARNING: DO NOT EVER SET SECURE TO TRUE, NEEDS HTTPS */
+    /* TODO: Make the server use https */
     cookie: { httpOnly: true, secure: false, maxAge: 10000000 },
   }));
 
@@ -48,8 +51,7 @@ app.use("/profile", profile);
 app.use("/register", register);
 app.use("/signin", signin);
 app.use("/games", search_games);
-
-
+app.use("/submission", submission);
 
 /* Connect to MongoDB and begin listening to requests */
 db_conn.connect().then(() => {

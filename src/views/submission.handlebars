@@ -1,0 +1,26 @@
+<form class="posteditor" method="POST" action="/submission">
+    <label for="posteditor__title">
+        <h1 class="posteditor__heading">Create a new thread</h1>
+    </label>
+
+    <input
+        type="text"
+        name="title"
+        class="posteditor__title"
+        placeholder="Enter a title..."
+    />
+
+    <div class="posteditor__tags">
+        <div class="tags">
+            <div class="tags__tag tags__tag--game">Gakuen iDOLM@STER</div>
+            <div class="tags__tag tags__tag--game">Blue Archive</div>
+            <div class="tags__tag tags__tag--game">Fate/Grand Order</div>
+            <div class="tags__tag tags__tag--game">Arknights</div>
+            <div class="tags__tag">News</div>
+            <div class="tags__tag">Fanart</div>
+        </div>
+        <input type="text" class="sidebar__search" placeholder="Add tags..." />
+    </div>
+
+    {{> editor}}
+</form>            

@@ -8,6 +8,7 @@ import concat from "../helpers/concat.js";
 import format_date from "../helpers/format_date.js";
 import is_author from "../helpers/is_author.js";
 import markdown from "../helpers/markdown.js";
+import eq from "../helpers/strict_equality.js";
 
 /* Middleware */
 import thread_comment from "../controllers/thread_comment.js";
@@ -28,6 +29,7 @@ router.get(
             helpers: {
                 format_date,
                 check_id,
+                eq,
             },
             layout: "forum",
             title: "Threads",
@@ -55,6 +57,7 @@ router.get(
                 concat,
                 format_date,
                 markdown,
+                eq,
             },
             layout: "forum",
             title: res.locals.thread.title,
@@ -73,7 +76,14 @@ router.post(
 
         _threads.updateOne(
             { _id: res.locals.thread._id },
-            { $set: { content: req.body.content, edited: new Date(Date.now()) } }
+            { $set: 
+                { 
+                    content: req.body.content, 
+                    thumbnail: req.body.content.match(/!\[.*?\]\((.*?)\)/)?.[1] ?? "",
+                    edited: new Date(Date.now()) 
+
+                }
+            }
         );
 
         res.redirect(`/threads/${req.params.thread_id}`);
@@ -95,6 +105,65 @@ router.post(
     }
 );
 
+/* TODO: Combine the vote stuff*/
+/** Vote a comment and post*/
+router.post(
+    [
+        "/:thread_id/vote/:vote_type",                      // Thread vote
+        "/:thread_id/comments/:comment_id/vote/:vote_type" // Comment vote
+    ],
+    get_active_user,
+    get_thread,
+    async (req, res, next) => {
+        if (req.params.comment_id) {
+            return get_comment_replies(req, res, next);
+        }
+        next();
+    },
+    async (req, res) => {
+        const { vote_type, comment_id } = req.params;
+        const user = res.locals.user;
+        const isComment = Boolean(comment_id);
+
+        // Check if vote type is up or down
+        if (!["up", "down"].includes(vote_type)) {
+            return res.status(400).json({ error: "Invalid request" });
+        }
+
+        const _collection = req.app.get("db").collection(isComment ? "comments" : "threads");
+        const vote_list_key = isComment ? "comment_vote_list" : "thread_vote_list";
+        const item = isComment ? res.locals.comments?.[0] : res.locals.thread;
+
+        // Check if deleted 
+        if (item.deleted) return res.status(403).json({ error: isComment ? "Comment deleted" : "Thread deleted" });
+
+        // SR NOR Latch 
+        // only one vote can be active
+        const _users = req.app.get("db").collection("users");
+        //IF null meaning it's not there, assume 0
+        const prevVote = user[vote_list_key]?.[item._id.toString()] || 0;
+        const newVote = vote_type === "up" ? 1 : -1;
+
+        // Pressing the same vote would negate that vote 
+        const voteChange = prevVote === newVote ? -prevVote : newVote - prevVote;
+
+        await _users.updateOne(
+            { _id: user._id },
+            prevVote === newVote
+                ? { $unset: { [`${vote_list_key}.${item._id}`]: "" } }
+                : { $set: { [`${vote_list_key}.${item._id}`]: newVote } }
+        );
+
+        await _collection.updateOne({ _id: item._id }, { $inc: { vote_count: voteChange } });
+
+        const updatedItem = await _collection.findOne({ _id: item._id }, { projection: { vote_count: 1 } });
+
+        res.json({ newVoteCount: updatedItem.vote_count });
+    }
+);
+
+
+
 /* Comment permalink page (used for pagination) */
 router.get(
     "/:thread_id/comments/:comment_id",
@@ -114,6 +183,7 @@ router.get(
                 concat,
                 format_date,
                 markdown,
+                eq,
             },
             layout: "forum",
             title: res.locals.comments[0].content,

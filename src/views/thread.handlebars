@@ -10,8 +10,8 @@
 <div class="forum__body">
     <section class="forum__threads">
         
-        <hgroup class="forum__thread">
-            {{> threadlink this.thread show_options=(check_id thread.author user._id)}}
+        <hgroup class="forum__thread"  id="{{thread._id}}">
+            {{> threadlink this.thread show_options=(check_id thread.author user._id) user=user}}
         </hgroup>
 
         <article class="article article__block">
