@@ -1,59 +1,58 @@
 window.addEventListener("load", () => {
-    document.querySelectorAll(".forum__thread, .forum__comment").forEach(container => {
-        const voteContainer = container.querySelector(".votes");
-        if (!voteContainer) return;
+    document.querySelectorAll("[data-vote-counter]").forEach(button => {
+        button.addEventListener("click", async (event) => {
+            event.preventDefault();
+    
+            const counterId = button.dataset.voteCounter; // The ID of the vote counter
+            const voteType = button.dataset.voteType; // the vote type, up or down
+            const threadId = button.dataset.threadId; // The ID of the thread
+    
+            if (!counterId || !voteType || !threadId){
+                return;
+            } 
 
-        const isThread = container.classList.contains("forum__thread");
-        const voteCounter = voteContainer.querySelector(isThread ? ".votes__counter" : ".comment__votes_counter");
-        const buttons = voteContainer.querySelectorAll(".votes__button");
-        const threadId = container.dataset.threadId || container.id;
-        const commentId = isThread ? null : container.id;
+            const voteCounter = document.getElementById(counterId);
+            
+            if (!voteCounter) return;
+    
+            const isThread = counterId === `#vote--${threadId}`; // If data-vote-counter matches data-thread-id, it's a me a thread
+    
+            // SR NOR LATCH AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+            const oppositeVoteButton = document.querySelector(
+            `[data-vote-counter="${counterId}"][data-vote-type="${voteType === "up" ? "down" : "up"}"]`
+            );
 
-        const updateCounterColor = () => {
-            if (voteContainer.querySelector('[data-vote="up"]').classList.contains("button--current")) {
-                voteCounter.style.color = "orange";
-            } else if (voteContainer.querySelector('[data-vote="down"]').classList.contains("button--current")) {
-                voteCounter.style.color = "blue";
-            } else {
-                voteCounter.style.color = "";
-            }
-        };
+            const isActive = button.classList.contains("button--current");
+            const isOppositeActive =  oppositeVoteButton.classList.contains("button--current");
 
-        buttons.forEach(button => {
-            button.addEventListener("click", async (event) => {
-                event.preventDefault();
+            let voteChange = isOppositeActive ? (voteType === "up" ? 2 : -2) : (voteType === "up" ? 1 : -1);
 
-                const voteType = button.dataset.vote;
-                const isActive = button.classList.contains("button--current");
+            let currentCount = parseInt(voteCounter.textContent, 10) || 0;
+            voteCounter.textContent = currentCount + voteChange;
 
-                buttons.forEach(btn => btn.classList.remove("button--current"));
-                if (!isActive) button.classList.add("button--current");
+            voteCounter.style.color = isActive ? "" : (voteType === "up" ? "orange" : "blue");
 
-                updateCounterColor();
+            button.classList.toggle("button--current", !isActive);
+            if (isOppositeActive) oppositeVoteButton.classList.remove("button--current");
 
-                try {
-                    const endpoint = isThread 
-                        ? `/threads/${threadId}/vote/${voteType}` 
-                        : `/threads/${threadId}/comments/${commentId}/vote/${voteType}`;
-
-                    const response = await fetch(endpoint, {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" }
-                    });
-
-                    const result = await response.json();
-                    if (!response.ok) {
-                        alert(result.error || "Something went wrong.");
-                        location.reload();
-                    } else {
-                        voteCounter.textContent = result.newVoteCount;
-                        updateCounterColor();
-                    }
-                } catch (error) {
-                    console.error("error:", error);
-                    location.reload(); 
+            try {
+                const endpoint = isThread
+                    ? `/threads/${threadId}/vote/${voteType}`
+                    : `/threads/${threadId}/comments/${counterId.replace("#vote--", "")}/vote/${voteType}`;
+    
+                const response = await fetch(endpoint, { method: "POST", headers: { "Content-Type": "application/json" } });
+                const result = await response.json();
+    
+                if (!response.ok) {
+                    alert(result.error || "Something went wrong.");
+                    location.reload();
+                } else {
+                    voteCounter.textContent = result.newVoteCount;
                 }
-            });
+            } catch (error) {
+                console.error("Error:", error);
+                location.reload();
+            }
         });
-    });
+    }); 
 });

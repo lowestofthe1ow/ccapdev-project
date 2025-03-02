@@ -99,106 +99,59 @@ router.post(
 );
 
 /* TODO: Combine the vote stuff*/
-/** Vote a post */
+/** Vote a comment and post*/
 router.post(
-    "/:thread_id/vote/:vote_type",
+    [
+        "/:thread_id/vote/:vote_type",                      // Thread vote
+        "/:thread_id/comments/:comment_id/vote/:vote_type" // Comment vote
+    ],
     get_active_user,
     get_thread,
+    async (req, res, next) => {
+        if (req.params.comment_id) {
+            return get_comment_replies(req, res, next);
+        }
+        next();
+    },
     async (req, res) => {
-        
-        const { vote_type } = req.params;
+        const { vote_type, comment_id } = req.params;
         const user = res.locals.user;
-        const thread = res.locals.thread;
+        const isComment = Boolean(comment_id);
 
-        if (!user || (vote_type !== "up" && vote_type !== "down")) {
-            return res.status(400).json({ error: "Invalid request data" });
+        // Check if vote type is up or down
+        if (!["up", "down"].includes(vote_type)) {
+            return res.status(400).json({ error: "Invalid request" });
         }
 
-        if(thread.deleted){
-            return res.status(403).json({ error: "Thread has been deleted" });
-        }
+        const _collection = req.app.get("db").collection(isComment ? "comments" : "threads");
+        const vote_list_key = isComment ? "comment_vote_list" : "thread_vote_list";
+        const item = isComment ? res.locals.comments?.[0] : res.locals.thread;
 
-        let _threads = req.app.get("db").collection("threads");
-        let _users = req.app.get("db").collection("users");
+        // Check if deleted 
+        if (item.deleted) return res.status(403).json({ error: isComment ? "Comment deleted" : "Thread deleted" });
 
-        let previousVote = user.vote_list?.[thread._id.toString()] || 0;
-        let newVote = vote_type === "up" ? 1 : -1;
-        let voteChange = previousVote === newVote ? -previousVote : newVote - previousVote;
+        // SR NOR Latch 
+        // only one vote can be active
+        const _users = req.app.get("db").collection("users");
+        //IF null meaning it's not there, assume 0
+        const prevVote = user[vote_list_key]?.[item._id.toString()] || 0;
+        const newVote = vote_type === "up" ? 1 : -1;
 
-        let userUpdate = previousVote === newVote
-            ? { $unset: { [`vote_list.${thread._id}`]: "" } }
-            : { $set: { [`vote_list.${thread._id}`]: newVote } };
+        // Pressing the same vote would negate that vote 
+        const voteChange = prevVote === newVote ? -prevVote : newVote - prevVote;
 
-        await _users.updateOne({ _id: user._id }, userUpdate);
-
-        let threadUpdate = await _threads.updateOne(
-            { _id: thread._id },
-            { $inc: { vote_count: voteChange } }
+        await _users.updateOne(
+            { _id: user._id },
+            prevVote === newVote
+                ? { $unset: { [`${vote_list_key}.${item._id}`]: "" } }
+                : { $set: { [`${vote_list_key}.${item._id}`]: newVote } }
         );
 
-        if (threadUpdate.matchedCount === 0) {
-            return res.status(404).json({ error: "Thread not found" });
-        }
+        await _collection.updateOne({ _id: item._id }, { $inc: { vote_count: voteChange } });
 
-        const updatedThread = await _threads.findOne(
-            { _id: thread._id },
-            { projection: { vote_count: 1 } }
-        );
+        const updatedItem = await _collection.findOne({ _id: item._id }, { projection: { vote_count: 1 } });
 
-        res.json({ newVoteCount: updatedThread.vote_count });
-    }
-);
-
-/* TODO: Combine the vote stuff*/
-/** Vote a comment */
-router.post(
-    "/:thread_id/comments/:comment_id/vote/:vote_type",
-    get_active_user,
-    get_thread,
-    get_comment_replies,
-    async (req, res) => {
-        
-        const { vote_type } = req.params;
-        const user = res.locals.user;
-        const comment = res.locals.comments[0];
-
-        if (!user || (vote_type !== "up" && vote_type !== "down")) {
-            return res.status(400).json({ error: "Invalid request data" });
-        }
-        
-        if(comment.deleted){
-            return res.status(403).json({ error: "Comment has been deleted" });
-        }
-
-        let _comments = req.app.get("db").collection("comments");
-        let _users = req.app.get("db").collection("users");
-
-        let previousVote = user.vote_list?.[comment._id.toString()] || 0;
-        let newVote = vote_type === "up" ? 1 : -1;
-        let voteChange = previousVote === newVote ? -previousVote : newVote - previousVote;
-
-        // Update user's vote_list
-        let userUpdate = previousVote === newVote
-            ? { $unset: { [`vote_list.${comment._id}`]: "" } }
-            : { $set: { [`vote_list.${comment._id}`]: newVote } };
-
-        await _users.updateOne({ _id: user._id }, userUpdate);
-
-        let commentUpdate = await _comments.updateOne(
-            { _id: comment._id },
-            { $inc: { vote_count: voteChange } }
-        );
-
-        if (commentUpdate.matchedCount === 0) {
-            return res.status(404).json({ error: " Comment not found" });
-        }
-
-        const updatedComments= await _comments.findOne(
-            { _id: comment._id },
-            { projection: { vote_count: 1 } }
-        );
-
-        res.json({ newVoteCount: updatedComments.vote_count });
+        res.json({ newVoteCount: updatedItem.vote_count });
     }
 );
 

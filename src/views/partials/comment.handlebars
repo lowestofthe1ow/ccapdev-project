@@ -15,26 +15,31 @@
     @param vote_count
 }}
 
-<div class="forum__comment" id="{{_id}}" data-thread-id="{{this.thread}}">
+<div class="forum__comment" >
     <div class="votes votes--comment">
         <button class="button button--light votes__button votes__up 
             {{#if deleted}}
                 button--disabled
-            {{else if (eq (lookup user.vote_list _id) 1)}}
+            {{else if (eq (lookup user.comment_vote_list _id) 1)}}
                 button--current
             {{/if}}"
-            data-vote="up"
-            {{#if deleted}}disabled{{/if}}>
+            data-vote-type="up"
+            data-vote-counter="#vote--{{_id}}"
+            data-thread-id="{{this.thread}}"
+            {{#if deleted}}disabled{{/if}}
+            >
             <span class="material-symbols-outlined">keyboard_arrow_up</span>
         </button>
         
         <button class="button button--light votes__button votes__down 
             {{#if deleted}}
                 button--disabled
-            {{else if (eq (lookup user.vote_list _id) -1)}}
+            {{else if (eq (lookup user.comment_vote_list _id) -1)}}
                 button--current
             {{/if}}"
-            data-vote="down"
+            data-vote-type="down"
+            data-vote-counter="#vote--{{_id}}"
+            data-thread-id="{{this.thread}}"
             {{#if deleted}}disabled{{/if}}>
             <span class="material-symbols-outlined">keyboard_arrow_down</span>
         </button>
@@ -59,8 +64,9 @@
                     <img src="{{author_data.pfp}}" style="height: 20px; border-radius: 20px;"/>
                     <p class="thread__detail">
                     <strong>{{author_data.name}}</strong>・<span class="comment__votes_counter "
-                    style="color: {{#if (eq (lookup user.vote_list _id) 1)}}orange{{/if}} 
-                    {{#if (eq (lookup user.vote_list _id) -1)}}blue{{/if}}">{{vote_count}}
+                    style="color: {{#if (eq (lookup user.comment_vote_list _id) 1)}}orange{{/if}} 
+                    {{#if (eq (lookup user.comment_vote_list _id) -1)}}blue{{/if}}"
+                    id="#vote--{{_id}}">{{vote_count}}
                     </span> votes・{{format_date created}}{{#if edited}} (edited {{format_date edited}}){{/if}}
                     </p>
                     {{/if}}
