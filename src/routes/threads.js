@@ -76,7 +76,14 @@ router.post(
 
         _threads.updateOne(
             { _id: res.locals.thread._id },
-            { $set: { content: req.body.content, edited: new Date(Date.now()) } }
+            { $set: 
+                { 
+                    content: req.body.content, 
+                    thumbnail: req.body.content.match(/!\[.*?\]\((.*?)\)/)[1],
+                    edited: new Date(Date.now()) 
+
+                }
+            }
         );
 
         res.redirect(`/threads/${req.params.thread_id}`);
