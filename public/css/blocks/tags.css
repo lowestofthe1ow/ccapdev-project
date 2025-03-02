@@ -16,6 +16,7 @@
     color: var(--kinkan-turquoise);
     font-size: 0.8rem;
     text-align: center;
+    text-decoration: none;
 }
 
 .tags__tag:hover {
@@ -29,4 +30,8 @@
 .tags__tag--game {
     border: 1px solid var(--kinkan-pink);
     color: var(--kinkan-pink);
+}
+
+.tags__tag:not(.tags__tag--game):before {
+    content: "#";
 }

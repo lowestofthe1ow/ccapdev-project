@@ -36,36 +36,14 @@
         />
     </div>
 
+    {{> tagsearch name="include_game" label="Include games" placeholder="Search for a game..." class="game__search"}}
 
-    <div class="advsearch__component">
-        <label class="advsearch__label" for="include_game">Include Games</label>
-        <div class="game__search">
-            {{> tags}}
-            <input type="text"
-                name="include_game"
-                class="advsearch__input"
-                placeholder="Add games..."
-            />
-            <div class="dropdown"></div>
-        </div>
-    </div>
-
-    <div class="advsearch__component">
-        <label class="advsearch__label" for="include_tag">Include Tags</label>
-        <div class="tag__search">
-            {{> tags}}
-            <input type="text"
-                name="include_tag"
-                class="advsearch__input"
-                placeholder="Add games..."
-            />
-        </div>
-    </div>
+    {{> tagsearch name="include_tag" label="Include tags" placeholder="Add a tag..." class="tag__search"}}
 
     <button type="reset" class="button button--light button--light--small">
         Reset
     </button>
 </form>
 
-
-<script src="/js/search_games.js"></script>
+{{! TODO: Move elsewhere idk }}
+<script type="module" src="/js/search_games.js"></script>

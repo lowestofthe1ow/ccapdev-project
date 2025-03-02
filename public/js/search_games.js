@@ -1,138 +1,80 @@
-window.addEventListener("load", () => {
-    const gameSearchContainers = document.querySelectorAll(".game__search");
-    const tagSearchContainers = document.querySelectorAll(".tag__search");
-    const form = document.querySelector(".advsearch");
+import TagSearchBox from "/js/tag_search_box.js";
 
-    /** GAME SEARCH */
-    gameSearchContainers.forEach(container => {
-        const inputField = container.querySelector(".advsearch__input");
-        const tagsContainer = container.querySelector(".tags");
-        const dropdown = container.querySelector(".dropdown");
-        
-        let selectedTags = new Set();
-        container.selectedTags = selectedTags;
+const form = document.querySelector(".advsearch");
 
-        async function fetchTags(query) {
-            try {
-                const response = await fetch(`/games?q=${encodeURIComponent(query)}`);
-                const tags = await response.json();
+/* Create new instance of TagSearchBox from the game search box on the page */
+const game_search = new TagSearchBox(
+    document.querySelector(".game__search") /* TODO: More specific selector */,
+    async (query) => {
+        const response = await fetch(`/games?q=${encodeURIComponent(query)}`);
+        const tags = await response.json();
+        return tags;
+    },
+    true /* Use game tag colors. TODO: Boolean flag kinda unreadable */
+);
 
-                dropdown.innerHTML = "";
-                if (tags.length === 0) {
-                    dropdown.style.display = "none";
-                    return;
-                }
+/* Create new instance of TagSearchBox from the tag search box on the page */
+const tag_search = new TagSearchBox(
+    document.querySelector(".tag__search") /* TODO: More specific selector */,
+    async (query) => {
+        /* TODO: Get suggested tags */
+        const response = await fetch(`/games?q=${encodeURIComponent(query)}`);
+        const tags = await response.json();
+        if (query) tags.push(query);
+        return tags;
+    },
+    false /* Use normal tag colors. TODO: Boolean flag kinda unreadable */
+);
 
-                tags.forEach(tagText => {
-                    if (!selectedTags.has(tagText)) {
-                        const tagOption = document.createElement("div");
-                        tagOption.classList.add("dropdown_item");
-                        tagOption.textContent = tagText;
+/* TODO: Was too lazy to change stuff here, so it stays but moved from the other file */
+document.querySelector(".search").addEventListener("submit", (event) => {
+    event.preventDefault();
 
-                        tagOption.addEventListener("mouseenter", () => tagOption.style.background = "#f0f0f0");
-                        tagOption.addEventListener("mouseleave", () => tagOption.style.background = "white");
-                        tagOption.addEventListener("click", () => {
-                            addTag(tagText);
-                            dropdown.style.display = "none";
-                            inputField.value = "";
-                        });
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchQuery = document.querySelector(".search").querySelector("input[name='search']").value.trim();
 
-                        dropdown.appendChild(tagOption);
-                    }
-                });
+    searchQuery ? urlParams.set("search", searchQuery) : urlParams.delete("search");
 
-                dropdown.style.display = "block";
-            } catch (error) {
-                console.error("Error fetching tags:", error);
-            }
-        }
-
-        function addTag(tagText) {
-            if (!selectedTags.has(tagText)) {
-                selectedTags.add(tagText);
-
-                const tag = document.createElement("div");
-                tag.classList.add("tags__tag", "tags__tag--game");
-                tag.textContent = tagText;
-
-                tag.addEventListener("click", () => {
-                    selectedTags.delete(tagText);
-                    tag.remove();
-                });
-
-                tagsContainer.appendChild(tag);
-            }
-        }
-
-        let debounceTimer;
-        inputField.addEventListener("input", () => {
-            clearTimeout(debounceTimer);
-            const searchQuery = inputField.value.trim();
-
-            if (searchQuery.length > 0) {
-                debounceTimer = setTimeout(() => fetchTags(searchQuery), 200);
-            } else {
-                dropdown.style.display = "none";
-            }
+    if (!form.classList.contains("hidden")) {
+        ["start_date", "end_date", "sort", "author_name"].forEach((param) => {
+            const value = form.querySelector(`[name="${param}"]`)?.value.trim();
+            value ? urlParams.set(param, value) : urlParams.delete(param);
         });
 
-        document.addEventListener("click", (event) => {
-            if (!container.contains(event.target) && !dropdown.contains(event.target)) {
-                dropdown.style.display = "none";
-            }
-        });
+        const sortField = form.querySelector("select[name='sort']");
+        const selectedIndex = sortField?.selectedIndex ?? 0;
+        selectedIndex > 0 ? urlParams.set("sort", selectedIndex.toString()) : urlParams.delete("sort");
+
+        urlParams.delete("games");
+
+        const gameTags = game_search.selection.join("|");
+        if (gameTags) {
+            urlParams.set("games", gameTags);
+        }
+
+        urlParams.delete("tags");
+        const tags = tag_search.selection.join("|");
+        if (tags) {
+            urlParams.set("tags", tags);
+        }
+    } else {
+        ["start_date", "end_date", "sort", "author_name", "games", "tags"].forEach((param) => urlParams.delete(param));
+    }
+    window.location.href = `/threads?${urlParams.toString()}`;
+});
+
+form.addEventListener("reset", () => {
+    document.querySelectorAll(".tags__tag").forEach((tag) => tag.remove());
+
+    gameSearchContainers.forEach((container) => {
+        if (container.selectedTags) {
+            container.selectedTags.clear();
+        }
     });
 
-    /** TAG SEARCH */
-    tagSearchContainers.forEach(container => {
-        const inputField = container.querySelector(".advsearch__input");
-        const tagsContainer = container.querySelector(".tags");
-        
-        let selectedTags = new Set();
-        container.selectedTags = selectedTags;
-
-        function addTag(tagText) {
-            tagText = `#${tagText.trim()}`;
-            if (!selectedTags.has(tagText) && tagText.length > 1) {
-                selectedTags.add(tagText);
-
-                const tag = document.createElement("div");
-                tag.classList.add("tags__tag");
-                tag.textContent = tagText;
-
-                tag.addEventListener("click", () => {
-                    selectedTags.delete(tagText);
-                    tag.remove();
-                });
-
-                tagsContainer.appendChild(tag);
-                inputField.value = "";
-            }
+    tagSearchContainers.forEach((container) => {
+        if (container.selectedTags) {
+            container.selectedTags.clear();
         }
-
-        inputField.addEventListener("keydown", (event) => {
-            if (event.key === "Enter") {
-                event.preventDefault();
-                const tagText = inputField.value.trim();
-                if (tagText) addTag(tagText);
-            }
-        });
-    });
-
-    /** FORM RESET */
-    form.addEventListener("reset", () => {
-        document.querySelectorAll(".tags__tag").forEach(tag => tag.remove());
-
-        gameSearchContainers.forEach(container => {
-            if (container.selectedTags) {
-                container.selectedTags.clear();
-            }
-        });
-        tagSearchContainers.forEach(container => {
-            if (container.selectedTags) {
-                container.selectedTags.clear();
-            }
-        });
-        
     });
 });

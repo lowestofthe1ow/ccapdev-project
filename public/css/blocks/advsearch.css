@@ -41,3 +41,7 @@
 .advsearch > .button--light--small {
     border-radius: 10px;
 }
+
+.advsearch__input:focus {
+    outline: none;
+}
