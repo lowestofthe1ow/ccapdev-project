@@ -62,7 +62,7 @@
 
             {{! Display all comments here }}
             {{#each comments}}
-            {{> comment this user=../user}} {{! Pass user from session to the comment partial}}
+            {{> comment this user=../user restrict_siblings=../restrict_siblings}} {{! Pass user from session to the comment partial}}
             {{/each}}
         </section>
     </section>

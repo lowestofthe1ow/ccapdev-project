@@ -15,6 +15,7 @@
     @param vote_count
 }}
 
+{{@log restrict_siblings}}
 <div class="forum__comment" >
     <div class="votes votes--comment">
         <button class="button button--light votes__button votes__up 
@@ -150,8 +151,19 @@
                 {{#each descendants}}
                     {{! Check if direct child }}
                     {{#if (check_id this.parent ../_id)}}
+                    {{#if ../restrict_siblings}}
+                        {{#if (check_depth this.number)}}
+                            {{#if (eq this.number 3)}}
+                                <a href="/threads/{{this.thread}}/comments/{{this.parent}}"
+                                class="button button--light button--light--small">View more...</a>
+                            {{/if}}
+                        {{else}}
+                        {{> comment this restrict_siblings=../restrict_siblings descendants=../descendants user=../user}}
+                        {{/if}}
+                    {{else}}
                     {{! Pass the same flattened array of the comment tree }}
-                    {{> comment this descendants=../descendants user=../user}}
+                    {{> comment this restrict_siblings=../restrict_siblings descendants=../descendants user=../user}}
+                    {{/if}}
                     {{/if}}
                 {{/each}}
             </div>

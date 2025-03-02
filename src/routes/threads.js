@@ -61,6 +61,7 @@ router.get(
             },
             layout: "forum",
             title: res.locals.thread.title,
+            restrict_siblings: true,
         });
     }
 );
@@ -76,13 +77,12 @@ router.post(
 
         _threads.updateOne(
             { _id: res.locals.thread._id },
-            { $set: 
-                { 
-                    content: req.body.content, 
+            {
+                $set: {
+                    content: req.body.content,
                     thumbnail: req.body.content.match(/!\[.*?\]\((.*?)\)/)?.[1] ?? "",
-                    edited: new Date(Date.now()) 
-
-                }
+                    edited: new Date(Date.now()),
+                },
             }
         );
 
@@ -109,8 +109,8 @@ router.post(
 /** Vote a comment and post*/
 router.post(
     [
-        "/:thread_id/vote/:vote_type",                      // Thread vote
-        "/:thread_id/comments/:comment_id/vote/:vote_type" // Comment vote
+        "/:thread_id/vote/:vote_type", // Thread vote
+        "/:thread_id/comments/:comment_id/vote/:vote_type", // Comment vote
     ],
     get_active_user,
     get_thread,
@@ -134,17 +134,17 @@ router.post(
         const vote_list_key = isComment ? "comment_vote_list" : "thread_vote_list";
         const item = isComment ? res.locals.comments?.[0] : res.locals.thread;
 
-        // Check if deleted 
+        // Check if deleted
         if (item.deleted) return res.status(403).json({ error: isComment ? "Comment deleted" : "Thread deleted" });
 
-        // SR NOR Latch 
+        // SR NOR Latch
         // only one vote can be active
         const _users = req.app.get("db").collection("users");
         //IF null meaning it's not there, assume 0
         const prevVote = user[vote_list_key]?.[item._id.toString()] || 0;
         const newVote = vote_type === "up" ? 1 : -1;
 
-        // Pressing the same vote would negate that vote 
+        // Pressing the same vote would negate that vote
         const voteChange = prevVote === newVote ? -prevVote : newVote - prevVote;
 
         await _users.updateOne(
@@ -161,8 +161,6 @@ router.post(
         res.json({ newVoteCount: updatedItem.vote_count });
     }
 );
-
-
 
 /* Comment permalink page (used for pagination) */
 router.get(

@@ -21,9 +21,19 @@ const pipeline = [
         },
     },
     {
-        /* Sort the unwound documents by the replies' creation date */
-        $sort: {
-            "descendants.created": -1,
+        $setWindowFields: {
+            partitionBy: {
+                depth: "$descendants.depth",
+                parent: "$descendants.parent",
+            },
+            sortBy: {
+                "descendants.created": -1,
+            },
+            output: {
+                "descendants.number": {
+                    $documentNumber: {},
+                },
+            },
         },
     },
     {
@@ -62,17 +72,39 @@ const pipeline = [
         /* Regroup the documents by top-level comments */
         $group: {
             _id: "$_id",
-            author: { $first: "$author" },
-            author_data: { $first: "$author_data" },
-            thread: { $first: "$thread" },
-            parent: { $first: "$parent" },
-            content: { $first: "$content" },
-            children: { $first: "$children" },
-            vote_count: { $first: "$vote_count" },
-            created: { $first: "$created" },
-            edited: { $first: "$edited" } /* Date edited */,
-            descendants: { $push: "$descendants" },
-            deleted: { $first: "$deleted" } /* TODO: Actually delete the data */,
+            author: {
+                $first: "$author",
+            },
+            author_data: {
+                $first: "$author_data",
+            },
+            thread: {
+                $first: "$thread",
+            },
+            parent: {
+                $first: "$parent",
+            },
+            content: {
+                $first: "$content",
+            },
+            children: {
+                $first: "$children",
+            },
+            vote_count: {
+                $first: "$vote_count",
+            },
+            created: {
+                $first: "$created",
+            },
+            edited: {
+                $first: "$edited",
+            } /* Date edited */,
+            descendants: {
+                $push: "$descendants",
+            },
+            deleted: {
+                $first: "$deleted",
+            } /* TODO: Actually delete the data */,
         },
     },
     {
