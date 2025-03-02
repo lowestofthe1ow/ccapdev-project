@@ -30,7 +30,7 @@ router.post("/",
             created: new Date(),
             games: Array.isArray(req.body.games) ? req.body.games : [],
             tags: Array.isArray(req.body.tags) ? req.body.tags : [],
-            thumbnail: req.body.content.match(/!\[.*?\]\((.*?)\)/)[1] || "",
+            thumbnail: req.body.content.match(/!\[.*?\]\((.*?)\)/)?.[1] ?? "", 
             title: req.body.title?.trim() || "",
             vote_count: 0,
         };

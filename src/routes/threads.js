@@ -79,7 +79,7 @@ router.post(
             { $set: 
                 { 
                     content: req.body.content, 
-                    thumbnail: req.body.content.match(/!\[.*?\]\((.*?)\)/)[1],
+                    thumbnail: req.body.content.match(/!\[.*?\]\((.*?)\)/)?.[1] ?? "",
                     edited: new Date(Date.now()) 
 
                 }
