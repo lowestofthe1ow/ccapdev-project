@@ -9,7 +9,11 @@ window.addEventListener("load", async () => {
         /* Make a POST request using the form data */
         const response = await fetch(e.target.action, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { 
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            
             body: JSON.stringify(formData),
         });
 
@@ -26,6 +30,9 @@ window.addEventListener("load", async () => {
         } else {
             errorDiv.textContent = result.message;
             errorDiv.classList.remove("hidden");
+            if(result.sessionExists){
+                window.location.href = result.redirectUrl;
+            }
         }
     });
 
