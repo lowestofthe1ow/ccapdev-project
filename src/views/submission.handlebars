@@ -1,4 +1,4 @@
-<form class="posteditor" method="POST" action="/submission">
+<div class="posteditor">
     <label for="posteditor__title">
         <h1 class="posteditor__heading">Create a new thread</h1>
     </label>
@@ -8,19 +8,32 @@
         name="title"
         class="posteditor__title"
         placeholder="Enter a title..."
+        form="submit__editor"
     />
 
-    <div class="posteditor__tags">
-        <div class="tags">
-            <div class="tags__tag tags__tag--game">Gakuen iDOLM@STER</div>
-            <div class="tags__tag tags__tag--game">Blue Archive</div>
-            <div class="tags__tag tags__tag--game">Fate/Grand Order</div>
-            <div class="tags__tag tags__tag--game">Arknights</div>
-            <div class="tags__tag">News</div>
-            <div class="tags__tag">Fanart</div>
-        </div>
-        <input type="text" class="sidebar__search" placeholder="Add tags..." />
+    <input
+        type="hidden"
+        name="tags"
+        form="submit__editor"
+    />
+
+    <input
+        type="hidden"
+        name="games"
+        form="submit__editor"
+    />
+
+    <div style="display: flex; gap: 10px;">
+        {{> tagsearch name="games" label="Add games" placeholder="Search for a game..." class="game__search" id="submit__games"}}
+        {{> tagsearch name="tags" label="Add tags" placeholder="Add a tag..." class="tag__search" id="submit__tags"}}
     </div>
 
-    {{> editor}}
-</form>            
+    {{> editor
+        id="submit__editor"
+        action="/submission"
+        method="post"}}
+</div>            
+
+<script type="module" src="/js/submission.js">
+    
+</script>
