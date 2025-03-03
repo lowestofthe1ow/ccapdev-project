@@ -14,13 +14,18 @@
 }}
 {{! TODO: Maybe pass the up and down values instead?}}
 <div class="votes">
-    <a class="button button--light votes__button votes__up 
-        {{#if (eq (lookup user.thread_vote_list _id) 1)}}button--current{{/if}}" 
+    <button class="button button--light votes__button votes__up 
+        {{#if user}}
+            {{#if (eq (lookup user.thread_vote_list _id) 1)}}button--current{{/if}}
+        {{else}}
+            button--disabled
+        {{/if}}" 
         data-vote-type="up"
         data-vote-counter="#vote--{{_id}}"
-        data-thread-id="{{_id}}">
+        data-thread-id="{{_id}}"
+        {{#unless user}}disabled{{/unless}}>
         <span class="material-symbols-outlined">keyboard_arrow_up</span>
-    </a>
+    </button>
 
     <p class="votes__counter" 
        style="color: 
@@ -30,13 +35,18 @@
        {{vote_count}}
     </p>
 
-    <a class="button button--light votes__button votes__down 
-        {{#if (eq (lookup user.thread_vote_list _id) -1)}}button--current{{/if}}" 
+    <button class="button button--light votes__button votes__down 
+        {{#if user}}
+            {{#if (eq (lookup user.thread_vote_list _id) 1)}}button--current{{/if}}
+        {{else}}
+            button--disabled
+        {{/if}}" 
         data-vote-type="down"
         data-vote-counter="#vote--{{_id}}"
-        data-thread-id="{{_id}}">
+        data-thread-id="{{_id}}"
+        {{#unless user}}disabled{{/unless}}>
         <span class="material-symbols-outlined">keyboard_arrow_down</span>
-    </a>
+    </button>
 </div>
 
 <div class="thread {{#if clickable}}thread--clickable{{/if}}" 
