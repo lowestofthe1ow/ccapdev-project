@@ -13,8 +13,6 @@ window.addEventListener("load", async () => {
             body: JSON.stringify(formData),
         });
 
-        console.log(response);
-
         const result = await response.json();
 
         const errorDiv = document.querySelector(".errormsg");

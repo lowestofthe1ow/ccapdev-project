@@ -13,9 +13,18 @@ export const get_threads = async (req, res, next) => {
         const { search, tags = "", games = "", start_date, end_date, author_name, sort } = req.query;
         const _threads = req.app.get("db").collection("threads");
 
+        console.log(req.query);
+
         if (tags || games || start_date || end_date || author_name || sort) {
             res.locals.show_search = true;
         }
+
+        res.locals.search = search;
+        res.locals.start_date = start_date;
+        res.locals.end_date = end_date;
+        res.locals.author = author_name;
+        res.locals.sort = [false, false, false, false];
+        res.locals.sort[sort ? sort : 0] = true;
 
         const parsedTags = tags ? tags.split("|").map((tag) => decodeURIComponent(tag).replace(/^#/, "")) : [];
         const parsedGames = games ? games.split("|").map((tag) => decodeURIComponent(tag)) : [];
@@ -45,7 +54,7 @@ export const get_threads = async (req, res, next) => {
             ...(adjustedEndDate && { created: { $lte: adjustedEndDate } }),
             ...(adjustedStartDate &&
                 adjustedEndDate && { created: { $gte: adjustedStartDate, $lte: adjustedEndDate } }),
-            ...(author_name && { "author.name": { $regex: author_name, $options: "i" } }),
+            ...(author_name && { "author_data.name": { $regex: author_name, $options: "i" } }),
         };
 
         const sortOptions = {
@@ -60,8 +69,6 @@ export const get_threads = async (req, res, next) => {
             : [{ $sort: { created: -1 } }];
 
         const pipeline = [
-            { $match: { ...notSort, deleted: { $ne: true } } }, // Hide deleted posts from results
-            ...theSort,
             {
                 $lookup: {
                     from: "users",
@@ -76,6 +83,8 @@ export const get_threads = async (req, res, next) => {
                     preserveNullAndEmptyArrays: true,
                 },
             },
+            { $match: { ...notSort, deleted: { $ne: true } } }, // Hide deleted posts from results
+            ...theSort,
         ];
         /* TODO: Pagination */
         const threads = await _threads.aggregate(pipeline).toArray();

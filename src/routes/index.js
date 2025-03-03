@@ -57,6 +57,7 @@ router.get("/tags", async (req, res) => {
                             $regex: searchQuery,
                             $options: "i",
                         },
+                        deleted: { $ne: true },
                     },
                 },
                 {
