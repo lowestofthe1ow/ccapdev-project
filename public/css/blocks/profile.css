@@ -23,7 +23,6 @@
 }
 
 .profile__content {
-    align-self: center;
     display: flex;
     flex-direction: column;
     gap: 20px;
