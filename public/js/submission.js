@@ -15,7 +15,7 @@ const submission_games = new TagSearchBox(
 const submission_tags = new TagSearchBox(
     document.querySelector("#submit__tags") /* TODO: More specific selector */,
     async (query) => {
-        const response = await fetch(`/games?q=${encodeURIComponent(query)}`);
+        const response = await fetch(`/tags?q=${encodeURIComponent(query)}`);
         const tags = await response.json();
         if (query) tags.push(query);
         return tags;

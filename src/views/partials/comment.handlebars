@@ -15,7 +15,6 @@
     @param vote_count
 }}
 
-{{@log restrict_siblings}}
 <div class="forum__comment" >
     <div class="votes votes--comment">
         <button class="button button--light votes__button votes__up 
@@ -143,7 +142,7 @@
         {{#if (check_depth this.depth)}}
             {{! Display the "view more" button at the depth limit }}
             <a href="/threads/{{this.thread}}/comments/{{this._id}}"
-            class="button button--light button--light--small">View more...</a>
+            class="button button--light button--light--small">View children...</a>
         {{else}}
             {{! Otherwise, display replies }}
             <p class="comment__details collapsed--{{_id}} hidden"><em>Replies collapsed...</em></p>
@@ -155,7 +154,7 @@
                         {{#if (check_depth this.number)}}
                             {{#if (eq this.number 3)}}
                                 <a href="/threads/{{this.thread}}/comments/{{this.parent}}"
-                                class="button button--light button--light--small">View more...</a>
+                                class="button button--light button--light--small">Expand siblings...</a>
                             {{/if}}
                         {{else}}
                         {{> comment this restrict_siblings=../restrict_siblings descendants=../descendants user=../user}}

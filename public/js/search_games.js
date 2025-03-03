@@ -18,7 +18,7 @@ const tag_search = new TagSearchBox(
     document.querySelector(".tag__search") /* TODO: More specific selector */,
     async (query) => {
         /* TODO: Get suggested tags */
-        const response = await fetch(`/games?q=${encodeURIComponent(query)}`);
+        const response = await fetch(`/tags?q=${encodeURIComponent(query)}`);
         const tags = await response.json();
         if (query) tags.push(query);
         return tags;
