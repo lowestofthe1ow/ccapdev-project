@@ -15,15 +15,8 @@
         </hgroup>
 
         <article class="article article__block">
-            {{#if thread.deleted}}
-            <p><em>This thread has been deleted.</em></p>
-            {{else}}
-            {{{markdown this.thread.content}}}
-            {{/if}}
             {{! "Edit comment" menu }}
             <div id="editmenu--{{this.thread._id}}" class="hidden" style="margin-bottom: 10px;">
-                <hr class="sidebar__rule" />
-
                 <p><strong>Edit this thread</strong></p>
                 
                 {{> editor
@@ -31,7 +24,15 @@
                         action=(concat "/threads/" this.thread._id "/edit")
                         value=this.thread.content
                         method="post"}} {{! TODO: <form> does not allow the PUT verb}}
+
+                <hr class="sidebar__rule" />
             </div>
+
+            {{#if thread.deleted}}
+            <p><em>This thread has been deleted.</em></p>
+            {{else}}
+            {{{markdown this.thread.content}}}
+            {{/if}}
         </article>
 
         <section class="forum__comments">
