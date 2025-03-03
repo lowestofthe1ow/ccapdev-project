@@ -1,5 +1,7 @@
 import { ObjectId } from "mongodb";
 
+import { getPaginationNumbers } from "../helpers/pagination.js";
+
 /**
  * Middleware for fetching all threads in the database. Appends a `threads` array to the request object.
  *
@@ -15,6 +17,9 @@ export const get_threads = async (req, res, next) => {
 
         console.log(req.query);
 
+        const actPage = !page || isNaN(parseInt(page)) ? 1 : Math.max(1, parseInt(page));
+        const limit = 10; /* TODO IMPORTANT: CHANGE THIS TO 10 OR SOMETHING */
+        const skip = (actPage - 1) * limit;
         if (tags || games || start_date || end_date || author_name || sort) {
             res.locals.show_search = true;
         }
@@ -28,11 +33,9 @@ export const get_threads = async (req, res, next) => {
 
         const parsedTags = tags ? tags.split("|").map((tag) => decodeURIComponent(tag).replace(/^#/, "")) : [];
         const parsedGames = games ? games.split("|").map((tag) => decodeURIComponent(tag)) : [];
+
         res.locals.tags = parsedTags;
         res.locals.games = parsedGames;
-        const actPage = !page || isNaN(parseInt(page)) ? 1 : Math.max(1, parseInt(page));
-        const limit = 10; /* TODO IMPORTANT: CHANGE THIS TO 10 OR SOMETHING */
-        const skip = (actPage - 1) * limit;
 
         /**TODO: Get timezone from client and use that to offset a THIS somehow  */
         const localToUTC = (date, hours, minutes, seconds, milliseconds) => {
@@ -96,55 +99,6 @@ export const get_threads = async (req, res, next) => {
             },
         ];
         /* TODO: Pagination */
-
-        function getPaginationNumbers(page, totalPages) {
-            page = parseInt(page, 10);
-            totalPages = parseInt(totalPages, 10);
-            const pagination = [];
-
-            if (totalPages <= 7) {
-                // If there are 7 or fewer pages, show all
-                for (let i = 1; i <= totalPages; i++) {
-                    pagination.push({ number: i, isCurrent: i === page });
-                }
-            } else if (page <= 4) {
-                // When on the first few pages: show first 5, "...", last
-                for (let i = 1; i <= 5; i++) {
-                    pagination.push({ number: i, isCurrent: i === page });
-                }
-                pagination.push({ number: "...", isDots: true });
-                pagination.push({ number: totalPages, isCurrent: page === totalPages });
-            } else if (page >= totalPages - 3) {
-                // When on the last few pages: show first, "...", last 5
-                pagination.push({ number: 1, isCurrent: page === 1 });
-                pagination.push({ number: "...", isDots: true });
-                for (let i = totalPages - 4; i <= totalPages; i++) {
-                    pagination.push({ number: i, isCurrent: i === page });
-                }
-            } else {
-                pagination.push({ number: 1, isCurrent: page === 1 });
-
-                let startPage = Math.max(2, page - 1);
-                let endPage = Math.min(totalPages - 1, page + 1);
-
-                if (startPage > 2) {
-                    pagination.push({ number: "...", isDots: true });
-                }
-
-                for (let i = startPage; i <= endPage; i++) {
-                    pagination.push({ number: i, isCurrent: i === page });
-                }
-
-                if (endPage < totalPages - 1) {
-                    pagination.push({ number: "...", isDots: true });
-                }
-
-                pagination.push({ number: totalPages, isCurrent: page === totalPages });
-            }
-
-            return pagination;
-        }
-
         const result = await _threads.aggregate(pipeline).toArray();
 
         const totalThreads = result[0].metadata.length > 0 ? result[0].metadata[0].total : 0;
@@ -158,7 +112,7 @@ export const get_threads = async (req, res, next) => {
         res.locals.totalPages = totalPages;
         res.locals.nextPage = actPage + 1;
         res.locals.prevPage = actPage - 1;
-
+        res.locals.showBreadCrumbs = totalThreads > limit;
         next();
     } catch (error) {
         console.error(error);
