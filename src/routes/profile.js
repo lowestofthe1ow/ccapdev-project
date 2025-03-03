@@ -57,4 +57,34 @@ router.get(
     }
 );
 
+router.get(
+    "/edit",
+    /* TODO: Replace this with session middleware */
+    get_active_user /* Gets the current active user */,
+    (req, res) => {
+        res.render("pfedit", {
+            layout: "forum"
+        });
+    }
+);
+
+router.post(
+    "/edit",
+    /* TODO: Replace this with session middleware */
+    get_active_user /* Gets the current active user */,
+    async (req, res) => {
+        console.log("help");
+
+        let _users = req.app.get("db").collection("users");
+
+        _users.updateOne(
+            { _id: res.locals.user._id },
+            { $set: { name: req.body.name } },
+            { $set: { bio: req.body.bio } }
+        );
+
+        res.redirect(`/profile/edit`);
+    }
+);
+
 export default router;
