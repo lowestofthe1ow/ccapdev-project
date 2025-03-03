@@ -9,17 +9,18 @@
 
 <div class="tags">
     {{#each games}}
-    {{#if clickable}}
-        <div class="tags__tag tags__tag--game">{{this}}</div>
-    {{else}}
+    {{#if ../clickable}}
         <a href="/threads?games={{this}}" class="tags__tag tags__tag--game">{{this}}</a>
+    {{else}}
+        
+        <div class="tags__tag tags__tag--game">{{this}}</div>
     {{/if}}
     {{/each}}
     {{#each tags}}
-    {{#if clickable}}
-        <div class="tags__tag">{{this}}</div>
-    {{else}}
+    {{#if ../clickable}}
         <a href="/threads?tags={{this}}" class="tags__tag">{{this}}</a>
+    {{else}}
+        <div class="tags__tag">{{this}}</div>
     {{/if}}
     {{/each}}
 </div>

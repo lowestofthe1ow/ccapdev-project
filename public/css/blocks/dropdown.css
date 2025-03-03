@@ -9,8 +9,14 @@
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     background: #fff;
     width: 100%;
-    max-height: 200px;
-    overflow-y: auto;
+    max-height: 100px;
+    overflow-y: scroll;
+}
+
+.dropdown > :first-child::after {
+    content: " (press Enter)";
+    color: var(--kinkan-gray);
+    font-style: italic;
 }
 
 .dropdown_item {

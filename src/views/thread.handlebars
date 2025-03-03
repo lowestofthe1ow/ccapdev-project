@@ -10,20 +10,13 @@
 <div class="forum__body">
     <section class="forum__threads">
         
-        <hgroup class="forum__thread">
-            {{> threadlink this.thread show_options=(check_id thread.author user._id)}}
+        <hgroup class="forum__thread"  id="{{thread._id}}">
+            {{> threadlink this.thread show_options=(check_id thread.author user._id) user=user}}
         </hgroup>
 
         <article class="article article__block">
-            {{#if thread.deleted}}
-            <p><em>This thread has been deleted.</em></p>
-            {{else}}
-            {{{markdown this.thread.content}}}
-            {{/if}}
             {{! "Edit comment" menu }}
             <div id="editmenu--{{this.thread._id}}" class="hidden" style="margin-bottom: 10px;">
-                <hr class="sidebar__rule" />
-
                 <p><strong>Edit this thread</strong></p>
                 
                 {{> editor
@@ -31,7 +24,15 @@
                         action=(concat "/threads/" this.thread._id "/edit")
                         value=this.thread.content
                         method="post"}} {{! TODO: <form> does not allow the PUT verb}}
+
+                <hr class="sidebar__rule" />
             </div>
+
+            {{#if thread.deleted}}
+            <p><em>This thread has been deleted.</em></p>
+            {{else}}
+            {{{markdown this.thread.content}}}
+            {{/if}}
         </article>
 
         <section class="forum__comments">
@@ -62,8 +63,13 @@
 
             {{! Display all comments here }}
             {{#each comments}}
-            {{> comment this user=../user}} {{! Pass user from session to the comment partial}}
+            {{> comment this user=../user restrict_siblings=../restrict_siblings}} {{! Pass user from session to the comment partial}}
             {{/each}}
+            {{#if showBreadCrumbs}}
+            {{#if restrict_siblings}}
+            {{> breadcrumbs}}
+            {{/if}}
+            {{/if}}
         </section>
     </section>
     

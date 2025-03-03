@@ -51,3 +51,23 @@
     max-width: 600px;
     color: var(--light);
 }
+
+.article table,
+.article th,
+.article td {
+    border: 1px solid var(--kinkan-gray);
+    border-collapse: collapse;
+}
+
+.article td {
+    padding: 5px;
+}
+
+.article table {
+    margin-bottom: 10px;
+}
+
+.article pre {
+    background-color: var(--kinkan-light-gray);
+    padding: 10px;
+}

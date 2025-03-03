@@ -36,15 +36,22 @@
             </header>
 
             <nav class="navbar">
-                <a class="button button--light" href="/submission.html">
+                <a class="button button--light" href="/submission">
                     <span class="material-symbols-outlined">add_circle</span>
                     <ruby>Post thread<rt>ポストする</rt></ruby>
                 </a>
                 {{> search}}
+                {{#if user}}
                 <a class="button button--light" href="/profile">
-                    <img src="/img/pfp.png" class="navbar__icon"/>
+                    <img src="{{user.pfp}}" class="navbar__icon"/>
                     <ruby>Profile<rt>プロフィール</rt></ruby>
                 </a>
+                {{else}}
+                <a class="button button--light" href="/signin">
+                    <span class="material-symbols-outlined">login</span>
+                    <ruby>Sign in<rt>サインイン</rt></ruby>
+                </a>
+                {{/if}}
             </nav>
             {{> advsearch}}
             
@@ -56,3 +63,4 @@
 </html>
 
 <script src="/js/body_renderer.js"></script>
+<script src="/js/votes.js"></script>
