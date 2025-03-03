@@ -31,7 +31,7 @@ export const get_threads = async (req, res, next) => {
         res.locals.tags = parsedTags;
         res.locals.games = parsedGames;
         const actPage = !page || isNaN(parseInt(page)) ? 1 : Math.max(1, parseInt(page));
-        const limit = 2; /* TODO IMPORTANT: CHANGE THIS TO 10 OR SOMETHING */
+        const limit = 10; /* TODO IMPORTANT: CHANGE THIS TO 10 OR SOMETHING */
         const skip = (actPage - 1) * limit;
 
         /**TODO: Get timezone from client and use that to offset a THIS somehow  */

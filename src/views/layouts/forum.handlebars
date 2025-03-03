@@ -41,10 +41,17 @@
                     <ruby>Post thread<rt>ポストする</rt></ruby>
                 </a>
                 {{> search}}
+                {{#if user}}
                 <a class="button button--light" href="/profile">
-                    <img src="/img/pfp.png" class="navbar__icon"/>
+                    <img src="{{user.pfp}}" class="navbar__icon"/>
                     <ruby>Profile<rt>プロフィール</rt></ruby>
                 </a>
+                {{else}}
+                <a class="button button--light" href="/signin">
+                    <span class="material-symbols-outlined">login</span>
+                    <ruby>Sign in<rt>サインイン</rt></ruby>
+                </a>
+                {{/if}}
             </nav>
             {{> advsearch}}
             
