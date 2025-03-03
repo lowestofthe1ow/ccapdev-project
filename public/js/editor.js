@@ -32,4 +32,34 @@ window.addEventListener("load", () => {
             x.nextElementSibling.classList.remove("button--current");
         });
     });
+
+    document.querySelectorAll(".editor__options").forEach((editor_options) => {
+        Array.from(editor_options.children).forEach((button) => {
+            if (button.dataset.type == "formatter") {
+                button.addEventListener("click", () => {
+                    const id = editor_options.dataset.parentId;
+                    var area = document.querySelector("#content--" + id);
+                    var text = area.value;
+                    var selectedText = text.substring(area.selectionStart, area.selectionEnd);
+                    var beforeText = text.substring(0, area.selectionStart);
+                    var afterText = text.substring(area.selectionEnd, text.length);
+                    area.value = beforeText + button.dataset.open + selectedText + button.dataset.close + afterText;
+                    area.focus();
+                });
+            }
+        });
+    });
+
+    document.querySelectorAll(".editor__insertimage").forEach((form) => {
+        form.querySelector("button").addEventListener("click", () => {
+            const url = form.querySelector("input[name='url']").value;
+            const alt = form.querySelector("input[name='alt']").value;
+
+            if (form.dataset.type == "image") {
+                document.querySelector(form.dataset.target).value += "!";
+            }
+
+            document.querySelector(form.dataset.target).value += "[" + alt + "](" + url + ")";
+        });
+    });
 });
