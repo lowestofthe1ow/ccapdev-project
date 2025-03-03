@@ -16,9 +16,9 @@
     <h2 class="sidebar__header">Top threads in the last 24 hours</h2>
 
     {{#each top_threads}}
-    <a href="/threads/{{this._id}}" class="button button--light button--light--small" style="justify-content: space-between">
-        <div style="display: flex; gap: 10px;">
-            <img src="{{this.thumbnail}}" style="height: 30px; width: 30px; object-fit: cover; border: 1px solid var(--kinkan-gray); border-radius: 5px" />
+    <a href="/threads/{{this._id}}" class="button button--light button--light--small" style="justify-content: space-between; ">
+        <div style="display: flex; gap: 10px; align-items: center">
+            <img src="{{#if this.thumbnail}}{{this.thumbnail}}{{else}}/img/favicon.png{{/if}}" style="height: 30px; width: 30px; object-fit: cover; border: 1px solid var(--kinkan-gray); border-radius: 5px" />
         <div>
         {{this.title}}<br>by <strong>{{this.author_data.name}}</strong></div>
         </div>
