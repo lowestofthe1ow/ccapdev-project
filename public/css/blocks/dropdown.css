@@ -13,6 +13,12 @@
     overflow-y: scroll;
 }
 
+.dropdown > :first-child::after {
+    content: " (press Enter)";
+    color: var(--kinkan-gray);
+    font-style: italic;
+}
+
 .dropdown_item {
     cursor: pointer;
     box-sizing: content-box;

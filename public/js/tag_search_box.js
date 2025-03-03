@@ -49,5 +49,11 @@ export default class TagSearchBox extends SearchBox {
                 x.remove();
             });
         });
+
+        this._node.addEventListener("keyup", (event) => {
+            if (event.key === "Enter") {
+                this._dropdown.node.firstElementChild.click();
+            }
+        });
     }
 }
