@@ -3,6 +3,7 @@ import express from "express";
 import { body } from "express-validator";
 
 import check_form_errors from "../middlewares/check_form_errors.js";
+import redirect_threads from "../middlewares/session_exists.js";
 
 const router = express.Router();
 
@@ -11,7 +12,7 @@ router.use(express.json());
 
 router.post(
     "/",
-
+    redirect_threads,
     /* Ensure the user exists in the database */
     body("name").custom(async (username, { req }) => {
         let existing_user = await req.app.get("db").collection("users").findOne({

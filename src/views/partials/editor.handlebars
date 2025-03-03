@@ -6,46 +6,59 @@
     @param action - The acttion attribute to add to the form
 }}
 <form class="editor {{#if hidden}}hidden{{/if}}" id="{{id}}" method="{{method}}" action="{{action}}">
-    <div class="editor__options" id="options--{{id}}">
-        <a class="button button--light button--light--small">
+    <div class="editor__options" id="options--{{id}}" data-parent-id="{{id}}">
+        <button type="button" class="button button--light button--light--small"
+           data-type="formatter" data-open="**" data-close="**">
             <span class="material-symbols-outlined symbols-btngrp">format_bold</span>
-        </a>
-        <a class="button button--light button--light--small">
+        </button>
+        <button type="button" class="button button--light button--light--small"
+           data-type="formatter" data-open="*" data-close="*">
             <span class="material-symbols-outlined symbols-btngrp">format_italic</span>
-        </a>
-        <a class="button button--light button--light--small">
+        </button>
+        <button type="button" class="button button--light button--light--small"
+           data-type="formatter" data-open="__" data-close="__">
             <span class="material-symbols-outlined symbols-btngrp">format_underlined</span>
-        </a>
-        <a class="button button--light button--light--small">
+        </button>
+        <button type="button" class="button button--light button--light--small"
+           data-type="formatter" data-open="~~" data-close="~~">
             <span class="material-symbols-outlined symbols-btngrp">strikethrough_s</span>
-        </a>
-        <a class="button button--light button--light--small">
-            <span class="material-symbols-outlined symbols-btngrp">superscript</span>
-        </a>
-        <a class="button button--light button--light--small">
+        </button>
+        <button type="button" class="button button--light button--light--small"
+           data-type="formatter" data-open="# " data-close="">
             <span class="material-symbols-outlined symbols-btngrp">format_h1</span>
-        </a>
-        <a class="button button--light button--light--small">
+        </button>
+        <button type="button" class="button button--light button--light--small"
+           data-type="formatter" data-open="`" data-close="`">
             <span class="material-symbols-outlined symbols-btngrp">code</span>
-        </a>
-        <a class="button button--light button--light--small">
-            <span class="material-symbols-outlined symbols-btngrp">list</span>
-        </a>
-        <a class="button button--light button--light--small">
-            <span class="material-symbols-outlined symbols-btngrp">format_list_numbered</span>
-        </a>
-        <a class="button button--light button--light--small">
-            <span class="material-symbols-outlined symbols-btngrp">alternate_email</span>
-        </a>
-        <a class="button button--light button--light--small">
-            <span class="material-symbols-outlined symbols-btngrp">attach_file</span>
-        </a>
-        <a class="button button--light button--light--small">
+        </button>
+        <button type="button" class="button button--light button--light--small" data-toggle="#options--image--{{id}}">
+            <span class="material-symbols-outlined symbols-btngrp">image</span>
+        </button>
+        <button type="button" class="button button--light button--light--small" data-toggle="#options--link--{{id}}">
             <span class="material-symbols-outlined symbols-btngrp">link</span>
-        </a>
-        <a class="button button--light button--light--small">
-            <span class="material-symbols-outlined symbols-btngrp">warning</span>
-        </a>
+        </button>
+    </div>
+
+    <div class="advsearch__component editor__insertimage hidden"
+        id="options--image--{{id}}"
+        data-target="#content--{{id}}"
+        data-type="image">
+        <label class="advsearch__label" for="url" style="border-radius: 0px">URL</label>
+        <input name="url" type="text" class="advsearch__input" placeholder="URL"/>
+        <label class="advsearch__label" for="alt" style="border-radius: 0px">Alt text</label>
+        <input name="alt" type="text" class="advsearch__input" placeholder="Alt text"/>
+        <button type="button" class="button button--light button--light--small" style="border-radius: 0px">Insert image</button>   
+    </div>
+
+    <div class="advsearch__component editor__insertimage hidden"
+        id="options--link--{{id}}"
+        data-target="#content--{{id}}"
+        data-type="link">
+        <label class="advsearch__label" for="url" style="border-radius: 0px">URL</label>
+        <input name="url" type="text" class="advsearch__input" placeholder="URL"/>
+        <label class="advsearch__label" for="alt" style="border-radius: 0px">Alt text</label>
+        <input name="alt" type="text" class="advsearch__input" placeholder="Alt text"/>
+        <button type="button" class="button button--light button--light--small" style="border-radius: 0px">Insert link</button>   
     </div>
 
     <textarea 
@@ -62,12 +75,6 @@
 
     <div class="editor__options editor__options--bottom"
         data-editor="#content--{{id}}" data-preview="#preview--{{id}}" data-options="#options--{{id}}" >
-        <!--
-        <button class="button button--light button--light--small" data-toggle="{{id}}">
-            <span class="material-symbols-outlined">cancel</span>
-            Cancel
-        </button>
-        -->
         <button type="button" class="button button--light button--light--small editor__editbutton button--current" style="flex: 1;">
             Editor
         </button>

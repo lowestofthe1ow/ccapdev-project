@@ -12,3 +12,24 @@ export const getGames = async (req, res, next) => {
         console.error(error);
     }
 };
+
+export async function get_game_data(req, res, next) {
+    try {
+        const _games = req.app.get("db").collection("featured_games");
+        const games = await _games
+            .aggregate([
+                {
+                    $match: {
+                        name: { $in: res.locals.games },
+                    },
+                },
+            ])
+            .toArray();
+
+        res.locals.game_data = games;
+
+        next();
+    } catch (error) {
+        console.error(error);
+    }
+}

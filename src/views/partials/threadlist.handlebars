@@ -7,9 +7,12 @@
 }}
 
 <ul class="forum__threads">
-    {{#each threads}}
-    <li class="forum__thread">
-        {{> threadlink this clickable=true}}
+    {{#each threads}} {{! added an id per forum thread, thread.handlebars also has this dw}}
+    <li class="forum__thread" id="{{this._id}}" >  
+        {{> threadlink this clickable=true user=../user}}
     </li>
     {{/each}}
+    {{#if showBreadCrumbs}}
+    {{> breadcrumbs}}
+    {{/if}}
 </ul>

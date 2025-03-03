@@ -15,16 +15,36 @@
     @param vote_count
 }}
 
-<div class="forum__comment">
+<div class="forum__comment" >
     <div class="votes votes--comment">
-        <a class="button button--light votes__button votes__up">
+        <button class="button button--light votes__button votes__up 
+            {{#if deleted}}
+                button--disabled
+            {{else if (eq (lookup user.comment_vote_list _id) 1)}}
+                button--current
+            {{/if}}"
+            data-vote-type="up"
+            data-vote-counter="#vote--{{_id}}"
+            data-thread-id="{{this.thread}}"
+            {{#if deleted}}disabled{{/if}}
+            >
             <span class="material-symbols-outlined">keyboard_arrow_up</span>
-        </a>
-        <a class="button button--light votes__button votes__down">
+        </button>
+        
+        <button class="button button--light votes__button votes__down 
+            {{#if deleted}}
+                button--disabled
+            {{else if (eq (lookup user.comment_vote_list _id) -1)}}
+                button--current
+            {{/if}}"
+            data-vote-type="down"
+            data-vote-counter="#vote--{{_id}}"
+            data-thread-id="{{this.thread}}"
+            {{#if deleted}}disabled{{/if}}>
             <span class="material-symbols-outlined">keyboard_arrow_down</span>
-        </a>
+        </button>
     </div>
-    
+
     <div class="comment">
         <div style="display: flex; gap: 5px;">
             <div class="comment__details">
@@ -36,13 +56,18 @@
                     {{#if deleted}}
                     {{! Show if comment has been deleted }}
                     <p class="thread__detail"><em>User deleted this post</em></p>
+                    <span class="comment__votes_counter hidden"></span> {{! This is so it selects this instead of other comments}}
                     {{else}}
                     {{#if (check_id author user._id)}}
                     <span class="material-symbols-outlined" style="font-size: 1.1rem; color: var(--kinkan-turquoise)">person</span>
                     {{/if}}
                     <img src="{{author_data.pfp}}" style="height: 20px; border-radius: 20px;"/>
                     <p class="thread__detail">
-                    <strong>{{author_data.name}}</strong>・{{vote_count}} votes・{{format_date created}}{{#if edited}} (edited {{format_date edited}}){{/if}}
+                    <strong>{{author_data.name}}</strong>・<span class="comment__votes_counter "
+                    style="color: {{#if (eq (lookup user.comment_vote_list _id) 1)}}orange{{/if}} 
+                    {{#if (eq (lookup user.comment_vote_list _id) -1)}}blue{{/if}}"
+                    id="#vote--{{_id}}">{{vote_count}}
+                    </span> votes・{{format_date created}}{{#if edited}} (edited {{format_date edited}}){{/if}}
                     </p>
                     {{/if}}
                 </div>
@@ -117,7 +142,7 @@
         {{#if (check_depth this.depth)}}
             {{! Display the "view more" button at the depth limit }}
             <a href="/threads/{{this.thread}}/comments/{{this._id}}"
-            class="button button--light button--light--small">View more...</a>
+            class="button button--light button--light--small">View children...</a>
         {{else}}
             {{! Otherwise, display replies }}
             <p class="comment__details collapsed--{{_id}} hidden"><em>Replies collapsed...</em></p>
@@ -125,8 +150,19 @@
                 {{#each descendants}}
                     {{! Check if direct child }}
                     {{#if (check_id this.parent ../_id)}}
+                    {{#if ../restrict_siblings}}
+                        {{#if (check_depth this.number)}}
+                            {{#if (eq this.number 3)}}
+                                <a href="/threads/{{this.thread}}/comments/{{this.parent}}"
+                                class="button button--light button--light--small">Expand siblings...</a>
+                            {{/if}}
+                        {{else}}
+                        {{> comment this restrict_siblings=../restrict_siblings descendants=../descendants user=../user}}
+                        {{/if}}
+                    {{else}}
                     {{! Pass the same flattened array of the comment tree }}
-                    {{> comment this descendants=../descendants user=../user}}
+                    {{> comment this restrict_siblings=../restrict_siblings descendants=../descendants user=../user}}
+                    {{/if}}
                     {{/if}}
                 {{/each}}
             </div>
