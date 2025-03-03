@@ -23,7 +23,7 @@ router.get(
     (req, res) => {
         res.render("profile", {
             layout: "forum",
-            helpers: { format_date, eq, },
+            helpers: { format_date, eq },
         });
     }
 );
@@ -54,8 +54,7 @@ router.get(
     (req, res) => {
         res.render("pfupvoted", {
             layout: "forum",
-            helpers: { format_date, 
-                        eq, },
+            helpers: { format_date, eq },
         });
     }
 );
@@ -66,7 +65,7 @@ router.get(
     get_active_user /* Gets the current active user */,
     (req, res) => {
         res.render("pfedit", {
-            layout: "forum"
+            layout: "forum",
         });
     }
 );
@@ -80,11 +79,7 @@ router.post(
 
         let _users = req.app.get("db").collection("users");
 
-        _users.updateOne(
-            { _id: res.locals.user._id },
-            { $set: { name: req.body.name } },
-            { $set: { bio: req.body.bio } }
-        );
+        _users.updateOne({ _id: res.locals.user._id }, { $set: { name: req.body.name, bio: req.body.content } });
 
         res.redirect(`/profile/edit`);
     }
