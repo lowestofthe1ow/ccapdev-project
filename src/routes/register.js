@@ -3,6 +3,7 @@ import { body } from "express-validator";
 
 import hash_password from "../middlewares/hash_password.js";
 import check_form_errors from "../middlewares/check_form_errors.js";
+import redirect_threads from "../middlewares/session_exists.js";
 
 const router = express.Router();
 
@@ -13,7 +14,7 @@ console.log("hi");
 
 router.post(
     "/",
-
+    redirect_threads,
     /* Password minimum length */
     body("password").isLength({ min: 8 }).withMessage("Password must be at least 8 characters"),
 

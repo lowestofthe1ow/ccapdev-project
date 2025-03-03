@@ -14,15 +14,16 @@ import eq from "../helpers/strict_equality.js";
 import thread_comment from "../controllers/thread_comment.js";
 import get_active_user from "../middlewares/get_active_user.js";
 import { get_comment_count, get_comment_replies, get_thread_comments } from "../middlewares/get_comments.js";
-import { get_thread, get_threads, get_top_threads } from "../middlewares/get_threads.js";
 import { get_game_data } from "../middlewares/get_games.js";
+import { get_thread, get_threads, get_top_threads } from "../middlewares/get_threads.js";
+import let_guest_through from "../middlewares/let_guest_through.js";
 
 const router = express.Router();
 
 /* Forum home page */
 router.get(
     "/",
-    get_active_user,
+    let_guest_through,
     get_threads /* Get thread list */,
     get_top_threads,
     get_game_data,
@@ -43,7 +44,7 @@ router.get(
 /* Thread page */
 router.get(
     "/:thread_id",
-    get_active_user,
+    let_guest_through,
     get_thread /* Get thread data */,
     get_top_threads,
     get_game_data,
@@ -170,7 +171,7 @@ router.post(
 /* Comment permalink page (used for pagination) */
 router.get(
     "/:thread_id/comments/:comment_id",
-    get_active_user,
+    let_guest_through,
     get_thread /* Get thread data */,
     get_comment_replies /* Expand all comments under a specific comment */,
 

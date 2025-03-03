@@ -2,6 +2,7 @@ import express from "express";
 import { engine } from "express-handlebars";
 import session from "express-session";
 import cookieParser from "cookie-parser";
+import MongoStore from "connect-mongo";
 
 /* MongoDB connection */
 import db_conn from "./model/db.js";
@@ -30,7 +31,11 @@ app.use(session({
     saveUninitialized: false,
     /* WARNING: DO NOT EVER SET SECURE TO TRUE, NEEDS HTTPS */
     /* TODO: Make the server use https */
-    cookie: { httpOnly: true, secure: false, maxAge: 10000000 },
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGODB_URI + process.env.MONGODB_DBNAME,
+        ttl:  1 * 60 * 60,  
+    }),
+    cookie: { httpOnly: true, secure: false, maxAge: 1 * 60 * 60 * 1000},
   }));
 
 
