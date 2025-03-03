@@ -97,6 +97,54 @@ export const get_threads = async (req, res, next) => {
     }
 };
 
+export async function get_top_threads(req, res, next) {
+    try {
+        let _threads = req.app.get("db").collection("threads");
+        let threads = await _threads
+            .aggregate([
+                {
+                    $match: {
+                        created: {
+                            $gte: new Date(new Date().getTime() - 24 * 60 * 60 * 1000),
+                        },
+                        deleted: {
+                            $ne: true,
+                        },
+                    },
+                },
+                {
+                    $sort: {
+                        vote_count: -1,
+                        created: -1,
+                    },
+                },
+                {
+                    $limit: 5,
+                },
+                {
+                    $lookup: {
+                        from: "users",
+                        localField: "author",
+                        foreignField: "_id",
+                        as: "author_data",
+                    },
+                },
+                {
+                    $unwind: {
+                        path: "$author_data",
+                        preserveNullAndEmptyArrays: true,
+                    },
+                },
+            ])
+            .toArray();
+
+        res.locals.top_threads = threads;
+        next();
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 /**
  * Middleware for fetching a specific thread in the database. Appends a `thread` object to the request object.
  *
@@ -133,6 +181,7 @@ export async function get_thread(req, res, next) {
 
         /* Apply to request object */
         res.locals.thread = thread[0];
+        res.locals.games = thread[0].games;
         next();
     } catch (error) {
         console.error(error);

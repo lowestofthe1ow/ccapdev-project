@@ -14,7 +14,8 @@ import eq from "../helpers/strict_equality.js";
 import thread_comment from "../controllers/thread_comment.js";
 import get_active_user from "../middlewares/get_active_user.js";
 import { get_comment_count, get_comment_replies, get_thread_comments } from "../middlewares/get_comments.js";
-import { get_thread, get_threads } from "../middlewares/get_threads.js";
+import { get_thread, get_threads, get_top_threads } from "../middlewares/get_threads.js";
+import { get_game_data } from "../middlewares/get_games.js";
 
 const router = express.Router();
 
@@ -23,6 +24,8 @@ router.get(
     "/",
     get_active_user,
     get_threads /* Get thread list */,
+    get_top_threads,
+    get_game_data,
 
     (req, res) => {
         res.render("threads", {
@@ -42,6 +45,8 @@ router.get(
     "/:thread_id",
     get_active_user,
     get_thread /* Get thread data */,
+    get_top_threads,
+    get_game_data,
     get_thread_comments /* Expand all comments under the thread */,
     get_comment_count /* Count all comments under the thread */,
 
