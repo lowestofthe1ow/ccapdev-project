@@ -13,8 +13,14 @@ export const get_threads = async (req, res, next) => {
         const { search, tags = "", games = "", start_date, end_date, author_name, sort } = req.query;
         const _threads = req.app.get("db").collection("threads");
 
+        if (tags || games || start_date || end_date || author_name || sort) {
+            res.locals.show_search = true;
+        }
+
         const parsedTags = tags ? tags.split("|").map((tag) => decodeURIComponent(tag).replace(/^#/, "")) : [];
         const parsedGames = games ? games.split("|").map((tag) => decodeURIComponent(tag)) : [];
+        res.locals.tags = parsedTags;
+        res.locals.games = parsedGames;
 
         /**TODO: Get timezone from client and use that to offset a THIS somehow  */
         const localToUTC = (date, hours, minutes, seconds, milliseconds) => {

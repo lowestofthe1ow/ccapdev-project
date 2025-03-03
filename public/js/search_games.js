@@ -64,17 +64,6 @@ document.querySelector(".search").addEventListener("submit", (event) => {
 });
 
 form.addEventListener("reset", () => {
-    document.querySelectorAll(".tags__tag").forEach((tag) => tag.remove());
-
-    gameSearchContainers.forEach((container) => {
-        if (container.selectedTags) {
-            container.selectedTags.clear();
-        }
-    });
-
-    tagSearchContainers.forEach((container) => {
-        if (container.selectedTags) {
-            container.selectedTags.clear();
-        }
-    });
+    game_search.clear();
+    tag_search.clear();
 });

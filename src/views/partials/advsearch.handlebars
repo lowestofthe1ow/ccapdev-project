@@ -1,4 +1,4 @@
-<form class="advsearch hidden"  id="advsearch">
+<form class="advsearch {{#unless show_search}}hidden{{/unless}}"  id="advsearch">
     <div class="advsearch__component">
         <label class="advsearch__label" for="start_date">
             Date range
@@ -36,9 +36,9 @@
         />
     </div>
 
-    {{> tagsearch name="include_game" label="Include games" placeholder="Search for a game..." class="game__search"}}
+    {{> tagsearch tags="" name="include_game" label="Include games" placeholder="Search for a game..." class="game__search"}}
 
-    {{> tagsearch name="include_tag" label="Include tags" placeholder="Add a tag..." class="tag__search"}}
+    {{> tagsearch games="" name="include_tag" label="Include tags" placeholder="Add a tag..." class="tag__search"}}
 
     <button type="reset" class="button button--light button--light--small">
         Reset

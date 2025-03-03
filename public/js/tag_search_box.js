@@ -25,6 +25,10 @@ export default class TagSearchBox extends SearchBox {
         }
     }
 
+    clear() {
+        this.#tag_container.innerHTML = "";
+    }
+
     constructor(node, loader, is_game) {
         super(node, loader, (selected) => {
             this.#add(selected);
@@ -38,6 +42,12 @@ export default class TagSearchBox extends SearchBox {
             if (!this._dropdown.node.contains(e.relatedTarget) && this._dropdown.node != e.relatedTarget) {
                 this._dropdown.hide();
             }
+        });
+
+        this._node.querySelectorAll(".tags__tag").forEach((x) => {
+            x.addEventListener("click", () => {
+                x.remove();
+            });
         });
     }
 }
