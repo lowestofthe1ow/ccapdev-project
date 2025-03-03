@@ -1,5 +1,8 @@
 import { ObjectId } from "mongodb";
 
+
+import { getPaginationNumbers } from '../helpers/pagination.js';
+
 /**
  * Middleware for fetching all threads in the database. Appends a `threads` array to the request object.
  *
@@ -10,9 +13,11 @@ import { ObjectId } from "mongodb";
 export const get_threads = async (req, res, next) => {
     try {
         /** If we are planning to add exclude, ggez*/
-        const { search, tags = "", games = "", start_date, end_date, author_name, sort } = req.query;
+        const { search, tags = "", games = "", start_date, end_date, author_name, sort, page } = req.query;
         const _threads = req.app.get("db").collection("threads");
-
+        const actPage = (!page || isNaN(parseInt(page))) ? 1 : Math.max(1, parseInt(page));
+        const limit = 10; /* TODO IMPORTANT: CHANGE THIS TO 10 OR SOMETHING */
+        const skip = (actPage - 1) * limit
         if (tags || games || start_date || end_date || author_name || sort) {
             res.locals.show_search = true;
         }
@@ -76,11 +81,28 @@ export const get_threads = async (req, res, next) => {
                     preserveNullAndEmptyArrays: true,
                 },
             },
+            {
+                $facet: {
+                    metadata: [{ $count: "total" }],
+                    data: [{ $skip: skip }, { $limit: limit }],
+                },
+            },
         ];
         /* TODO: Pagination */
-        const threads = await _threads.aggregate(pipeline).toArray();
-
+        const result = await _threads.aggregate(pipeline).toArray();
+        
+        const totalThreads = result[0].metadata.length > 0 ? result[0].metadata[0].total : 0;
+        const totalPages = Math.ceil(totalThreads / limit); /** Is this floor or ceiling */
+        const threads = result[0].data;
+        const breadcrumbNumbers = getPaginationNumbers(actPage, totalPages);
+        /** MAYBE THERE'S A BETTER WAY, TOMORROW 03/03/2025 - RED WILL SHRINK THIS MFING CODE */
         res.locals.threads = threads;
+        res.locals.breadcrumb_number = breadcrumbNumbers;
+        res.locals.currentPage = actPage;
+        res.locals.totalPages = totalPages;
+        res.locals.nextPage = actPage+1;
+        res.locals.prevPage = actPage-1;
+        res.locals.showBreadCrumbs = totalThreads > limit;
         next();
     } catch (error) {
         console.error(error);

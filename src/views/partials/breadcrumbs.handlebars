@@ -1,0 +1,30 @@
+<li>
+    <nav class="breadcrumbs">
+        {{#if (eq currentPage 1)}}
+            <a class="button button--light breadcrumbs__prev button--disabled">
+        {{else}}
+            <a class="button button--light breadcrumbs__prev" href="?page={{prevPage}}">
+        {{/if}}
+            <span class="material-symbols-outlined">keyboard_arrow_left</span>
+        </a>
+        {{#each breadcrumb_number}}
+            {{#if isDots}}
+                <span class="button button--light breadcrumbs__button">...</span>
+            {{else}}
+                {{#if (eq ../currentPage number)}}
+                    <span class="button button--light breadcrumbs__button button--current">{{number}}</span>
+                {{else}}
+                    <a href="?page={{number}}" class="button button--light breadcrumbs__button">{{number}}</a>
+                {{/if}}
+            {{/if}}
+        {{/each}}
+
+        {{#if (eq currentPage totalPages)}}
+            <a class="button button--light breadcrumbs__next button--disabled">
+        {{else}}
+            <a class="button button--light breadcrumbs__next" href="?page={{nextPage}}">
+        {{/if}}
+            <span class="material-symbols-outlined">keyboard_arrow_right</span>
+        </a>
+    </nav>
+</li>
