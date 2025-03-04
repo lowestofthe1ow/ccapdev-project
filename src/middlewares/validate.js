@@ -4,7 +4,6 @@ export async function validate_password(req, res, next) {
     try {
         const { password } = req.body;
         const user = req.app.get("user");
-        console.log(user);
 
         if (!password || !user) {
             return res.json({ success: false, message: "Invalid username or password." });

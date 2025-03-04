@@ -20,6 +20,11 @@
     border: 10px solid var(--light);
     border-radius: 100px;
     height: 100px;
+    width: 100px;
+}
+
+img.profile__pfp{
+    object-fit: cover;
 }
 
 .profile__content {

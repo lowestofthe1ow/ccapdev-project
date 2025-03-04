@@ -10,6 +10,11 @@
     border: 1px solid var(--kinkan-gray);
     border-radius: 25px;
     height: 25px;
+    width: 25px;
+}
+
+img.navbar__icon{
+    object-fit: cover;
 }
 
 .navbar > .button {

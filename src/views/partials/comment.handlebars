@@ -61,7 +61,7 @@
                     {{#if (check_id author user._id)}}
                     <span class="material-symbols-outlined" style="font-size: 1.1rem; color: var(--kinkan-turquoise)">person</span>
                     {{/if}}
-                    <img src="{{author_data.pfp}}" style="height: 20px; border-radius: 20px;"/>
+                    <img src="{{author_data.pfp}}" class="thread__author_pfp"/>
                     <p class="thread__detail">
                     <strong>{{author_data.name}}</strong>・<span class="comment__votes_counter "
                     style="color: {{#if (eq (lookup user.comment_vote_list _id) 1)}}orange{{/if}} 
