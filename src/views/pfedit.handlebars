@@ -19,7 +19,7 @@
 
             <div class="advsearch__component hidden" id="banner-url">
                 <label class="advsearch__label">Banner image URL</label>
-                <input type="text" class="advsearch__input" placeholder="Enter a URL..."/>
+                <input type="text" name="banner" class="advsearch__input" placeholder="Enter a URL..." form="profile-editor" />
             </div>
         </div>
     </div>
@@ -33,10 +33,10 @@
 
         <div class="advsearch__component hidden" id="pfp-url">
             <label class="advsearch__label">Profile image URL</label>
-            <input type="text" class="advsearch__input" placeholder="Enter a URL..."/>
+            <input type="text" name="pfp" class="advsearch__input" placeholder="Enter a URL..." form="profile-editor" />
         </div>
 
-        <input type="text" name="name"  placeholder={{user.name}} class="profile__text edit__username" form="profile-editor" required="true"/>
+        <input type="text" name="name"  placeholder={{user.name}} class="profile__text edit__username" form="profile-editor" minlength="8" required="true"/>
 
         {{> editor
             id="profile-editor"
@@ -52,7 +52,7 @@
             </button>
             <a class="button button--light" href="/profile">
                 <span class="material-symbols-outlined">cancel</span>
-                <ruby>Help<rt>キャンセル</rt></ruby>
+                <ruby>Cancel<rt>キャンセル</rt></ruby>
             </a>
         </div>
     </div>

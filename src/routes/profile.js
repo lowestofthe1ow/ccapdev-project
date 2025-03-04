@@ -79,7 +79,30 @@ router.post(
 
         let _users = req.app.get("db").collection("users");
 
-        _users.updateOne({ _id: res.locals.user._id }, { $set: { name: req.body.name, bio: req.body.content } });
+        if( req.body.pfp === "" && req.body.banner === "" ) {
+            _users.updateOne({ _id: res.locals.user._id }, { $set: { name: req.body.name,
+                                                                    bio: req.body.content
+                                                                    } });
+        }
+        else if( req.body.pfp === "") {
+            _users.updateOne({ _id: res.locals.user._id }, { $set: { name: req.body.name,
+                                                                    bio: req.body.content,
+                                                                    banner: req.body.banner
+                                                                    } });
+        }
+        else if( req.body.banner === "") {
+            _users.updateOne({ _id: res.locals.user._id }, { $set: { name: req.body.name,
+                                                                    bio: req.body.content,
+                                                                    pfp: req.body.pfp
+                                                                    } });
+        }
+        else {
+            _users.updateOne({ _id: res.locals.user._id }, { $set: { name: req.body.name,
+                                                                    bio: req.body.content,
+                                                                    pfp: req.body.pfp,
+                                                                    banner: req.body.banner
+                                                                    } });
+        }
 
         res.redirect(`/profile/edit`);
     }
