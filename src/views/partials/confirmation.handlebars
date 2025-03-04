@@ -1,6 +1,10 @@
 <div id="confirmation--{{id}}" class="modal {{#if hidden}}hidden{{/if}}">
     <div class="modal-content">
-        <span class="material-symbols-outlined" style="font-size: 100px;">{{icon}}</span>
+        {{#if image}}
+            <img src="{{image}}" style="max-width: 60%; border-radius: 100%; border: 1px solid var(--kinkan-gray)" />
+        {{else}} {{#if icon}}
+            <span class="material-symbols-outlined" style="font-size: 100px;">{{icon}}</span>
+        {{/if}} {{/if}}
         <p>{{{message}}}</p>
         <div class="modal-buttons">
             <a class="button button--light" data-toggle="#confirmation--{{id}}" data-toggle-class=".class-do-nothing">

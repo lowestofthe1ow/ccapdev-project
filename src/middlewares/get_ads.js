@@ -1,12 +1,9 @@
 export default async (req, res, next) => {
+    const adsCollection = req.app.get("db").collection("featured_games");
 
-    const adsCollection = req.app.get("db").collection("ads");
-    
-    const ads = await adsCollection
-        .find({}, { projection: { _id: 0, link: 1 } })
-        .toArray();
+    const ads = await adsCollection.aggregate([{ $sample: { size: 5 } }]).toArray();
 
-    res.locals.images = ads; 
+    res.locals.images = ads;
 
     next();
-}
+};

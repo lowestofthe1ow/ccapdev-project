@@ -6,7 +6,7 @@
                 <img class="profile__pfp" src={{user.pfp}} />
                 <article class="article">
                     <h1 class="profile__username">{{user.name}}</h1>
-                    {{{markdown user.bio}}}
+                    {{#if user.bio}}{{{markdown user.bio}}}{{/if}}
                 </article>
             </div>
             <a class="button button--light profile__button" href="/profile/edit">
