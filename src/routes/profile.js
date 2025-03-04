@@ -13,6 +13,7 @@ import eq from "../helpers/strict_equality.js";
 import get_active_user from "../middlewares/get_active_user.js";
 import { get_thread_comments } from "../middlewares/get_comments.js";
 import { get_threads } from "../middlewares/get_threads.js";
+import  get_ads  from "../middlewares/get_ads.js";
 
 const router = express.Router();
 
@@ -21,7 +22,9 @@ router.get(
     /* TODO: Replace this with session middleware */
     get_active_user /* Gets the current active user */,
     get_threads /* Fetches thread list */,
-    (req, res) => {
+    get_ads,
+    async(req, res) => {
+        
         res.render("profile", {
             layout: "forum",
             helpers: { format_date, eq },
@@ -33,6 +36,7 @@ router.get(
     "/comments",
     /* TODO: Replace this with session middleware */
     get_active_user /* Gets the current active user */,
+    get_ads,
     (req, res) => {
         res.render("pfcomments", {
             layout: "forum",
@@ -52,6 +56,7 @@ router.get(
     "/upvoted",
     get_threads /* TODO: Replace this with session middleware */,
     get_active_user /* Gets the current active user */,
+    get_ads,
     (req, res) => {
         res.render("pfupvoted", {
             layout: "forum",
@@ -64,6 +69,7 @@ router.get(
     "/edit",
     /* TODO: Replace this with session middleware */
     get_active_user /* Gets the current active user */,
+    get_ads,
     (req, res) => {
         res.render("pfedit", {
             layout: "forum",
