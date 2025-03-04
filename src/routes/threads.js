@@ -18,6 +18,7 @@ import { get_comment_count, get_comment_replies, get_thread_comments } from "../
 import { get_game_data } from "../middlewares/get_games.js";
 import { get_thread, get_threads, get_top_threads } from "../middlewares/get_threads.js";
 import let_guest_through from "../middlewares/let_guest_through.js";
+import  get_ads  from "../middlewares/get_ads.js";
 
 const router = express.Router();
 
@@ -28,6 +29,7 @@ router.get(
     get_threads /* Get thread list */,
     get_top_threads,
     get_game_data,
+    get_ads,
 
     (req, res) => {
         res.render("threads", {
@@ -49,6 +51,7 @@ router.get(
     get_thread /* Get thread data */,
     get_top_threads,
     get_game_data,
+    get_ads,
     get_thread_comments /* Expand all comments under the thread */,
     get_comment_count /* Count all comments under the thread */,
 
@@ -165,7 +168,7 @@ router.post(
 
         const updatedItem = await _collection.findOne({ _id: item._id }, { projection: { vote_count: 1 } });
 
-        res.json({ newVoteCount: updatedItem.vote_count });
+        res.json({ success: true, newVoteCount: updatedItem.vote_count });
     }
 );
 
@@ -175,6 +178,7 @@ router.get(
     let_guest_through,
     get_thread /* Get thread data */,
     get_comment_replies /* Expand all comments under a specific comment */,
+    get_ads,
 
     (req, res) => {
         /* TODO: This uses a hardcoded value for now. Replace with session data eventually */

@@ -1,10 +1,11 @@
 import express from "express";
 import get_active_user from "../middlewares/get_active_user.js";
+import  get_ads  from "../middlewares/get_ads.js";
 
 const router = express.Router();
 
 /** Get route for submission, renders the page where form is */
-router.get("/", get_active_user, async (req, res) => {
+router.get("/", get_active_user, get_ads, async (req, res) => {
     res.render("submission", {
         layout: "forum",
         title: "Create Post",

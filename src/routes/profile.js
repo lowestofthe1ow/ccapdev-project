@@ -1,4 +1,5 @@
 import express from "express";
+import { ObjectId } from "mongodb";
 
 /* Helpers */
 import check_depth from "../helpers/check_depth.js";
@@ -12,6 +13,7 @@ import eq from "../helpers/strict_equality.js";
 import get_active_user from "../middlewares/get_active_user.js";
 import { get_thread_comments } from "../middlewares/get_comments.js";
 import { get_threads, get_top_threads } from "../middlewares/get_threads.js";
+import get_ads from "../middlewares/get_ads.js";
 
 const router = express.Router();
 
@@ -21,7 +23,8 @@ router.get(
     get_active_user /* Gets the current active user */,
     get_threads /* Fetches thread list */,
     get_top_threads,
-    (req, res) => {
+    get_ads,
+    async (req, res) => {
         res.render("profile", {
             layout: "forum",
             helpers: { format_date, eq, markdown },
@@ -33,6 +36,7 @@ router.get(
     "/comments",
     /* TODO: Replace this with session middleware */
     get_active_user /* Gets the current active user */,
+    get_ads,
     (req, res) => {
         res.render("pfcomments", {
             layout: "forum",
@@ -52,6 +56,7 @@ router.get(
     "/upvoted",
     get_threads /* TODO: Replace this with session middleware */,
     get_active_user /* Gets the current active user */,
+    get_ads,
     (req, res) => {
         res.render("pfupvoted", {
             layout: "forum",
@@ -64,6 +69,7 @@ router.get(
     "/edit",
     /* TODO: Replace this with session middleware */
     get_active_user /* Gets the current active user */,
+    get_ads,
     (req, res) => {
         res.render("pfedit", {
             layout: "forum",
@@ -80,32 +86,51 @@ router.post(
 
         let _users = req.app.get("db").collection("users");
 
-        if( req.body.pfp === "" && req.body.banner === "" ) {
-            _users.updateOne({ _id: res.locals.user._id }, { $set: { name: req.body.name,
-                                                                    bio: req.body.content
-                                                                    } });
-        }
-        else if( req.body.pfp === "") {
-            _users.updateOne({ _id: res.locals.user._id }, { $set: { name: req.body.name,
-                                                                    bio: req.body.content,
-                                                                    banner: req.body.banner
-                                                                    } });
-        }
-        else if( req.body.banner === "") {
-            _users.updateOne({ _id: res.locals.user._id }, { $set: { name: req.body.name,
-                                                                    bio: req.body.content,
-                                                                    pfp: req.body.pfp
-                                                                    } });
-        }
-        else {
-            _users.updateOne({ _id: res.locals.user._id }, { $set: { name: req.body.name,
-                                                                    bio: req.body.content,
-                                                                    pfp: req.body.pfp,
-                                                                    banner: req.body.banner
-                                                                    } });
+        if (req.body.pfp === "" && req.body.banner === "") {
+            _users.updateOne({ _id: res.locals.user._id }, { $set: { name: req.body.name, bio: req.body.content } });
+        } else if (req.body.pfp === "") {
+            _users.updateOne(
+                { _id: res.locals.user._id },
+                { $set: { name: req.body.name, bio: req.body.content, banner: req.body.banner } }
+            );
+        } else if (req.body.banner === "") {
+            _users.updateOne(
+                { _id: res.locals.user._id },
+                { $set: { name: req.body.name, bio: req.body.content, pfp: req.body.pfp } }
+            );
+        } else {
+            _users.updateOne(
+                { _id: res.locals.user._id },
+                { $set: { name: req.body.name, bio: req.body.content, pfp: req.body.pfp, banner: req.body.banner } }
+            );
         }
 
         res.redirect(`/profile/edit`);
+    }
+);
+
+router.post(
+    "/delete",
+    /* TODO: Replace this with session middleware */
+    get_active_user /* Gets the current active user */,
+    async (req, res) => {
+        try {
+            const users = req.app.get("db").collection("users");
+
+            await users.updateOne(
+                { _id: new ObjectId(req.session.user_id) },
+                {
+                    $set: { deleted: true, name: null }, // Soft delete user
+                }
+            );
+
+            req.session.destroy(() => {
+                res.redirect("/");
+            });
+        } catch (error) {
+            console.error("Error deleting user:", error);
+            res.status(500).send("Internal Server Error");
+        }
     }
 );
 

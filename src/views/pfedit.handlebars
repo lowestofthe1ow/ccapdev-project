@@ -56,15 +56,22 @@
             </a>
         </div>
     </div>
-    
-    <div class="profile__buttons" style="align-self: end;">
-        <a class="button button--light">
-            <span class="material-symbols-outlined">save</span>
-            <ruby>Reset password<rt>パスワードをリセットする</rt></ruby>
-        </a>
-        <a class="button button--light button--light--bad">
-            <span class="material-symbols-outlined">cancel</span>
-            <ruby>Delete account<rt>アカウントを削除する</rt></ruby>
-        </a>
-    </div>
 </div>
+
+<div class="profile__buttons" style="align-self: end;">
+    <button class="button button--light button--light--bad" data-toggle="#confirmation--{{user._id}}" data-toggle-class=".class-do-nothing">
+        <span class="material-symbols-outlined">cancel</span>
+        <ruby>Delete account<rt>アカウントを削除する</rt></ruby>
+    </button>
+</div>
+
+{{> confirmation
+    icon = "warning"
+    id=user._id
+    message = "Are you sure you want to <b>delete</b> your account?"
+    cancel = "Cancel"
+    ok = "Delete"
+    ok-link = "/profile/delete"
+    method = "POST"
+    hidden = true
+}}

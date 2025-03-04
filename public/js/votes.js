@@ -54,15 +54,17 @@ window.addEventListener("load", () => {
 
                 const response = await fetch(endpoint, {
                     method: "POST",
-                    headers: { "Content-Type": "application/json" },
+                    headers: { 
+                        "Content-Type": "application/json" ,
+                        "Accept"    : "application/json"
+                    },
                 });
                 const result = await response.json();
-
-                if (!response.ok) {
-                    alert(result.error || "Something went wrong.");
-                    window.location.href = "/signin";
-                } else {
+                console.log(result);
+                if (result.success) {
                     voteCounter.textContent = result.newVoteCount;
+                } else {
+                    window.location.href = result.redirectUrl;
                 }
             } catch (error) {
                 console.error("Error:", error);
