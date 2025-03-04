@@ -1,87 +1,52 @@
 <div class="profile">
-    {{> editor
-        id="profile-editor"
-        hidden=true action="/profile/edit"
-        method="post"}}
+    
 
     <!-- Setting background image is a temporary solution. Probably better to use an <img> element fixed
     behind a div -->
     <div class="profile__banner--edit" style="background-image: url({{user.banner}});">
-        <div class="advsearch__component">
-            <a class="button button--light profile__bg-edit button--light--small">
-                <span class="material-symbols-outlined">add_a_photo</span>
-                Add
-            </a>
+        <div style="display: flex; flex-direction: column; gap: 5px; align-items: flex-start">
+            <div class="advsearch__component">
+                <button class="button button--light profile__bg-edit button--light--small" data-toggle="#banner-url">
+                    <span class="material-symbols-outlined">add_a_photo</span>
+                    Add
+                </button>
 
-            <a class="button button--light  profile__bg-edit  button--light--small">
-                <span class="material-symbols-outlined">cancel</span>
-                Clear
-            </a>
+                <button class="button button--light  profile__bg-edit  button--light--small">
+                    <span class="material-symbols-outlined">cancel</span>
+                    Clear
+                </button>
+            </div>
+
+            <div class="advsearch__component hidden" id="banner-url">
+                <label class="advsearch__label">Banner image URL</label>
+                <input type="text" class="advsearch__input" placeholder="Enter a URL..."/>
+            </div>
         </div>
     </div>
 
     <div class="profile__content" style="align-items: center;">
         <div class="profile__pfp--edit" style="background-image: url('{{user.pfp}}');">
-            <a class="button button--light">
+            <button type="button" class="button button--light" data-toggle="#pfp-url">
                 <span class="material-symbols-outlined">add_a_photo</span>
-            </a>
+            </button>
         </div>
 
-        <input type="text" name="name" placeholder={{user.name}} class="profile__text edit__username" form="profile-editor" />
-
-        <div class="editor">
-            <div class="editor__options">
-                <a class="button button--light button--light--small" style="flex: 1;">
-                    Editor
-                </a>
-                <a class="button button--light button--light--small" style="flex: 1;">
-                    Preview
-                </a>
-                <a class="button button--light button--light--small">
-                    <span class="material-symbols-outlined symbols-btngrp">format_bold</span>
-                </a>
-                <a class="button button--light button--light--small">
-                    <span class="material-symbols-outlined symbols-btngrp">format_italic</span>
-                </a>
-                <a class="button button--light button--light--small">
-                    <span class="material-symbols-outlined symbols-btngrp">format_underlined</span>
-                </a>
-                <a class="button button--light button--light--small">
-                    <span class="material-symbols-outlined symbols-btngrp">strikethrough_s</span>
-                </a>
-                <a class="button button--light button--light--small">
-                    <span class="material-symbols-outlined symbols-btngrp">superscript</span>
-                </a>
-                <a class="button button--light button--light--small">
-                    <span class="material-symbols-outlined symbols-btngrp">format_h1</span>
-                </a>
-                <a class="button button--light button--light--small">
-                    <span class="material-symbols-outlined symbols-btngrp">code</span>
-                </a>
-                <a class="button button--light button--light--small">
-                    <span class="material-symbols-outlined symbols-btngrp">list</span>
-                </a>
-                <a class="button button--light button--light--small">
-                    <span class="material-symbols-outlined symbols-btngrp">format_list_numbered</span>
-                </a>
-                <a class="button button--light button--light--small">
-                    <span class="material-symbols-outlined symbols-btngrp">alternate_email</span>
-                </a>
-                <a class="button button--light button--light--small">
-                    <span class="material-symbols-outlined symbols-btngrp">attach_file</span>
-                </a>
-                <a class="button button--light button--light--small">
-                    <span class="material-symbols-outlined symbols-btngrp">link</span>
-                </a>
-                <a class="button button--light button--light--small">
-                    <span class="material-symbols-outlined symbols-btngrp">warning</span>
-                </a>
-            </div>
-            <input type="textarea" name="bio" class="editor__box" value="{{user.bio}}" form="profile-editor" />
+        <div class="advsearch__component hidden" id="pfp-url">
+            <label class="advsearch__label">Profile image URL</label>
+            <input type="text" class="advsearch__input" placeholder="Enter a URL..."/>
         </div>
+
+        <input type="text" name="name"  placeholder={{user.name}} class="profile__text edit__username" form="profile-editor" required="true"/>
+
+        {{> editor
+            id="profile-editor"
+            action="/profile/edit"
+            value=user.bio
+            method="post"
+            hide_submit=true}}
         
         <div class="profile__buttons" >
-            <button class="button button--light" onclick="document.getElementById('profile-editor').submit();">
+            <button type="submit" class="button button--light" form="profile-editor">
                 <span class="material-symbols-outlined">save</span>
                 <ruby>Save<rt>セーブ</rt></ruby>
             </button>
