@@ -4,9 +4,9 @@
         <div class="profile__header">
             <div class="profile__details">
                 <img class="profile__pfp" src={{user.pfp}} />
-                <article>
+                <article class="article">
                     <h1 class="profile__username">{{user.name}}</h1>
-                    <p>{{user.bio}}</p>
+                    {{{markdown user.bio}}}
                 </article>
             </div>
             <a class="button button--light profile__button" href="/profile/edit">

@@ -11,7 +11,7 @@ import eq from "../helpers/strict_equality.js";
 /* Middleware */
 import get_active_user from "../middlewares/get_active_user.js";
 import { get_thread_comments } from "../middlewares/get_comments.js";
-import { get_threads } from "../middlewares/get_threads.js";
+import { get_threads, get_top_threads } from "../middlewares/get_threads.js";
 
 const router = express.Router();
 
@@ -20,10 +20,11 @@ router.get(
     /* TODO: Replace this with session middleware */
     get_active_user /* Gets the current active user */,
     get_threads /* Fetches thread list */,
+    get_top_threads,
     (req, res) => {
         res.render("profile", {
             layout: "forum",
-            helpers: { format_date, eq },
+            helpers: { format_date, eq, markdown },
         });
     }
 );
