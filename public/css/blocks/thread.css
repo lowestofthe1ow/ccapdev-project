@@ -82,3 +82,13 @@
     flex-direction: column;
     gap: 5px;
 }
+
+.thread__author_pfp{
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+}
+
+img.thread__author_pfp{
+    object-fit: cover;
+}

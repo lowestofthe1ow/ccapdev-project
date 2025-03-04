@@ -15,8 +15,6 @@ export const get_threads = async (req, res, next) => {
         const { search, tags = "", games = "", start_date, end_date, author_name, sort, page } = req.query;
         const _threads = req.app.get("db").collection("threads");
 
-        console.log(req.query);
-
         const actPage = !page || isNaN(parseInt(page)) ? 1 : Math.max(1, parseInt(page));
         const limit = 10; /* TODO IMPORTANT: CHANGE THIS TO 10 OR SOMETHING */
         const skip = (actPage - 1) * limit;
