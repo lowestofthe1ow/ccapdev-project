@@ -1,4 +1,5 @@
 import express from "express";
+import { ObjectId } from "mongodb";
 
 /* Helpers */
 import check_depth from "../helpers/check_depth.js";
@@ -83,6 +84,35 @@ router.post(
 
         res.redirect(`/profile/edit`);
     }
+);
+
+router.post(
+    "/delete",
+    /* TODO: Replace this with session middleware */
+    get_active_user /* Gets the current active user */,
+    async (req, res) => {
+
+        try {
+        const users = req.app.get("db").collection("users");
+
+        await users.updateOne(
+            { _id: new ObjectId(req.session.user_id) },
+            {
+                $set: { deleted: true,
+                    name: null,
+                 }, // Soft delete user
+                
+            }
+        );
+
+        req.session.destroy(() => {
+            res.redirect("/");
+        });
+    }catch (error) {
+        console.error("Error deleting user:", error);
+        res.status(500).send("Internal Server Error");
+    }
+}
 );
 
 export default router;

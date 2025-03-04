@@ -21,11 +21,15 @@ router.post(
 
         if (!existing_user) {
             throw new Error("No such user exists");
-        } else {
-            /* Genuinely I have no idea how to best pass this along the chain so lol */
-            req.body.found_user = existing_user;
-            return true;
+        } 
+        
+        if (existing_user.deleted){
+            throw new Error("User has been deleted");
         }
+
+        /* Genuinely I have no idea how to best pass this along the chain so lol */
+        req.body.found_user = existing_user;
+        return true;
     }),
 
     /* Ensure the password is valid */
