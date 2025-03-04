@@ -1,4 +1,5 @@
 import express from "express";
+import { body } from "express-validator";
 
 /* Helpers */
 import check_depth from "../helpers/check_depth.js";
@@ -12,6 +13,8 @@ import eq from "../helpers/strict_equality.js";
 import get_active_user from "../middlewares/get_active_user.js";
 import { get_thread_comments } from "../middlewares/get_comments.js";
 import { get_threads } from "../middlewares/get_threads.js";
+import { get_upvoted_threads } from "../middlewares/get_threads.js";
+import check_form_errors from "../middlewares/check_form_errors.js";
 
 const router = express.Router();
 
@@ -49,8 +52,9 @@ router.get(
 
 router.get(
     "/upvoted",
-    get_threads /* TODO: Replace this with session middleware */,
+    /* TODO: Replace this with session middleware */
     get_active_user /* Gets the current active user */,
+    get_upvoted_threads,
     (req, res) => {
         res.render("pfupvoted", {
             layout: "forum",
@@ -74,6 +78,20 @@ router.post(
     "/edit",
     /* TODO: Replace this with session middleware */
     get_active_user /* Gets the current active user */,
+    body("name").custom(async (username, { req }) => {
+        let existing_user = await req.app.get("db").collection("users").findOne({
+            name: username,
+        });
+
+        if (existing_user) {
+            throw new Error("Username already in use");
+        } else {
+            return true;
+        }
+    }),
+
+    check_form_errors,
+
     async (req, res) => {
         console.log("help");
 
@@ -105,7 +123,7 @@ router.post(
         }
 
         res.redirect(`/profile/edit`);
-    }
+    },
 );
 
 export default router;
