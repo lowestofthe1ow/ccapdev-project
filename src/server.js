@@ -27,15 +27,18 @@ app.use(cookieParser());
 /* Setting up session */
 app.use(session({
     secret: process.env.SESSION_SECRET,
-    resave: false,
+    resave: true,
     saveUninitialized: false,
     /* WARNING: DO NOT EVER SET SECURE TO TRUE, NEEDS HTTPS */
     /* TODO: Make the server use https */
+    rolling: true,
     store: MongoStore.create({
         mongoUrl: process.env.MONGODB_URI + process.env.MONGODB_DBNAME,
-        ttl:  1 * 60 * 60,  
+        autoRemove: "interval",
+        autoRemoveInterval: 10,
+        ttl: 60 * 30, /* TODO: ASK SIR WHAT'S THE DEFAULT TIME TO LIVE */ /* Set to 30 mins */
     }),
-    cookie: { httpOnly: true, secure: false, maxAge: 1 * 60 * 60 * 1000},
+    cookie: { httpOnly: true, secure: false, maxAge: null},
   }));
 
 

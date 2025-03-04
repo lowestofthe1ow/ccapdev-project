@@ -165,7 +165,7 @@ router.post(
 
         const updatedItem = await _collection.findOne({ _id: item._id }, { projection: { vote_count: 1 } });
 
-        res.json({ newVoteCount: updatedItem.vote_count });
+        res.json({ success: true, newVoteCount: updatedItem.vote_count });
     }
 );
 
