@@ -214,56 +214,12 @@ export async function get_thread(req, res, next) {
 export const get_user_threads = async (req, res, next) => {
     try {
         /** If we are planning to add exclude, ggez*/
-        const { search, tags = "", games = "", start_date, end_date, author_name, sort, page } = req.query;
+        const { sort, page } = req.query;
         const _threads = req.app.get("db").collection("threads");
-
-        console.log(req.query);
 
         const actPage = !page || isNaN(parseInt(page)) ? 1 : Math.max(1, parseInt(page));
         const limit = 10; /* TODO IMPORTANT: CHANGE THIS TO 10 OR SOMETHING */
         const skip = (actPage - 1) * limit;
-        if (tags || games || start_date || end_date || author_name || sort) {
-            res.locals.show_search = true;
-        }
-
-        res.locals.search = search;
-        res.locals.start_date = start_date;
-        res.locals.end_date = end_date;
-        res.locals.author = author_name;
-        res.locals.sort = [false, false, false, false];
-        res.locals.sort[sort ? sort : 0] = true;
-
-        const parsedTags = tags ? tags.split("|").map((tag) => decodeURIComponent(tag).replace(/^#/, "")) : [];
-        const parsedGames = games ? games.split("|").map((tag) => decodeURIComponent(tag)) : [];
-
-        res.locals.tags = parsedTags;
-        res.locals.games = parsedGames;
-
-        /**TODO: Get timezone from client and use that to offset a THIS somehow  */
-        const localToUTC = (date, hours, minutes, seconds, milliseconds) => {
-            if (!date) return null;
-
-            let newDate = new Date(date);
-            newDate.setHours(hours, minutes, seconds, milliseconds);
-
-            return newDate;
-        };
-
-        const adjustedStartDate = localToUTC(start_date, 0, 0, 0, 0);
-        const adjustedEndDate = localToUTC(end_date, 23, 59, 59, 999);
-        /**TODO: author name is id now, change it somehow */
-        const notSort = {
-            ...(search && {
-                $or: [{ title: { $regex: search, $options: "i" } }, { content: { $regex: search, $options: "i" } }],
-            }),
-            ...(parsedTags.length && { tags: { $in: parsedTags } }),
-            ...(parsedGames.length && { games: { $in: parsedGames } }),
-            ...(adjustedStartDate && { created: { $gte: adjustedStartDate } }),
-            ...(adjustedEndDate && { created: { $lte: adjustedEndDate } }),
-            ...(adjustedStartDate &&
-                adjustedEndDate && { created: { $gte: adjustedStartDate, $lte: adjustedEndDate } }),
-            ...(author_name && { "author_data.name": { $regex: author_name, $options: "i" } }),
-        };
 
         const sortOptions = {
             0: { created: -1 },
@@ -291,7 +247,7 @@ export const get_user_threads = async (req, res, next) => {
                     preserveNullAndEmptyArrays: true,
                 },
             },
-            { $match: { ...notSort, deleted: { $ne: true }, author: req.params.user_id } }, // Hide deleted posts from results
+            { $match: { deleted: { $ne: true }, "author": new ObjectId(req.params.user_id) } }, 
             ...theSort,
             {
                 $facet: {
@@ -307,6 +263,7 @@ export const get_user_threads = async (req, res, next) => {
         const totalPages = Math.ceil(totalThreads / limit); /** Is this floor or ceiling */
         const userthreads = result[0].data;
         const breadcrumbNumbers = getPaginationNumbers(actPage, totalPages);
+
         /** MAYBE THERE'S A BETTER WAY, TOMORROW 03/03/2025 - RED WILL SHRINK THIS MFING CODE */
         res.locals.userthreads = userthreads;
         res.locals.breadcrumb_number = breadcrumbNumbers;
