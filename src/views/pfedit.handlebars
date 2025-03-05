@@ -38,7 +38,7 @@
 
         {{> editor
             id="profile-editor"
-            action="/profile/edit"
+            action="/profile/edit/{{user._id}}"
             value=user.bio
             method="post"
             hide_submit=true}}
@@ -48,12 +48,13 @@
                 <span class="material-symbols-outlined">save</span>
                 <ruby>Save<rt>セーブ</rt></ruby>
             </button>
-            <a class="button button--light" href="/profile">
+            <a class="button button--light" href="/profile/{{user._id}}">
                 <span class="material-symbols-outlined">cancel</span>
                 <ruby>Cancel<rt>キャンセル</rt></ruby>
             </a>
         </div>
     </div>
+    <div class="errormsg hidden"></div>
 </div>
 
 <div class="profile__buttons" style="align-self: end;">
@@ -62,3 +63,5 @@
         <ruby>Delete account<rt>アカウントを削除する</rt></ruby>
     </a>
 </div>
+
+<script src="/js/edit.js"></script>

@@ -28,6 +28,7 @@ router.get(
     get_threads /* Get thread list */,
     get_top_threads,
     get_game_data,
+    get_active_user,
 
     (req, res) => {
         res.render("threads", {

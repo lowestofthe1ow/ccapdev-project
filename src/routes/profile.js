@@ -1,3 +1,5 @@
+import { ObjectId } from "mongodb";
+
 import express from "express";
 import { body } from "express-validator";
 
@@ -11,31 +13,39 @@ import eq from "../helpers/strict_equality.js";
 
 /* Middleware */
 import get_active_user from "../middlewares/get_active_user.js";
+import get_visited_user from "../middlewares/get_visited_user.js";
 import { get_thread_comments } from "../middlewares/get_comments.js";
 import { get_threads } from "../middlewares/get_threads.js";
 import { get_upvoted_threads } from "../middlewares/get_threads.js";
+import { get_user_threads } from "../middlewares/get_threads.js";
 import check_form_errors from "../middlewares/check_form_errors.js";
 
 const router = express.Router();
 
 router.get(
-    "/",
+    "/:user_id",
     /* TODO: Replace this with session middleware */
-    get_active_user /* Gets the current active user */,
-    get_threads /* Fetches thread list */,
-    (req, res) => {
+    get_visited_user,
+    get_user_threads /* Fetches thread list */,
+    async (req, res) => {
         res.render("profile", {
             layout: "forum",
             helpers: { format_date, eq },
+            visiteduser: await req.app
+                    .get("db")
+                    .collection("users")
+                    .findOne({
+                        _id: new ObjectId(req.params.user_id)
+                    })
         });
     }
 );
 
 router.get(
-    "/comments",
+    "/comments/:user_id",
     /* TODO: Replace this with session middleware */
-    get_active_user /* Gets the current active user */,
-    (req, res) => {
+    get_visited_user /* Gets the visited user */,
+    async (req, res) => {
         res.render("pfcomments", {
             layout: "forum",
             helpers: {
@@ -46,27 +56,39 @@ router.get(
                 markdown,
                 eq,
             },
+            visiteduser: await req.app
+                    .get("db")
+                    .collection("users")
+                    .findOne({
+                        _id: new ObjectId(req.params.user_id)
+                    })
         });
     }
 );
 
 router.get(
-    "/upvoted",
+    "/upvoted/:user_id",
     /* TODO: Replace this with session middleware */
-    get_active_user /* Gets the current active user */,
-    get_upvoted_threads,
-    (req, res) => {
+    get_visited_user,
+    get_upvoted_threads /* Fetches thread list */,
+    async (req, res) => {
         res.render("pfupvoted", {
             layout: "forum",
             helpers: { format_date, eq },
+            visiteduser: await req.app
+                    .get("db")
+                    .collection("users")
+                    .findOne({
+                        _id: new ObjectId(req.params.user_id)
+                    })
         });
     }
 );
 
 router.get(
-    "/edit",
+    "/edit/:user_id",
     /* TODO: Replace this with session middleware */
-    get_active_user /* Gets the current active user */,
+    get_active_user /* Gets the visited user */,
     (req, res) => {
         res.render("pfedit", {
             layout: "forum",
@@ -75,9 +97,9 @@ router.get(
 );
 
 router.post(
-    "/edit",
+    "/edit/:user_id",
     /* TODO: Replace this with session middleware */
-    get_active_user /* Gets the current active user */,
+    get_active_user /* Gets the visited user */,
     body("name").custom(async (username, { req }) => {
         let existing_user = await req.app.get("db").collection("users").findOne({
             name: username,
@@ -122,7 +144,7 @@ router.post(
                                                                     } });
         }
 
-        res.redirect(`/profile/edit`);
+        res.json({ success: true, redirectUrl: "/profile/:user_id" });
     },
 );
 
