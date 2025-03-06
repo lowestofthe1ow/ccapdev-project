@@ -29,7 +29,9 @@ window.addEventListener("load", async () => {
         } else {
             errorDiv.textContent = result.message;
             errorDiv.classList.remove("hidden");
-            window.location.href = result.redirectUrl;
+            if(result.redirectUrl){
+                window.location.href = result.redirectUrl;
+            }
         }
     });
 });

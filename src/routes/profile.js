@@ -22,72 +22,10 @@ import check_form_errors from "../middlewares/check_form_errors.js";
 
 const router = express.Router();
 
+/* DO NOT MOVE THIS BELOW /:user-id, cause :user-id takes in any string
+/* /edit is only shown for the active user, no longer needs /:user-id */
 router.get(
-    "/:user_id",
-    /* TODO: Replace this with session middleware */
-    get_visited_user,
-    check_user,
-    get_user_threads /* Fetches thread list */,
-    async (req, res) => {
-        res.render("profile", {
-            layout: "forum",
-            helpers: { format_date, eq },
-            visiteduser: await req.app
-                    .get("db")
-                    .collection("users")
-                    .findOne({
-                        _id: new ObjectId(req.params.user_id)
-                    }),
-        });
-    }
-);
-
-router.get(
-    "/comments/:user_id",
-    /* TODO: Replace this with session middleware */
-    get_visited_user /* Gets the visited user */,
-    async (req, res) => {
-        res.render("pfcomments", {
-            layout: "forum",
-            helpers: {
-                check_depth,
-                check_id,
-                concat,
-                format_date,
-                markdown,
-                eq,
-            },
-            visiteduser: await req.app
-                    .get("db")
-                    .collection("users")
-                    .findOne({
-                        _id: new ObjectId(req.params.user_id)
-                    })
-        });
-    }
-);
-
-router.get(
-    "/upvoted/:user_id",
-    /* TODO: Replace this with session middleware */
-    get_visited_user,
-    get_upvoted_threads /* Fetches thread list */,
-    async (req, res) => {
-        res.render("pfupvoted", {
-            layout: "forum",
-            helpers: { format_date, eq },
-            visiteduser: await req.app
-                    .get("db")
-                    .collection("users")
-                    .findOne({
-                        _id: new ObjectId(req.params.user_id)
-                    })
-        });
-    }
-);
-
-router.get(
-    "/edit/:user_id",
+    "/edit",
     /* TODO: Replace this with session middleware */
     get_active_user /* Gets the visited user */,
     (req, res) => {
@@ -98,7 +36,7 @@ router.get(
 );
 
 router.post(
-    "/edit/:user_id",
+    "/edit",
     /* TODO: Replace this with session middleware */
     get_active_user /* Gets the visited user */,
     body("name").custom(async (username, { req }) => {
@@ -145,8 +83,74 @@ router.post(
                                                                     } });
         }
 
-        res.json({ success: true, redirectUrl: "/profile/edit/:user_id" });
+        res.json({ success: true, redirectUrl: "/profile/edit" });
     },
 );
+/* --------------------------------------- */
+
+router.get(
+    "/:user_id",
+    /* TODO: Replace this with session middleware */
+    get_visited_user,
+    check_user,
+    get_user_threads /* Fetches thread list */,
+    async (req, res) => {
+        res.render("profile", {
+            layout: "forum",
+            helpers: { format_date, eq },
+            visiteduser: await req.app
+                    .get("db")
+                    .collection("users")
+                    .findOne({
+                        _id: new ObjectId(req.params.user_id)
+                    }),
+        });
+    }
+);
+/* suggestion, /:user_id/comments */
+router.get(
+    "/comments/:user_id",
+    /* TODO: Replace this with session middleware */
+    get_visited_user /* Gets the visited user */,
+    async (req, res) => {
+        res.render("pfcomments", {
+            layout: "forum",
+            helpers: {
+                check_depth,
+                check_id,
+                concat,
+                format_date,
+                markdown,
+                eq,
+            },
+            visiteduser: await req.app
+                    .get("db")
+                    .collection("users")
+                    .findOne({
+                        _id: new ObjectId(req.params.user_id)
+                    })
+        });
+    }
+);
+
+router.get(
+    "/upvoted/:user_id",
+    /* TODO: Replace this with session middleware */
+    get_visited_user,
+    get_upvoted_threads /* Fetches thread list */,
+    async (req, res) => {
+        res.render("pfupvoted", {
+            layout: "forum",
+            helpers: { format_date, eq },
+            visiteduser: await req.app
+                    .get("db")
+                    .collection("users")
+                    .findOne({
+                        _id: new ObjectId(req.params.user_id)
+                    })
+        });
+    }
+);
+
 
 export default router;
