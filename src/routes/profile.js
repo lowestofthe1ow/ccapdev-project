@@ -113,7 +113,7 @@ router.get(
     get_ads,
     get_user_comments,
     async (req, res) => {
-        res.render("pfcomments", {
+        res.render("profile_comments", {
             layout: "forum",
             helpers: {
                 check_depth,
@@ -167,7 +167,7 @@ router.get(
     get_ads,
     get_upvoted_threads /* Fetches thread list */,
     async (req, res) => {
-        res.render("pfupvoted", {
+        res.render("profile_upvoted", {
             layout: "forum",
             helpers: { format_date, eq, markdown },
             visiteduser: await req.app
