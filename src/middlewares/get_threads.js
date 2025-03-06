@@ -208,3 +208,142 @@ export async function get_thread(req, res, next) {
         console.error(error);
     }
 }
+
+export const get_user_threads = async (req, res, next) => {
+    try {
+        /** If we are planning to add exclude, ggez*/
+        const { sort, page } = req.query;
+        const _threads = req.app.get("db").collection("threads");
+
+        const actPage = !page || isNaN(parseInt(page)) ? 1 : Math.max(1, parseInt(page));
+        const limit = 10; /* TODO IMPORTANT: CHANGE THIS TO 10 OR SOMETHING */
+        const skip = (actPage - 1) * limit;
+
+        const sortOptions = {
+            0: { created: -1 },
+            1: { created: 1 },
+            2: { vote_count: -1 },
+            3: { vote_count: 1 },
+        };
+
+        const theSort = sortOptions.hasOwnProperty(sort)
+            ? [{ $sort: sortOptions[sort] }]
+            : [{ $sort: { created: -1 } }];
+
+        const pipeline = [
+            {
+                $lookup: {
+                    from: "users",
+                    localField: "author",
+                    foreignField: "_id",
+                    as: "author_data",
+                },
+            },
+            {
+                $unwind: {
+                    path: "$author_data",
+                    preserveNullAndEmptyArrays: true,
+                },
+            },
+            { $match: { deleted: { $ne: true }, "author": new ObjectId(req.params.user_id) } }, 
+            ...theSort,
+            {
+                $facet: {
+                    metadata: [{ $count: "total" }],
+                    data: [{ $skip: skip }, { $limit: limit }],
+                },
+            },
+        ];
+        /* TODO: Pagination */
+        const result = await _threads.aggregate(pipeline).toArray();
+
+        const totalThreads = result[0].metadata.length > 0 ? result[0].metadata[0].total : 0;
+        const totalPages = Math.ceil(totalThreads / limit); /** Is this floor or ceiling */
+        const userthreads = result[0].data;
+        const breadcrumbNumbers = getPaginationNumbers(actPage, totalPages);
+
+        /** MAYBE THERE'S A BETTER WAY, TOMORROW 03/03/2025 - RED WILL SHRINK THIS MFING CODE */
+        res.locals.userthreads = userthreads;
+        res.locals.breadcrumb_number = breadcrumbNumbers;
+        res.locals.currentPage = actPage;
+        res.locals.totalPages = totalPages;
+        res.locals.nextPage = actPage + 1;
+        res.locals.prevPage = actPage - 1;
+        res.locals.showBreadCrumbs = totalThreads > limit;
+        next();
+    } catch (error) {
+        console.error(error);
+        next(error);
+    }
+};
+
+export const get_upvoted_threads = async (req, res, next) => {
+    try {
+        /** If we are planning to add exclude, ggez*/
+        const { sort, page } = req.query;
+        const _threads = req.app.get("db").collection("threads");
+
+        const actPage = !page || isNaN(parseInt(page)) ? 1 : Math.max(1, parseInt(page));
+        const limit = 10; /* TODO IMPORTANT: CHANGE THIS TO 10 OR SOMETHING */
+        const skip = (actPage - 1) * limit;
+
+        const sortOptions = {
+            0: { created: -1 },
+            1: { created: 1 },
+            2: { vote_count: -1 },
+            3: { vote_count: 1 },
+        };
+
+        const theSort = sortOptions.hasOwnProperty(sort)
+            ? [{ $sort: sortOptions[sort] }]
+            : [{ $sort: { created: -1 } }];
+
+        const pipeline = [
+            {
+                $lookup: {
+                    from: "users",
+                    localField: "author",
+                    foreignField: "_id",
+                    as: "user_data",
+                },
+            },
+            {
+                $unwind: "$user_data"
+            },
+            { $match: {
+                "user_data._id": new ObjectId("67a76737da6e0d3897d8e15d"),
+                "user_data.thread_vote_list": {
+                  $in: [1]
+                    }
+                }
+            },
+            ...theSort,
+            {
+                $facet: {
+                    metadata: [{ $count: "total" }],
+                    data: [{ $skip: skip }, { $limit: limit }],
+                },
+            },
+        ];
+        /* TODO: Pagination */
+        const result = await _threads.aggregate(pipeline).toArray();
+
+        const totalThreads = result[0].metadata.length > 0 ? result[0].metadata[0].total : 0;
+        const totalPages = Math.ceil(totalThreads / limit); /** Is this floor or ceiling */
+        const upvoted = result[0].data;
+        const breadcrumbNumbers = getPaginationNumbers(actPage, totalPages);
+
+        /** MAYBE THERE'S A BETTER WAY, TOMORROW 03/03/2025 - RED WILL SHRINK THIS MFING CODE */
+        res.locals.upvoted = upvoted;
+        res.locals.breadcrumb_number = breadcrumbNumbers;
+        res.locals.currentPage = actPage;
+        res.locals.totalPages = totalPages;
+        res.locals.nextPage = actPage + 1;
+        res.locals.prevPage = actPage - 1;
+        res.locals.showBreadCrumbs = totalThreads > limit;
+        next();
+    } catch (error) {
+        console.error(error);
+        next(error);
+    }
+};

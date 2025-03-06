@@ -10,7 +10,6 @@ import is_author from "../helpers/is_author.js";
 import markdown from "../helpers/markdown.js";
 import eq from "../helpers/strict_equality.js";
 
-
 /* Middleware */
 import thread_comment from "../controllers/thread_comment.js";
 import get_active_user from "../middlewares/get_active_user.js";
@@ -18,7 +17,7 @@ import { get_comment_count, get_comment_replies, get_thread_comments } from "../
 import { get_game_data } from "../middlewares/get_games.js";
 import { get_thread, get_threads, get_top_threads } from "../middlewares/get_threads.js";
 import let_guest_through from "../middlewares/let_guest_through.js";
-import  get_ads  from "../middlewares/get_ads.js";
+import get_ads from "../middlewares/get_ads.js";
 
 const router = express.Router();
 
@@ -30,6 +29,7 @@ router.get(
     get_top_threads,
     get_game_data,
     get_ads,
+    get_active_user,
 
     (req, res) => {
         res.render("threads", {

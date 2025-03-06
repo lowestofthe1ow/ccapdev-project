@@ -1,6 +1,4 @@
 <div class="profile">
-    
-
     <!-- Setting background image is a temporary solution. Probably better to use an <img> element fixed
     behind a div -->
     <div class="profile__banner--edit" style="background-image: url({{user.banner}});">
@@ -36,7 +34,7 @@
             <input type="text" name="pfp" class="advsearch__input" placeholder="Enter a URL..." form="profile-editor" />
         </div>
 
-        <input type="text" name="name"  placeholder={{user.name}} class="profile__text edit__username" form="profile-editor" minlength="8" required="true"/>
+        <input type="text" name="name" placeholder={{user.name}} class="profile__text edit__username" form="profile-editor" minlength="8" required="true"/>
 
         {{> editor
             id="profile-editor"
@@ -50,12 +48,13 @@
                 <span class="material-symbols-outlined">save</span>
                 <ruby>Save<rt>セーブ</rt></ruby>
             </button>
-            <a class="button button--light" href="/profile">
+            <a class="button button--light" href="/profile/{{user._id}}">
                 <span class="material-symbols-outlined">cancel</span>
                 <ruby>Cancel<rt>キャンセル</rt></ruby>
             </a>
         </div>
     </div>
+    <div class="errormsg hidden"></div>
 </div>
 
 <div class="profile__buttons" style="align-self: end;">
@@ -75,3 +74,5 @@
     method = "POST"
     hidden = true
 }}
+
+<script src="/js/edit.js"></script>

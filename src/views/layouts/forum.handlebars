@@ -31,7 +31,7 @@
                 </a>
                 {{> search}}
                 {{#if user}}
-                <a class="button button--light" href="/profile">
+                <a class="button button--light" href="/profile/{{user._id}}" >
                     <img src="{{user.pfp}}" class="navbar__icon"/>
                     <ruby>Profile<rt>プロフィール</rt></ruby>
                 </a>

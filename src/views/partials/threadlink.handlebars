@@ -69,8 +69,8 @@
         <div class="thread__meta">
             <div class="thread__meta">
                 {{#unless deleted}}
-                <img src="{{author_data.pfp}}"  class="thread__author_pfp"/>
-                <p class="thread__detail">Posted by <strong>{{author_data.name}}</strong>・{{format_date created}} {{#if edited}} (edited {{format_date edited}}){{/if}}</p>
+                <img src="{{author_data.pfp}}" style="height: 20px; border-radius: 20px;"/>
+                <p class="thread__detail">Posted by <a href="/profile/{{author_data._id}}"> <strong>{{author_data.name}}</strong> </a>・{{format_date created}} {{#if edited}} (edited {{format_date edited}}){{/if}}</p>
                 {{/unless}}
             </div>
         </div>

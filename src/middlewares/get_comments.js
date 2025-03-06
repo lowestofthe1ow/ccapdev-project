@@ -226,3 +226,48 @@ export async function get_comment_count(req, res, next) {
 
     next();
 }
+
+export async function get_user_comments(req, res, next) {
+    try {
+        /* Fetch comments from database */
+        const { page } = req.query;
+        const limit = 5;
+        const actPage = (!page || isNaN(parseInt(page))) ? 1 : Math.max(1, parseInt(page));
+        const skip = (actPage - 1) * limit;
+        let _comments = req.app.get("db").collection("comments");
+        let comments = await _comments
+            .aggregate(
+                [
+                    {
+                        $match: {
+                            "author": new ObjectId(req.params.user_id),
+                        },
+                    },
+                ].concat(pipeline).concat({
+                    $facet: {
+                        metadata: [{ $count: "total" }],
+                        data: [{ $skip: skip }, { $limit: limit }],
+                    },
+                    }
+                )
+            )
+            .toArray(); /* toArray() "converts" aggregate() return value to a Promise */
+
+        /* Append to request object */
+        const totalComments = comments[0].metadata.length > 0 ? comments[0].metadata[0].total : 0;
+        const totalPages = Math.ceil(totalComments / limit); /** Is this floor or ceiling */
+        const result = comments[0].data;
+        const breadcrumbNumbers = getPaginationNumbers(actPage, totalPages);
+        /** MAYBE THERE'S A BETTER WAY, TOMORROW 03/03/2025 - RED WILL SHRINK THIS MFING CODE */
+        res.locals.comments = result;
+        res.locals.breadcrumb_number = breadcrumbNumbers;
+        res.locals.currentPage = actPage;
+        res.locals.totalPages = totalPages;
+        res.locals.nextPage = actPage+1;
+        res.locals.prevPage = actPage-1;;
+        res.locals.showBreadCrumbs = totalComments > limit;
+        next();
+    } catch (error) {
+        console.error(error);
+    }
+}

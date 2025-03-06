@@ -1,7 +1,7 @@
 import { ObjectId } from "mongodb";
 
 export default async (req, res, next) => {
-    /* To check if session exists, if not go to sign in*/
+/* To check if session exists, if not go to sign in*/
     if (!req.session || !req.session.user_id) {
         if (req.accepts("html")) {
             return req.session.destroy(() => res.redirect("/signin"));
