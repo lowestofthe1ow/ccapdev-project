@@ -300,33 +300,25 @@ export const get_upvoted_threads = async (req, res, next) => {
             ? [{ $sort: sortOptions[sort] }]
             : [{ $sort: { created: -1 } }];
 
+        const user_thread_vote_list = await req.app.get("db").collection("users").findOne(
+            { _id: new ObjectId(req.params.user_id) },
+            { projection: { thread_vote_list: 1 } }
+            );
+
+        const upvotedThreadIds = Object.keys(user_thread_vote_list.thread_vote_list)
+        .filter(threadId => user_thread_vote_list.thread_vote_list[threadId] === 1)
+        .map(threadId => new ObjectId(threadId));
+
         const pipeline = [
-            {
-                $lookup: {
-                    from: "users",
-                    localField: "author",
-                    foreignField: "_id",
-                    as: "user_data",
-                },
-            },
-            {
-                $unwind: "$user_data"
-            },
-            { $match: {
-                "user_data._id": new ObjectId("67a76737da6e0d3897d8e15d"),
-                "user_data.thread_vote_list": {
-                  $in: [1]
-                    }
-                }
-            },
+            { $match: { _id: { $in: upvotedThreadIds } } },
             ...theSort,
             {
-                $facet: {
-                    metadata: [{ $count: "total" }],
-                    data: [{ $skip: skip }, { $limit: limit }],
-                },
-            },
-        ];
+              $facet: {
+                metadata: [{ $count: "total" }],
+                data: [{ $skip: skip }, { $limit: limit }]
+              }
+            }
+          ];
         /* TODO: Pagination */
         const result = await _threads.aggregate(pipeline).toArray();
 
