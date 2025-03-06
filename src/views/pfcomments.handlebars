@@ -9,14 +9,16 @@
                     <p>{{visiteduser.bio}}</p>
                 </article>
             </div>
-            <a class="button button--light profile__button" href="/profile/edit/{{visiteduser._id}}">
-                <span class="material-symbols-outlined">edit</span>
-                <ruby>Edit profile<rt>サインアウト</rt></ruby>
-            </a>
-            <a class="button button--light profile__button" href="/">
-                <span class="material-symbols-outlined">logout</span>
-                <ruby>Sign out<rt>サインアウト</rt></ruby>
-            </a>
+            {{#if show_edit}}
+                <a class="button button--light profile__button" href="/profile/edit/{{visiteduser._id}}">
+                    <span class="material-symbols-outlined">edit</span>
+                    <ruby>Edit profile<rt>サインアウト</rt></ruby>
+                </a>
+                <a class="button button--light profile__button" href="/">
+                    <span class="material-symbols-outlined">logout</span>
+                    <ruby>Sign out<rt>サインアウト</rt></ruby>
+                </a>
+            {{/if}}
         </div>
     </div>
 </div>

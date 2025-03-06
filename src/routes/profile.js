@@ -46,6 +46,7 @@ router.get(
     "/comments/:user_id",
     /* TODO: Replace this with session middleware */
     get_visited_user /* Gets the visited user */,
+    check_user,
     async (req, res) => {
         res.render("pfcomments", {
             layout: "forum",
@@ -71,6 +72,7 @@ router.get(
     "/upvoted/:user_id",
     /* TODO: Replace this with session middleware */
     get_visited_user,
+    check_user,
     get_upvoted_threads /* Fetches thread list */,
     async (req, res) => {
         res.render("pfupvoted", {

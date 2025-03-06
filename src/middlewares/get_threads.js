@@ -315,7 +315,11 @@ export const get_upvoted_threads = async (req, res, next) => {
                     preserveNullAndEmptyArrays: true,
                 },
             },
-            { $match: { deleted: { $ne: true }, "thread_vote_list": new ObjectId(req.params.user_id) } }, 
+            { $match: { deleted: { $ne: true },
+                "author_data._id": new ObjectId(req.params.user_id),
+                "author_data.thread_vote_list": { 
+                    $in: [1]
+                } } }, 
             ...theSort,
             {
                 $facet: {
