@@ -25,22 +25,23 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 /* Setting up session */
-app.use(session({
-    secret: process.env.SESSION_SECRET,
-    resave: true,
-    saveUninitialized: false,
-    /* WARNING: DO NOT EVER SET SECURE TO TRUE, NEEDS HTTPS */
-    /* TODO: Make the server use https */
-    rolling: true,
-    store: MongoStore.create({
-        mongoUrl: process.env.MONGODB_URI + process.env.MONGODB_DBNAME,
-        autoRemove: "interval",
-        autoRemoveInterval: 10,
-        ttl: 60 * 30, /* TODO: ASK SIR WHAT'S THE DEFAULT TIME TO LIVE */ /* Set to 30 mins */
-    }),
-    cookie: { httpOnly: true, secure: false, maxAge: null},
-  }));
-
+app.use(
+    session({
+        secret: process.env.SESSION_SECRET,
+        resave: true,
+        saveUninitialized: false,
+        /* WARNING: DO NOT EVER SET SECURE TO TRUE, NEEDS HTTPS */
+        /* TODO: Make the server use https */
+        rolling: true,
+        store: MongoStore.create({
+            mongoUrl: process.env.MONGODB_URI + process.env.MONGODB_DBNAME,
+            autoRemove: "interval",
+            autoRemoveInterval: 10,
+            ttl: 60 * 30 /* TODO: ASK SIR WHAT'S THE DEFAULT TIME TO LIVE */ /* Set to 30 mins */,
+        }),
+        cookie: { httpOnly: true, secure: false, maxAge: null },
+    })
+);
 
 /* Use the handlebars engine */
 app.engine("handlebars", engine());

@@ -34,9 +34,9 @@ router.get(
     (req, res) => {
         res.render("threads", {
             helpers: {
-                format_date,
                 check_id,
                 eq,
+                format_date,
             },
             layout: "forum",
             title: "Threads",
@@ -65,9 +65,9 @@ router.get(
                 check_depth,
                 check_id,
                 concat,
+                eq,
                 format_date,
                 markdown,
-                eq,
             },
             layout: "forum",
             title: res.locals.thread.title,

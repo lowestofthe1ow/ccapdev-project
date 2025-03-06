@@ -12,24 +12,26 @@ import markdown from "../helpers/markdown.js";
 import eq from "../helpers/strict_equality.js";
 
 /* Middleware */
-import get_active_user from "../middlewares/get_active_user.js";
-import get_visited_user from "../middlewares/get_visited_user.js";
-import check_user from "../middlewares/check_user.js";
-import { get_user_comments } from "../middlewares/get_comments.js";
-import { get_upvoted_threads } from "../middlewares/get_threads.js";
-import { get_user_threads } from "../middlewares/get_threads.js";
 import check_form_errors from "../middlewares/check_form_errors.js";
+import get_active_user from "../middlewares/get_active_user.js";
 import get_ads from "../middlewares/get_ads.js";
+import { get_user_comments } from "../middlewares/get_comments.js";
+import get_display_user from "../middlewares/get_display_user.js";
+import { get_upvoted_threads, get_user_threads } from "../middlewares/get_threads.js";
 
 const router = express.Router();
 
-/* DO NOT MOVE THIS BELOW /:user-id, cause :user-id takes in any string
-/* /edit is only shown for the active user, no longer needs /:user-id */
+/* Profile landing page (redirects to active user profile) */
+router.get("/", get_active_user, async (req, res) => {
+    res.redirect("/profile/" + res.locals.user._id);
+});
+
+/* Edit profile view (only for active user) */
 router.get(
     "/edit",
+    get_active_user /* Gets the active user */,
     get_ads,
-    /* TODO: Replace this with session middleware */
-    get_active_user /* Gets the visited user */,
+
     (req, res) => {
         res.render("pfedit", {
             layout: "forum",
@@ -37,10 +39,12 @@ router.get(
     }
 );
 
+/* Accept edit profile requests */
 router.post(
     "/edit",
-    /* TODO: Replace this with session middleware */
-    get_active_user /* Gets the visited user */,
+    get_active_user /* Gets the active user */,
+
+    /* Check if username already exists */
     body("name").custom(async (username, { req }) => {
         let existing_user = await req.app.get("db").collection("users").findOne({
             name: username,
@@ -53,7 +57,7 @@ router.post(
         }
     }),
 
-    check_form_errors,
+    check_form_errors /* Throw any errors */,
 
     async (req, res) => {
         console.log("help");
@@ -82,62 +86,80 @@ router.post(
         res.json({ success: true, redirectUrl: "/profile/edit" });
     }
 );
-/* --------------------------------------- */
 
+/* Visit a specific profile page */
 router.get(
     "/:user_id",
-    /* TODO: Replace this with session middleware */
-    get_visited_user,
-    check_user,
+    get_active_user,
+    get_display_user,
     get_ads,
     get_user_threads /* Fetches thread list */,
+
     async (req, res) => {
         res.render("profile", {
             layout: "forum",
-            helpers: { format_date, eq, markdown },
-            visiteduser: await req.app
-                .get("db")
-                .collection("users")
-                .findOne({
-                    _id: new ObjectId(req.params.user_id),
-                }),
+            show_edit: req.session.user_id == req.params.user_id,
+            helpers: {
+                eq,
+                format_date,
+                markdown,
+            },
         });
     }
 );
-/* suggestion, /:user_id/comments */
+
+/* Comments tab */
 router.get(
-    "/comments/:user_id",
-    /* TODO: Replace this with session middleware */
-    get_visited_user /* Gets the visited user */,
-    check_user,
+    "/:user_id/comments",
+    get_active_user /* Gets the visited user */,
+    get_display_user,
     get_ads,
     get_user_comments,
+
     async (req, res) => {
         res.render("profile_comments", {
             layout: "forum",
+            show_edit: req.session.user_id == req.params.user_id,
             helpers: {
                 check_depth,
                 check_id,
                 concat,
+                eq,
                 format_date,
                 markdown,
-                eq,
             },
-            visiteduser: await req.app
-                .get("db")
-                .collection("users")
-                .findOne({
-                    _id: new ObjectId(req.params.user_id),
-                }),
         });
     }
 );
 
+/* Upvoted tab */
+router.get(
+    "/:user_id/upvoted",
+    get_active_user,
+    get_display_user,
+    get_ads,
+    get_upvoted_threads /* Fetches thread list */,
+
+    async (req, res) => {
+        res.render("profile_upvoted", {
+            layout: "forum",
+            show_edit: req.session.user_id == req.params.user_id,
+            helpers: {
+                eq,
+                format_date,
+                markdown,
+            },
+        });
+    }
+);
+
+/* Handle deletes */
 router.post(
     "/delete",
-    /* TODO: Replace this with session middleware */
     get_active_user /* Gets the current active user */,
+    get_display_user,
     get_ads,
+
     async (req, res) => {
         try {
             const users = req.app.get("db").collection("users");
@@ -156,27 +178,6 @@ router.post(
             console.error("Error deleting user:", error);
             res.status(500).send("Internal Server Error");
         }
-    }
-);
-
-router.get(
-    "/upvoted/:user_id",
-    /* TODO: Replace this with session middleware */
-    get_visited_user,
-    check_user,
-    get_ads,
-    get_upvoted_threads /* Fetches thread list */,
-    async (req, res) => {
-        res.render("profile_upvoted", {
-            layout: "forum",
-            helpers: { format_date, eq, markdown },
-            visiteduser: await req.app
-                .get("db")
-                .collection("users")
-                .findOne({
-                    _id: new ObjectId(req.params.user_id),
-                }),
-        });
     }
 );
 

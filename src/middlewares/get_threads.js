@@ -245,7 +245,7 @@ export const get_user_threads = async (req, res, next) => {
                     preserveNullAndEmptyArrays: true,
                 },
             },
-            { $match: { deleted: { $ne: true }, "author": new ObjectId(req.params.user_id) } }, 
+            { $match: { deleted: { $ne: true }, author: new ObjectId(req.params.user_id) } },
             ...theSort,
             {
                 $facet: {
@@ -259,11 +259,11 @@ export const get_user_threads = async (req, res, next) => {
 
         const totalThreads = result[0].metadata.length > 0 ? result[0].metadata[0].total : 0;
         const totalPages = Math.ceil(totalThreads / limit); /** Is this floor or ceiling */
-        const userthreads = result[0].data;
+        const user_threads = result[0].data;
         const breadcrumbNumbers = getPaginationNumbers(actPage, totalPages);
 
         /** MAYBE THERE'S A BETTER WAY, TOMORROW 03/03/2025 - RED WILL SHRINK THIS MFING CODE */
-        res.locals.userthreads = userthreads;
+        res.locals.user_threads = user_threads;
         res.locals.breadcrumb_number = breadcrumbNumbers;
         res.locals.currentPage = actPage;
         res.locals.totalPages = totalPages;
@@ -298,25 +298,25 @@ export const get_upvoted_threads = async (req, res, next) => {
             ? [{ $sort: sortOptions[sort] }]
             : [{ $sort: { created: -1 } }];
 
-        const user_thread_vote_list = await req.app.get("db").collection("users").findOne(
-            { _id: new ObjectId(req.params.user_id) },
-            { projection: { thread_vote_list: 1 } }
-            );
+        const user_thread_vote_list = await req.app
+            .get("db")
+            .collection("users")
+            .findOne({ _id: new ObjectId(req.params.user_id) }, { projection: { thread_vote_list: 1 } });
 
         const upvotedThreadIds = Object.keys(user_thread_vote_list.thread_vote_list)
-        .filter(threadId => user_thread_vote_list.thread_vote_list[threadId] === 1)
-        .map(threadId => new ObjectId(threadId));
+            .filter((threadId) => user_thread_vote_list.thread_vote_list[threadId] === 1)
+            .map((threadId) => new ObjectId(threadId));
 
         const pipeline = [
             { $match: { _id: { $in: upvotedThreadIds } } },
             ...theSort,
             {
-              $facet: {
-                metadata: [{ $count: "total" }],
-                data: [{ $skip: skip }, { $limit: limit }]
-              }
-            }
-          ];
+                $facet: {
+                    metadata: [{ $count: "total" }],
+                    data: [{ $skip: skip }, { $limit: limit }],
+                },
+            },
+        ];
         /* TODO: Pagination */
         const result = await _threads.aggregate(pipeline).toArray();
 

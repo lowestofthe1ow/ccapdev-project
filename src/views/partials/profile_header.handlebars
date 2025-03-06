@@ -1,15 +1,15 @@
 <div class="profile">
-    <img class="profile__banner" src={{visiteduser.banner}} />
+    <img class="profile__banner" src={{display_user.banner}} />
     <div class="profile__content" style="gap: 10px;">
         <div class="profile__header">
             <div class="profile__details">
-                <img class="profile__pfp" src={{visiteduser.pfp}} />
+                <img class="profile__pfp" src={{display_user.pfp}} />
                 <article class="article">
-                    <h1 class="profile__username">{{visiteduser.name}}</h1>
-                    {{#if visiteduser.bio}}<p>{{{markdown visiteduser.bio}}}</p>{{/if}}
+                    <h1 class="profile__username">{{display_user.name}}</h1>
+                    {{#if display_user.bio}}<p>{{{markdown display_user.bio}}}</p>{{/if}}
                 </article>
             </div>
-            
+
             {{#if show_edit}}
                 <a class="button button--light profile__button" href="/profile/edit">
                     <span class="material-symbols-outlined">edit</span>

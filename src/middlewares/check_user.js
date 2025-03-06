@@ -1,9 +1,8 @@
 export default async (req, res, next) => {
     /* To check if session exists, if not go to sign in*/
-    if(req.session.user_id == req.params.user_id) {
+    if (req.session.user_id == req.params.user_id) {
         var show_edit = true;
-    }
-    else {
+    } else {
         var show_edit = false;
     }
 
@@ -17,7 +16,7 @@ export default async (req, res, next) => {
         if (req.accepts("html")) {
             return req.session.destroy(() => res.redirect("/signin"));
         } else {
-            return res.status(500).json({success: false, redirectUrl: "/signin",  error: "Internal Server Error" });
+            return res.status(500).json({ success: false, redirectUrl: "/signin", error: "Internal Server Error" });
         }
     }
 };
