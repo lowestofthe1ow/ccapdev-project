@@ -306,20 +306,19 @@ export const get_upvoted_threads = async (req, res, next) => {
                     from: "users",
                     localField: "author",
                     foreignField: "_id",
-                    as: "author_data",
+                    as: "user_data",
                 },
             },
             {
-                $unwind: {
-                    path: "$author_data",
-                    preserveNullAndEmptyArrays: true,
-                },
+                $unwind: "$user_data"
             },
-            { $match: { deleted: { $ne: true },
-                "author_data._id": new ObjectId(req.params.user_id),
-                "author_data.thread_vote_list": { 
-                    $in: [1]
-                } } }, 
+            { $match: {
+                "user_data._id": new ObjectId("67a76737da6e0d3897d8e15d"),
+                "user_data.thread_vote_list": {
+                  $in: [1]
+                    }
+                }
+            },
             ...theSort,
             {
                 $facet: {

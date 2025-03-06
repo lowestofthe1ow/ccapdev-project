@@ -15,7 +15,7 @@ import eq from "../helpers/strict_equality.js";
 import get_active_user from "../middlewares/get_active_user.js";
 import get_visited_user from "../middlewares/get_visited_user.js";
 import check_user from "../middlewares/check_user.js";
-import { get_thread_comments } from "../middlewares/get_comments.js";
+import { get_user_comments } from "../middlewares/get_comments.js";
 import { get_upvoted_threads } from "../middlewares/get_threads.js";
 import { get_user_threads } from "../middlewares/get_threads.js";
 import check_form_errors from "../middlewares/check_form_errors.js";
@@ -113,6 +113,7 @@ router.get(
     /* TODO: Replace this with session middleware */
     get_visited_user /* Gets the visited user */,
     check_user,
+    get_user_comments,
     async (req, res) => {
         res.render("pfcomments", {
             layout: "forum",
