@@ -1,6 +1,6 @@
 <div class="forum__ads">
     <div class="forum__ads-track">
-        {{#each images}}
+        {{#each banners}}
             <a href="/threads?games={{name}}" class="forum__ad">
                 <div class="gallery__item forum__ad">
                     <img class="gallery__image" src="{{this.image}}" />
@@ -11,7 +11,7 @@
                 </div>
             </a>
         {{/each}}
-        {{#each images}}
+        {{#each banners}}
             <a href="/threads?games={{name}}"  class="forum__ad">
                 <div class="gallery__item forum__ad">
                     <img class="gallery__image" src="{{this.image}}" />

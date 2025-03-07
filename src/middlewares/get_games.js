@@ -1,6 +1,6 @@
 export const getGames = async (req, res, next) => {
     try {
-        const tags_db = req.app.get("db").collection("featured_games");
+        const tags_db = req.app.get("db").collection("games");
         const searchQuery = req.query.q || "";
 
         const tags = await tags_db.find({ name: { $regex: searchQuery, $options: "i" } }).toArray();
@@ -15,7 +15,7 @@ export const getGames = async (req, res, next) => {
 
 export async function get_game_data(req, res, next) {
     try {
-        const _games = req.app.get("db").collection("featured_games");
+        const _games = req.app.get("db").collection("games");
         const games = await _games
             .aggregate([
                 {

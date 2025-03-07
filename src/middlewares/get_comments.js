@@ -1,5 +1,5 @@
 import { ObjectId } from "mongodb";
-import { getPaginationNumbers } from '../helpers/pagination.js';
+import { getPaginationNumbers } from "../helpers/pagination.js";
 
 const pipeline = [
     {
@@ -22,6 +22,7 @@ const pipeline = [
         },
     },
     {
+        /* Add a numerical index to each comment under a certain parent. Used for limiting the # of siblings to show */
         $setWindowFields: {
             partitionBy: {
                 depth: "$descendants.depth",
@@ -116,19 +117,12 @@ const pipeline = [
     },
 ];
 
-/**
- * Middleware for fetching all comments under a thread from the database. Appends a `comments` array to the request object.
- *
- * @param req  - The request object.
- * @param res  - The response object.
- * @param next - Calls the next function in the middleware chain.
- */
 export async function get_thread_comments(req, res, next) {
     try {
         /* Fetch comments from database */
         const { page } = req.query;
         const limit = 5;
-        const actPage = (!page || isNaN(parseInt(page))) ? 1 : Math.max(1, parseInt(page));
+        const actPage = !page || isNaN(parseInt(page)) ? 1 : Math.max(1, parseInt(page));
         const skip = (actPage - 1) * limit;
         let _comments = req.app.get("db").collection("comments");
         let comments = await _comments
@@ -140,13 +134,14 @@ export async function get_thread_comments(req, res, next) {
                             _id: { $in: res.locals.thread.comments },
                         },
                     },
-                ].concat(pipeline).concat({
-                    $facet: {
-                        metadata: [{ $count: "total" }],
-                        data: [{ $skip: skip }, { $limit: limit }],
-                    },
-                    }
-                )
+                ]
+                    .concat(pipeline)
+                    .concat({
+                        $facet: {
+                            metadata: [{ $count: "total" }],
+                            data: [{ $skip: skip }, { $limit: limit }],
+                        },
+                    })
             )
             .toArray(); /* toArray() "converts" aggregate() return value to a Promise */
 
@@ -160,8 +155,8 @@ export async function get_thread_comments(req, res, next) {
         res.locals.breadcrumb_number = breadcrumbNumbers;
         res.locals.currentPage = actPage;
         res.locals.totalPages = totalPages;
-        res.locals.nextPage = actPage+1;
-        res.locals.prevPage = actPage-1;;
+        res.locals.nextPage = actPage + 1;
+        res.locals.prevPage = actPage - 1;
         res.locals.showBreadCrumbs = totalComments > limit;
         next();
     } catch (error) {
@@ -171,7 +166,7 @@ export async function get_thread_comments(req, res, next) {
 
 export async function get_comment_replies(req, res, next) {
     try {
-        /* Fetch comments from database */    
+        /* Fetch comments from database */
         let _comments = req.app.get("db").collection("comments");
 
         let comments = await _comments
@@ -185,15 +180,15 @@ export async function get_comment_replies(req, res, next) {
                         },
                     },
                 ].concat(pipeline)
-            )                          
+            )
             .toArray(); /* toArray() "converts" aggregate() return value to a Promise */
         if (comments.length == 0) {
             res.sendStatus(404);
         } else {
             res.locals.comments = comments;
             /* Displays "Viewing a comment" instead of "Comments (count)" */
-            res.locals.reply = true; 
-            
+            res.locals.reply = true;
+
             next();
         }
     } catch (error) {
@@ -232,7 +227,7 @@ export async function get_user_comments(req, res, next) {
         /* Fetch comments from database */
         const { page } = req.query;
         const limit = 5;
-        const actPage = (!page || isNaN(parseInt(page))) ? 1 : Math.max(1, parseInt(page));
+        const actPage = !page || isNaN(parseInt(page)) ? 1 : Math.max(1, parseInt(page));
         const skip = (actPage - 1) * limit;
         let _comments = req.app.get("db").collection("comments");
         let comments = await _comments
@@ -240,16 +235,17 @@ export async function get_user_comments(req, res, next) {
                 [
                     {
                         $match: {
-                            "author": new ObjectId(req.params.user_id),
+                            author: new ObjectId(req.params.user_id),
                         },
                     },
-                ].concat(pipeline).concat({
-                    $facet: {
-                        metadata: [{ $count: "total" }],
-                        data: [{ $skip: skip }, { $limit: limit }],
-                    },
-                    }
-                )
+                ]
+                    .concat(pipeline)
+                    .concat({
+                        $facet: {
+                            metadata: [{ $count: "total" }],
+                            data: [{ $skip: skip }, { $limit: limit }],
+                        },
+                    })
             )
             .toArray(); /* toArray() "converts" aggregate() return value to a Promise */
 
@@ -263,8 +259,8 @@ export async function get_user_comments(req, res, next) {
         res.locals.breadcrumb_number = breadcrumbNumbers;
         res.locals.currentPage = actPage;
         res.locals.totalPages = totalPages;
-        res.locals.nextPage = actPage+1;
-        res.locals.prevPage = actPage-1;;
+        res.locals.nextPage = actPage + 1;
+        res.locals.prevPage = actPage - 1;
         res.locals.showBreadCrumbs = totalComments > limit;
         next();
     } catch (error) {

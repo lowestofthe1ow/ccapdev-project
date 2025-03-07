@@ -6,7 +6,7 @@ export default async (req, res, next) => {
         if (req.accepts("html")) {
             return req.session.destroy(() => res.redirect("/signin"));
         } else {
-            return res.status(401).json({ success: false, redirectUrl: "/signin", error: "Session has expired" });
+            return res.status(401).json({ success: false, redirectUrl: "/signin", error: "Invalid session" });
         }
     }
 
@@ -24,11 +24,12 @@ export default async (req, res, next) => {
             if (req.accepts("html")) {
                 return req.session.destroy(() => res.redirect("/signin"));
             } else {
-                return res.status(401).json({ success: false, redirectUrl: "/signin", error: "Unauthorized" });
+                return res.status(401).json({ success: false, redirectUrl: "/signin", error: "Invalid session" });
             }
         }
 
         res.locals.user = user; /* Pass to view engine */
+
         next();
     } catch (error) {
         console.error("Session validation error:", error);
@@ -37,7 +38,7 @@ export default async (req, res, next) => {
         if (req.accepts("html")) {
             return req.session.destroy(() => res.redirect("/signin"));
         } else {
-            return res.status(500).json({success: false, redirectUrl: "/signin",  error: "Internal Server Error" });
+            return res.status(500).json({ success: false, redirectUrl: "/signin", error: "Internal Server Error" });
         }
     }
 };

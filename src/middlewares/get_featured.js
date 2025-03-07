@@ -8,8 +8,8 @@
 export default async (req, res, next) => {
     try {
         /* Fetch from database */
-        let featured_games = req.app.get("db").collection("featured_games");
-        let images = await featured_games
+        let games = req.app.get("db").collection("games");
+        let images = await games
             .aggregate([{ $sample: { size: 6 } }]) /* Fetch a sample of 6 documents */
             .toArray(); /* toArray() "converts" aggregate() return value to a Promise */
 
