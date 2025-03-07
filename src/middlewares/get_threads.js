@@ -1,123 +1,104 @@
 import { ObjectId } from "mongodb";
 
-import { getPaginationNumbers } from "../helpers/pagination.js";
+import { paginate, paginate_view } from "../helpers/pagination.js";
 
 /**
- * Middleware for fetching all threads in the database. Appends a `threads` array to the request object.
- *
- * @param req  - The request object.
- * @param res  - The response object.
- * @param next - Calls the next function in the middleware chain.
+ * {@returns a {@link Date} in UTC}
+ * @param {*} date - A valid {@link DateConstructor}
+ * @param {*} hours - Sets the hours for the time portion of the new date
+ * @param {*} minutes - Sets the minutes for the time portion of the new date
+ * @param {*} seconds - Sets the seconds for the time portion of the new date
+ * @param {*} milliseconds - Sets the milliseconds for the time portion of the new date
  */
-export const get_threads = async (req, res, next) => {
+function as_UTC(date, hours, minutes, seconds, milliseconds) {
+    if (!date) return null;
+
+    let new_date = new Date(date);
+    new_date.setHours(hours, minutes, seconds, milliseconds);
+
+    return new_date;
+}
+
+function _sort(sort) {
+    const sort_options = {
+        0: { created: -1 },
+        1: { created: 1 },
+        2: { vote_count: -1 },
+        3: { vote_count: 1 },
+    };
+
+    return sort_options.hasOwnProperty(sort) ? { $sort: sort_options[sort] } : { $sort: { created: -1 } };
+}
+
+/** Gets a list of threads given search filters. */
+export async function get_threads(req, res, next) {
     try {
-        /** If we are planning to add exclude, ggez*/
-        const { search, tags = "", games = "", start_date, end_date, author_name, sort, page } = req.query;
         const _threads = req.app.get("db").collection("threads");
 
-        const actPage = !page || isNaN(parseInt(page)) ? 1 : Math.max(1, parseInt(page));
-        const limit = 10; /* TODO IMPORTANT: CHANGE THIS TO 10 OR SOMETHING */
-        const skip = (actPage - 1) * limit;
-        if (tags || games || start_date || end_date || author_name || sort) {
-            res.locals.show_search = true;
-        }
+        /* Destructure query object and pass some parameters to view immediately */
+        const { search, tags = "", games = "", start_date, end_date, author, sort = 0, page } = req.query;
+        res.locals = { ...res.locals, ...{ search, start_date, end_date, author } };
+        res.locals.sort = parseInt(sort); /* Sort field should be parsed as numeric first */
 
-        res.locals.search = search;
-        res.locals.start_date = start_date;
-        res.locals.end_date = end_date;
-        res.locals.author = author_name;
-        res.locals.sort = [false, false, false, false];
-        res.locals.sort[sort ? sort : 0] = true;
+        res.locals.show_search = tags || games || start_date || end_date || author || sort;
 
-        const parsedTags = tags ? tags.split("|").map((tag) => decodeURIComponent(tag).replace(/^#/, "")) : [];
-        const parsedGames = games ? games.split("|").map((tag) => decodeURIComponent(tag)) : [];
+        /* Parse the tags and games fields into arrays */
+        const parsed_tags = tags ? tags.split("|").map((tag) => decodeURIComponent(tag).replace(/^#/, "")) : [];
+        const parsed_games = games ? games.split("|").map((tag) => decodeURIComponent(tag)) : [];
+        res.locals.tags = parsed_tags;
+        res.locals.games = parsed_games;
 
-        res.locals.tags = parsedTags;
-        res.locals.games = parsedGames;
+        const start_date_UTC = as_UTC(start_date, 0, 0, 0, 0);
+        const end_date_UTC = as_UTC(end_date, 23, 59, 59, 999);
 
-        /**TODO: Get timezone from client and use that to offset a THIS somehow  */
-        const localToUTC = (date, hours, minutes, seconds, milliseconds) => {
-            if (!date) return null;
-
-            let newDate = new Date(date);
-            newDate.setHours(hours, minutes, seconds, milliseconds);
-
-            return newDate;
-        };
-
-        const adjustedStartDate = localToUTC(start_date, 0, 0, 0, 0);
-        const adjustedEndDate = localToUTC(end_date, 23, 59, 59, 999);
-        /**TODO: author name is id now, change it somehow */
-        const notSort = {
+        /* Construct the search filters object to pass to MongoDB $match */
+        const search_filters = {
             ...(search && {
                 $or: [{ title: { $regex: search, $options: "i" } }, { content: { $regex: search, $options: "i" } }],
             }),
-            ...(parsedTags.length && { tags: { $in: parsedTags } }),
-            ...(parsedGames.length && { games: { $in: parsedGames } }),
-            ...(adjustedStartDate && { created: { $gte: adjustedStartDate } }),
-            ...(adjustedEndDate && { created: { $lte: adjustedEndDate } }),
-            ...(adjustedStartDate &&
-                adjustedEndDate && { created: { $gte: adjustedStartDate, $lte: adjustedEndDate } }),
-            ...(author_name && { "author_data.name": { $regex: author_name, $options: "i" } }),
+            ...(parsed_tags.length && { tags: { $in: parsed_tags } }),
+            ...(parsed_games.length && { games: { $in: parsed_games } }),
+            ...(start_date_UTC && { created: { $gte: start_date_UTC } }),
+            ...(end_date_UTC && { created: { $lte: end_date_UTC } }),
+            ...(start_date_UTC && end_date_UTC && { created: { $gte: start_date_UTC, $lte: end_date_UTC } }),
+            ...(author && { "author_data.name": { $regex: author, $options: "i" } }),
+            deleted: { $ne: true },
         };
 
-        const sortOptions = {
-            0: { created: -1 },
-            1: { created: 1 },
-            2: { vote_count: -1 },
-            3: { vote_count: 1 },
-        };
-
-        const theSort = sortOptions.hasOwnProperty(sort)
-            ? [{ $sort: sortOptions[sort] }]
-            : [{ $sort: { created: -1 } }];
-
-        const pipeline = [
-            {
-                $lookup: {
-                    from: "users",
-                    localField: "author",
-                    foreignField: "_id",
-                    as: "author_data",
+        const result = await _threads
+            .aggregate([
+                { $match: search_filters },
+                _sort(sort),
+                /* Expand author data */
+                {
+                    $lookup: {
+                        from: "users",
+                        localField: "author",
+                        foreignField: "_id",
+                        as: "author_data",
+                    },
                 },
-            },
-            {
-                $unwind: {
-                    path: "$author_data",
-                    preserveNullAndEmptyArrays: true,
+                {
+                    $unwind: {
+                        path: "$author_data",
+                        preserveNullAndEmptyArrays: true,
+                    },
                 },
-            },
-            { $match: { ...notSort, deleted: { $ne: true } } }, // Hide deleted posts from results
-            ...theSort,
-            {
-                $facet: {
-                    metadata: [{ $count: "total" }],
-                    data: [{ $skip: skip }, { $limit: limit }],
-                },
-            },
-        ];
-        /* TODO: Pagination */
-        const result = await _threads.aggregate(pipeline).toArray();
+                /* Pagination */
+                paginate(page, 10),
+            ])
+            .toArray();
 
-        const totalThreads = result[0].metadata.length > 0 ? result[0].metadata[0].total : 0;
-        const totalPages = Math.ceil(totalThreads / limit); /** Is this floor or ceiling */
-        const threads = result[0].data;
-        const breadcrumbNumbers = getPaginationNumbers(actPage, totalPages);
-        /** MAYBE THERE'S A BETTER WAY, TOMORROW 03/03/2025 - RED WILL SHRINK THIS MFING CODE */
-        res.locals.threads = threads;
-        res.locals.breadcrumb_number = breadcrumbNumbers;
-        res.locals.currentPage = actPage;
-        res.locals.totalPages = totalPages;
-        res.locals.nextPage = actPage + 1;
-        res.locals.prevPage = actPage - 1;
-        res.locals.showBreadCrumbs = totalThreads > limit;
+        paginate_view(res, result, page, 10);
+
         next();
     } catch (error) {
         console.error(error);
         next(error);
     }
-};
+}
 
+/** Gets a list of top threads (for sidebar) */
 export async function get_top_threads(req, res, next) {
     try {
         let _threads = req.app.get("db").collection("threads");
@@ -166,15 +147,7 @@ export async function get_top_threads(req, res, next) {
     }
 }
 
-/**
- * Middleware for fetching a specific thread in the database. Appends a `thread` object to the request object.
- *
- * @param req  - The request object. Must contain the following fields and parameters:
- *               - `db`: The database connection
- *               - `id`: The ID of the thread (part of the route as `/threads/:id`)
- * @param res  - The response object.
- * @param next - Calls the next function in the middleware chain.
- */
+/** Gets data on a specific thread */
 export async function get_thread(req, res, next) {
     try {
         /* Fetch from database */
@@ -202,6 +175,8 @@ export async function get_thread(req, res, next) {
 
         /* Apply to request object */
         res.locals.thread = thread[0];
+
+        /* Passes the games associated with the thread to the view. Used for sidebar */
         res.locals.games = thread[0].games;
         next();
     } catch (error) {
@@ -209,130 +184,64 @@ export async function get_thread(req, res, next) {
     }
 }
 
-export const get_user_threads = async (req, res, next) => {
+/** Gets a list of all threads made by a user. */
+export async function get_user_threads(req, res, next) {
     try {
-        /** If we are planning to add exclude, ggez*/
         const { sort, page } = req.query;
         const _threads = req.app.get("db").collection("threads");
 
-        const actPage = !page || isNaN(parseInt(page)) ? 1 : Math.max(1, parseInt(page));
-        const limit = 10; /* TODO IMPORTANT: CHANGE THIS TO 10 OR SOMETHING */
-        const skip = (actPage - 1) * limit;
-
-        const sortOptions = {
-            0: { created: -1 },
-            1: { created: 1 },
-            2: { vote_count: -1 },
-            3: { vote_count: 1 },
-        };
-
-        const theSort = sortOptions.hasOwnProperty(sort)
-            ? [{ $sort: sortOptions[sort] }]
-            : [{ $sort: { created: -1 } }];
-
-        const pipeline = [
-            {
-                $lookup: {
-                    from: "users",
-                    localField: "author",
-                    foreignField: "_id",
-                    as: "author_data",
+        const result = await _threads
+            .aggregate([
+                { $match: { deleted: { $ne: true }, author: new ObjectId(req.params.user_id) } },
+                _sort(sort),
+                {
+                    $lookup: {
+                        from: "users",
+                        localField: "author",
+                        foreignField: "_id",
+                        as: "author_data",
+                    },
                 },
-            },
-            {
-                $unwind: {
-                    path: "$author_data",
-                    preserveNullAndEmptyArrays: true,
+                {
+                    $unwind: {
+                        path: "$author_data",
+                        preserveNullAndEmptyArrays: true,
+                    },
                 },
-            },
-            { $match: { deleted: { $ne: true }, author: new ObjectId(req.params.user_id) } },
-            ...theSort,
-            {
-                $facet: {
-                    metadata: [{ $count: "total" }],
-                    data: [{ $skip: skip }, { $limit: limit }],
-                },
-            },
-        ];
-        /* TODO: Pagination */
-        const result = await _threads.aggregate(pipeline).toArray();
+                paginate(page, 10),
+            ])
+            .toArray();
 
-        const totalThreads = result[0].metadata.length > 0 ? result[0].metadata[0].total : 0;
-        const totalPages = Math.ceil(totalThreads / limit); /** Is this floor or ceiling */
-        const user_threads = result[0].data;
-        const breadcrumbNumbers = getPaginationNumbers(actPage, totalPages);
+        paginate_view(res, result, page, 10);
 
-        /** MAYBE THERE'S A BETTER WAY, TOMORROW 03/03/2025 - RED WILL SHRINK THIS MFING CODE */
-        res.locals.user_threads = user_threads;
-        res.locals.breadcrumb_number = breadcrumbNumbers;
-        res.locals.currentPage = actPage;
-        res.locals.totalPages = totalPages;
-        res.locals.nextPage = actPage + 1;
-        res.locals.prevPage = actPage - 1;
-        res.locals.showBreadCrumbs = totalThreads > limit;
         next();
     } catch (error) {
         console.error(error);
         next(error);
     }
-};
+}
 
+/** Gets a list of all threads upvoted by a user. */
 export const get_upvoted_threads = async (req, res, next) => {
     try {
-        /** If we are planning to add exclude, ggez*/
         const { sort, page } = req.query;
         const _threads = req.app.get("db").collection("threads");
-
-        const actPage = !page || isNaN(parseInt(page)) ? 1 : Math.max(1, parseInt(page));
-        const limit = 10; /* TODO IMPORTANT: CHANGE THIS TO 10 OR SOMETHING */
-        const skip = (actPage - 1) * limit;
-
-        const sortOptions = {
-            0: { created: -1 },
-            1: { created: 1 },
-            2: { vote_count: -1 },
-            3: { vote_count: 1 },
-        };
-
-        const theSort = sortOptions.hasOwnProperty(sort)
-            ? [{ $sort: sortOptions[sort] }]
-            : [{ $sort: { created: -1 } }];
 
         const user_thread_vote_list = await req.app
             .get("db")
             .collection("users")
             .findOne({ _id: new ObjectId(req.params.user_id) }, { projection: { thread_vote_list: 1 } });
 
-        const upvotedThreadIds = Object.keys(user_thread_vote_list.thread_vote_list)
+        const upvoted_ids = Object.keys(user_thread_vote_list.thread_vote_list)
             .filter((threadId) => user_thread_vote_list.thread_vote_list[threadId] === 1)
             .map((threadId) => new ObjectId(threadId));
 
-        const pipeline = [
-            { $match: { _id: { $in: upvotedThreadIds } } },
-            ...theSort,
-            {
-                $facet: {
-                    metadata: [{ $count: "total" }],
-                    data: [{ $skip: skip }, { $limit: limit }],
-                },
-            },
-        ];
-        /* TODO: Pagination */
-        const result = await _threads.aggregate(pipeline).toArray();
+        const result = await _threads
+            .aggregate([{ $match: { _id: { $in: upvoted_ids } } }, _sort(sort), paginate(page, 10)])
+            .toArray();
 
-        const totalThreads = result[0].metadata.length > 0 ? result[0].metadata[0].total : 0;
-        const totalPages = Math.ceil(totalThreads / limit); /** Is this floor or ceiling */
-        const upvoted = result[0].data;
-        const breadcrumbNumbers = getPaginationNumbers(actPage, totalPages);
+        paginate_view(res, result, page, 10);
 
-        /** MAYBE THERE'S A BETTER WAY, TOMORROW 03/03/2025 - RED WILL SHRINK THIS MFING CODE */
-        res.locals.upvoted = upvoted;
-        res.locals.breadcrumb_number = breadcrumbNumbers;
-        res.locals.currentPage = actPage;
-        res.locals.totalPages = totalPages;
-        res.locals.nextPage = actPage + 1;
-        res.locals.prevPage = actPage - 1;
-        res.locals.showBreadCrumbs = totalThreads > limit;
         next();
     } catch (error) {
         console.error(error);

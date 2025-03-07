@@ -21,18 +21,18 @@
     <div class="advsearch__component">
         <label class="advsearch__label" for="sort">Sort by</label>
         <select class="advsearch__input" name="sort">
-            <option {{#if (lookup sort 0)}}selected{{/if}} value="0">Newest first</option>
-            <option {{#if (lookup sort 1)}}selected{{/if}} value="1">Oldest first</option>
-            <option {{#if (lookup sort 2)}}selected{{/if}} value="2">Most popular first</option>
-            <option {{#if (lookup sort 3)}}selected{{/if}} value="3">Least popular first</option>
+            <option {{#if (eq sort 0)}}selected{{/if}} value="0">Newest first</option>
+            <option {{#if (eq sort 1)}}selected{{/if}} value="1">Oldest first</option>
+            <option {{#if (eq sort 2)}}selected{{/if}} value="2">Most popular first</option>
+            <option {{#if (eq sort 3)}}selected{{/if}} value="3">Least popular first</option>
         </select>
     </div>
 
     <div class="advsearch__component">
-        <label class="advsearch__label" for="author_name">Authors</label>
+        <label class="advsearch__label" for="author">Authors</label>
         <input
             type="text"
-            name="author_name"
+            name="author"
             class="advsearch__input"
             placeholder="Enter username..."
             value="{{author}}"

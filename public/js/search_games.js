@@ -36,7 +36,7 @@ document.querySelector(".search").addEventListener("submit", (event) => {
     searchQuery ? urlParams.set("search", searchQuery) : urlParams.delete("search");
 
     if (!form.classList.contains("hidden")) {
-        ["start_date", "end_date", "sort", "author_name"].forEach((param) => {
+        ["start_date", "end_date", "sort", "author"].forEach((param) => {
             const value = form.querySelector(`[name="${param}"]`)?.value.trim();
             value ? urlParams.set(param, value) : urlParams.delete(param);
         });
@@ -58,7 +58,7 @@ document.querySelector(".search").addEventListener("submit", (event) => {
             urlParams.set("tags", tags);
         }
     } else {
-        ["start_date", "end_date", "sort", "author_name", "games", "tags"].forEach((param) => urlParams.delete(param));
+        ["start_date", "end_date", "sort", "author", "games", "tags"].forEach((param) => urlParams.delete(param));
     }
     window.location.href = `/threads?${urlParams.toString()}`;
 });
