@@ -1,17 +1,17 @@
 <li>
     <nav class="breadcrumbs">
-        {{#if (eq currentPage 1)}}
+        {{#if (eq current_page 1)}}
             <a class="button button--light breadcrumbs__prev button--disabled">
         {{else}}
-            <a class="button button--light breadcrumbs__prev" href="?page={{prevPage}}">
+            <a class="button button--light breadcrumbs__prev" href="?page={{prev_page}}">
         {{/if}}
             <span class="material-symbols-outlined">keyboard_arrow_left</span>
         </a>
-        {{#each breadcrumb_number}}
+        {{#each breadcrumb_numbers}}
             {{#if isDots}}
                 <span class="button button--light breadcrumbs__button">...</span>
             {{else}}
-                {{#if (eq ../currentPage number)}}
+                {{#if (eq ../current_page number)}}
                     <span class="button button--light breadcrumbs__button button--current">{{number}}</span>
                 {{else}}
                     <a href="?page={{number}}" class="button button--light breadcrumbs__button">{{number}}</a>
@@ -19,10 +19,10 @@
             {{/if}}
         {{/each}}
 
-        {{#if (eq currentPage totalPages)}}
+        {{#if (eq current_page totalPages)}}
             <a class="button button--light breadcrumbs__next button--disabled">
         {{else}}
-            <a class="button button--light breadcrumbs__next" href="?page={{nextPage}}">
+            <a class="button button--light breadcrumbs__next" href="?page={{next_page}}">
         {{/if}}
             <span class="material-symbols-outlined">keyboard_arrow_right</span>
         </a>

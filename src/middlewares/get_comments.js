@@ -1,5 +1,5 @@
 import { ObjectId } from "mongodb";
-import { getPaginationNumbers } from "../helpers/pagination.js";
+import { paginate, paginate_view } from "../helpers/pagination.js";
 
 const pipeline = [
     {
@@ -117,13 +117,11 @@ const pipeline = [
     },
 ];
 
+/** Get all comments under a thread */
 export async function get_thread_comments(req, res, next) {
     try {
         /* Fetch comments from database */
         const { page } = req.query;
-        const limit = 5;
-        const actPage = !page || isNaN(parseInt(page)) ? 1 : Math.max(1, parseInt(page));
-        const skip = (actPage - 1) * limit;
         let _comments = req.app.get("db").collection("comments");
         let comments = await _comments
             .aggregate(
@@ -136,34 +134,18 @@ export async function get_thread_comments(req, res, next) {
                     },
                 ]
                     .concat(pipeline)
-                    .concat({
-                        $facet: {
-                            metadata: [{ $count: "total" }],
-                            data: [{ $skip: skip }, { $limit: limit }],
-                        },
-                    })
+                    .concat(paginate(page, 5))
             )
             .toArray(); /* toArray() "converts" aggregate() return value to a Promise */
 
-        /* Append to request object */
-        const totalComments = comments[0].metadata.length > 0 ? comments[0].metadata[0].total : 0;
-        const totalPages = Math.ceil(totalComments / limit); /** Is this floor or ceiling */
-        const result = comments[0].data;
-        const breadcrumbNumbers = getPaginationNumbers(actPage, totalPages);
-        /** MAYBE THERE'S A BETTER WAY, TOMORROW 03/03/2025 - RED WILL SHRINK THIS MFING CODE */
-        res.locals.comments = result;
-        res.locals.breadcrumb_number = breadcrumbNumbers;
-        res.locals.currentPage = actPage;
-        res.locals.totalPages = totalPages;
-        res.locals.nextPage = actPage + 1;
-        res.locals.prevPage = actPage - 1;
-        res.locals.showBreadCrumbs = totalComments > limit;
+        paginate_view(res, comments, page, 5, "comments");
         next();
     } catch (error) {
         console.error(error);
     }
 }
 
+/** Get all replies under a comment */
 export async function get_comment_replies(req, res, next) {
     try {
         /* Fetch comments from database */
@@ -196,6 +178,7 @@ export async function get_comment_replies(req, res, next) {
     }
 }
 
+/** Get the total number of comments under a thread */
 export async function get_comment_count(req, res, next) {
     let _comments = req.app.get("db").collection("comments");
     let count = await _comments
@@ -222,13 +205,11 @@ export async function get_comment_count(req, res, next) {
     next();
 }
 
+/** Get all comments made by a user */
 export async function get_user_comments(req, res, next) {
     try {
         /* Fetch comments from database */
         const { page } = req.query;
-        const limit = 5;
-        const actPage = !page || isNaN(parseInt(page)) ? 1 : Math.max(1, parseInt(page));
-        const skip = (actPage - 1) * limit;
         let _comments = req.app.get("db").collection("comments");
         let comments = await _comments
             .aggregate([
@@ -299,29 +280,11 @@ export async function get_user_comments(req, res, next) {
                         preserveNullAndEmptyArrays: true,
                     },
                 },
-                {
-                    $facet: {
-                        metadata: [{ $count: "total" }],
-                        data: [{ $skip: skip }, { $limit: limit }],
-                    },
-                },
+                paginate(page, 10),
             ])
             .toArray(); /* toArray() "converts" aggregate() return value to a Promise */
 
-        /* Append to request object */
-        const totalComments = comments[0].metadata.length > 0 ? comments[0].metadata[0].total : 0;
-        const totalPages = Math.ceil(totalComments / limit); /** Is this floor or ceiling */
-        const result = comments[0].data;
-        console.log(result);
-        const breadcrumbNumbers = getPaginationNumbers(actPage, totalPages);
-        /** MAYBE THERE'S A BETTER WAY, TOMORROW 03/03/2025 - RED WILL SHRINK THIS MFING CODE */
-        res.locals.comments = result;
-        res.locals.breadcrumb_number = breadcrumbNumbers;
-        res.locals.currentPage = actPage;
-        res.locals.totalPages = totalPages;
-        res.locals.nextPage = actPage + 1;
-        res.locals.prevPage = actPage - 1;
-        res.locals.showBreadCrumbs = totalComments > limit;
+        paginate_view(res, comments, page, 10, "comments");
         next();
     } catch (error) {
         console.error(error);

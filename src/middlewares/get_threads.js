@@ -3,22 +3,10 @@ import { ObjectId } from "mongodb";
 import { paginate, paginate_view } from "../helpers/pagination.js";
 
 /**
- * {@returns a {@link Date} in UTC}
- * @param {*} date - A valid {@link DateConstructor}
- * @param {*} hours - Sets the hours for the time portion of the new date
- * @param {*} minutes - Sets the minutes for the time portion of the new date
- * @param {*} seconds - Sets the seconds for the time portion of the new date
- * @param {*} milliseconds - Sets the milliseconds for the time portion of the new date
+ * {@return a `$sort` aggregation stage for use with MongoDB}
+ * @param {number} sort - `0` for newest first, `1` for oldest first, `2` for most popular first, and `3` for least
+ *                        popular first
  */
-function as_UTC(date, hours, minutes, seconds, milliseconds) {
-    if (!date) return null;
-
-    let new_date = new Date(date);
-    new_date.setHours(hours, minutes, seconds, milliseconds);
-
-    return new_date;
-}
-
 function _sort(sort) {
     const sort_options = {
         0: { created: -1 },
@@ -89,7 +77,7 @@ export async function get_threads(req, res, next) {
             ])
             .toArray();
 
-        paginate_view(res, result, page, 10);
+        paginate_view(res, result, page, 10, "threads");
 
         next();
     } catch (error) {
@@ -212,7 +200,7 @@ export async function get_user_threads(req, res, next) {
             ])
             .toArray();
 
-        paginate_view(res, result, page, 10);
+        paginate_view(res, result, page, 10, "threads");
 
         next();
     } catch (error) {
@@ -240,7 +228,7 @@ export const get_upvoted_threads = async (req, res, next) => {
             .aggregate([{ $match: { _id: { $in: upvoted_ids } } }, _sort(sort), paginate(page, 10)])
             .toArray();
 
-        paginate_view(res, result, page, 10);
+        paginate_view(res, result, page, 10, "threads");
 
         next();
     } catch (error) {

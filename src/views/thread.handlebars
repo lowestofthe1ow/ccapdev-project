@@ -65,7 +65,7 @@
             {{#each comments}}
             {{> comment this user=../user restrict_siblings=../restrict_siblings}} {{! Pass user from session to the comment partial}}
             {{/each}}
-            {{#if showBreadCrumbs}}
+            {{#if show_breadcrumbs}}
             {{#if restrict_siblings}}
             {{> breadcrumbs}}
             {{/if}}
