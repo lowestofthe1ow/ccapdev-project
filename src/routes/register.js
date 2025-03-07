@@ -53,8 +53,14 @@ router.post(
         try {
             const { name } = req.body;
             const users = req.app.get("db").collection("users");
-
-            const result = await users.insertOne({ name, password: res.locals.hashed, vote_list: {} });
+            /* Red edited this part to test something */
+            const result = await users.insertOne({ name, password: res.locals.hashed, 
+                                                    thread_vote_list: {},
+                                                    comment_vote_list: {},
+                                                    pfp: "/img/default_avatar.svg",
+                                                    banner: "",
+                                                    bio: "",
+                                                    deleted: false, });
             const verify_insertion = await users.findOne({ _id: result.insertedId });
 
             req.body.found_user = verify_insertion;
