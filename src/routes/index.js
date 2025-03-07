@@ -4,7 +4,6 @@ import { check_existing_session } from "../middlewares/get_session.js";
 
 const router = express.Router();
 
-// idk which one actually works, just keep it here for now
 router.use(express.urlencoded({ extended: true }));
 router.use(express.json());
 
@@ -43,7 +42,6 @@ router.get("/logout", (req, res) => {
     }
 });
 
-/* TODO move this to another route maybe or like export the controller but I'm lazy */
 router.get("/tags", async (req, res) => {
     try {
         const tags_db = req.app.get("db").collection("threads");

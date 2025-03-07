@@ -10,8 +10,6 @@ const router = express.Router();
 router.use(express.urlencoded({ extended: true }));
 router.use(express.json());
 
-console.log("hi");
-
 router.post(
     "/",
     check_existing_session,
@@ -26,7 +24,6 @@ router.post(
         let existing_user = await req.app.get("db").collection("users").findOne({
             name: username, // TODO: Sessions
         });
-
         if (existing_user) {
             throw new Error("Username already in use");
         } else {

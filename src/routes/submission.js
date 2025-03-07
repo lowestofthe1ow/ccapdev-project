@@ -1,7 +1,9 @@
 import express from "express";
 import { ObjectId } from "mongodb";
-import { get_active_user } from "../middlewares/get_session.js";
 import { get_game_banners } from "../middlewares/get_games.js";
+import { get_active_user } from "../middlewares/get_session.js";
+
+import eq from "../helpers/strict_equality.js";
 
 const router = express.Router();
 
@@ -10,6 +12,7 @@ router.get("/", get_active_user, get_game_banners, async (req, res) => {
     res.render("submission", {
         layout: "forum",
         title: "Create Post",
+        helpers: { eq },
     });
 });
 

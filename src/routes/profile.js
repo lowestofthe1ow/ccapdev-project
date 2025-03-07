@@ -13,10 +13,10 @@ import eq from "../helpers/strict_equality.js";
 
 /* Middleware */
 import check_form_errors from "../middlewares/check_form_errors.js";
-import { get_active_user } from "../middlewares/get_session.js";
-import { get_game_banners } from "../middlewares/get_games.js";
 import { get_user_comments } from "../middlewares/get_comments.js";
 import get_display_user from "../middlewares/get_display_user.js";
+import { get_game_banners } from "../middlewares/get_games.js";
+import { get_active_user } from "../middlewares/get_session.js";
 import { get_upvoted_threads, get_user_threads } from "../middlewares/get_threads.js";
 
 const router = express.Router();
@@ -33,8 +33,9 @@ router.get(
     get_game_banners,
 
     (req, res) => {
-        res.render("pfedit", {
+        res.render("profile_edit", {
             layout: "forum",
+            helpers: { eq },
         });
     }
 );
@@ -44,13 +45,20 @@ router.post(
     "/edit",
     get_active_user /* Gets the active user */,
 
+    /* Put the active user object in request body for use in validation later */
+    (req, res, next) => {
+        req.body.user = res.locals.user;
+        next();
+    },
+
     /* Check if username already exists */
     body("name").custom(async (username, { req }) => {
         let existing_user = await req.app.get("db").collection("users").findOne({
             name: username,
         });
 
-        if (existing_user) {
+        /* Allow in the case that the username exists if IDs match */
+        if (existing_user && !req.body.user._id.equals(existing_user._id)) {
             throw new Error("Username already in use");
         } else {
             return true;
@@ -60,8 +68,6 @@ router.post(
     check_form_errors /* Throw any errors */,
 
     async (req, res) => {
-        console.log("help");
-
         let _users = req.app.get("db").collection("users");
 
         if (req.body.pfp === "" && req.body.banner === "") {

@@ -54,11 +54,9 @@ router.get(
 
     (req, res) => {
         /* TODO: This uses a hardcoded value for now. Replace with session data eventually */
-        let _is_author = is_author(new ObjectId("67a8caec05494bfdd8a41bf7"));
 
         res.render("thread", {
             helpers: {
-                _is_author,
                 check_depth,
                 check_id,
                 concat,

@@ -34,7 +34,7 @@
             <input type="text" name="pfp" class="advsearch__input" placeholder="Enter a URL..." form="profile-editor" />
         </div>
 
-        <input type="text" name="name" placeholder={{user.name}} class="profile__text edit__username" form="profile-editor" minlength="8" required="true"/>
+        <input type="text" name="name" value={{user.name}} class="profile__text edit__username" form="profile-editor" minlength="8" required="true"/>
 
         {{> editor
             id="profile-editor"
@@ -75,4 +75,4 @@
     hidden = true
 }}
 
-<script src="/js/edit.js"></script>
+<script type="module" src="/js/edit.js"></script>

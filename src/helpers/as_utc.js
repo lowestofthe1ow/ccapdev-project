@@ -6,11 +6,11 @@
  * @param {number} seconds - Sets the seconds for the time portion of the new date
  * @param {number} milliseconds - Sets the milliseconds for the time portion of the new date
  */
-function as_UTC(date, hours, minutes, seconds, milliseconds) {
+export default (date, hours, minutes, seconds, milliseconds) => {
     if (!date) return null;
 
     let new_date = new Date(date);
     new_date.setHours(hours, minutes, seconds, milliseconds);
 
     return new_date;
-}
+};
