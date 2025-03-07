@@ -21,9 +21,10 @@
     border-radius: 100px;
     height: 100px;
     width: 100px;
+    background-color: var(--light);
 }
 
-img.profile__pfp{
+img.profile__pfp {
     object-fit: cover;
 }
 

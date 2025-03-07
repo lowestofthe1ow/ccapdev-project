@@ -231,28 +231,88 @@ export async function get_user_comments(req, res, next) {
         const skip = (actPage - 1) * limit;
         let _comments = req.app.get("db").collection("comments");
         let comments = await _comments
-            .aggregate(
-                [
-                    {
-                        $match: {
-                            author: new ObjectId(req.params.user_id),
-                        },
+            .aggregate([
+                /* Get comments by author */
+                {
+                    $match: {
+                        author: new ObjectId(req.params.user_id),
+                        deleted: { $ne: true },
                     },
-                ]
-                    .concat(pipeline)
-                    .concat({
-                        $facet: {
-                            metadata: [{ $count: "total" }],
-                            data: [{ $skip: skip }, { $limit: limit }],
-                        },
-                    })
-            )
+                },
+                /* Fetch comment author data */
+                {
+                    $lookup: {
+                        from: "users",
+                        localField: "author",
+                        foreignField: "_id",
+                        as: "author_data",
+                    },
+                },
+                {
+                    $unwind: {
+                        path: "$author_data",
+                        preserveNullAndEmptyArrays: true,
+                    },
+                },
+                /* Expand thread data */
+                {
+                    $lookup: {
+                        from: "threads",
+                        localField: "thread",
+                        foreignField: "_id",
+                        as: "thread_data",
+                    },
+                },
+                {
+                    $unwind: {
+                        path: "$thread_data",
+                        preserveNullAndEmptyArrays: true,
+                    },
+                },
+                /* Expand parent comment data (for replies) */
+                {
+                    $lookup: {
+                        from: "comments",
+                        localField: "parent",
+                        foreignField: "_id",
+                        as: "parent_data",
+                    },
+                },
+                {
+                    $unwind: {
+                        path: "$parent_data",
+                        preserveNullAndEmptyArrays: true,
+                    },
+                },
+                /* Fetch data for author of parent comment (for replies) */
+                {
+                    $lookup: {
+                        from: "users",
+                        localField: "parent_data.author",
+                        foreignField: "_id",
+                        as: "parent_author_data",
+                    },
+                },
+                {
+                    $unwind: {
+                        path: "$parent_author_data",
+                        preserveNullAndEmptyArrays: true,
+                    },
+                },
+                {
+                    $facet: {
+                        metadata: [{ $count: "total" }],
+                        data: [{ $skip: skip }, { $limit: limit }],
+                    },
+                },
+            ])
             .toArray(); /* toArray() "converts" aggregate() return value to a Promise */
 
         /* Append to request object */
         const totalComments = comments[0].metadata.length > 0 ? comments[0].metadata[0].total : 0;
         const totalPages = Math.ceil(totalComments / limit); /** Is this floor or ceiling */
         const result = comments[0].data;
+        console.log(result);
         const breadcrumbNumbers = getPaginationNumbers(actPage, totalPages);
         /** MAYBE THERE'S A BETTER WAY, TOMORROW 03/03/2025 - RED WILL SHRINK THIS MFING CODE */
         res.locals.comments = result;

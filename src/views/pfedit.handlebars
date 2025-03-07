@@ -23,7 +23,7 @@
     </div>
 
     <div class="profile__content" style="align-items: center;">
-        <div class="profile__pfp--edit" style="background-image: url('{{user.pfp}}');">
+        <div class="profile__pfp--edit" style="background-image: url('{{#if user.pfp}}{{user.pfp}}{{else}}/img/default_avatar.svg{{/if}}'); background-color: var(--light)">
             <button type="button" class="button button--light" data-toggle="#pfp-url">
                 <span class="material-symbols-outlined">add_a_photo</span>
             </button>

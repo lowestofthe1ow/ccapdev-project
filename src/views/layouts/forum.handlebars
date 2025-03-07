@@ -32,7 +32,7 @@
                 {{> search}}
                 {{#if user}}
                 <a class="button button--light" href="/profile" >
-                    <img src="{{user.pfp}}" class="navbar__icon"/>
+                    <img src={{#if user.pfp}}{{user.pfp}}{{else}}"/img/default_avatar.svg"{{/if}} class="navbar__icon"/>
                     <ruby>Profile<rt>プロフィール</rt></ruby>
                 </a>
                 {{else}}

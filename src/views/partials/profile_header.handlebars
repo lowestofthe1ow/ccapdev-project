@@ -1,9 +1,11 @@
 <div class="profile">
-    <img class="profile__banner" src={{display_user.banner}} />
+    {{! If no banner, then show gray }}
+    <img class="profile__banner" src="{{display_user.banner}}" alt="" style="background-color: var(--kinkan-gray)" />
     <div class="profile__content" style="gap: 10px;">
         <div class="profile__header">
             <div class="profile__details">
-                <img class="profile__pfp" src={{display_user.pfp}} />
+                {{! Show default avatar if no pfp }}
+                <img class="profile__pfp" src={{#if display_user.pfp}}{{display_user.pfp}}{{else}}"/img/default_avatar.svg"{{/if}} />
                 <article class="article">
                     <h1 class="profile__username">{{display_user.name}}</h1>
                     {{#if display_user.bio}}<p>{{{markdown display_user.bio}}}</p>{{/if}}
