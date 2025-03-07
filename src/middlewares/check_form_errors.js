@@ -1,6 +1,6 @@
 import { validationResult } from "express-validator";
 
-/** Sends back express-validator errors if any are encountered */
+/** Sends back {@link validationResult} errors if any are encountered */
 export default (req, res, next) => {
     const result = validationResult(req);
 

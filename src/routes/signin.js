@@ -3,7 +3,7 @@ import express from "express";
 import { body } from "express-validator";
 
 import check_form_errors from "../middlewares/check_form_errors.js";
-import redirect_threads from "../middlewares/session_exists.js";
+import { check_existing_session } from "../middlewares/get_session.js";
 
 const router = express.Router();
 
@@ -12,7 +12,7 @@ router.use(express.json());
 
 router.post(
     "/",
-    redirect_threads,
+    check_existing_session,
     /* Ensure the user exists in the database */
     body("name").custom(async (username, { req }) => {
         let existing_user = await req.app.get("db").collection("users").findOne({
@@ -21,9 +21,9 @@ router.post(
 
         if (!existing_user) {
             throw new Error("No such user exists");
-        } 
-        
-        if (existing_user.deleted){
+        }
+
+        if (existing_user.deleted) {
             throw new Error("User has been deleted");
         }
 
@@ -45,8 +45,6 @@ router.post(
         }
     }),
 
-    
-
     check_form_errors,
 
     /* Data should be VALID by this point */
@@ -58,7 +56,7 @@ router.post(
             if (req.body.remember) {
                 req.session.cookie.maxAge = 1000 * 60 * 60 * 24 * 21;
                 req.session.rememberMe = true;
-            } 
+            }
             res.json({ success: true, redirectUrl: "/threads" });
         } else {
             res.status(400).json({ success: false, message: "User authentication failed." });

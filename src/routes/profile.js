@@ -13,7 +13,7 @@ import eq from "../helpers/strict_equality.js";
 
 /* Middleware */
 import check_form_errors from "../middlewares/check_form_errors.js";
-import get_active_user from "../middlewares/get_active_user.js";
+import { get_active_user } from "../middlewares/get_session.js";
 import { get_game_banners } from "../middlewares/get_games.js";
 import { get_user_comments } from "../middlewares/get_comments.js";
 import get_display_user from "../middlewares/get_display_user.js";

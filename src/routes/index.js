@@ -1,6 +1,6 @@
 import express from "express";
 import { get_featured_games } from "../middlewares/get_games.js";
-import redirect_threads from "../middlewares/session_exists.js";
+import { check_existing_session } from "../middlewares/get_session.js";
 
 const router = express.Router();
 
@@ -16,13 +16,13 @@ router.get("/", get_featured_games, (req, res) => {
     });
 });
 
-router.get("/signin", redirect_threads, (req, res) => {
+router.get("/signin", check_existing_session, (req, res) => {
     res.render("signin", {
         title: "Sign in",
     });
 });
 
-router.get("/register", redirect_threads, (req, res) => {
+router.get("/register", check_existing_session, (req, res) => {
     res.render("register", {
         title: "Register",
     });

@@ -1,4 +1,4 @@
-/** Fetches game data to display in the forum page sidebar (icon, description, logo) */
+/** Fetches game data to display in the forum page sidebar (icon, description, logo). Stores it in `res.locals.game_data`. */
 export async function get_game_data(req, res, next) {
     try {
         const _games = req.app.get("db").collection("games");
@@ -20,7 +20,7 @@ export async function get_game_data(req, res, next) {
     }
 }
 
-/** Fetches the game data to load into the scrolling banner in the forum page header */
+/** Fetches the game data to load into the scrolling banner in the forum page header. Stores it in `res.locals.banners`. */
 export async function get_game_banners(req, res, next) {
     try {
         const _games = req.app.get("db").collection("games");
@@ -33,6 +33,7 @@ export async function get_game_banners(req, res, next) {
     }
 }
 
+/** Fetches the games to display on the homepage gallery. Stores it in `res.locals.featured`. */
 export async function get_featured_games(req, res, next) {
     try {
         /* Fetch from database */

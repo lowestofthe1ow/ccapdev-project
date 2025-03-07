@@ -1,6 +1,6 @@
 import express from "express";
 import { ObjectId } from "mongodb";
-import get_active_user from "../middlewares/get_active_user.js";
+import { get_active_user } from "../middlewares/get_session.js";
 import { get_game_banners } from "../middlewares/get_games.js";
 
 const router = express.Router();
