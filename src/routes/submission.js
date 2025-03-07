@@ -1,17 +1,17 @@
 import express from "express";
+import { ObjectId } from "mongodb";
 import get_active_user from "../middlewares/get_active_user.js";
-import  get_ads  from "../middlewares/get_ads.js";
+import { get_game_banners } from "../middlewares/get_games.js";
 
 const router = express.Router();
 
 /** Get route for submission, renders the page where form is */
-router.get("/", get_active_user, get_ads, async (req, res) => {
+router.get("/", get_active_user, get_game_banners, async (req, res) => {
     res.render("submission", {
         layout: "forum",
         title: "Create Post",
     });
 });
-import { ObjectId } from "mongodb";
 
 /** Post route for submission, creates the post*/
 router.post("/", get_active_user, async (req, res) => {

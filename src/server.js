@@ -1,20 +1,19 @@
+import MongoStore from "connect-mongo";
+import cookieParser from "cookie-parser";
 import express from "express";
 import { engine } from "express-handlebars";
 import session from "express-session";
-import cookieParser from "cookie-parser";
-import MongoStore from "connect-mongo";
 
 /* MongoDB connection */
 import db_conn from "./model/db.js";
 
 /* Routes */
 import index from "./routes/index.js";
-import forum from "./routes/threads.js";
 import profile from "./routes/profile.js";
 import register from "./routes/register.js";
 import signin from "./routes/signin.js";
-import search_games from "./routes/games.js";
 import submission from "./routes/submission.js";
+import forum from "./routes/threads.js";
 
 const app = express();
 const port = 8000;
@@ -59,7 +58,6 @@ app.use("/threads", forum);
 app.use("/profile", profile);
 app.use("/register", register);
 app.use("/signin", signin);
-app.use("/games", search_games);
 app.use("/submission", submission);
 
 /* Connect to MongoDB and begin listening to requests */

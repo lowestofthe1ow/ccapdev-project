@@ -8,6 +8,7 @@ export default async (req, res, next) => {
             .findOne({
                 _id: new ObjectId(req.params.user_id),
             });
+
         next();
     } catch (error) {
         console.log(error);

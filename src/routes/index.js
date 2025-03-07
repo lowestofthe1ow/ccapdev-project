@@ -1,5 +1,5 @@
 import express from "express";
-import get_featured from "../middlewares/get_featured.js";
+import { get_featured_games } from "../middlewares/get_games.js";
 import redirect_threads from "../middlewares/session_exists.js";
 
 const router = express.Router();
@@ -8,7 +8,7 @@ const router = express.Router();
 router.use(express.urlencoded({ extended: true }));
 router.use(express.json());
 
-router.get("/", get_featured, (req, res) => {
+router.get("/", get_featured_games, (req, res) => {
     res.render("index", {
         /* Include gallery of randomly selected featured games */
         images: req.app.get("featured"),
@@ -90,6 +90,20 @@ router.get("/tags", async (req, res) => {
             .toArray();
 
         req.games = res.json(tags.map((tag) => tag.tag));
+    } catch (error) {
+        console.error(error);
+    }
+});
+
+router.get("/games", async (req, res) => {
+    try {
+        /* Search for games based on a query */
+        const _games = req.app.get("db").collection("games");
+        const query = req.query.q || "";
+        const games = await _games.find({ name: { $regex: query, $options: "i" } }).toArray();
+
+        /* Return an array of only the names */
+        res.json(games.map((tag) => tag.name));
     } catch (error) {
         console.error(error);
     }

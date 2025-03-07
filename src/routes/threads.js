@@ -14,10 +14,9 @@ import eq from "../helpers/strict_equality.js";
 import thread_comment from "../controllers/thread_comment.js";
 import get_active_user from "../middlewares/get_active_user.js";
 import { get_comment_count, get_comment_replies, get_thread_comments } from "../middlewares/get_comments.js";
-import { get_game_data } from "../middlewares/get_games.js";
+import { get_game_data, get_game_banners } from "../middlewares/get_games.js";
 import { get_thread, get_threads, get_top_threads } from "../middlewares/get_threads.js";
 import let_guest_through from "../middlewares/let_guest_through.js";
-import get_ads from "../middlewares/get_ads.js";
 
 const router = express.Router();
 
@@ -28,7 +27,7 @@ router.get(
     get_threads /* Get thread list */,
     get_top_threads,
     get_game_data,
-    get_ads,
+    get_game_banners,
     get_active_user,
 
     (req, res) => {
@@ -51,7 +50,7 @@ router.get(
     get_thread /* Get thread data */,
     get_top_threads,
     get_game_data,
-    get_ads,
+    get_game_banners,
     get_thread_comments /* Expand all comments under the thread */,
     get_comment_count /* Count all comments under the thread */,
 
@@ -178,7 +177,7 @@ router.get(
     let_guest_through,
     get_thread /* Get thread data */,
     get_comment_replies /* Expand all comments under a specific comment */,
-    get_ads,
+    get_game_banners,
 
     (req, res) => {
         /* TODO: This uses a hardcoded value for now. Replace with session data eventually */

@@ -14,7 +14,7 @@ import eq from "../helpers/strict_equality.js";
 /* Middleware */
 import check_form_errors from "../middlewares/check_form_errors.js";
 import get_active_user from "../middlewares/get_active_user.js";
-import get_ads from "../middlewares/get_ads.js";
+import { get_game_banners } from "../middlewares/get_games.js";
 import { get_user_comments } from "../middlewares/get_comments.js";
 import get_display_user from "../middlewares/get_display_user.js";
 import { get_upvoted_threads, get_user_threads } from "../middlewares/get_threads.js";
@@ -30,7 +30,7 @@ router.get("/", get_active_user, async (req, res) => {
 router.get(
     "/edit",
     get_active_user /* Gets the active user */,
-    get_ads,
+    get_game_banners,
 
     (req, res) => {
         res.render("pfedit", {
@@ -92,7 +92,7 @@ router.get(
     "/:user_id",
     get_active_user,
     get_display_user,
-    get_ads,
+    get_game_banners,
     get_user_threads /* Fetches thread list */,
 
     async (req, res) => {
@@ -113,7 +113,7 @@ router.get(
     "/:user_id/comments",
     get_active_user /* Gets the visited user */,
     get_display_user,
-    get_ads,
+    get_game_banners,
     get_user_comments,
 
     async (req, res) => {
@@ -137,7 +137,7 @@ router.get(
     "/:user_id/upvoted",
     get_active_user,
     get_display_user,
-    get_ads,
+    get_game_banners,
     get_upvoted_threads /* Fetches thread list */,
 
     async (req, res) => {
@@ -158,7 +158,7 @@ router.post(
     "/delete",
     get_active_user /* Gets the current active user */,
     get_display_user,
-    get_ads,
+    get_game_banners,
 
     async (req, res) => {
         try {
