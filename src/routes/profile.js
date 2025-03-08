@@ -17,7 +17,7 @@ import { get_user_comments } from "../middlewares/get_comments.js";
 import get_display_user from "../middlewares/get_display_user.js";
 import { get_game_banners } from "../middlewares/get_games.js";
 import { get_active_user } from "../middlewares/get_session.js";
-import { get_upvoted_threads, get_user_threads } from "../middlewares/get_threads.js";
+import { get_top_threads, get_upvoted_threads, get_user_threads } from "../middlewares/get_threads.js";
 
 const router = express.Router();
 
@@ -117,6 +117,7 @@ router.get(
     get_display_user,
     get_game_banners,
     get_user_threads /* Fetches thread list */,
+    get_top_threads,
 
     async (req, res) => {
         res.render("profile", {
@@ -138,6 +139,7 @@ router.get(
     get_display_user,
     get_game_banners,
     get_user_comments,
+    get_top_threads,
 
     async (req, res) => {
         res.render("profile_comments", {
@@ -162,6 +164,7 @@ router.get(
     get_display_user,
     get_game_banners,
     get_upvoted_threads /* Fetches thread list */,
+    get_top_threads,
 
     async (req, res) => {
         res.render("profile_upvoted", {

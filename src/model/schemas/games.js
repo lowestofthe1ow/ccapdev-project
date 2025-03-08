@@ -4,15 +4,23 @@
 export default {
     $jsonSchema: {
         bsonType: "object",
-        required: ["image", "icon", "name"],
+        required: ["description", "icon", "image", "logo", "name"],
         properties: {
-            image: {
+            description: {
                 bsonType: "string",
-                description: "'image' must be a string and is required",
+                description: "'description' must be a string and is required",
             },
             icon: {
                 bsonType: "string",
                 description: "'icon' must be a string and is required",
+            },
+            image: {
+                bsonType: "string",
+                description: "'image' must be a string and is required",
+            },
+            logo: {
+                bsonType: "string",
+                description: "'logo' must be a string  and is required",
             },
             name: {
                 bsonType: "string",

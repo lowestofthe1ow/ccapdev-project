@@ -10,7 +10,6 @@ router.use(express.json());
 router.get("/", get_featured_games, (req, res) => {
     res.render("index", {
         /* Include gallery of randomly selected featured games */
-        images: req.app.get("featured"),
         title: "Home",
     });
 });

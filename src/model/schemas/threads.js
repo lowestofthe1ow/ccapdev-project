@@ -29,7 +29,14 @@ export default {
                 bsonType: "date",
                 description: "'created' must be a date and is required",
             },
-
+            deleted: {
+                bsonType: "bool",
+                description: "'deleted' must be a boolean",
+            },
+            edited: {
+                bsonType: "date",
+                description: "'edited' must be a date",
+            },
             /* TODO: Should games and tags be separate objects */
             games: {
                 bsonType: "array",
@@ -49,6 +56,7 @@ export default {
                 minItems: 0,
                 uniqueItems: true,
             },
+            /* Thumbnail will be an empty string for threads without images */
             thumbnail: {
                 bsonType: "string",
                 description: "'thumbnail' must be a string and is required",
