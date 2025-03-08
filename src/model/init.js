@@ -52,6 +52,7 @@ db_conn.connect().then(async () => {
     });
 
     await load_from_file(db, "games", "src/model/data/games.json");
+    await load_from_file(db, "users", "src/model/data/users.json");
 
     db_conn.close();
 });
