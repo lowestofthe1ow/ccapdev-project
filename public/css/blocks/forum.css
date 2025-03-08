@@ -2,6 +2,7 @@
 
 .forum {
     display: flex;
+    flex: 1;
     flex-direction: column;
     gap: 20px;
     margin: auto;
@@ -48,8 +49,8 @@
 .forum__ad {
     border: 1px solid var(--kinkan-gray);
     border-radius: 10px;
-    height: 150px;
     width: 250px;
+    height: 150px;
 }
 
 .forum__body {

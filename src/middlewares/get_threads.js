@@ -226,7 +226,25 @@ export const get_upvoted_threads = async (req, res, next) => {
             .map((threadId) => new ObjectId(threadId));
 
         const result = await _threads
-            .aggregate([{ $match: { _id: { $in: upvoted_ids } } }, _sort(sort), paginate(page, 10)])
+            .aggregate([
+                { $match: { _id: { $in: upvoted_ids } } },
+                {
+                    $lookup: {
+                        from: "users",
+                        localField: "author",
+                        foreignField: "_id",
+                        as: "author_data",
+                    },
+                },
+                {
+                    $unwind: {
+                        path: "$author_data",
+                        preserveNullAndEmptyArrays: true,
+                    },
+                },
+                _sort(sort),
+                paginate(page, 10),
+            ])
             .toArray();
 
         paginate_view(res, result, page, 10, "threads");

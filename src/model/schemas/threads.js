@@ -22,8 +22,6 @@ export default {
             content: {
                 bsonType: "string",
                 description: "'content' must be a string and is required",
-                maxLength: 700,
-                /* Set maximum length for comments */
             },
             created: {
                 bsonType: "date",

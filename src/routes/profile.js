@@ -99,9 +99,8 @@ router.post(
             {
                 $set: {
                     ...(req.body.name && { name: req.body.name }),
-                    ...(req.body.content && { bio: req.body.content }),
                     /* Allow these fields to have "empty values" */
-                    ...{ pfp: req.body.pfp, banner: req.body.banner },
+                    ...{ pfp: req.body.pfp, banner: req.body.banner, bio: req.body.content },
                 },
             }
         );
