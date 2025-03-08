@@ -30,13 +30,13 @@ app.use(
         resave: true,
         saveUninitialized: false,
         /* WARNING: DO NOT EVER SET SECURE TO TRUE, NEEDS HTTPS */
-        /* TODO: Make the server use https */
+        /* For the future: Make the server use https */
         rolling: true,
         store: MongoStore.create({
             mongoUrl: process.env.MONGODB_URI + process.env.MONGODB_DBNAME,
             autoRemove: "interval",
             autoRemoveInterval: 10,
-            ttl: 60 * 30 /* TODO: ASK SIR WHAT'S THE DEFAULT TIME TO LIVE */ /* Set to 30 mins */,
+            ttl: 60 * 30 /* ask sir what's the default ttl for unremembered users*/ /* Set to 30 mins */,
         }),
         cookie: { httpOnly: true, secure: false, maxAge: null },
     })

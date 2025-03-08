@@ -16,7 +16,7 @@ router.post(
     /* Ensure the user exists in the database */
     body("name").custom(async (username, { req }) => {
         let existing_user = await req.app.get("db").collection("users").findOne({
-            name: username, // TODO: Sessions
+            name: username,
         });
 
         if (!existing_user) {
