@@ -53,6 +53,10 @@ router.post(
 
     /* Check if username already exists */
     body("name").custom(async (username, { req }) => {
+        if (!username) {
+            return true;
+        }
+
         let existing_user = await req.app.get("db").collection("users").findOne({
             name: username,
         });
@@ -70,6 +74,7 @@ router.post(
     async (req, res) => {
         let _users = req.app.get("db").collection("users");
 
+        /* TODO: I don't think this is needed anymore
         if (req.body.pfp === "" && req.body.banner === "") {
             _users.updateOne({ _id: res.locals.user._id }, { $set: { name: req.body.name, bio: req.body.content } });
         } else if (req.body.pfp === "") {
@@ -87,7 +92,19 @@ router.post(
                 { _id: res.locals.user._id },
                 { $set: { name: req.body.name, bio: req.body.content, pfp: req.body.pfp, banner: req.body.banner } }
             );
-        }
+        } */
+
+        _users.updateOne(
+            { _id: res.locals.user._id },
+            {
+                $set: {
+                    ...(req.body.name && { name: req.body.name }),
+                    ...(req.body.content && { bio: req.body.content }),
+                    /* Allow these fields to have "empty values" */
+                    ...{ pfp: req.body.pfp, banner: req.body.banner },
+                },
+            }
+        );
 
         res.json({ success: true, redirectUrl: "/profile/edit" });
     }

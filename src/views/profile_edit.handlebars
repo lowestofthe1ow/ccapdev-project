@@ -1,7 +1,7 @@
 <div class="profile">
     <!-- Setting background image is a temporary solution. Probably better to use an <img> element fixed
     behind a div -->
-    <div class="profile__banner--edit" style="background-image: url({{user.banner}});">
+    <div class="profile__banner--edit" style="background-image: url({{user.banner}}); background-color: var(--kinkan-gray)">
         <div style="display: flex; flex-direction: column; gap: 5px; align-items: flex-start">
             <div class="advsearch__component">
                 <button class="button button--light profile__bg-edit button--light--small" data-toggle="#banner-url">
@@ -9,7 +9,7 @@
                     Add
                 </button>
 
-                <button class="button button--light  profile__bg-edit  button--light--small">
+                <button class="button button--light profile__bg-edit button--light--small" id="clear-banner">
                     <span class="material-symbols-outlined">cancel</span>
                     Clear
                 </button>
@@ -17,7 +17,7 @@
 
             <div class="advsearch__component hidden" id="banner-url">
                 <label class="advsearch__label">Banner image URL</label>
-                <input type="text" name="banner" class="advsearch__input" placeholder="Enter a URL..." form="profile-editor" />
+                <input type="text" value="{{user.banner}}" name="banner" class="advsearch__input" placeholder="Enter a URL..." form="profile-editor" />
             </div>
         </div>
     </div>
@@ -31,17 +31,19 @@
 
         <div class="advsearch__component hidden" id="pfp-url">
             <label class="advsearch__label">Profile image URL</label>
-            <input type="text" name="pfp" class="advsearch__input" placeholder="Enter a URL..." form="profile-editor" />
+            <input type="text" value="{{user.pfp}}" name="pfp" class="advsearch__input" placeholder="Enter a URL..." form="profile-editor" />
         </div>
 
         <input type="text" name="name" value={{user.name}} class="profile__text edit__username" form="profile-editor" minlength="8" required="true"/>
 
+        <div style="align-self: stretch">
         {{> editor
             id="profile-editor"
             action="/profile/edit"
             value=user.bio
             method="post"
             hide_submit=true}}
+        </div>
         
         <div class="profile__buttons" >
             <button type="submit" class="button button--light" form="profile-editor">
