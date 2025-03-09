@@ -16,7 +16,7 @@ import submission from "./routes/submission.js";
 import forum from "./routes/threads.js";
 
 const app = express();
-const port = 8000;
+const port = 3000;
 
 app.use(express.urlencoded({ extended: true }));
 
