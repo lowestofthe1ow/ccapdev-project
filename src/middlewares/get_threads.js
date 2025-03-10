@@ -227,7 +227,7 @@ export const get_upvoted_threads = async (req, res, next) => {
 
         const result = await _threads
             .aggregate([
-                { $match: { _id: { $in: upvoted_ids } } },
+                { $match: { _id: { $in: upvoted_ids }, deleted: { $ne: true } } },
                 {
                     $lookup: {
                         from: "users",
