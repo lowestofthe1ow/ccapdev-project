@@ -192,7 +192,7 @@ router.post(
             await users.updateOne(
                 { _id: new ObjectId(req.session.user_id) },
                 {
-                    $set: { deleted: true, name: null }, // Soft delete user
+                    $set: { deleted: true, name: "" }, // Soft delete user
                 }
             );
 
