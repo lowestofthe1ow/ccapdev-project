@@ -54,10 +54,10 @@ export async function get_threads(req, res, next) {
             deleted: { $ne: true },
         };
 
+        console.log(search_filters);
+
         const result = await _threads
             .aggregate([
-                { $match: search_filters },
-                _sort(sort),
                 /* Expand author data */
                 {
                     $lookup: {
@@ -73,6 +73,8 @@ export async function get_threads(req, res, next) {
                         preserveNullAndEmptyArrays: true,
                     },
                 },
+                { $match: search_filters },
+                _sort(sort),
                 /* Pagination */
                 paginate(page, 10),
             ])
