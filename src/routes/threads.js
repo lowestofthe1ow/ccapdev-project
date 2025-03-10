@@ -53,8 +53,6 @@ router.get(
     get_comment_count /* Count all comments under the thread */,
 
     (req, res) => {
-        /* TODO: This uses a hardcoded value for now. Replace with session data eventually */
-
         res.render("thread", {
             helpers: {
                 check_depth,
@@ -110,7 +108,6 @@ router.post(
     }
 );
 
-/* TODO: Combine the vote stuff*/
 /** Vote a comment and post*/
 router.post(
     [
@@ -176,9 +173,6 @@ router.get(
     get_game_banners,
 
     (req, res) => {
-        /* TODO: This uses a hardcoded value for now. Replace with session data eventually */
-        let _is_author = is_author(new ObjectId("67a8caec05494bfdd8a41bf7"));
-
         res.render("thread", {
             helpers: {
                 _is_author,
@@ -199,11 +193,6 @@ router.get(
 router.post(
     "/:thread_id/comments",
     get_active_user,
-    /* TODO: Replace this with session middleware */
-    (req, res, next) => {
-        req.username = "lowestofthelow";
-        next();
-    },
     get_active_user /* Gets the current active user */,
     get_thread /* Get thread data */,
     get_thread_comments /* Expand all comments under the thread */,

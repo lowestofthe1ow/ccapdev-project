@@ -2,8 +2,6 @@
  * Schema validator for the `users` collection.
  */
 
-/* TODO: Set max length if y'all want */
-/* REALLY IMPORTANT TODO: BIO CAN BE EMPTY */
 export default {
     $jsonSchema: {
         bsonType: "object",

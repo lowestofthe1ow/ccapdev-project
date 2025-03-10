@@ -106,4 +106,12 @@ router.get("/games", async (req, res) => {
     }
 });
 
+router.get("/privacy", async (req, res) => {
+    res.render("privacy", {
+        /* Include gallery of randomly selected featured games */
+        title: "Privacy Policy",
+    });
+
+})
+
 export default router;
