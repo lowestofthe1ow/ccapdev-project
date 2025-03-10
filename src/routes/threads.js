@@ -6,7 +6,6 @@ import check_depth from "../helpers/check_depth.js";
 import check_id from "../helpers/check_id.js";
 import concat from "../helpers/concat.js";
 import format_date from "../helpers/format_date.js";
-import is_author from "../helpers/is_author.js";
 import markdown from "../helpers/markdown.js";
 import eq from "../helpers/strict_equality.js";
 
