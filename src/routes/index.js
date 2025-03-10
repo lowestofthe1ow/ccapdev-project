@@ -114,4 +114,9 @@ router.get("/privacy", async (req, res) => {
 
 })
 
+router.get("/guest_session", async (req, res) => {
+
+    req.session?.destroy(() => res.redirect("/threads")) || res.redirect("/threads");
+})
+
 export default router;

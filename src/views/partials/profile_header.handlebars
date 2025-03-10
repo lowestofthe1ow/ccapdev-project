@@ -7,7 +7,11 @@
                 {{! Show default avatar if no pfp }}
                 <img class="profile__pfp" src={{#if display_user.pfp}}{{display_user.pfp}}{{else}}"/img/default_avatar.svg"{{/if}} />
                 <article class="article">
-                    <h1 class="profile__username">{{display_user.name}}</h1>
+                    {{#if this.display_user.deleted}}
+                        <h1 class="profile__username">[deleted]</h1>
+                    {{else}}
+                        <h1 class="profile__username">{{display_user.name}}</h1>
+                    {{/if}}
                     {{#if display_user.bio}}<p>{{{markdown display_user.bio}}}</p>{{/if}}
                 </article>
             </div>
