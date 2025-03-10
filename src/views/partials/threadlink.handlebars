@@ -77,7 +77,7 @@
                    <img src={{#if author_data.pfp}}{{author_data.pfp}}{{else}}"/img/default_avatar.svg"{{/if}}
                     style="height: 20px; width: 20px; object-fit: cover; border-radius: 20px;"/>
                 
-                    <p class="thread__detail">Posted by <a class="thread__link" href="/profile/{{author_data._id}}"> <strong>{{author_data.name}}</strong> </a>・{{format_date created}} {{#if edited}} (edited {{format_date edited}}){{/if}}</p>
+                    <p class="thread__detail">Posted by <a class="thread__link" href="/profile/{{author_data._id}}"> <strong>{{author_data.name}}</strong></a>・{{format_date created}} {{#if edited}} (edited {{format_date edited}}){{/if}}</p>
                 {{/if}}
                 {{/unless}}
             </div>
