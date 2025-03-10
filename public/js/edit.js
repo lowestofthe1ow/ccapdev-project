@@ -11,6 +11,5 @@ document.querySelector("#profile-editor").addEventListener("submit", async (e) =
 });
 
 document.querySelector("#clear-banner").addEventListener("click", () => {
-    console.log("hi");
     send_edit_request("/profile/edit", JSON.stringify({ banner: "" }));
 });

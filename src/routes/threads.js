@@ -82,7 +82,11 @@ router.post(
             { _id: res.locals.thread._id },
             {
                 $set: {
-                    content: req.body.content,
+                    content: req.body.content.trim() || "",
+                    games: JSON.parse(req.body.games),
+                    tags: JSON.parse(req.body.tags),
+                    thumbnail: req.body.content.match(/!\[.*?\]\((.*?)\)/)?.[1] ?? "",
+                    title: req.body.title?.trim() || "",
                     thumbnail: req.body.content.match(/!\[.*?\]\((.*?)\)/)?.[1] ?? "",
                     edited: new Date(Date.now()),
                 },

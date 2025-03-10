@@ -16,11 +16,37 @@
 
         <article class="article article__block">
             {{! "Edit comment" menu }}
-            <div id="editmenu--{{this.thread._id}}" class="hidden" style="margin-bottom: 10px;">
+            <div id="editmenu--{{this.thread._id}}" class="thread__editcontent hidden">
                 <p><strong>Edit this thread</strong></p>
                 
+                <div class="advsearch__component">
+                    <label class="advsearch__label" for="author">Title</label>
+                    <input
+                        type="text"
+                        name="title"
+                        class="advsearch__input"
+                        value="{{this.thread.title}}"
+                        form="editeditor--thread"
+                    />
+                </div>
+
+                <input
+                    type="hidden"
+                    name="tags"
+                    form="editeditor--thread"
+                />
+
+                <input
+                    type="hidden"
+                    name="games"
+                    form="editeditor--thread"
+                />
+
+                {{> search_tags games=this.thread.games tags="" name="games" label="Edit games" placeholder="Search for a game..." class="game__search" id="edit__games"}}
+                {{> search_tags games="" tags=this.thread.tags name="tags" label="Edit tags" placeholder="Add a tag..." class="tag__search" id="edit__tags"}}
+ 
                 {{> editor
-                        id=(concat "editeditor--" this.thread._id)
+                        id="editeditor--thread"
                         action=(concat "/threads/" this.thread._id "/edit")
                         value=this.thread.content
                         method="post"}} {{! TODO: <form> does not allow the PUT verb}}
@@ -83,6 +109,4 @@
     {{> sidebar}}
 </div>
 
-
-
-
+<script type="module" src="/js/edit_thread.js"></script>
