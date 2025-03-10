@@ -2,7 +2,7 @@
 
 .sidebar {
     display: flex;
-    flex-grow: 1;
+    flex: 1;
     flex-direction: column;
     gap: 10px;
     border: 1px solid var(--kinkan-gray);
@@ -10,7 +10,7 @@
     background-color: var(--light);
     padding: 10px;
     color: var(--dark);
-    max-width: 300px;
+    min-width: 300px;
 }
 
 .sidebar__rule {
