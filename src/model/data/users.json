@@ -6,9 +6,15 @@
         "name": "lowestofthelow",
         "password": "$argon2id$v=19$m=65536,t=3,p=4$0oyn3RvDEr9jcfvQvb4WRA$ZOBjvAvjxjE7fOnbO+snA2MKqUX2CD2Qoi9pz5HrKkQ",
         "thread_vote_list": {
-            "67cbcb979658b94a3f71d85c": 1
+            "67cbcb979658b94a3f71d85c": 1,
+            "67ce71553cbcf675b658294c": 1,
+            "67ce77333cbcf675b658294d": 1
         },
-        "comment_vote_list": {},
+        "comment_vote_list": {
+            "67ce88399f378831553045ee": 1,
+            "67ce916f9f378831553045ef": 1,
+            "67ce93949f378831553045f0": 1
+        },
         "pfp": "/img/sample_profiles/lowestofthelow.png",
         "banner": "/img/sample_profiles/lowestofthelow_banner.jpg",
         "bio": "ことね、広P。かわいいは正義。",
@@ -21,7 +27,10 @@
         "name": "red_dayo",
         "password": "$argon2id$v=19$m=65536,t=3,p=4$L5EwLohNtrNMvPqOmyJ7RA$o1ggs6ZVuojlF8j+tdu51Rbobh0dLT+afvsxOnGxe14",
         "thread_vote_list": {},
-        "comment_vote_list": {},
+        "comment_vote_list": {
+            "67ce9467746e59a4044da38f": -1,
+            "67ce947a746e59a4044da390": 1
+        },
         "pfp": "/img/sample_profiles/red_dayo.jpg",
         "banner": "/img/sample_profiles/red_dayo_banner.jpg",
         "bio": "WORLD'S STRONGEST HAATON",
@@ -48,7 +57,13 @@
         },
         "name": "tobisawa_misaki",
         "password": "$argon2id$v=19$m=65536,t=3,p=4$W20yfNqnqPT+87/xgzcNtA$ShE5lNLT3gYoxAkpUx73N9/EJdMIZHQobDbQywCVzFY",
-        "thread_vote_list": {},
+        "thread_vote_list": {
+            "67ce9603746e59a4044da393": 1,
+            "67ce77333cbcf675b658294d": 1,
+            "67ce71553cbcf675b658294c": 1,
+            "67ce943d746e59a4044da38e": 1,
+            "67ce94fd746e59a4044da391": -1
+        },
         "comment_vote_list": {},
         "pfp": "/img/sample_profiles/tobisawa_misaki.jpg",
         "banner": "/img/sample_profiles/tobisawa_misaki_banner.webp",
@@ -62,7 +77,12 @@
         "name": "shiki_natume",
         "password": "$argon2id$v=19$m=65536,t=3,p=4$CVuyr0Z1z8nBSW33xNdRxw$oBGKTCp8qTHhihIpxgtA/k2DCh3r3fljQM7sWVaqVC0",
         "thread_vote_list": {
-            "67cbcb979658b94a3f71d85c": 1
+            "67cbcb979658b94a3f71d85c": 1,
+            "67ce98f3746e59a4044da394": 1,
+            "67ce71553cbcf675b658294c": 1,
+            "67ce77333cbcf675b658294d": 1,
+            "67ce9603746e59a4044da393": 1,
+            "67cea19b746e59a4044da395": 1
         },
         "comment_vote_list": {},
         "pfp": "/img/sample_profiles/shiki_natume.jpg",

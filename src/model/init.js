@@ -14,11 +14,39 @@ async function load_from_file(db, collection, url) {
     try {
         const data = JSON.parse(fs.readFileSync(url, "utf-8"));
         data.forEach((record) => {
-            record._id = new ObjectId(record._id["$oid"]);
+            record._id = new ObjectId(record._id.$oid);
+
+            if (record.author) {
+                record.author = new ObjectId(record.author.$oid);
+            }
+
+            if (record.parent) {
+                record.parent = new ObjectId(record.parent.$oid);
+            }
+
+            if (record.thread) {
+                record.thread = new ObjectId(record.thread.$oid);
+            }
+
+            if (record.created) {
+                record.created = new Date(record.created.$date);
+            }
+
+            if (record.edited) {
+                record.edited = new Date(record.edited.$date);
+            }
+
+            if (record.children) {
+                record.children = record.children.map((x) => new ObjectId(x.$oid));
+            }
+
+            if (record.comments) {
+                record.comments = record.comments.map((x) => new ObjectId(x.$oid));
+            }
         });
         await db.collection(collection).insertMany(data);
     } catch (error) {
-        console.error(error);
+        console.dir(error, { depth: null });
     }
 }
 
@@ -66,6 +94,8 @@ db_conn.connect().then(async () => {
 
     await load_from_file(db, "games", "src/model/data/games.json");
     await load_from_file(db, "users", "src/model/data/users.json");
+    await load_from_file(db, "threads", "src/model/data/threads.json");
+    await load_from_file(db, "comments", "src/model/data/comments.json");
 
     db_conn.close();
 });
