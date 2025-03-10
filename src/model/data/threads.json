@@ -1,0 +1,172 @@
+[
+    {
+        "_id": {
+            "$oid": "67cbfb2225196f78f423c136"
+        },
+        "author": {
+            "$oid": "67cbf2932aeb725e4246aa50"
+        },
+        "comments": [
+            {
+                "$oid": "67cbfc3633a5b6523bdca6ad"
+            }
+        ],
+        "content": "![](https://pbs.twimg.com/media/GlbswT4bwAEx2jq?format=jpg&name=4096x4096)\r\n[Source](https://x.com/Eggegg_Eggeggg/status/1897964615432388771/photo/1)",
+        "created": {
+            "$date": "2025-03-08T08:09:06.344Z"
+        },
+        "games": ["Gakuen iDOLM@STER"],
+        "tags": ["Fanart", "Hiro Shinosawa", "篠澤広"],
+        "thumbnail": "https://pbs.twimg.com/media/GlbswT4bwAEx2jq?format=jpg&name=4096x4096",
+        "title": "遠くて近い距離",
+        "vote_count": 3,
+        "edited": {
+            "$date": "2025-03-08T08:16:23.913Z"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "67cc00425dac1bd28babdabb"
+        },
+        "author": {
+            "$oid": "67cbf2932aeb725e4246aa50"
+        },
+        "comments": [],
+        "content": "![](https://pbs.twimg.com/media/GlQYGc_bcAAWu7Z?format=jpg&name=4096x4096)\r\n[Source](https://x.com/Retsu_3/status/1897195384189128933)",
+        "created": {
+            "$date": "2025-03-08T08:30:58.188Z"
+        },
+        "games": ["Blue Archive"],
+        "tags": ["Fanart", "Kazusa Kyouyama", "杏山カズサ"],
+        "thumbnail": "https://pbs.twimg.com/media/GlQYGc_bcAAWu7Z?format=jpg&name=4096x4096",
+        "title": "杏山カズサ",
+        "vote_count": 3
+    },
+    {
+        "_id": {
+            "$oid": "67cc03755edc71b53c254eab"
+        },
+        "author": {
+            "$oid": "67cbf2932aeb725e4246aa52"
+        },
+        "comments": [
+            {
+                "$oid": "67cc03f55edc71b53c254eac"
+            }
+        ],
+        "content": "![STELLAR STELLAR](https://pbs.twimg.com/media/GlbpJPTagAA2Jpp?format=jpg&name=large)\r\n\r\nだって僕は星だから\r\nStellar stellar\r\nAh\r\nきっと僕はもう気づいていた\r\n僕の心の奥で描いた それがこれから話す陳腐なモノローグさ\r\nずっと言えない言葉があった\r\n壊せない壁があったんだ ずっとさ\r\nふっと香り立つ朝の匂いが\r\nどうしようもなく憎らしくて\r\n部屋の隅で膝を抱えて震えていた\r\n太陽なんていらないから\r\n明けないでいて\r\nその手を伸ばして 誰かに届くように\r\n僕だって君と同じ 特別なんかじゃないから\r\nそうさ僕は夜を歌うよ stellar stellar\r\nありったけの輝きで 今宵音楽はずっとずっと止まない\r\nそうだ僕がずっとなりたかったのは\r\n待ってるシンデレラじゃないさ\r\n迎えに行く王子様だ\r\nだって僕は星だから\r\nなんて ありふれた話なんだ\r\n理想だけ書き連ねていた ノートの隅に眠るほんのワンシーンだ\r\nきっとあの星も泣いてるんだ\r\n明日なんて来ないままでいて\r\nその手を伸ばして 誰かに届くように\r\n本当に大切なものは目に見えないみたいなんだ\r\nそうさ僕は夜を歌うよ stellar stellar\r\nありのまま考えないで 今宵音楽はきっときっと止まない\r\nそうだ僕がずっとなりたかったのは\r\nあえかなヒロインじゃないさ\r\n救いに行くヒーローだ\r\n夢見がちなおとぎ話 おとぎ話\r\nそうさ僕は夜を歌うよ stellar stellar\r\nありったけの輝きで 今宵音楽はずっとずっと止まない\r\nそうさ僕は愛を歌うよ stellar stellar\r\n世界 宇宙の真ん中で 今宵音楽はきっときっと止まない\r\nそうだ僕がずっとなりたかったのは\r\n待ってるシンデレラじゃないさ\r\n迎えに行く王子様だ\r\nだって僕は星だから\r\nそうだ僕は星だった\r\nStellar stellar, ah",
+        "created": {
+            "$date": "2025-03-08T08:44:37.048Z"
+        },
+        "games": ["HoloCure – Save the Fans!"],
+        "tags": ["Kyou mo Kawaii"],
+        "thumbnail": "https://pbs.twimg.com/media/GlbpJPTagAA2Jpp?format=jpg&name=large",
+        "title": "i swear this is related since hoshimachi suisei appears in the hit-game holocure",
+        "vote_count": 3,
+        "edited": {
+            "$date": "2025-03-08T08:47:35.784Z"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "67cc09f60da557d8ce17b5b6"
+        },
+        "author": {
+            "$oid": "67cbf2932aeb725e4246aa51"
+        },
+        "comments": [
+            {
+                "$oid": "67cc0a440da557d8ce17b5b7"
+            }
+        ],
+        "content": "【EN】hololive 6th fes. Color Rise Harmony\r\n\r\n![Stage 2](https://cdn.donmai.us/original/1e/e3/__houshou_marine_usada_pekora_mori_calliope_takanashi_kiara_amane_kanata_and_19_more_hololive_and_3_more_drawn_by_amagai_tarou_and_ekao__1ee3f2b36b1f088bf95062be18e753f0.jpg)\r\n\r\n\r\n## STAGE2(DAY1) 17:00 / 17:30\r\n\r\nAZKi / Murasaki Shion / Usada Pekora / Houshou Marine / Amane Kanata / Omaru Polka / Takane Lui / Kazama Iroha / Ayunda Risu / Pavolia Reine / Kobo Kanaeru / Mori Calliope / Takanashi Kiara / Hakos Baelz / Hiodoshi Ao / Otonose Kanade / Ichijou Ririka / Juufuutei Raden / Todoroki Hajime\r\n\r\n\r\n## Tickets\r\nhttps://spwn.jp/events/evt_25030802-enghololive6thfes?utm_source=cover&utm_medium=website&utm_campaign=engholo6thfes_top",
+        "created": {
+            "$date": "2025-03-08T09:12:22.205Z"
+        },
+        "games": ["HoloCure – Save the Fans!"],
+        "tags": ["hololive", "Color Rise Harmony", "STAGE2", "DAY1"],
+        "thumbnail": "https://cdn.donmai.us/original/1e/e3/__houshou_marine_usada_pekora_mori_calliope_takanashi_kiara_amane_kanata_and_19_more_hololive_and_3_more_drawn_by_amagai_tarou_and_ekao__1ee3f2b36b1f088bf95062be18e753f0.jpg",
+        "title": "【EN】hololive 6th fes. Color Rise Harmony - STAGE2",
+        "vote_count": 3
+    },
+    {
+        "_id": {
+            "$oid": "67cc0b4f0da557d8ce17b5b8"
+        },
+        "author": {
+            "$oid": "67cbf2932aeb725e4246aa50"
+        },
+        "comments": [],
+        "content": "![](https://pbs.twimg.com/media/GlLizovbwAAqp_5?format=jpg&name=4096x4096)\r\n[Source](https://x.com/_emum/status/1896827786255536495/photo/1)",
+        "created": {
+            "$date": "2025-03-08T09:18:07.194Z"
+        },
+        "games": ["Gakuen iDOLM@STER"],
+        "tags": ["Fanart", "Lilja Katsuragi", "葛城リーリヤ"],
+        "thumbnail": "https://pbs.twimg.com/media/GlLizovbwAAqp_5?format=jpg&name=4096x4096",
+        "title": "白線",
+        "vote_count": 2
+    },
+    {
+        "_id": {
+            "$oid": "67cc0bb10da557d8ce17b5b9"
+        },
+        "author": {
+            "$oid": "67cbf2932aeb725e4246aa52"
+        },
+        "comments": [],
+        "content": "Shinosawa Laboratory would like to thank Raid: Shadow Legends, one of the biggest mobile role-playing games of 2019 and it's totally free! Currently almost 10 million users have joined Raid over the last six months, and it's one of the most impressive games in its class with detailed models, environments and smooth 60 frames per second animations! All the champions in the game can be customized with unique gear that changes your strategic buffs and abilities! The dungeon bosses have some ridiculous skills of their own and figuring out the perfect party and strategy to overtake them's a lot of fun! Currently with over 300,000 reviews, Raid has almost a perfect score on the Play Store! The community is growing fast and the highly anticipated new faction wars feature is now live, you might even find my squad out there in the arena! It's easier to start now than ever with rates program for new players you get a new daily login reward for the first 90 days that you play in the game! So what are you waiting for? Go to the video description, click on the special links and you'll get 50,000 silver and a free epic champion as part of the new player program to start your journey! Good luck and I'll see you there!!![money](https://pbs.twimg.com/media/FMqt1JwUcAMwJod.jpg)",
+        "created": {
+            "$date": "2025-03-08T09:19:45.864Z"
+        },
+        "games": ["Raid: Shadow Legends"],
+        "tags": ["sponsorship", "Meme"],
+        "thumbnail": "https://pbs.twimg.com/media/FMqt1JwUcAMwJod.jpg",
+        "title": "Shinosawa Laboratory would like to thank Raid: Shadow Legends for sponsoring our website",
+        "vote_count": -1,
+        "edited": {
+            "$date": "2025-03-08T09:20:11.848Z"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "67cc0d540da557d8ce17b5ba"
+        },
+        "author": {
+            "$oid": "67cbf2932aeb725e4246aa50"
+        },
+        "comments": [],
+        "content": "![](https://pbs.twimg.com/media/GlaAmBta4AARB6E?format=jpg&name=4096x4096)\r\n\r\n# 【秋葉原店】5/17～学園アイドルマスター 1st Anniversary Celebration Party オンリーショップ in アニメイト開催決定！\r\n\r\nグッズの販売や作品の魅力が詰まった展示コーナーも登場！\r\n販売グッズと受注商品も大公開♪\r\n\r\n詳細⇒[https://x.gd/4OmKX](https://x.gd/4OmKX)",
+        "created": {
+            "$date": "2025-03-08T09:26:44.463Z"
+        },
+        "games": ["Gakuen iDOLM@STER"],
+        "tags": ["News", "Goods"],
+        "thumbnail": "https://pbs.twimg.com/media/GlaAmBta4AARB6E?format=jpg&name=4096x4096",
+        "title": "【秋葉原店】5/17～学園アイドルマスター 1st Anniversary Celebration Party オンリーショップ in アニメイト開催決定！",
+        "vote_count": 1
+    },
+    {
+        "_id": {
+            "$oid": "67cc0e340da557d8ce17b5bb"
+        },
+        "author": {
+            "$oid": "67cbf2932aeb725e4246aa52"
+        },
+        "comments": [
+            {
+                "$oid": "67cc0e600da557d8ce17b5bc"
+            }
+        ],
+        "content": "...haha get it",
+        "created": {
+            "$date": "2025-03-08T09:30:28.117Z"
+        },
+        "games": ["Reverse: 1999"],
+        "tags": ["Meme"],
+        "thumbnail": "",
+        "title": "9991",
+        "vote_count": 0,
+        "deleted": true
+    }
+]
