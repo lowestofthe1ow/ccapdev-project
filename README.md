@@ -24,12 +24,13 @@ know if we need to set it to public.
 
 ### Recreating the database
 
-Ensure you have an instance of MongoDB server (probably 8.0) with a database. Place the URI in a
-`.env` file at the root directory:
+After executing `npm install`, ensure you have an instance of MongoDB server (probably 8.0) running with a database.
+Place the URI in a `.env` file at the root directory:
 
 ```
 MONGODB_URI=mongodb://your-URI
 MONGODB_DBNAME=your-DB-name
+SESSION_SECRET=your-secret
 ```
 
 An example `.env` file is included in the directory. This uses the database name `shinosawa`. Initialize the database by
