@@ -5,14 +5,20 @@
 
     @note This partial accepts an array of thread documents from the MongoDB database. Unused parameters are simply ignored.
 }}
-
-<ul class="forum__threads">
-    {{#each threads}} {{! added an id per forum thread, thread.handlebars also has this dw}}
-    <li class="forum__thread" id="{{this._id}}" >  
-        {{> threadlink this clickable=true user=../user}}
-    </li>
-    {{/each}}
-    {{#if show_breadcrumbs}}
-    {{> breadcrumbs}}
-    {{/if}}
-</ul>
+{{#if threads}}
+    <ul class="forum__threads">
+        {{#each threads}} {{! added an id per forum thread, thread.handlebars also has this dw}}
+        <li class="forum__thread" id="{{this._id}}" >  
+            {{> threadlink this clickable=true user=../user}}
+        </li>
+        {{/each}}
+        {{#if show_breadcrumbs}}
+        {{> breadcrumbs}}
+        {{/if}}
+    </ul>
+{{else}}
+    <div style="align-items: center; display: flex; flex-direction: column; flex-grow: 3; gap: 10px; align-self: center">
+        <img src="/img/warning.webp" style="width: 20%; max-width: 200px; border-radius: 100%; border: 1px solid var(--kinkan-gray)" />
+        <p style="margin: 0px;">No threads yet. Come back later or <a href="/submission" class="article__link">make your own</a>!</p>
+    </div>
+{{/if}}

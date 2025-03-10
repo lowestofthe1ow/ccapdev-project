@@ -34,7 +34,7 @@
 .tag__search {
     display: flex;
     position: relative;
-    flex: 1;
+    flex-grow: 1;
     flex-direction: column;
 }
 

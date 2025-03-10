@@ -1,5 +1,8 @@
 [
     {
+        "_id": {
+            "$oid": "67ce5374031a1878f4055ef1"
+        },
         "name": "lowestofthelow",
         "password": "$argon2id$v=19$m=65536,t=3,p=4$0oyn3RvDEr9jcfvQvb4WRA$ZOBjvAvjxjE7fOnbO+snA2MKqUX2CD2Qoi9pz5HrKkQ",
         "thread_vote_list": {
@@ -12,6 +15,9 @@
         "deleted": false
     },
     {
+        "_id": {
+            "$oid": "67ce5374031a1878f4055ef2"
+        },
         "name": "red_dayo",
         "password": "$argon2id$v=19$m=65536,t=3,p=4$L5EwLohNtrNMvPqOmyJ7RA$o1ggs6ZVuojlF8j+tdu51Rbobh0dLT+afvsxOnGxe14",
         "thread_vote_list": {},
@@ -22,6 +28,9 @@
         "deleted": false
     },
     {
+        "_id": {
+            "$oid": "67ce5374031a1878f4055ef3"
+        },
         "name": "simonstrings",
         "password": "$argon2id$v=19$m=65536,t=3,p=4$bDbhR2lovMVmXFz+E0HZZA$IHBm03R/By8nsmL2n5d1NTj4UmTa6SMeKkHWghmMq7Q",
         "thread_vote_list": {
@@ -34,6 +43,9 @@
         "deleted": false
     },
     {
+        "_id": {
+            "$oid": "67ce5374031a1878f4055ef4"
+        },
         "name": "tobisawa_misaki",
         "password": "$argon2id$v=19$m=65536,t=3,p=4$W20yfNqnqPT+87/xgzcNtA$ShE5lNLT3gYoxAkpUx73N9/EJdMIZHQobDbQywCVzFY",
         "thread_vote_list": {},
@@ -44,6 +56,9 @@
         "deleted": false
     },
     {
+        "_id": {
+            "$oid": "67ce5374031a1878f4055ef5"
+        },
         "name": "shiki_natume",
         "password": "$argon2id$v=19$m=65536,t=3,p=4$CVuyr0Z1z8nBSW33xNdRxw$oBGKTCp8qTHhihIpxgtA/k2DCh3r3fljQM7sWVaqVC0",
         "thread_vote_list": {

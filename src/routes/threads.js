@@ -175,7 +175,6 @@ router.get(
     (req, res) => {
         res.render("thread", {
             helpers: {
-                _is_author,
                 check_depth,
                 check_id,
                 concat,

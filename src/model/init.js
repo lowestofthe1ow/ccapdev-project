@@ -8,8 +8,21 @@ import games from "./schemas/games.js";
 import sessions from "./schemas/sessions.js";
 import threads from "./schemas/threads.js";
 import users from "./schemas/users.js";
+import { ObjectId } from "mongodb";
 
 async function load_from_file(db, collection, url) {
+    try {
+        const data = JSON.parse(fs.readFileSync(url, "utf-8"));
+        data.forEach((record) => {
+            record._id = new ObjectId(record._id["$oid"]);
+        });
+        await db.collection(collection).insertMany(data);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+async function load_from_file_by_author_name(db, collection, url) {
     try {
         const data = JSON.parse(fs.readFileSync(url, "utf-8"));
         await db.collection(collection).insertMany(data);
