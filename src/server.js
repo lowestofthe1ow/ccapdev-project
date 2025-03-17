@@ -33,7 +33,7 @@ app.use(
         /* For the future: Make the server use https */
         rolling: true,
         store: MongoStore.create({
-            mongoUrl: process.env.MONGODB_URI + process.env.MONGODB_DBNAME,
+            mongoUrl: encodeURI(process.env.MONGODB_URI + "/" + process.env.MONGODB_DBNAME),
             autoRemove: "interval",
             autoRemoveInterval: 10,
             ttl: 60 * 30 /* ask sir what's the default ttl for unremembered users*/ /* Set to 30 mins */,
