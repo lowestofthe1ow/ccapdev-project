@@ -61,6 +61,18 @@ document.querySelectorAll("[data-vote-counter]").forEach((button) => {
             const result = await response.json();
             if (result.success) {
                 voteCounter.textContent = result.newVoteCount;
+                button.classList.remove("button--current");
+                oppositeVoteButton.classList.remove("button--current");
+
+                if (result.newVoteType === 1) {
+                    button.classList.add("button--current");
+                    voteCounter.style.color = "orange";
+                } else if (result.newVoteType === -1) {
+                    button.classList.add("button--current");
+                    voteCounter.style.color = "blue";
+                } else {
+                    voteCounter.style.color = "";
+                }
             } else {
                 window.location.href = result.redirectUrl;
             }

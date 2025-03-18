@@ -150,8 +150,10 @@ router.post(
         const newVote = vote_type === "up" ? 1 : -1;
 
         // Pressing the same vote would negate that vote
-        const voteChange = prevVote === newVote ? -prevVote : newVote - prevVote;
+//        const voteChange = prevVote === newVote ? -prevVote : newVote - prevVote;
 
+
+        // update the list
         await _users.updateOne(
             { _id: user._id },
             prevVote === newVote
@@ -159,11 +161,19 @@ router.post(
                 : { $set: { [`${vote_list_key}.${item._id}`]: newVote } }
         );
 
-        await _collection.updateOne({ _id: item._id }, { $inc: { vote_count: voteChange } });
+        // Count again
+        const totalVotes = await _users.aggregate([
+            { $match: { [`${vote_list_key}.${item._id}`]: { $exists: true } } },
+            { $group: { _id: null, total: { $sum: `$${vote_list_key}.${item._id}` } } }
+        ]).toArray();
+
+        const newVoteCount = totalVotes[0]?.total || 0;
+
+        await _collection.updateOne({ _id: item._id }, { $set: { vote_count: newVoteCount } });
 
         const updatedItem = await _collection.findOne({ _id: item._id }, { projection: { vote_count: 1 } });
 
-        res.json({ success: true, newVoteCount: updatedItem.vote_count });
+        res.json({ success: true, newVoteCount: updatedItem.vote_count, newVoteType: prevVote === newVote ? null : newVote});
     }
 );
 
