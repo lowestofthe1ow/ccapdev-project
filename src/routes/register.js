@@ -50,7 +50,7 @@ router.post(
         try {
             const { name } = req.body;
             const users = req.app.get("db").collection("users");
-            /* Red edited this part to test something */
+            /* Red is now finished with this part */
             const result = await users.insertOne({ name, password: res.locals.hashed, 
                                                     thread_vote_list: {},
                                                     comment_vote_list: {},
@@ -64,7 +64,11 @@ router.post(
 
             next();
         } catch (error) {
-            console.error(error);
+            if (error.code === 11000 && error.errmsg.includes('duplicate key error')) {
+                res.status(400).json({ success: false, message: "Username is already in use" });
+            }else{
+                console.error(error);
+            }
         }
     },
 

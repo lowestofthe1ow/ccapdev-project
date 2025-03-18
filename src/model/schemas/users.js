@@ -5,7 +5,7 @@
 export default {
     $jsonSchema: {
         bsonType: "object",
-        required: ["banner", "bio", "comment_vote_list", "name", "password", "pfp", "thread_vote_list"],
+        required: ["banner", "bio", "comment_vote_list", "password", "pfp", "thread_vote_list"],
         properties: {
             banner: {
                 bsonType: "string",
@@ -31,8 +31,8 @@ export default {
                 description: "'deleted' must be a boolean",
             },
             name: {
-                bsonType: "string",
-                description: "'name' must be a string and is required",
+                bsonType: ["string", "null"],
+                description: "'name' must be a string and is optional",
             },
             password: {
                 bsonType: "string",

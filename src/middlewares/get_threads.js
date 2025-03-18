@@ -54,7 +54,7 @@ export async function get_threads(req, res, next) {
             deleted: { $ne: true },
         };
 
-        console.log(search_filters);
+        //(search_filters);
 
         const result = await _threads
             .aggregate([
