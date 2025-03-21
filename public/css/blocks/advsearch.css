@@ -1,3 +1,5 @@
+/* Advanced search */
+
 .advsearch {
     display: flex;
     flex-wrap: wrap;
@@ -20,11 +22,12 @@
 
 .advsearch__input,
 .advsearch__label {
-    border: 1px solid var(--glass-gray);
+    border: 1px solid var(--kinkan-gray);
     background-color: var(--light);
     padding: 5px 10px 5px 10px;
     color: var(--dark);
     font-size: 0.8rem;
+    align-content: center;
 }
 
 .advsearch__label {
@@ -37,4 +40,8 @@
 
 .advsearch > .button--light--small {
     border-radius: 10px;
+}
+
+.advsearch__input:focus {
+    outline: none;
 }

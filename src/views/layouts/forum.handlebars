@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+
+        <link rel="stylesheet" type="text/css" href="/css/master.css" />
+        <link rel="icon" type="image/x-icon" href="/img/favicon.png">
+
+        <script type="module" src="/js/votes.js"></script>
+        <script type="module" src="/js/toggle.js"></script>
+        <script type="module" src="/js/disable_on_submit.js"></script>
+
+        <!-- TODO: Okay to import here? -->
+        <script src="https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js "></script>
+
+        <title>{{title}} | Forum - Shinosawa Laboratory</title>
+    </head>
+
+    <body class="bg-rainbow">
+        <div class="forum">
+            <header class="forum__header">
+                <a href="/threads">
+                    <img src="/img/logo-light.png" class="forum__logo"/>
+                </a>
+                {{> forum_ads}}
+            </header>
+
+            <nav class="navbar">
+                <a class="button button--light" href="/submission">
+                    <span class="material-symbols-outlined">add_circle</span>
+                    <ruby>Post thread<rt>ポストする</rt></ruby>
+                </a>
+                {{> search}}
+                {{#if user}}
+                <a class="button button--light" href="/profile" >
+                    <img src={{#if user.pfp}}{{user.pfp}}{{else}}"/img/default_avatar.svg"{{/if}} class="navbar__icon"/>
+                    <ruby>Profile<rt>プロフィール</rt></ruby>
+                </a>
+                {{else}}
+                <a class="button button--light" href="/signin">
+                    <span class="material-symbols-outlined">login</span>
+                    <ruby>Sign in<rt>サインイン</rt></ruby>
+                </a>
+                {{/if}}
+            </nav>
+            {{> search_advanced}}
+            
+            {{{body}}}
+        </div>
+
+        {{> footer}}
+    </body>
+</html>

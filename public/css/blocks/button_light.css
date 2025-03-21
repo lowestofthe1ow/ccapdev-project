@@ -1,8 +1,9 @@
+/* Light-colored variation of buttons */
+
 .button--light {
-    border: 1px solid var(--glass-gray);
+    border: 1px solid var(--kinkan-gray);
     background-color: var(--light);
     padding: 10px;
-    width: auto; /* TODO: Should this apply to all buttons...? */
     color: var(--dark);
 }
 
@@ -13,7 +14,6 @@
 
 .button--light--small {
     display: flex;
-    flex: 0;
     border-radius: 0px;
     padding: 5px 10px 5px 10px;
     font-size: 0.8rem;
@@ -37,4 +37,9 @@
     box-shadow: none;
     border: 1px solid var(--kinkan-pink);
     background-color: var(--light);
+}
+
+/* Shrink icon */
+.button--light--small:hover {
+    transform: none !important; /* TODO: Fix class cascading to remove !important */
 }

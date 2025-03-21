@@ -1,0 +1,81 @@
+<div class="profile">
+    <!-- Setting background image is a temporary solution. Probably better to use an <img> element fixed
+    behind a div -->
+    <div class="profile__banner--edit" style="background-image: url({{user.banner}}); background-color: var(--kinkan-gray)">
+        <div style="display: flex; flex-direction: column; gap: 5px; align-items: flex-start">
+            <div class="advsearch__component">
+                <button class="button button--light profile__bg-edit button--light--small" data-toggle="#banner-url">
+                    <span class="material-symbols-outlined">add_a_photo</span>
+                    Add
+                </button>
+
+                <button class="button button--light profile__bg-edit button--light--small" id="clear-banner">
+                    <span class="material-symbols-outlined">cancel</span>
+                    Clear
+                </button>
+            </div>
+
+            <div class="advsearch__component hidden" id="banner-url">
+                <label class="advsearch__label">Banner image URL</label>
+                <input type="text" value="{{user.banner}}" name="banner" class="advsearch__input" placeholder="Enter a URL..." form="profile-editor" />
+            </div>
+        </div>
+    </div>
+
+    <div class="profile__content" style="align-items: center;">
+        <div class="profile__pfp--edit" style="background-image: url('{{#if user.pfp}}{{user.pfp}}{{else}}/img/default_avatar.svg{{/if}}'); background-color: var(--light)">
+            <button type="button" class="button button--light" data-toggle="#pfp-url">
+                <span class="material-symbols-outlined">add_a_photo</span>
+            </button>
+        </div>
+
+        <div class="advsearch__component hidden" id="pfp-url">
+            <label class="advsearch__label">Profile image URL</label>
+            <input type="text" value="{{user.pfp}}" name="pfp" class="advsearch__input" placeholder="Enter a URL..." form="profile-editor" />
+        </div>
+
+        <input type="text" name="name" value={{user.name}} class="profile__text edit__username" form="profile-editor" minlength="8" required="true"/>
+
+        <div style="align-self: stretch">
+        {{> editor
+            id="profile-editor"
+            action="/profile/edit"
+            value=user.bio
+            method="post"
+            hide_submit=true
+            optional=true}}
+        </div>
+        
+        <div class="profile__buttons" >
+            <button type="submit" class="button button--light" form="profile-editor">
+                <span class="material-symbols-outlined">save</span>
+                <ruby>Save<rt>セーブ</rt></ruby>
+            </button>
+            <a class="button button--light" href="/profile/{{user._id}}">
+                <span class="material-symbols-outlined">cancel</span>
+                <ruby>Cancel<rt>キャンセル</rt></ruby>
+            </a>
+        </div>
+    </div>
+    <div class="errormsg hidden"></div>
+</div>
+
+<div class="profile__buttons" style="align-self: end;">
+    <button class="button button--light button--light--bad" data-toggle="#confirmation--{{user._id}}" data-toggle-class=".class-do-nothing">
+        <span class="material-symbols-outlined">cancel</span>
+        <ruby>Delete account<rt>アカウントを削除する</rt></ruby>
+    </button>
+</div>
+
+{{> confirmation
+    image = "/img/warning.webp"
+    id=user._id
+    message = "Are you sure you want to delete your account?<br /><strong>This action cannot be undone.</strong>"
+    cancel = "Cancel"
+    ok = "Delete"
+    ok-link = "/profile/delete"
+    method = "POST"
+    hidden = true
+}}
+
+<script type="module" src="/js/edit.js"></script>

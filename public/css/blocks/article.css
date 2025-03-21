@@ -1,16 +1,20 @@
-.article {
-    border: 1px solid var(--glass-gray);
+/* Articles (posts and the privacy policy page) */
+
+.article__block {
+    border: 1px solid var(--kinkan-gray);
     border-radius: 10px;
     background-color: var(--light);
     padding-right: 10px;
     padding-left: 10px;
 }
 
+.article img,
 .article__image {
+    /* TODO: Remove this selector when not needed */
     display: block;
     margin-top: 10px;
     margin-bottom: 10px;
-    border: 1px solid var(--glass-gray);
+    border: 1px solid var(--kinkan-gray);
     border-radius: 10px;
     background-color: var(--kinkan-light-gray);
     width: 100%;
@@ -18,18 +22,52 @@
     object-fit: contain;
 }
 
+/* TODO: Remove these or move to another block when not needed */
 .article__link {
-    transition: all 0.2s;
     color: var(--kinkan-pink);
     text-decoration-style: dotted;
 }
 
-.article__link[target="_blank"]::after {
+.article__link--light {
+    color: var(--light);
+}
+
+.article__link::after {
     content: " 🗗";
 }
 
 .article__link:hover {
-    border-radius: 5px;
-    background-color: var(--glass-kinkan-pink);
+    text-decoration-style: solid;
+}
+
+.article__block--dark {
+    display: block;
+    backdrop-filter: blur(5px);
+    /* box-shadow: 10px 10px 5px rgba(29, 29, 29, 0.2); */
+    border: 1px solid var(--light);
+    border-radius: 10px;
+    background-color: var(--glass-gray);
+    padding: 5px 20px 20px 20px;
+    max-width: 600px;
     color: var(--light);
+}
+
+.article table,
+.article th,
+.article td {
+    border: 1px solid var(--kinkan-gray);
+    border-collapse: collapse;
+}
+
+.article td {
+    padding: 5px;
+}
+
+.article table {
+    margin-bottom: 10px;
+}
+
+.article pre {
+    background-color: var(--kinkan-light-gray);
+    padding: 10px;
 }

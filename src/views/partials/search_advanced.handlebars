@@ -1,0 +1,51 @@
+<form class="advsearch {{#unless show_search}}hidden{{/unless}}"  id="advsearch">
+    <div class="advsearch__component" style="flex-wrap: wrap">
+        <label class="advsearch__label" for="start_date">
+            Date range
+        </label>
+        <input
+            type="date"
+            name="start_date"
+            class="advsearch__input"
+            value="{{start_date}}"
+        />
+        <label class="advsearch__label" for="end_date">to</label>
+        <input
+            type="date"
+            name="end_date"
+            class="advsearch__input"
+            value="{{end_date}}"
+        />
+    </div>
+
+    <div class="advsearch__component">
+        <label class="advsearch__label" for="sort">Sort by</label>
+        <select class="advsearch__input" name="sort">
+            <option {{#if (eq sort 0)}}selected{{/if}} value="0">Newest first</option>
+            <option {{#if (eq sort 1)}}selected{{/if}} value="1">Oldest first</option>
+            <option {{#if (eq sort 2)}}selected{{/if}} value="2">Most popular first</option>
+            <option {{#if (eq sort 3)}}selected{{/if}} value="3">Least popular first</option>
+        </select>
+    </div>
+
+    <div class="advsearch__component">
+        <label class="advsearch__label" for="author">Authors</label>
+        <input
+            type="text"
+            name="author"
+            class="advsearch__input"
+            placeholder="Enter username..."
+            value="{{author}}"
+        />
+    </div>
+
+    {{> search_tags tags="" name="include_game" label="Include games" placeholder="Search for a game..." class="game__search"}}
+
+    {{> search_tags games="" name="include_tag" label="Include tags" placeholder="Add a tag..." class="tag__search"}}
+
+    <button type="reset" class="button button--light button--light--small">
+        Reset
+    </button>
+</form>
+
+<script type="module" src="/js/search_games.js"></script>

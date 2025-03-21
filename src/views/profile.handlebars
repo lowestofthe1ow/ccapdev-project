@@ -1,0 +1,25 @@
+{{> profile_header}}
+
+<div class="forum__body">
+    <div class="forum__threads">
+        <div class="forum__thread" style="gap: 10px;">
+            <div class="profile__tabs">
+                <a class="button button--light button--current button--light--small" style="flex: 1;">
+                    Threads
+                </a>
+                <a class="button button--light button--light--small" style="flex: 1;" href="/profile/{{display_user._id}}/comments">
+                    Comments
+                </a>
+                <a class="button button--light button--light--small" style="flex: 1;" href="/profile/{{display_user._id}}/upvoted">
+                    Upvoted posts
+                </a>
+            </div>
+        </div>
+        
+        <ul class="forum__threads">
+            {{> threadlist threads=threads}}
+        </ul>
+    </div>
+    
+    {{> sidebar}}
+</div>

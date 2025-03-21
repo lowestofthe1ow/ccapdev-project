@@ -1,0 +1,106 @@
+{{! index.handlebars
+    Template for the landing page.
+    Express route: /
+}}
+
+<nav class="navbar--home">
+    <div class="navbar--home__sub hidden">
+        <a class="button button--mint-glow button--light--small" href="#about">
+            <span class="material-symbols-outlined">info</span>
+            <ruby>About<rt>アバウト</rt></ruby>
+        </a>
+        <a class="button button--mint-glow button--light--small" href="/privacy">
+            <span class="material-symbols-outlined">privacy</span>
+            <ruby>Privacy policy<rt>プライバシーポリシー</rt></ruby>
+        </a>
+        <a class="button button--light--small" href="/signin">
+            <span class="material-symbols-outlined">person</span>
+            <ruby>Sign in<rt>サインイン</rt></ruby>
+        </a>
+    </div>
+    <a class="button button--mint-glow button--light--small" data-toggle=".navbar--home__sub">
+        <span class="material-symbols-outlined">menu</span>
+        <ruby>Menu<rt>メニュー</rt></ruby>
+    </a>
+</nav>
+
+<div class="card card--home">
+    <div class="card__content">
+        <img src="/img/logo-dark.png" class="card__logo">
+        <hgroup>
+            <h1 class="card__heading">A fresh way to learn about your favorite games.</h1>
+            <p class="card__blurb">Engage with vibrant communities filled with dedicated gamers like you.</p>
+        </hgroup>
+        <p class="text card__blurb">
+            Don't want to create an account yet? <a href="/guest_session" class="article__link">Browse with a guest account.</a>
+        </p>
+    </div>
+    <div class="card__buttons">
+        <a class="button button--large-round button--outline-effect button--mint-glow" href="/register">
+            <span class="material-symbols-outlined">how_to_reg</span>
+            <ruby>Register<rt>レジスター</rt></ruby>
+        </a>
+        <a class="button button--large-round button--outline-effect" href="/signin">
+            <span class="material-symbols-outlined">person</span>
+            <ruby>Sign in<rt>サインイン</rt></ruby>
+        </a>
+    </div>
+</div>
+
+<div class="card card--about">
+    <div class="card__content">
+        <a name="about"><h2 class="card__heading">At <strong>Shinosawa Laboratory</strong>,<br> we're bringing
+        new ways for gamers to band together.</h2></a>
+        <p class="card__blurb">
+           We're a one-stop shop for people to meet and talk about their favorite games.
+        </p>
+    </div>
+    <img src="/img/home1.png" class="card__sprite" />
+</div>
+
+<div class="card card--signin" style="flex-wrap: wrap">
+    <div style="flex: 1;">
+        <h1 class="card__heading">Be part of the community!</h1>
+        <p class="card__blurb">Discover new games and share your favorites.</p>
+    </div>
+
+    {{> gallery}}
+</div>
+
+<div class="card card--about" style="background-color: var(--light); color: var(--dark); flex-wrap:
+wrap-reverse;">
+    <!-- Behold a 36.7MB gif just for Hiro to wink at you every few seconds -->
+    <img src="/img/home2.gif" class="card__sprite" />
+    <div class="card__content">
+        <h2 class="card__heading">Discover <strong>endless possibilities</strong>.</h2>
+        <p class="card__blurb">
+           The next chapter of your adventure awaits.<br /><a href="/signin" class="article__link">Sign in</a> or <a
+           href="/register" class="article__link">register</a> now.
+        </p>
+    </div>
+</div>
+
+<div class="card card--register">
+    <ul class="card__horizontal-list">
+        <li class="card__vertical-list">
+            <img src="/img/sample_profiles/lowestofthelow.png" class="card__pfp">
+            <a class="card__blurb article__link article__link--white" href="https://github.com/lowestofthe1ow/">Lorenz Marqueses<br />(lowestofthelow)</a>
+        </li>
+        <li class="card__vertical-list">
+            <img src="/img/sample_profiles/simonstrings.png" class="card__pfp">
+            <a class="card__blurb article__link article__link--white" href="https://github.com/penguinforest/">Paulo Silva<br />(simonstrings)</a>
+        </li>
+        <li class="card__vertical-list">
+            <img src="/img/sample_profiles/red_dayo.jpg" class="card__pfp">
+            <a class="card__blurb article__link article__link--white" href="https://github.com/Reddayo/">Jusper Cesar<br />(reddayo)</a>
+        </li>
+    </ul>
+    <div>
+        <a name="contact"><h2 class="card__heading"><strong>Need help?</strong> Contact the developers.</h2></a>
+        <p class="card__blurb">
+            Email us or reach out to us via 
+            <a class="article__link" href="https://github.com/lowestofthe1ow/ccapdev-project" target="_blank">Github</a>
+            (or open an issue)!
+        </p>
+    </div>
+</div>

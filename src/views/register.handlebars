@@ -1,0 +1,45 @@
+{{! register.handlebars
+    Template for the register page.
+    Express route: /register
+}}
+
+<div class="card card--home card--register">
+    <div class="card__vertical-list">
+        <img src="/img/logo-dark.png" class="card__logo card__logo--small">
+        <nav class="register__component card__horizontal-list">
+            <a class="button button--mint-glow" href="/">
+                <span class="material-symbols-outlined">home</span>
+                <ruby>Home<rt>ホーム</rt></ruby>
+            </a>
+            <a class="button button--mint-glow" href="/signin">
+                <span class="material-symbols-outlined">person</span>
+                <ruby>Sign in<rt>サインイン</rt></ruby>
+            </a>
+        </nav>
+    </div>
+    <section class="register">
+        <h1 class="register__heading">Create an account</h1>
+        <form class="register__form" method="POST" id="registerform" action="/register">
+            {{> field id="name" label="Username: " icon="person" type="text" placeholder="Enter your name" minlength="8" required="true"}}
+
+            {{> field id="password" label="Password: " icon="lock" type="password" placeholder="Enter at least 8 characters" minlength="8" required="true" password = "true" color="button--mint-glow"}}
+
+            {{> field id="confirm" label="Confirm password: " icon="lock" type="password" placeholder="Confirm your password" minlength="8" required="true"  password = "true" color="button--mint-glow"}}
+
+            <div class="register__input">
+                <input type="checkbox" name="remember">
+                <label for="remember">Remember me</label>
+            </div>
+            <button type="submit" class="button button--mint-glow">
+                <span class="material-symbols-outlined">login</span>
+                <ruby>Register<rt>レジスター</rt></ruby>
+            </button>
+        </form>
+
+        <div class="errormsg hidden"></div>
+    </section>
+</div>
+
+{{! i do not know where to put form.js, rn it's in public }}
+
+<script type="module" src="/js/form.js"></script>

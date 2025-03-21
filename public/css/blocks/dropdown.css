@@ -1,0 +1,44 @@
+.dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    order: 1px solid #ccc;
+    z-index: 1000;
+    outline: 1px solid var(--kinkan-gray);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    width: 100%;
+    max-height: 100px;
+    overflow-y: scroll;
+}
+
+.dropdown > :first-child::after {
+    content: " (press Enter)";
+    color: var(--kinkan-gray);
+    font-style: italic;
+}
+
+.dropdown_item {
+    cursor: pointer;
+    box-sizing: content-box;
+    padding: 5px;
+    font-size: 0.8rem;
+}
+
+.dropdown_item:hover {
+    border: 1px solid var(--kinkan-pink);
+}
+
+.game__search,
+.tag__search {
+    display: flex;
+    position: relative;
+    flex-grow: 1;
+    flex-direction: column;
+}
+
+.game__search,
+.tag__search > .advsearch__input {
+    flex: 1;
+}

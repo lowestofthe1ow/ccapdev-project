@@ -1,0 +1,26 @@
+{{! tags.handlebars
+    Partial for displaying tags for a post.
+    
+    @param games - An array of strings representing the game tags for the post
+    @param tags  - An array of strings representing other tags for the post
+
+    @note This partial accepts a thread document from the MongoDB database. The unused parameters are simply ignored.
+}}
+
+<div class="tags">
+    {{#each games}}
+    {{#if ../clickable}}
+        <a href="/threads?games={{this}}" class="tags__tag tags__tag--game">{{this}}</a>
+    {{else}}
+        
+        <div class="tags__tag tags__tag--game">{{this}}</div>
+    {{/if}}
+    {{/each}}
+    {{#each tags}}
+    {{#if ../clickable}}
+        <a href="/threads?tags={{this}}" class="tags__tag">{{this}}</a>
+    {{else}}
+        <div class="tags__tag">{{this}}</div>
+    {{/if}}
+    {{/each}}
+</div>

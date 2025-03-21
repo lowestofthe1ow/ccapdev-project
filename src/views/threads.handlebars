@@ -1,0 +1,15 @@
+{{! threads.handlebars
+    Template for the forum homepage.
+    Express route: /threads
+
+    @param threads - An array of thread documents obtained from the MongoDB database. Follows the following schema:
+                     { author: string, title: string, content: string, vote_count: string, tags: array, games: array,
+                       created: Date, thumbnail: string, comments: array }
+}}
+
+<div class="forum__body">
+{{> threadlist this}}
+
+{{> sidebar this}}
+</div>
+

@@ -1,0 +1,26 @@
+<div class="forum__ads">
+    <div class="forum__ads-track">
+        {{#each banners}}
+            <a href="/threads?games={{name}}" class="forum__ad">
+                <div class="gallery__item forum__ad">
+                    <img class="gallery__image" src="{{this.image}}" />
+                    <div class="gallery__label">
+                        <img src="{{this.icon}}" />
+                        <p>{{this.name}}</p>
+                    </div>
+                </div>
+            </a>
+        {{/each}}
+        {{#each banners}}
+            <a href="/threads?games={{name}}"  class="forum__ad">
+                <div class="gallery__item forum__ad">
+                    <img class="gallery__image" src="{{this.image}}" />
+                    <div class="gallery__label">
+                        <img src="{{this.icon}}" />
+                        <p>{{this.name}}</p>
+                    </div>
+                </div>
+            </a>
+        {{/each}}
+    </div>
+</div>

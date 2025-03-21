@@ -1,0 +1,28 @@
+{{! field.handlebars
+    Partial for sign-in and register input fields
+
+    @param id          - The ID of the input field
+    @param label       - The text to display next to the input field
+    @param icon        - The Google Icons icon name to display next to the input field
+    @param type        - The type of the input field (corresponds to <input>'s type attribute)
+    @param placeholder - The placeholder text to display in the input field
+}}
+
+<label for="{{id}}">{{label}}</label>
+<div class="register__input">
+    <div class="register__icon">
+        <span class="material-symbols-outlined">{{icon}}</span>
+    </div>
+    <input class = "register__inputbox" type="{{type}}"
+        placeholder="{{placeholder}}" id="{{id}}" name="{{id}}"
+        {{#if minlength}} minlength="{{minlength}}" {{/if}}
+        {{#if required}} required {{/if}}
+        {{#if oninput}} oninput="{{oninput}}" {{/if}}>
+
+    {{#if password}}
+        <button type="button" class=" button {{#if color}}{{color}}{{/if}} register__icon"
+            data-toggle-password="#{{id}}">
+            <span class="material-symbols-outlined">visibility_off</span>
+        </button>
+    {{/if}}
+</div>

@@ -1,17 +1,19 @@
+/* Forum threads */
+
 .thread {
     display: flex;
     flex: 1;
     justify-content: space-between;
     align-items: center;
     gap: 10px;
-    border: 1px solid var(--glass-gray);
+    border: 1px solid var(--kinkan-gray);
     border-radius: 0px 10px 10px 0px;
     background-color: var(--light);
     padding: 10px;
     color: var(--dark);
     text-decoration: none;
 }
-
+/*
 .thread--clickable {
     transition: all 0.2s;
 }
@@ -26,7 +28,7 @@
     outline: 2px solid transparent;
     outline-offset: 5px;
 }
-
+*/
 .thread__group {
     display: flex;
     align-items: center;
@@ -34,8 +36,11 @@
 }
 
 .thread__image {
+    border: 1px solid var(--kinkan-gray);
     border-radius: 10px;
+    width: 100px;
     height: 100px;
+    object-fit: cover;
 }
 
 .thread__data {
@@ -45,18 +50,52 @@
     gap: 10px;
 }
 
+.thread__editcontent {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
 .thread__title {
     margin: 0;
     font-size: 1.5rem;
 }
 
+.thread__link {
+    color: var(--dark);
+    text-decoration: none;
+}
+
+.thread__link:hover {
+    text-decoration: underline;
+    text-decoration-style: dotted;
+}
+
 .thread__meta {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 5px;
 }
 
 .thread__detail {
+    align-items: center;
     margin: 0;
     font-size: 0.8rem;
+}
+
+.thread__editmenu {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.thread__author_pfp {
+    border-radius: 20px;
+    width: 20px;
+    height: 20px;
+}
+
+img.thread__author_pfp {
+    object-fit: cover;
 }

@@ -1,17 +1,22 @@
+/* Forum page sidebar */
+
 .sidebar {
     display: flex;
     flex: 1;
     flex-direction: column;
     gap: 10px;
-    border: 1px solid var(--glass-gray);
+    border: 1px solid var(--kinkan-gray);
     border-radius: 10px;
     background-color: var(--light);
     padding: 10px;
     color: var(--dark);
+    min-width: 300px;
 }
 
 .sidebar__rule {
-    border: 1px solid var(--glass-gray);
+    border: none;
+    border-top: 1px solid var(--kinkan-gray);
+
     width: 100%;
 }
 
@@ -29,11 +34,12 @@
 }
 
 .sidebar__logo {
-    width: 100%;
+    width: 70%;
+    margin: auto;
 }
 
 .sidebar__search {
-    border: 1px solid var(--glass-gray);
+    border: 1px solid var(--kinkan-gray);
     border-radius: 10px;
     background-color: var(--light);
     padding: 10px;

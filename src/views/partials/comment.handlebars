@@ -1,0 +1,185 @@
+{{! comment.handlebars
+    Partial for rendering comments under posts
+
+    @param _id
+    @param author
+    @param author_data
+    @param children
+    @param content
+    @param created
+    @param depth
+    @param descendants
+    @param parent
+    @param thread
+    @param user
+    @param vote_count
+}}
+
+<div class="forum__comment" >
+    <div class="votes votes--comment">
+        <button class="button button--light votes__button votes__up 
+            {{#if deleted}}
+                button--disabled
+            {{else if (eq (lookup user.comment_vote_list _id) 1)}}
+                button--current
+            {{/if}}"
+            data-vote-type="up"
+            data-vote-counter="#vote--{{_id}}"
+            data-thread-id="{{this.thread}}"
+            {{#if deleted}}disabled{{/if}}
+            >
+            <span class="material-symbols-outlined">keyboard_arrow_up</span>
+        </button>
+        
+        <button class="button button--light votes__button votes__down 
+            {{#if deleted}}
+                button--disabled
+            {{else if (eq (lookup user.comment_vote_list _id) -1)}}
+                button--current
+            {{/if}}"
+            data-vote-type="down"
+            data-vote-counter="#vote--{{_id}}"
+            data-thread-id="{{this.thread}}"
+            {{#if deleted}}disabled{{/if}}>
+            <span class="material-symbols-outlined">keyboard_arrow_down</span>
+        </button>
+    </div>
+
+    <div class="comment">
+        <div style="display: flex; gap: 5px;">
+            <div class="comment__details">
+                <span data-toggle="#descendants--{{_id}}, .collapsed--{{_id}}" style="cursor: pointer">
+                    [-]
+                </span>
+                
+                <div class="thread__meta">
+                    {{#if deleted}}
+                    {{! Show if comment has been deleted }}
+                    <p class="thread__detail"><em>User deleted this post</em></p>
+                    <span class="comment__votes_counter hidden"></span> {{! This is so it selects this instead of other comments}}
+                    {{else}}
+                    {{#if (check_id author user._id)}}
+                    <span class="material-symbols-outlined" style="font-size: 1.1rem; color: var(--kinkan-turquoise)">person</span>
+                    {{/if}}
+                    {{#if author_data.deleted}}
+                    <p class="thread__detail">
+                    <strong>[deleted]</strong>・<span class="comment__votes_counter "
+                    style="color: {{#if (eq (lookup user.comment_vote_list _id) 1)}}orange{{/if}} 
+                    {{#if (eq (lookup user.comment_vote_list _id) -1)}}blue{{/if}}"
+                    id="#vote--{{_id}}">{{vote_count}}
+                    </span> votes・{{format_date created}}{{#if edited}} (edited {{format_date edited}}){{/if}}
+                    </p>
+                    {{else}}
+                    <img src={{#if author_data.pfp}}{{author_data.pfp}}{{else}}"/img/default_avatar.svg"{{/if}}
+                        class="thread__author_pfp"/>
+                    <p class="thread__detail">
+                    <strong>{{author_data.name}}</strong>・<span class="comment__votes_counter "
+                    style="color: {{#if (eq (lookup user.comment_vote_list _id) 1)}}orange{{/if}} 
+                    {{#if (eq (lookup user.comment_vote_list _id) -1)}}blue{{/if}}"
+                    id="#vote--{{_id}}">{{vote_count}}
+                    </span> votes・{{format_date created}}{{#if edited}} (edited {{format_date edited}}){{/if}}
+                    </p>
+                    {{/if}}
+                    
+                    {{/if}}
+                </div>
+            </div>
+            
+            <a href="/threads/{{this.thread}}/comments/{{this._id}}" class="button button--light button--light--small {{#if deleted}}comment__reply{{/if}}">
+                <span class="material-symbols-outlined" style="font-size: 1.1rem">link</span>
+            </a>
+
+            {{! Show only if comment has not been deleted }}
+            {{#if deleted}} {{else}}
+            {{! Show these buttons only if the comment was made by the user }}
+            {{#if (check_id author user._id)}}
+            <button class="button button--light button--light--small" data-toggle="#editmenu--{{_id}}">
+                <span class="material-symbols-outlined" style="font-size: 1.1rem">edit</span>
+            </button>
+            <form action="/threads/{{thread}}/comments/{{_id}}/delete" method="post" style="display: flex;">
+                <button type="submit" class="button button--light button--light--small button--light--bad">
+                    <span class="material-symbols-outlined" style="font-size: 1.1rem">delete</span>
+                </button>
+            </form>
+            {{/if}}
+
+            <button class="button button--light button--light--small comment__reply" data-toggle="#replymenu--{{_id}}">
+                <span class="material-symbols-outlined" style="font-size: 1.1rem; margin: 0px;">reply</span>
+            </button>
+            {{/if}}
+        </div>
+        
+        <div class="comment--main">
+            {{#if deleted}}
+            <p><em>This comment has been deleted.</em></p>
+            {{! Show only if comment has not been deleted }}
+            {{else}}
+            <article class="article">
+                {{{markdown content}}}
+            </article>
+
+            {{! "Edit comment" menu }}
+            <div id="editmenu--{{_id}}" class="hidden" style="margin-bottom: 10px;">
+                <hr class="sidebar__rule" />
+
+                <p><strong>Edit this comment</strong></p>
+
+                {{> editor
+                        id=(concat "editeditor--" _id)
+                        action=(concat "/threads/" thread "/comments/" _id "/edit")
+                        value=content
+                        method="post"}} {{! TODO: <form> does not allow the PUT verb}}
+            </div>
+
+            {{! "Reply" menu }}
+            <div id="replymenu--{{_id}}" class="hidden" style="margin-bottom: 10px;">
+                <hr class="sidebar__rule" />
+
+                <p><strong>Reply to this comment</strong></p>
+
+                {{! TODO: Better way to get the action attribute, or just use a fetch() call }}
+                {{> editor
+                        id=(concat "replyeditor--" _id) 
+                        action=(concat "/threads/" thread "/comments")
+                        method="post"}}
+
+                {{! Specify that this is the parent comment when submitting the reply form }}
+                <input name="parent" type="hidden" value="{{_id}}" form="replyeditor--{{_id}}">
+                <input name="type" type="hidden" value="reply" form="replyeditor--{{_id}}">
+            </div>
+            {{/if}}
+        </div>
+
+        {{#if this.children}}
+        {{#if (check_depth this.depth)}}
+            {{! Display the "view more" button at the depth limit }}
+            <a href="/threads/{{this.thread}}/comments/{{this._id}}"
+            class="button button--light button--light--small">View children...</a>
+        {{else}}
+            {{! Otherwise, display replies }}
+            <p class="comment__details collapsed--{{_id}} hidden"><em>Replies collapsed...</em></p>
+            <div id="descendants--{{_id}}" class="comment__descendants">
+                {{#each descendants}}
+                    {{! Check if direct child }}
+                    {{#if (check_id this.parent ../_id)}}
+                    {{#if ../restrict_siblings}}
+                        {{#if (check_depth this.number)}}
+                            {{#if (eq this.number 3)}}
+                                <a href="/threads/{{this.thread}}/comments/{{this.parent}}"
+                                class="button button--light button--light--small">Expand siblings...</a>
+                            {{/if}}
+                        {{else}}
+                        {{> comment this restrict_siblings=../restrict_siblings descendants=../descendants user=../user}}
+                        {{/if}}
+                    {{else}}
+                    {{! Pass the same flattened array of the comment tree }}
+                    {{> comment this restrict_siblings=../restrict_siblings descendants=../descendants user=../user}}
+                    {{/if}}
+                    {{/if}}
+                {{/each}}
+            </div>
+        {{/if}} 
+        {{/if}}
+    </div>
+</div>
+

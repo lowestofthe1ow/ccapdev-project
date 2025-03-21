@@ -1,0 +1,112 @@
+{{! thread.handlebars
+    Template for a thread page.
+    Express route: /threads/:id
+
+    @param thread - A thread document obtained from the MongoDB database. Follows the following schema:
+                    { author: string, title: string, content: string, vote_count: string, tags: array, games: array,
+                      created: Date, thumbnail: string, comments: array }
+}}
+
+<div class="forum__body">
+    <section class="forum__threads">
+        
+        <hgroup class="forum__thread"  id="{{thread._id}}">
+            {{> threadlink this.thread show_options=(check_id thread.author user._id) user=user}}
+        </hgroup>
+
+        <article class="article article__block">
+            {{! "Edit comment" menu }}
+            <div id="editmenu--{{this.thread._id}}" class="thread__editcontent hidden">
+                <p><strong>Edit this thread</strong></p>
+                
+                <div class="advsearch__component">
+                    <label class="advsearch__label" for="author">Title</label>
+                    <input
+                        type="text"
+                        name="title"
+                        class="advsearch__input"
+                        value="{{this.thread.title}}"
+                        form="editeditor--thread"
+                    />
+                </div>
+
+                <input
+                    type="hidden"
+                    name="tags"
+                    form="editeditor--thread"
+                />
+
+                <input
+                    type="hidden"
+                    name="games"
+                    form="editeditor--thread"
+                />
+
+                {{> search_tags games=this.thread.games tags="" name="games" label="Edit games" placeholder="Search for a game..." class="game__search" id="edit__games"}}
+                {{> search_tags games="" tags=this.thread.tags name="tags" label="Edit tags" placeholder="Add a tag..." class="tag__search" id="edit__tags"}}
+ 
+                {{> editor
+                        id="editeditor--thread"
+                        action=(concat "/threads/" this.thread._id "/edit")
+                        value=this.thread.content
+                        method="post"}} {{! TODO: <form> does not allow the PUT verb}}
+
+                <hr class="sidebar__rule" />
+            </div>
+
+            {{#if thread.deleted}}
+            <p><em>This thread has been deleted.</em></p>
+            {{else}}
+            {{{markdown this.thread.content}}}
+            {{/if}}
+        </article>
+
+        <section class="forum__comments">
+            <hgroup class="forum__divider">
+                {{#if reply}}
+                <h2 style="margin: 0px;">Viewing a comment</h2>
+                <a class="button button--light" href="/threads/{{this.thread._id}}">
+                    <span class="material-symbols-outlined">arrow_back</span>
+                    <ruby>Back to top<rt>トップに戻る</rt></ruby>
+                </a>
+                {{else}}
+                <h2 style="margin: 0px;">Comments ({{count}})</h2>
+                <a class="button button--light" data-toggle="#comment-editor">
+                    <span class="material-symbols-outlined">add_circle</span>
+                    <ruby>Comment<rt>コメントする</rt></ruby>
+                </a>
+                {{/if}}
+            </hgroup>
+
+            {{! TODO: Better way to get the action attribute, or just use a fetch() call }}
+            {{> editor
+                id="comment-editor"
+                hidden=true action=(concat "/threads/" this.thread._id "/comments")
+                method="post"}}
+                
+            <input name="parent" type="hidden" value="{{this.thread._id}}" form="comment-editor" />
+            <input name="type" type="hidden" value="comment" form="comment-editor" />
+
+            {{! Display all comments here }}
+            {{#if comments}}
+                {{#each comments}}
+                {{> comment this user=../user restrict_siblings=../restrict_siblings}} {{! Pass user from session to the comment partial}}
+                {{/each}}
+                {{#if show_breadcrumbs}}
+                {{#if restrict_siblings}}
+                {{> breadcrumbs}}
+                {{/if}}
+                {{/if}}
+            {{else}}
+                <div style="align-items: center; display: flex; flex-direction: column; flex-grow: 3; gap: 10px; align-self: center; width: auto">
+                    <img src="/img/warning.webp" style="width: 20%; border-radius: 100%; border: 1px solid var(--kinkan-gray)" />
+                    <p style="margin: 0px;">No comments yet.</p>
+                </div>
+            {{/if}}
+        </section>
+    </section>
+    
+    {{> sidebar}}
+</div>
+
+<script type="module" src="/js/edit_thread.js"></script>

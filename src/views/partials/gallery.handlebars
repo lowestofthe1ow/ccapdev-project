@@ -1,0 +1,22 @@
+{{! gallery.handlebars 
+    Partial for displaying a 2x3 gallery of images, used in the homepage
+
+    @param images - An array of objects with the following schema:
+                    { image: url, icon: url, name: string }
+}}
+
+<div class="gallery">
+    {{#each featured}}
+        <div class="gallery__row">
+            {{#each this}}
+                <a href="/threads?games={{this.name}}" class="gallery__item">
+                    <img class="gallery__image" src="{{this.image}}" />
+                    <div class="gallery__label">
+                        <img src="{{this.icon}}" />
+                        <p>{{this.name}}</p>
+                    </div>
+                </a>
+            {{/each}}
+        </div>
+    {{/each}}
+</div>

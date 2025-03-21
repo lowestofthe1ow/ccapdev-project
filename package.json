@@ -4,7 +4,10 @@
     "description": "A gacha/mobile gaming forum",
     "main": "index.js",
     "scripts": {
-        "test": "node index.js"
+        "test": "nodemon --env-file=.env src/server.js",
+        "initdb": "node --env-file=.env src/model/init.js",
+        "start": "node src/server.js",
+        "builddb": "node src/model/init.js"
     },
     "repository": {
         "type": "git",
@@ -20,7 +23,16 @@
     },
     "homepage": "https://github.com/lowestofthe1ow/ccapdev-project#readme",
     "dependencies": {
-        "express": "^4.21.2"
+        "argon2": "^0.41.1",
+        "connect-mongo": "^5.1.0",
+        "cookie-parser": "^1.4.7",
+        "express": "^4.21.2",
+        "express-handlebars": "^8.0.1",
+        "express-session": "^1.18.1",
+        "express-validator": "^7.2.1",
+        "markdown-it": "^14.1.0",
+        "mongodb": "^6.12.0",
+        "nodemon": "^3.1.9"
     },
     "type": "module"
 }

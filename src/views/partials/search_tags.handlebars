@@ -1,0 +1,17 @@
+<div class="advsearch__component" style="flex-basis: 30%">
+    <label class="advsearch__label" for="{{name}}">{{label}}</label>
+    <div class="{{class}} advsearch__component" id="{{id}}">
+        <div class="dropdown" style="border-radius: 0px;"></div>
+        <div class="advsearch__input"
+            style="display: flex; flex-direction: row; gap: 5px; padding: 5px;"> {{! TODO: inline cringe}}
+            {{> tags clickable=false}}
+            <input
+                type="text"
+                name="{{name}}"
+                class="advsearch__input"
+                placeholder="{{placeholder}}"
+                style="border: none; padding: 0px;"
+            />
+        </div>
+    </div>
+</div>

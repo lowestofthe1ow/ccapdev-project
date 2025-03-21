@@ -1,0 +1,155 @@
+[
+    {
+        "_id": {
+            "$oid": "67ce71553cbcf675b658294c"
+        },
+        "author": {
+            "$oid": "67ce5374031a1878f4055ef1"
+        },
+        "comments": [],
+        "content": "![](https://pbs.twimg.com/media/Gk4uerqbEAAV2qK?format=jpg&name=4096x4096)\r\n[Source](https://x.com/abcdef2822/status/1895503700506165695)",
+        "created": {
+            "$date": "2025-03-10T04:57:57.427Z"
+        },
+        "games": ["Gakuen iDOLM@STER"],
+        "tags": ["Fanart", "Hiro Shinosawa", "篠澤広"],
+        "thumbnail": "https://pbs.twimg.com/media/Gk4uerqbEAAV2qK?format=jpg&name=4096x4096",
+        "title": "どう映った？",
+        "vote_count": 3,
+        "edited": {
+            "$date": "2025-03-10T07:21:58.172Z"
+        },
+        "alt": ["", ""],
+        "url": ["", ""]
+    },
+    {
+        "_id": {
+            "$oid": "67ce77333cbcf675b658294d"
+        },
+        "author": {
+            "$oid": "67ce5374031a1878f4055ef1"
+        },
+        "comments": [
+            {
+                "$oid": "67ce88399f378831553045ee"
+            }
+        ],
+        "content": "![](https://pbs.twimg.com/media/GlQYGc_bcAAWu7Z?format=jpg&name=4096x4096)\r\n[Source](https://x.com/Retsu_3/status/1897195384189128933/photo/1)",
+        "created": {
+            "$date": "2025-03-10T05:22:59.153Z"
+        },
+        "games": ["Blue Archive"],
+        "tags": ["Fanart", "Kazusa Kyouyama", "杏山カズサ"],
+        "thumbnail": "https://pbs.twimg.com/media/GlQYGc_bcAAWu7Z?format=jpg&name=4096x4096",
+        "title": "カズサ",
+        "vote_count": 3
+    },
+    {
+        "_id": {
+            "$oid": "67ce943d746e59a4044da38e"
+        },
+        "author": {
+            "$oid": "67ce5374031a1878f4055ef2"
+        },
+        "comments": [
+            {
+                "$oid": "67ce9467746e59a4044da38f"
+            }
+        ],
+        "content": "# 【EN】hololive 6th fes. Color Rise Harmony\r\n\r\n![Stage 2](https://cdn.donmai.us/original/1e/e3/__houshou_marine_usada_pekora_mori_calliope_takanashi_kiara_amane_kanata_and_19_more_hololive_and_3_more_drawn_by_amagai_tarou_and_ekao__1ee3f2b36b1f088bf95062be18e753f0.jpg)\r\n\r\n## STAGE2(DAY1) 17:00 / 17:30\r\n\r\nAZKi / Murasaki Shion / Usada Pekora / Houshou Marine / Amane Kanata / Omaru Polka / Takane Lui / Kazama Iroha / Ayunda Risu / Pavolia Reine / Kobo Kanaeru / Mori Calliope / Takanashi Kiara / Hakos Baelz / Hiodoshi Ao / Otonose Kanade / Ichijou Ririka / Juufuutei Raden / Todoroki Hajime\r\n\r\n## Tickets\r\n[https://spwn.jp/events/evt_25030802-enghololive6thfes?utm_source=cover&utm_medium=website&utm_campaign=engholo6thfes_top](https://spwn.jp/events/evt_25030802-enghololive6thfes?utm_source=cover&utm_medium=website&utm_campaign=engholo6thfes_top)",
+        "created": {
+            "$date": "2025-03-10T07:26:53.866Z"
+        },
+        "games": ["HoloCure – Save the Fans!"],
+        "tags": ["News", "hololive 6th fes."],
+        "thumbnail": "https://cdn.donmai.us/original/1e/e3/__houshou_marine_usada_pekora_mori_calliope_takanashi_kiara_amane_kanata_and_19_more_hololive_and_3_more_drawn_by_amagai_tarou_and_ekao__1ee3f2b36b1f088bf95062be18e753f0.jpg",
+        "title": "【EN】hololive 6th fes. Color Rise Harmony - STAGE2",
+        "vote_count": 1,
+        "edited": {
+            "$date": "2025-03-10T07:28:46.651Z"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "67ce94fd746e59a4044da391"
+        },
+        "author": {
+            "$oid": "67ce5374031a1878f4055ef3"
+        },
+        "comments": [
+            {
+                "$oid": "67ce9511746e59a4044da392"
+            }
+        ],
+        "content": "haha reverse 1999 get it",
+        "created": {
+            "$date": "2025-03-10T07:30:05.603Z"
+        },
+        "games": ["Reverse: 1999"],
+        "tags": ["Humor"],
+        "thumbnail": "",
+        "title": "9991",
+        "vote_count": -1
+    },
+    {
+        "_id": {
+            "$oid": "67ce9603746e59a4044da393"
+        },
+        "author": {
+            "$oid": "67ce5374031a1878f4055ef4"
+        },
+        "comments": [],
+        "content": "☆┈┈┈┈┈┈┈┈☆\r\n\r\n## アナザーアイドル'25\r\n\r\nひな祭りガシャVol.2\r\n\r\n　🌸開催中！🍡\r\n\r\n☆┈┈┈┈┈┈┈┈☆\r\n\r\n咲季、ことね、リーリヤが\r\nひな祭り衣装で登場！\r\n\r\nアナザーガシャは『**初回10連無料** 🎁』です！\r\n\r\n### 🔸開催期間\r\n〜3/21(金)10:59まで (予定)\r\n\r\n![](https://pbs.twimg.com/media/GlpbqbAbMAAh9Uk?format=jpg&name=4096x4096)",
+        "created": {
+            "$date": "2025-03-10T07:34:27.218Z"
+        },
+        "games": ["Gakuen iDOLM@STER"],
+        "tags": ["News"],
+        "thumbnail": "https://pbs.twimg.com/media/GlpbqbAbMAAh9Uk?format=jpg&name=4096x4096",
+        "title": "アナザーアイドル'25  ひな祭りガシャVol.2",
+        "vote_count": 2,
+        "edited": {
+            "$date": "2025-03-10T07:34:37.001Z"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "67ce98f3746e59a4044da394"
+        },
+        "author": {
+            "$oid": "67ce5374031a1878f4055ef1"
+        },
+        "comments": [],
+        "content": "◤￣￣￣￣￣￣￣￣￣￣￣￣\r\n\r\n## 『学マス』DMM GAMES版\r\n\r\n【3/18 (火) 】\r\n\r\nリリース予定🎉\r\n\r\n＿＿＿＿＿＿＿＿＿＿＿＿◢\r\n\r\n\r\nDMM GAMES版でも、プロデュースよろしくお願いします✨\r\n\r\n### ▼事前登録はこちらから！▼\r\n\r\n[https://dmg-gakuen.idolmaster-official.jp](https://dmg-gakuen.idolmaster-official.jp)\r\n\r\n![](https://pbs.twimg.com/media/GlpQdYVaAAATqbo?format=jpg&name=large)",
+        "created": {
+            "$date": "2025-03-10T07:46:59.051Z"
+        },
+        "games": ["Gakuen iDOLM@STER"],
+        "tags": ["News"],
+        "thumbnail": "https://pbs.twimg.com/media/GlpQdYVaAAATqbo?format=jpg&name=large",
+        "title": "DMM port of Gakuen iDOLM@STER to release 3/18",
+        "vote_count": 1
+    },
+    {
+        "_id": {
+            "$oid": "67cea19b746e59a4044da395"
+        },
+        "author": {
+            "$oid": "67ce5374031a1878f4055ef5"
+        },
+        "comments": [
+            {
+                "$oid": "67cea1db746e59a4044da396"
+            }
+        ],
+        "content": "![](https://preview.redd.it/ulzyiwntto9e1.jpeg?width=558&auto=webp&s=1df67b072496901ea65017a7cc2e7dec9a929c72)\r\n\r\nWhile trying to make the “Sword of Light” railgun because it is pretty cool, I found a problem that I struggle to overcome: how does she even aim this thing?\r\n\r\nBonus information: In railguns, capacitors taking up a ton of space. And more capacitors = more power. If you ever saw a sci-fi railgun and wanted to make it in real life, most of the times you won’t find much space to place capacitors. It takes like a kilogram of capacitors to store as much energy as a pistol bullet! But Aris’ chunky railgun has more than enough space to place these giant electrolytic capacitors, making it unironically a very good design.",
+        "created": {
+            "$date": "2025-03-10T08:23:55.321Z"
+        },
+        "games": ["Blue Archive"],
+        "tags": ["Discussion", "Humor"],
+        "thumbnail": "https://preview.redd.it/ulzyiwntto9e1.jpeg?width=558&auto=webp&s=1df67b072496901ea65017a7cc2e7dec9a929c72",
+        "title": "How does Arisu aim her railgun",
+        "vote_count": 1
+    }
+]
