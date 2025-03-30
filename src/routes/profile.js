@@ -2,6 +2,8 @@ import { ObjectId } from "mongodb";
 
 import express from "express";
 import { body } from "express-validator";
+import { URL } from 'url';
+import * as fs from 'fs';
 
 /* Helpers */
 import check_depth from "../helpers/check_depth.js";
@@ -64,9 +66,67 @@ router.post(
         /* Allow in the case that the username exists if IDs match */
         if (existing_user && !req.body.user._id.equals(existing_user._id)) {
             throw new Error("Username already in use");
+        }
+        /* Username must be at least 8 characters */
+        else if (username.length < 8) {
+            throw new Error("Username must be at least 8 characters");
         } else {
             return true;
         }
+    }),
+
+    //Check if pfp is valid
+    body("pfp").custom(async (pfp, { req }) => {
+        //Check if the pfp is a default local img file
+        try {
+            if(fs.statSync("public".concat(pfp)).isFile() && pfp.includes("/img"))
+                return true;
+        } catch (err) {
+            //ignore
+        }
+
+        //Check if pfp is a URL
+        try {
+            new URL(pfp);
+        } catch(err) {
+            throw new Error("Profile picture must be a URL");
+        }
+
+        //Check if verified URL is a valid image
+        const res = await fetch(pfp);
+        const buff = await res.blob();
+        
+        if(buff.type.startsWith('image/'))
+            return true;
+        else
+            throw new Error("Profile picture must be image URL");
+    }),
+
+    //Check if banner is valid
+    body("banner").custom(async (banner, { req }) => {
+        //Check if the banner is a default local img file
+        try {
+            if(fs.statSync("public".concat(banner)).isFile() && banner.includes("/img"))
+                return true;
+        } catch (err) {
+            //ignore
+        }
+
+        //Check if banner is a URL
+        try {
+            new URL(banner);
+        } catch(err) {
+            throw new Error("Banner picture must be a URL");
+        }
+
+        //Check if verified URL is a valid image
+        const res = await fetch(banner);
+        const buff = await res.blob();
+        
+        if(buff.type.startsWith('image/'))
+            return true;
+        else
+            throw new Error("Banner picture must be image URL");
     }),
 
     check_form_errors /* Throw any errors */,
