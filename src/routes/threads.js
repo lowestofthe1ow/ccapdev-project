@@ -37,7 +37,7 @@ router.get(
                 format_date,
             },
             layout: "forum",
-            title: "Threads",
+            title: req.query.search ? "Results for " + req.query.search : "Threads",
         });
     }
 );
