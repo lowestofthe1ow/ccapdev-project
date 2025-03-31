@@ -280,6 +280,11 @@ export async function get_user_comments(req, res, next) {
                         preserveNullAndEmptyArrays: true,
                     },
                 },
+                {
+                    $sort: {
+                        created: -1,
+                    },
+                },
                 paginate(page, 10),
             ])
             .toArray(); /* toArray() "converts" aggregate() return value to a Promise */
