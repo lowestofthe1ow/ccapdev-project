@@ -23,7 +23,7 @@ export default async (req, res) => {
             return res.status(500).json({ error: "Failed to create thread" });
         }
 
-        res.redirect(`/threads/${result.insertedId}`);
+        res.json({ success: true, redirectUrl: `/threads/${result.insertedId}` });
     } catch (error) {
         console.error(error);
     }
