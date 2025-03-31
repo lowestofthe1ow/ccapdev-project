@@ -5,6 +5,8 @@ import { body } from "express-validator";
 import check_form_errors from "../middlewares/check_form_errors.js";
 import { check_existing_session } from "../middlewares/get_session.js";
 
+import signin_register from "../controllers/signin_register.js";
+
 const router = express.Router();
 
 router.use(express.urlencoded({ extended: true }));
@@ -50,18 +52,7 @@ router.post(
     /* Data should be VALID by this point */
 
     /* Attach user ID to session */
-    async (req, res) => {
-        if (req.body.found_user) {
-            req.session.user_id = req.body.found_user._id;
-            if (req.body.remember) {
-                req.session.cookie.maxAge = 1000 * 60 * 60 * 24 * 21;
-                req.session.rememberMe = true;
-            }
-            res.json({ success: true, redirectUrl: "/threads" });
-        } else {
-            res.status(400).json({ success: false, message: "User authentication failed." });
-        }
-    }
+    signin_register
 );
 
 export default router;

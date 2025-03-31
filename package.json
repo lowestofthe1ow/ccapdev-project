@@ -5,9 +5,9 @@
     "main": "index.js",
     "scripts": {
         "test": "nodemon --env-file=.env src/server.js",
-        "initdb": "node --env-file=.env src/model/init.js",
+        "test_build_db": "node --env-file=.env src/model/init.js",
         "start": "node src/server.js",
-        "builddb": "node src/model/init.js"
+        "build_db": "node src/model/init.js"
     },
     "repository": {
         "type": "git",

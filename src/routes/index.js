@@ -1,6 +1,7 @@
 import express from "express";
 import { get_featured_games } from "../middlewares/get_games.js";
 import { check_existing_session } from "../middlewares/get_session.js";
+import tags from "../controllers/tags.js";
 
 const router = express.Router();
 
@@ -41,56 +42,7 @@ router.get("/logout", (req, res) => {
     }
 });
 
-router.get("/tags", async (req, res) => {
-    try {
-        const tags_db = req.app.get("db").collection("threads");
-        const searchQuery = req.query.q || "";
-
-        const tags = await tags_db
-            .aggregate([
-                {
-                    $unwind: "$tags",
-                },
-                {
-                    $match: {
-                        tags: {
-                            $regex: searchQuery,
-                            $options: "i",
-                        },
-                        deleted: { $ne: true },
-                    },
-                },
-                {
-                    $group: {
-                        _id: "$tags",
-                        tag: {
-                            $first: "$tags",
-                        },
-                        count: {
-                            $sum: 1,
-                        },
-                    },
-                },
-                {
-                    $project: {
-                        _id: 0,
-                        tag: 1,
-                        count: 1,
-                    },
-                },
-                {
-                    $sort: {
-                        count: -1,
-                    },
-                },
-            ])
-            .toArray();
-
-        req.games = res.json(tags.map((tag) => tag.tag));
-    } catch (error) {
-        console.error(error);
-    }
-});
+router.get("/tags", tags);
 
 router.get("/games", async (req, res) => {
     try {
@@ -111,12 +63,10 @@ router.get("/privacy", async (req, res) => {
         /* Include gallery of randomly selected featured games */
         title: "Privacy Policy",
     });
-
-})
+});
 
 router.get("/guest_session", async (req, res) => {
-
     req.session?.destroy(() => res.redirect("/threads")) || res.redirect("/threads");
-})
+});
 
 export default router;

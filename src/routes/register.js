@@ -5,6 +5,8 @@ import check_form_errors from "../middlewares/check_form_errors.js";
 import { check_existing_session } from "../middlewares/get_session.js";
 import hash_password from "../middlewares/hash_password.js";
 
+import signin_register from "../controllers/signin_register.js";
+
 const router = express.Router();
 
 router.use(express.urlencoded({ extended: true }));
@@ -51,13 +53,16 @@ router.post(
             const { name } = req.body;
             const users = req.app.get("db").collection("users");
             /* Red edited this part to test something */
-            const result = await users.insertOne({ name, password: res.locals.hashed, 
-                                                    thread_vote_list: {},
-                                                    comment_vote_list: {},
-                                                    pfp: "/img/default_avatar.svg",
-                                                    banner: "",
-                                                    bio: "",
-                                                    deleted: false, });
+            const result = await users.insertOne({
+                name,
+                password: res.locals.hashed,
+                thread_vote_list: {},
+                comment_vote_list: {},
+                pfp: "/img/default_avatar.svg",
+                banner: "",
+                bio: "",
+                deleted: false,
+            });
             const verify_insertion = await users.findOne({ _id: result.insertedId });
 
             req.body.found_user = verify_insertion;
@@ -71,19 +76,7 @@ router.post(
     /* By this point, found_user is the newly-created user (or null if some weird error happened */
 
     /* Attach user ID to session */
-    /* TODO: Combine with the one in signin.js UNLESS something comes up */
-    async (req, res) => {
-        if (req.body.found_user) {
-            req.session.user_id = req.body.found_user._id;
-            if (req.body.remember) {
-                req.session.cookie.maxAge = 1000 * 60 * 60 * 24 * 21;
-                req.session.rememberMe = true;
-            }
-            res.json({ success: true, redirectUrl: "/threads" });
-        } else {
-            res.status(400).json({ success: false, message: "User authentication failed." });
-        }
-    }
+    signin_register
 );
 
 export default router;
