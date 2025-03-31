@@ -11,6 +11,9 @@ export default async (req, res) => {
         /* Fetch from database */
         let _comments = req.app.get("db").collection("comments");
 
+        if(req.body.content == "")
+            throw new Error("Comment cannot be empty");
+
         /* Create a comment object from the request body */
         let comment = {
             author: res.locals.user._id,
@@ -44,5 +47,6 @@ export default async (req, res) => {
         }
     } catch (error) {
         console.error(error);
+        window.alert(error);
     }
 };
