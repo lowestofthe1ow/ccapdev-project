@@ -37,6 +37,7 @@ app.use(
             autoRemove: "interval",
             autoRemoveInterval: 10,
             ttl: 60 * 30 /* ask sir what's the default ttl for unremembered users*/ /* Set to 30 mins */,
+            dbName: process.env.MONGODB_DBNAME,
         }),
         cookie: { httpOnly: true, secure: false, maxAge: null },
     })
