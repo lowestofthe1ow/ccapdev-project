@@ -130,7 +130,7 @@ router.post(
     }),
 
     check_form_errors /* Throw any errors */,
-
+    
     async (req, res) => {
         let _users = req.app.get("db").collection("users");
 
@@ -252,7 +252,8 @@ router.post(
             await users.updateOne(
                 { _id: new ObjectId(req.session.user_id) },
                 {
-                    $set: { deleted: true, name: "" }, // Soft delete user
+                    $set: { deleted: true},
+                    $unset: { name: "" }, // Soft delete user
                 }
             );
 

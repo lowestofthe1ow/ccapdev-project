@@ -91,6 +91,11 @@ db_conn.connect().then(async () => {
     await db.createCollection("users", {
         validator: users,
     });
+    await db.collection("users").createIndex(
+        { name: 1 },
+        { unique: true,  // Unique index, unique
+          sparse: true,} // Sparse index, means that it does not "count" documents where a certain field is gone, in this case name
+    );
 
     await load_from_file(db, "games", "src/model/data/games.json");
     await load_from_file(db, "users", "src/model/data/users.json");
