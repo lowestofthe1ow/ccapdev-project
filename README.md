@@ -46,7 +46,7 @@ MONGODB_URI=mongodb+srv://1owestoftheow:shin[0]sawa_koukei@ccapdev.bo5gv.mongodb
 Initialize the database by running the following command:
 
 ```
-npm run initdb
+npm run test_build_db
 ```
 
 A test command has been defined in `package.json`:
