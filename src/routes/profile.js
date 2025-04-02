@@ -101,8 +101,9 @@ router.post(
 
     //Check if banner is valid
     body("banner").custom(async (banner, { req }) => {
-        //Check if the banner is a default local img file
+        //Check if the banner is default (empty) or a local img file
         try {
+            if(banner=="") return true;
             if (fs.statSync("public".concat(banner)).isFile() && banner.includes("/img")) return true;
         } catch (err) {
             //ignore
