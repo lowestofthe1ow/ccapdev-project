@@ -19,8 +19,10 @@ methodology to help organize class names and avoid collisions. These are all lin
 **Note that some resources are fetched from the Internet**. This includes the aforementioned Google Fonts/Icons files,
 as well as some images.
 
-The [GitHub repository](https://github.com/lowestofthe1ow/ccapdev-project) is currently set to private. Please let us
-know if we need to set it to public.
+The GitHub repository can be found [here](https://github.com/lowestofthe1ow/ccapdev-project). The website is deployed on
+Render's free tier at the following link:
+
+https://shinosawa-laboratory.onrender.com/
 
 ### Recreating the database
 
@@ -33,8 +35,15 @@ MONGODB_DBNAME=your-DB-name
 SESSION_SECRET=your-secret
 ```
 
-An example `.env` file is included in the directory. This uses the database name `shinosawa`. Initialize the database by
-running the following command:
+An example `.env` file is included in the directory. This uses the database name `shinosawa`. If you wish to use the
+database hosted on MongoDB Atlas (used by the Render deployment) instead of a local instance, set `MONGODB_URI` to the
+following:
+
+```
+MONGODB_URI=mongodb+srv://1owestoftheow:shin[0]sawa_koukei@ccapdev.bo5gv.mongodb.net/?retryWrites=true&w=majority&appName=CCAPDEV
+```
+
+Initialize the database by running the following command:
 
 ```
 npm run initdb
