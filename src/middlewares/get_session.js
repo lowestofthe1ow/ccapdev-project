@@ -37,6 +37,10 @@ async function get_session(req, res, next, if_invalid) {
             return if_invalid();
         }
 
+        if(user.deleted){
+            return if_invalid();
+        }
+
         res.locals.user = user; /* Pass to view engine */
         next();
     } catch (error) {
